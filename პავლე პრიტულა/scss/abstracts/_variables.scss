@@ -1,0 +1,32 @@
+// Theme variables are CSS custom properties so JavaScript can switch dark mode cheaply.
+:root {
+  --bg: #f3f7f9;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-muted: #edf4f5;
+  --text: #12303b;
+  --text-muted: #66808a;
+  --border: #d5e4e7;
+  --primary: #0f766e;
+  --primary-hover: #0b5c56;
+  --danger: #d9475f;
+  --success: #16866f;
+  --shadow: 0 20px 48px rgb(17 55 65 / 14%);
+  --elevation-1: 0 2px 7px rgb(17 55 65 / 10%);
+  --elevation-2: 0 10px 26px rgb(17 55 65 / 13%);
+}
+
+html.theme-dark {
+  --bg: #0b1720;
+  --surface: #10242d;
+  --surface-raised: #15303a;
+  --surface-muted: #19323d;
+  --text: #edf8f8;
+  --text-muted: #9bb8bc;
+  --border: #294853;
+  --shadow: 0 22px 56px rgb(0 0 0 / 28%);
+  --elevation-1: 0 2px 9px rgb(0 0 0 / 24%);
+  --elevation-2: 0 12px 32px rgb(0 0 0 / 28%);
+}
+
+$mobile: 640px;

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM - Dashboard</title>
+        <link rel="stylesheet" href="styles/main.css">
+        
+</head>
+
+
+<body class="app-page">
+    <div class="app-layout">
+        <aside id="sidebar" class="sidebar">
+                    <div class="sidebar-brand">
+                        <a href="dashboard.html">10X CRM</a>
+                    </div>
+        
+                    <nav class="sidebar-navigation" aria-label="Main navigation">
+                        <a class="nav-item active" href="dashboard.html" aria-current="page">Dashboard</a>
+                        <a class="nav-item" href="clients.html">Clients</a>
+                        <a class="nav-item" href="profile.html">Profile</a>
+                    </nav>
+        
+                    <div class="sidebar-footer">
+                        <button id="themeToggle" class="nav-button" type="button">Dark / Light</button>
+                        <button id="logoutButton" class="nav-button" type="button">Logout</button>
+                    </div>
+            </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <p class="eyebrow">Overview</p>
+                    <h1>Dashboard</h1>
+                </div>
+                <time id="liveClock" aria-label="Current local date and time"></time>
+            </header>
+
+            <section class="welcome-card card">
+                <h2 id="welcomeMessage">Welcome back!</h2>
+                <p>Here is what is happening with your client pipeline.</p>
+            </section>
+
+            <section class="stats-grid" aria-label="CRM statistics">
+                <article class="stat-card">
+                    <h3>Total Clients</h3>
+                    <strong id="totalClients">0</strong>
+                </article>
+                <article class="stat-card">
+                    <h3>Active Deals</h3>
+                    <strong id="activeDeals">0</strong>
+                </article>
+                <article class="stat-card">
+                    <h3>Won Revenue</h3>
+                    <strong id="wonRevenue">$0</strong>
+                </article>
+                <article class="stat-card">
+                    <h3>New This Week</h3>
+                    <strong id="newClients">0</strong>
+                </article>
+            </section>
+
+            <section class="dashboard-grid">
+                <article class="card">
+                    <h2>Pipeline Overview</h2>
+                    <div id="pipelineContainer"></div>
+                </article>
+                <article class="card">
+                    <h2>Recent Clients</h2>
+                    <div id="recentClientsList"></div>
+                    <a class="text-link" href="clients.html">View all clients →</a>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/guard.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/dashboard.js"></script>
+    
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Profile</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="js/theme.js" defer></script>
+    <script src="js/guard.js" defer></script>
+    <script src="js/profile.js" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="img/logo.png" alt="10x">
+            <!-- <h2>CRM Dashboard</h2> -->
+            <a href="dashboard.html">Dashboard</a>
+            <a href="clients.html">Clients</a>
+            <a href="profile.html" class="active">Profile</a>
+        </div>
+
+        <div class="user-info" style="display: flex; align-items: center; gap: 15px;">
+            <button type="button" onclick="toggleDarkMode()" class="theme-toggle-btn" title="Toggle Dark Mode">🌙 / ☀️</button>
+            <div style="display: flex; flex-direction: column; line-height: 1.2;">
+                <span style="font-size: 11px; color: #64748b;">Welcome</span>
+                <span id="welcome_user" style="font-weight: bold; color: #0f172a; font-size: 14px;">User</span>
+            </div>
+            <button id="logout_butt" class="btn-secondary" style="width: auto; margin-top: 0;">Logout</button>
+        </div>
+    </nav>
+
+    <div class="main_wrapper">
+        <div class="profile-wrapper">
+            <!-- Profile Hero Card -->
+            <div class="profile-hero-card">
+                <div class="profile-large-avatar" id="profile_avatar">VJ</div>
+                <div class="profile-hero-info">
+                    <h2 id="profile_name">Vakho Javakhishvili</h2>
+                    <p id="profile_email">vakhoj@gmail.com</p>
+                    <span class="role-badge">SYSTEM ADMINISTRATOR</span>
+                </div>
+            </div>
+
+            <!-- Profile Details Grid (align-items: start უზრუნველყოფს, რომ ქარდებმა ერთმანეთის ზომები არ იცვალონ) -->
+            <div class="profile-details-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; align-items: start;">
+                
+                <!-- 1. Full Name Card (რედაქტირებადი) -->
+                <div class="info-card editable-card" data-field="fullName" style="cursor: pointer; min-height: 90px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span class="label">FULL NAME</span>
+                        <span class="value display-text" style="display: block; margin-top: 4px;">Vakho Javakhishvili</span>
+                    </div>
+                    <div class="edit-box" style="display: none; margin-top: 8px;">
+                        <input type="text" class="edit-input" style="width: 100%; padding: 6px; border-radius: 6px; border: 1px solid #ccc; outline: none; font-size: 14px;">
+                        <div style="display: flex; gap: 5px; margin-top: 6px;">
+                            <button type="button" class="save-card-btn" style="padding: 4px 10px; background: #16a34a; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">Save</button>
+                            <button type="button" class="cancel-card-btn" style="padding: 4px 10px; background: #64748b; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Email Address Card (რედაქტირებადი) -->
+                <div class="info-card editable-card" data-field="email" style="cursor: pointer; min-height: 90px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span class="label">EMAIL ADDRESS</span>
+                        <span class="value display-text" style="display: block; margin-top: 4px;">vakhoj@gmail.com</span>
+                    </div>
+                    <div class="edit-box" style="display: none; margin-top: 8px;">
+                        <input type="email" class="edit-input" style="width: 100%; padding: 6px; border-radius: 6px; border: 1px solid #ccc; outline: none; font-size: 14px;">
+                        <div style="display: flex; gap: 5px; margin-top: 6px;">
+                            <button type="button" class="save-card-btn" style="padding: 4px 10px; background: #16a34a; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">Save</button>
+                            <button type="button" class="cancel-card-btn" style="padding: 4px 10px; background: #64748b; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Account Status Card (უცვლელი) -->
+                <div class="info-card" style="min-height: 90px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <span class="label">ACCOUNT STATUS</span>
+                    <span class="value" style="color: #16a34a; margin-top: 4px;">• Active</span>
+                </div>
+
+                <!-- 4. System Role Card (უცვლელი) -->
+                <div class="info-card" style="min-height: 90px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <span class="label">SYSTEM ROLE</span>
+                    <span class="value" style="margin-top: 4px;">Administrator</span>
+                </div>
+
+                <!-- 5. Change Password Card -->
+                <div class="info-card" id="password_card" style="cursor: pointer; min-height: 90px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span class="label">SECURITY</span>
+                        <span class="value" id="password_trigger_text" style="color: #2563eb; font-weight: 600; margin-top: 4px; display: block;">Change Password ➔</span>
+                    </div>
+                    
+                    <div id="password_edit_box" style="display: none; margin-top: 8px; flex-direction: column; gap: 6px;" onclick="event.stopPropagation()">
+                        <input type="password" id="current_password" placeholder="current password" style="width: 100%; padding: 6px; border-radius: 6px; border: 1px solid #ddd; outline: none; font-size: 13px;">
+                        <input type="password" id="new_password" placeholder="new password" style="width: 100%; padding: 6px; border-radius: 6px; border: 1px solid #ddd; outline: none; font-size: 13px;">
+                        <input type="password" id="confirm_password" placeholder="confirm password" style="width: 100%; padding: 6px; border-radius: 6px; border: 1px solid #ddd; outline: none; font-size: 13px;">
+                        <div style="display: flex; gap: 5px; margin-top: 4px;">
+                            <button type="button" id="save_password_btn" style="padding: 4px 10px; background: #16a34a; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">Save</button>
+                            <button type="button" id="cancel_password_btn" style="padding: 4px 10px; background: #64748b; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">Cancel</button>
+                        </div>
+                        <p id="password_feedback" style="font-size: 11px; margin: 0;"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

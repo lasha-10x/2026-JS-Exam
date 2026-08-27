@@ -1,0 +1,82 @@
+<!-- signup.html -->
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign up · 10x CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap"
+   rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/styles.css" />
+ </head>
+ <body>
+  <div class="auth-wrap">
+   <div class="auth-card">
+    <button
+     class="theme-toggle theme-toggle-auth"
+     id="theme-toggle-btn"
+     onclick="toggleTheme()"
+    >
+     🌙
+    </button>
+    <div class="auth-brand">
+     <div class="brand-mark">10x</div>
+     <div class="brand-name">10x<span>CRM</span></div>
+    </div>
+    <div class="auth-title">Create your account</div>
+    <div class="auth-sub">Start tracking clients in a couple of minutes.</div>
+
+    <form onsubmit="handleSignup(event)">
+     <label class="f">Full name</label>
+     <input id="su-name" placeholder="e.g. Itachi Uchiha" autocomplete="name" />
+
+     <label class="f">Email</label>
+     <input
+      id="su-email"
+      type="email"
+      placeholder="you@company.com"
+      autocomplete="email"
+     />
+
+     <label class="f">Company / Store</label>
+     <input
+      id="su-company"
+      type="text"
+      placeholder="e.g. Anbu Division"
+      autocomplete="organization"
+     />
+
+     <label class="f">Password</label>
+     <input
+      id="su-password"
+      type="password"
+      placeholder="At least 6 characters"
+      autocomplete="new-password"
+     />
+
+     <label class="f">Confirm password</label>
+     <input
+      id="su-confirm-password"
+      type="password"
+      placeholder="Re-enter your password"
+      autocomplete="new-password"
+     />
+
+     <div class="field-error" id="su-error"></div>
+     <button class="btn" type="submit">Create account</button>
+    </form>
+
+    <div class="auth-foot">
+     Already have an account? <a href="login.html">Sign in</a>
+    </div>
+   </div>
+  </div>
+
+  <script src="js/theme.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+ </body>
+</html>

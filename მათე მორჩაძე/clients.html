@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clients · 10X CRM</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <div id="toast-container"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo" onclick="window.location.href='dashboard.html'">10X CRM</div>
+      <nav>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="clients.html" class="nav-link">Clients</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-user" id="nav-user-name"></div>
+        <button id="theme-toggle" class="btn btn-secondary btn-small">Toggle Theme</button>
+        <button id="logout-btn" class="btn btn-secondary btn-small">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <h1>Clients</h1>
+        <button id="add-client-btn" class="btn btn-primary">+ Add Client</button>
+      </div>
+
+      <!-- ② search, ③ filter chips, ④ sort -->
+      <div class="toolbar">
+        <input type="text" id="search-input" placeholder="Search by name or company..." />
+
+        <div class="filter-chips">
+          <button class="filter-chip active" data-status="All">All</button>
+          <button class="filter-chip" data-status="Lead">Lead</button>
+          <button class="filter-chip" data-status="Contacted">Contacted</button>
+          <button class="filter-chip" data-status="Won">Won</button>
+          <button class="filter-chip" data-status="Lost">Lost</button>
+        </div>
+
+        <select id="sort-select">
+          <option value="newest-first">Newest first</option>
+          <option value="name-asc">Name A-Z</option>
+          <option value="deal-desc">Deal value: high to low</option>
+        </select>
+      </div>
+
+      <div class="clients-list" id="clients-list"></div>
+    </main>
+  </div>
+
+  <!-- ① Add Client modal -->
+  <div class="modal-overlay" id="add-client-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Add Client</h2>
+        <button class="modal-close" id="add-client-close">&times;</button>
+      </div>
+
+      <form id="add-client-form" novalidate>
+        <div class="form-group">
+          <label for="new-name">Name</label>
+          <input type="text" id="new-name" name="name" placeholder="Full name" />
+        </div>
+        <div class="form-group">
+          <label for="new-email">Email</label>
+          <input type="text" id="new-email" name="email" placeholder="client@example.com" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="new-phone">Phone</label>
+            <input type="text" id="new-phone" name="phone" placeholder="Optional" />
+          </div>
+          <div class="form-group">
+            <label for="new-company">Company</label>
+            <input type="text" id="new-company" name="company" placeholder="Optional" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="new-deal-value">Deal Value ($)</label>
+            <input type="text" id="new-deal-value" name="dealValue" placeholder="5000" />
+          </div>
+          <div class="form-group">
+            <label for="new-status">Status</label>
+            <select id="new-status" name="status">
+              <option value="Lead">Lead</option>
+              <option value="Contacted">Contacted</option>
+              <option value="Won">Won</option>
+              <option value="Lost">Lost</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Add Client</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ⑦ Client details modal -->
+  <div class="modal-overlay" id="client-detail-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Client Details</h2>
+        <button class="modal-close" id="client-detail-close">&times;</button>
+      </div>
+
+      <div class="detail-top">
+        <img id="detail-avatar" class="detail-avatar" src="" alt="" />
+        <div>
+          <h3 id="detail-name"></h3>
+          <p id="detail-company" style="color:var(--text-muted)"></p>
+        </div>
+      </div>
+
+      <div class="detail-grid">
+        <div><span>Email</span><span id="detail-email"></span></div>
+        <div><span>Phone</span><span id="detail-phone"></span></div>
+        <div><span>Status</span><span id="detail-status" class="status-badge"></span></div>
+        <div><span>Deal Value</span><span id="detail-deal-value"></span></div>
+        <div><span>Client since</span><span id="detail-since"></span></div>
+      </div>
+
+      <button id="remind-btn" class="btn btn-secondary btn-block" style="margin-bottom:16px">
+        Remind me in 1 min
+      </button>
+
+      <h3 style="font-size:14px">Notes</h3>
+      <div class="notes-list" id="notes-list"></div>
+
+      <form id="add-note-form" class="add-note-row" novalidate>
+        <input type="text" id="note-text-input" name="noteText" placeholder="Add a note..." />
+        <button type="submit" class="btn btn-primary btn-small">Add</button>
+      </form>
+    </div>
+  </div>
+
+
+  <script src="JS/guard.js"></script>
+  <script>requireAuth();</script>
+  <script src="JS/toast.js"></script>
+  <script src="JS/storage.js"></script>
+
+  <script src="JS/auth.js"></script>
+  <script src="JS/dashboard.js"></script>
+  <script src="JS/clients.js"></script>
+  <script src="JS/profile.js"></script>
+  <script src="JS/nav.js"></script>
+
+</body>
+</html>

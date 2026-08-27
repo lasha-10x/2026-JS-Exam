@@ -1,0 +1,35 @@
+// Color palette
+$color-primary: #4f46e5;
+$color-primary-hover: #4338ca;
+$color-primary-disabled: #a5b4fc;
+$color-danger: #ef4444;
+$color-success: #22c55e;
+
+// Light theme
+$light-bg: #f8fafc;
+$light-surface: #ffffff;
+$light-text: #0f172a;
+$light-text-muted: #64748b;
+$light-border: #e2e8f0;
+
+// Dark theme (default)
+$dark-bg: #0f172a;
+$dark-surface: #1e293b;
+$dark-text: #f1f5f9;
+$dark-text-muted: #94a3b8;
+$dark-border: #334155;
+
+// Status colors
+$status-lead: #6366f1;
+$status-contacted: #f59e0b;
+$status-won: #22c55e;
+$status-lost: #ef4444;
+
+// Layout
+$sidebar-width: 240px;
+$auth-card-max-width: 420px;
+$border-radius: 8px;
+$border-radius-lg: 12px;
+
+// Transitions
+$transition-fast: 0.15s ease;

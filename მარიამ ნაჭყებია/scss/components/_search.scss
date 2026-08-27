@@ -1,0 +1,44 @@
+@use "../abstract/variables" as v;
+@use "sass:map";
+
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 30rem; 
+    display: flex;
+    align-items: center;
+
+    .search-icon {
+        position: absolute;
+        left: 1.4rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-secondary);
+        pointer-events: none; 
+    }
+
+    input {
+        width: 100%;
+        padding: 1rem 1.4rem 1rem 3.8rem;
+        border: 1px solid var(--border-color);
+        border-radius: 2rem; 
+        font-size: map.get(v.$font-size, subtitle);
+        background-color: var(--bg-main);
+        outline: none;
+        color: var(--text-primary);
+        transition: border-color 0.2s, box-shadow 0.2s;
+
+        &:hover {
+            border-color: var(--button-primary);
+        }
+
+        &:focus {
+            border-color: var(--button-primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        }
+
+        &::placeholder {
+            color: var(--text-secondary);
+        }
+    }
+}

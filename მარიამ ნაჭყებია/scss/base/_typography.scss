@@ -1,0 +1,12 @@
+@use "../abstract/variables" as v;
+@use "sass:map";
+
+body, button {
+    font-family: v.$font-base;
+    letter-spacing: 0.03em;
+}
+
+.login-title {
+    font-size: map.get(v.$font-size, heading);
+    font-weight: map.get(v.$font-weight, bold);
+}

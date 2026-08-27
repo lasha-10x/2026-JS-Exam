@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile — 10X CRM</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+      <a href="dashboard.html" class="sidebar__logo">10X CRM</a>
+
+      <nav class="sidebar__nav">
+        <a href="dashboard.html" class="sidebar__link" data-page="dashboard">Dashboard</a>
+        <a href="clients.html" class="sidebar__link" data-page="clients">Clients</a>
+        <a href="profile.html" class="sidebar__link" data-page="profile">Profile</a>
+      </nav>
+
+      <div class="sidebar__footer">
+        <button type="button" id="theme-toggle" class="btn btn--ghost" aria-label="Toggle theme">
+          Toggle Theme
+        </button>
+        <button type="button" id="logout-btn" class="btn btn--danger">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="page-header">
+        <h1>Profile</h1>
+      </header>
+
+      <section class="profile-info" id="profile-info">
+        <div class="profile-avatar" id="profile-avatar"></div>
+        <div class="profile-details">
+          <h2 id="profile-name"></h2>
+          <p id="profile-email"></p>
+          <p id="profile-company"></p>
+          <p id="profile-member-since"></p>
+        </div>
+      </section>
+
+      <section class="profile-section">
+        <h2>Edit Profile</h2>
+        <form id="profile-form" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="edit-fullName">Full Name</label>
+            <input type="text" id="edit-fullName" name="fullName">
+            <span class="form-error" data-error="fullName"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-company">Company</label>
+            <input type="text" id="edit-company" name="company">
+            <span class="form-error" data-error="company"></span>
+          </div>
+
+          <button disabled type="submit" class="btn btn--primary" id="profile-form-btn">Save Changes</button>
+        </form>
+      </section>
+
+      <section class="profile-section">
+        <h2>Change Password</h2>
+        <form id="password-form" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="current-password">Current Password</label>
+            <input type="password" id="current-password" name="currentPassword">
+            <span class="form-error" data-error="currentPassword"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password" name="newPassword">
+            <span class="form-error" data-error="newPassword"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="confirm-new-password">Confirm New Password</label>
+            <input type="password" id="confirm-new-password" name="confirmNewPassword">
+            <span class="form-error" data-error="confirmNewPassword"></span>
+          </div>
+
+          <button type="submit" class="btn btn--primary">Change Password</button>
+        </form>
+      </section>
+
+      <section class="profile-section">
+        <h2>Data Management</h2>
+        <p class="profile-section__hint">Reset your client database to the default 30 clients from the API.</p>
+        <button type="button" id="reset-data-btn" class="btn btn--danger">Reset CRM Data</button>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

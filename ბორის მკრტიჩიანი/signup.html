@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10X CRM - Sign Up</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <div class="auth-container" id="signup-container">
+
+      <!-- ── Step 1: Registration form ──────────────────────────────────── -->
+      <div id="signup-step-form">
+        <div class="auth-brand">
+          <i class="fa-solid fa-user-plus auth-brand-icon"></i>
+          <h2>Create your account</h2>
+          <p class="auth-subtitle">Join 10X CRM and start tracking your pipeline.</p>
+        </div>
+
+        <form id="signup-form" novalidate>
+          <div class="form-group">
+            <label for="signup-name">Full Name</label>
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" id="signup-name" placeholder="Full Name" autocomplete="name" />
+            </div>
+            <span class="error-text" id="signup-name-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="text" id="signup-email" placeholder="Email" autocomplete="email" />
+            </div>
+            <span class="error-text" id="signup-email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="signup-company">Company <span class="optional-tag">(optional)</span></label>
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-building"></i>
+              <input type="text" id="signup-company" placeholder="Company" autocomplete="organization" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="signup-password" placeholder="Password" autocomplete="new-password" />
+              <button type="button" class="pw-toggle-btn" data-target="signup-password" title="Show/hide password">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+
+            <!-- Enhanced 5-segment strength meter -->
+            <div id="password-strength" class="password-strength" aria-live="polite">
+              <div class="strength-segments">
+                <span class="seg"></span><span class="seg"></span>
+                <span class="seg"></span><span class="seg"></span><span class="seg"></span>
+              </div>
+              <span class="strength-label"></span>
+            </div>
+
+            <!-- Live checklist -->
+            <ul class="pw-checklist" id="signup-pw-checklist">
+              <li data-rule="length"><i class="fa-solid fa-circle-xmark"></i> 8+ characters</li>
+              <li data-rule="upper"><i class="fa-solid fa-circle-xmark"></i> Uppercase letter</li>
+              <li data-rule="lower"><i class="fa-solid fa-circle-xmark"></i> Lowercase letter</li>
+              <li data-rule="number"><i class="fa-solid fa-circle-xmark"></i> Number</li>
+              <li data-rule="symbol"><i class="fa-solid fa-circle-xmark"></i> Symbol (!@#…)</li>
+            </ul>
+            <span class="error-text" id="signup-password-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="signup-confirm-password">Confirm Password</label>
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-lock"></i>
+              <input
+                type="password"
+                id="signup-confirm-password"
+                placeholder="Confirm Password"
+                autocomplete="new-password"
+              />
+              <button type="button" class="pw-toggle-btn" data-target="signup-confirm-password" title="Show/hide password">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+            <span class="error-text" id="signup-confirm-error"></span>
+          </div>
+
+          <button type="submit">Create Account</button>
+        </form>
+
+        <p>Already have an account? <a href="index.html">Log in</a></p>
+      </div>
+
+      <!-- ── Step 2: Email verification ────────────────────────────────── -->
+      <div id="signup-step-verify" class="hidden">
+        <div class="auth-brand">
+          <i class="fa-solid fa-envelope-circle-check auth-brand-icon verify-icon"></i>
+          <h2>Verify your email</h2>
+          <p class="auth-subtitle">Enter the 6-digit code to activate your account.</p>
+        </div>
+
+        <!-- Simulated "email" banner -->
+        <div class="email-sim-banner" id="signup-otp-banner">
+          <i class="fa-solid fa-envelope-open-text"></i>
+          <div>
+            <strong>Simulated email to <span id="signup-banner-email"></span></strong>
+            <p>Your verification code: <span id="signup-otp-display" class="otp-code"></span></p>
+          </div>
+        </div>
+
+        <form id="signup-verify-form" novalidate>
+          <div class="form-group">
+            <label>6-Digit Code</label>
+            <div class="otp-boxes" id="signup-otp-boxes">
+              <input class="otp-box" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+              <input class="otp-box" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+              <input class="otp-box" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+              <input class="otp-box" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+              <input class="otp-box" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+              <input class="otp-box" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+            </div>
+            <span class="error-text" id="signup-otp-error"></span>
+          </div>
+
+          <button type="submit">Verify & Create Account</button>
+        </form>
+
+        <div class="resend-row">
+          <button type="button" id="signup-resend-btn" class="link-btn" disabled>
+            <i class="fa-solid fa-rotate-right"></i>
+            Resend code <span id="signup-resend-timer"></span>
+          </button>
+        </div>
+
+        <p>
+          <button type="button" id="signup-back-btn" class="link-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to signup
+          </button>
+        </p>
+      </div>
+
+    </div>
+
+    <button id="theme-toggle">
+      <i id="theme-icon" class="fa-solid fa-moon"></i>
+    </button>
+
+    <script src="./js/guard.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/theme.js"></script>
+  </body>
+</html>

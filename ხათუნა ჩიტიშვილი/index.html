@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In - 10X CRM</title>
+
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <link rel="stylesheet" href="css/toast.css" />
+    
+    <script src="js/theme.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/guard.js"></script>
+    <script defer src="js/toast.js"></script>
+    <script defer src="js/validation.js"></script>
+    <script defer src="js/auth.js"></script>
+  </head>
+  <body class="auth-page">
+    <main class="auth-container">
+      <div class="auth-card">
+        <h1 class="auth-card__title">Welcome back</h1>
+        <p class="auth-card__text">Log in to your 10X CRM account</p>
+
+        <form id="login-form" class="auth-form" novalidate>
+          <!-- 1. Email -->
+          <div class="form-group">
+            <label for="login-email" class="form-group__label">Email</label>
+            <div class="form-group__input-wrapper">
+              <svg
+                class="form-group__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                />
+              </svg>
+              <input
+                type="email"
+                id="login-email"
+                name="email"
+                class="form-group__input"
+                placeholder="you@example.com"
+                autocomplete="username"
+              />
+            </div>
+            <span class="form-group__error-message" id="login-email-error"></span>
+          </div>
+
+          <!-- 2. Password -->
+          <div class="form-group">
+            <label for="login-password" class="form-group__label">Password</label>
+            <div class="form-group__input-wrapper">
+              <svg
+                class="form-group__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                />
+              </svg>
+              <input
+                type="password"
+                id="login-password"
+                name="password"
+                class="form-group__input"
+                placeholder="••••••••"
+                autocomplete="current-password"
+              />
+            </div>
+            <span class="form-group__error-message" id="login-password-error"></span>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="auth-form__submit-btn">
+            Log In
+          </button>
+        </form>
+
+        <!-- Toggle Link to Sign Up -->
+        <p class="auth-card__footer">
+          Don't have an account?
+          <a href="signup.html" class="auth-card__link">Sign up</a>
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

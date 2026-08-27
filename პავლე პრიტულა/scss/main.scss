@@ -1,0 +1,16 @@
+// SCSS entry point: imports variables, shared components, and page-specific styles.
+@use "abstracts/variables";
+@use "abstracts/mixins" as *;
+@use "base/reset";
+@use "base/global";
+@use "components/buttons";
+@use "components/forms";
+@use "components/toast";
+@use "components/navigation";
+@use "components/clients";
+@use "components/modal";
+@use "pages/auth";
+@use "pages/app";
+@use "pages/dashboard";
+@use "pages/profile";
+@use "pages/notifications";

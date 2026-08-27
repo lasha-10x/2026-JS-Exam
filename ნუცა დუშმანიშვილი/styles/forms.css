@@ -1,0 +1,111 @@
+/* Forms and Authentication Pages */
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+
+.auth-container {
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+
+.auth-card {
+    width:420px;
+    background:white;
+    padding:32px;
+    border-radius:24px;
+    box-shadow:
+    var(--shadow-card);
+}
+
+
+
+.auth-form {
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+
+.form-group {
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+
+
+label {
+    font-size:14px;
+    font-weight:600;
+}
+
+
+input,
+select {
+    height:46px;
+    border:
+    1px solid var(--border);
+    border-radius:14px;
+    padding:0 16px;
+    background:white;
+}
+
+
+input:focus,
+select:focus {
+    outline:none;
+    border-color:
+    var(--brand-primary);
+    box-shadow:
+    0 0 0 4px rgba(15,139,141,.12);
+}
+
+.form-error {
+    color:var(--danger);
+    font-size:12px;
+}
+
+
+
+
+textarea {
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:12px 14px;
+    background:white;
+    color:var(--text-main);
+    font-family:inherit;
+    resize:vertical;
+}
+
+textarea:focus {
+    outline:none;
+    border-color:var(--brand-primary);
+    box-shadow:0 0 0 4px rgba(15,139,141,.12);
+}
+
+
+.input-error { 
+    border-color:var(--danger) !important; 
+}
+
+.auth-header p,.auth-footer,.form-hint,.empty-state,.eyebrow {
+     color:var(--text-secondary); 
+}
+
+.auth-footer a,.text-link { 
+    color:var(--brand-primary); 
+    font-weight:600; 
+}
+
+.stack-form,#clientForm { 
+    display:grid; gap:16px; 
+}
+

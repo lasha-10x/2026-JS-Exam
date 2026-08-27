@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile — 10X CRM</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/storage.js"></script>
+    <script src="js/guard.js"></script>
+    <script>runAuthGuard('protected');</script>
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- Shared navigation (P0.2) -->
+        <aside class="sidebar">
+            <a href="dashboard.html" class="sidebar-logo" id="nav-logo"><span class="logo-dot"></span>10X CRM</a>
+            <nav class="nav-links">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="clients.html" class="nav-link">Clients</a>
+                <a href="profile.html" class="nav-link active">Profile</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="theme-toggle" class="btn btn-ghost btn-sm">☀️ Light</button>
+                <button id="logout-btn" class="btn btn-ghost btn-sm">Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Profile</h1>
+            </div>
+
+            <div class="profile-grid">
+                <!-- P5.1 — current user info -->
+                <section class="panel">
+                    <div class="profile-info">
+                        <div class="profile-avatar" id="profile-avatar"></div>
+                        <div class="profile-meta">
+                            <p class="profile-name" id="profile-name"></p>
+                            <p id="profile-email"></p>
+                            <p id="profile-company"></p>
+                            <p id="profile-since"></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- P5.2 — edit profile -->
+                <section class="panel">
+                    <h2>Edit Profile</h2>
+                    <form id="edit-form" novalidate>
+                        <div class="form-group">
+                            <label for="edit-fullname">Full Name</label>
+                            <input type="text" id="edit-fullname">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-company">Company</label>
+                            <input type="text" id="edit-company" placeholder="Company (optional)">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </section>
+
+                <!-- P5.3 — change password -->
+                <section class="panel">
+                    <h2>Change Password</h2>
+                    <form id="password-form" novalidate>
+                        <div class="form-group">
+                            <label for="pw-current">Current Password</label>
+                            <input type="password" id="pw-current" autocomplete="current-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="pw-new">New Password</label>
+                            <input type="password" id="pw-new" autocomplete="new-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="pw-confirm">Confirm New Password</label>
+                            <input type="password" id="pw-confirm" autocomplete="new-password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Change Password</button>
+                    </form>
+                </section><!-- P5.4 — data management -->
+                <section class="panel">
+                    <h2>Data Management</h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 14px;">
+                        Reset the client database and reload the initial 30 clients from the API.
+                        Your account and session are not affected.
+                    </p>
+                    <button id="reset-btn" class="btn btn-danger">Reset CRM Data</button>
+                </section>
+
+            </div>
+        </main>
+    </div>
+    <script src="js/ui.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+
+</html>

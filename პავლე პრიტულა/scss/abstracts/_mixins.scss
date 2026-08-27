@@ -1,0 +1,13 @@
+// Reusable accessibility and responsive-layout helpers.
+@use "variables" as *;
+
+@mixin focus-ring {
+  outline: 3px solid rgb(91 92 226 / 25%);
+  outline-offset: 2px;
+}
+
+@mixin desktop {
+  @media (min-width: ($mobile + 1px)) {
+    @content;
+  }
+}

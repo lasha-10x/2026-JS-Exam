@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="profileHeader">
+        <h1 class="tenX">10X </h1>
+        <h1 class="crm">CRM</h1>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="clients.html">Clients</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        </ul>
+        <button id="themeToggleBtn">🌙 Dark Mode</button>
+        <button id="logoutBtn"  style="padding: 0 2%;">Logout</button> 
+    </header>
+    
+    <main class="profileMain">
+        <h1 id="userName"></h1>
+        <p id="userMail"></p>
+        <p id="memberSince"></p>
+
+        <div id="profile">
+            <h2>Edit Profile</h2>
+            <form id="profileForm" novalidate>
+                <input type="text" name="fullName" placeholder="Full Name" id="name" autocomplete="name">
+                <p class="error-message" id="fullName-error"></p>
+
+                <input type="text" name="company" placeholder="Company" id="company" autocomplete="organization">
+                <p class="error-message" id="company-error"></p>
+
+                <button type="submit" id="saveChanges">Save Changes</button>
+            </form>
+        </div>
+
+        <div id="password">
+            <h2>Change Password</h2>
+            <form id="passwordForm" novalidate>
+                <input type="password" name="currentPassword" placeholder="Current password" id="currentPassword" autocomplete="current-password">
+                <p class="error-message" id="currentPassword-error"></p>
+
+                <input type="password" name="newPassword" placeholder="New Password" id="newPassword" autocomplete="new-password">
+                <p class="error-message" id="newPassword-error"></p>
+
+                <input type="password" name="confirmNew" placeholder="Confirm New Password" id="confirmNew" autocomplete="new-password">
+                <p class="error-message" id="confirmNew-error"></p>
+
+                <button type="submit" id="changePasswordBtn">Change Password</button>
+            </form>
+        </div>
+
+        <div id="data">
+            <h2>Data</h2> 
+            <button id="resetData">Reset CRM Data</button>
+        </div>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+
+    <script src="JS/data.js"></script>
+    <script src="JS/validation.js"></script>
+    <script src="JS/profile.js"></script>
+</body>
+</html>

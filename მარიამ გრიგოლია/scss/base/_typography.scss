@@ -1,0 +1,23 @@
+// body {
+//   min-height: 100vh;
+//   font-family: "Roboto", sans-serif;
+//   // background-color: $color-bg;
+//   // color: $color-text;
+// }
+@use '../abstracts/variables' as *;
+
+body {
+  min-height: 100vh;
+  font-family: "Roboto", system-ui, sans-serif;
+  font-size: $fs-base;          // 1.6rem = 16px
+  line-height: 1.5;
+  background-color: var(--bg);  // ← runtime theme token
+  color: var(--text);           // ← runtime theme token
+  // smooth fade when theme flips
+  transition: background-color $transition, color $transition;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+  font-weight: $fw-semibold;
+}

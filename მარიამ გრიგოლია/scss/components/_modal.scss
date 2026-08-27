@@ -1,0 +1,127 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  padding: $space-4;
+  @include flex($justify: center, $align: center);
+}
+
+//this must exist, or the modal is ALWAYS visible. 
+//Adding .modal[hidden] (class + attribute = higher specificity)
+// makes display: none win again
+.modal[hidden] {
+  display: none;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal__box {
+  position: relative;      // lifts the box above the backdrop
+  width: 100%;
+  max-width: 48rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: $space-5;
+  background-color: var(--surface);
+  border: 0.1rem solid var(--border);
+  border-radius: $radius-lg;
+  box-shadow: var(--shadow);
+  @include flex($direction: column, $gap: $space-4);
+}
+
+.modal__header {
+  @include flex($justify: space-between, $align: center, $gap: $space-3);
+}
+
+.modal__title { font-size: $fs-xl; }
+
+.modal__close {
+  font-size: $fs-lg;
+  line-height: 1;
+  color: var(--text-muted);
+  transition: color $transition;
+
+  &:hover { color: var(--text); }
+}
+
+
+
+
+//CLLIETN DETAILS MODAL
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.details__head {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.details__avatar {
+  width: 6.4rem;
+  height: 6.4rem;
+  border-radius: $radius-full;
+  object-fit: cover;
+}
+
+.details__name { font-size: $fs-lg; font-weight: $fw-semibold; }
+.details__company { font-size: $fs-sm; color: var(--text-muted); }
+
+.details__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.details__list > div {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-3;
+  padding: $space-2 0;
+  border-bottom: 0.1rem solid var(--border);
+  font-size: $fs-sm;
+}
+
+.details__list dt { color: var(--text-muted); }
+
+.notes__title { font-size: $fs-base; margin-bottom: $space-3; }
+
+.notes__list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  margin-bottom: $space-3;
+}
+
+.notes__item {
+  padding: $space-3;
+  background-color: var(--surface-2);
+  border-radius: $radius-md;
+  font-size: $fs-sm;
+}
+
+.notes__date {
+  display: block;
+  margin-top: $space-1;
+  font-size: $fs-xs;
+  color: var(--text-muted);
+}
+
+.notes__empty { font-size: $fs-sm; color: var(--text-muted); }
+
+.notes__form {
+  display: flex;
+  gap: $space-2;
+  margin-bottom: $space-3;
+
+  .form__input { flex: 1; }
+}

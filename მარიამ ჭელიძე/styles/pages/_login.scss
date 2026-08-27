@@ -1,0 +1,98 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.auth {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  padding: $space-lg;
+  overflow-x: clip;
+    scrollbar-gutter: stable;
+background: var(--color-bg);
+}
+
+.auth__tools {
+  position: fixed;
+  top: $space-lg;
+  right: $space-lg;
+  z-index: 3;
+}
+
+.auth__container {
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  width: min(138rem, 100%);
+  overflow: hidden;
+  contain: layout paint;
+  isolation: isolate;
+  transform: translateZ(0);
+  border: 0.1rem solid var(--color-border);
+  border-radius: $radius-lg;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.auth__content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 68rem;
+  padding: $space-3xl;
+  background: var(--color-surface);
+}
+
+.auth__visual {
+  min-width: 0;
+}
+
+.auth--login .auth__visual {
+  order: 1;
+}
+
+.auth--login .auth__content {
+  order: 2;
+}
+
+@include media(laptop) {
+  .auth__content {
+    padding: $space-2xl;
+  }
+}
+
+@include media(tablet) {
+  .auth {
+    padding: $space-md;
+  }
+
+  .auth__tools {
+    position: absolute;
+  }
+
+  .auth__container {
+    grid-template-columns: 1fr;
+  }
+
+  .auth__content {
+    min-height: auto;
+    padding: $space-2xl $space-xl;
+  }
+}
+
+@include media(mobile) {
+  .auth {
+    padding: 0;
+  }
+
+  .auth__container {
+    min-height: 100vh;
+    border-radius: 0;
+    border-inline: 0;
+  }
+
+  .auth__content {
+    padding: 8rem $space-lg $space-xl;
+  }
+}

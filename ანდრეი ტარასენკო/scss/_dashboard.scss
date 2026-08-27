@@ -1,0 +1,100 @@
+@use 'variables' as *;
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: $border-radius-lg;
+  padding: 1.25rem;
+
+  &__label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  &__value {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+}
+
+.dashboard-section {
+  margin-bottom: 2rem;
+
+  h2 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.pipeline-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: $border-radius;
+  padding: 1rem;
+  text-align: center;
+
+  &__label {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+  }
+
+  &__count {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+}
+
+.recent-clients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recent-client-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: $border-radius;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  &__name {
+    font-weight: 500;
+  }
+
+  &__company {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  &__date {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+}

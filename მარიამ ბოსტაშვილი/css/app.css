@@ -1,0 +1,669 @@
+/* 10X CRM — Design System*/
+
+/* Theme tokens: DARK (default) */
+:root,
+body.theme-dark {
+  --bg: #1b1e2b; /* page background */
+  --surface: #262a3a; /* cards / input background */
+  --border: #343a4f; /* borders */
+  --text: #e8eaf2; /* main text */
+  --text-muted: #9aa0b5; /* secondary text */
+
+  --primary: #635bff; /* brand color (buttons, links) */
+  --primary-2: #8f88ff;
+  --danger: #ef4444; /* error red */
+  --success: #22c55e; /* success green */
+
+  --shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  --radius: 14px; /* corner rounding */
+  --radius-sm: 10px; /* smaller rounding for inputs/buttons */
+  --primary-soft: rgba(99, 91, 255, 0.16); /* soft glow for focus ring */
+  --danger-soft: rgba(239, 68, 68, 0.16); /* soft glow for error state */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25); /* softer shadow for cards */
+}
+
+/* Theme tokens: LIGHT*/
+body.theme-light {
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --border: #e6e9f2;
+  --text: #23273a;
+  --text-muted: #6b7189;
+  --shadow: 0 6px 24px rgba(23, 27, 45, 0.08);
+  --shadow-sm: 0 2px 8px rgba(23, 27, 45, 0.06);
+}
+
+/*  Base reset */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+html {
+  font-size: 62.5%;
+} /* 1rem = 10px (for easy math) */
+
+body {
+  margin: 0;
+  font-family:
+    'Segoe UI',
+    system-ui,
+    -apple-system,
+    Roboto,
+    Arial,
+    sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 1.5rem; /* = 15px */
+  line-height: 1.5;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+a {
+  color: var(--primary-2);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.4rem;
+  font-weight: 700;
+  color: var(--text);
+}
+p {
+  margin: 0 0 1rem;
+}
+
+/*AUTH PAGES (login / signup) */
+.auth-wrap {
+  min-height: 100vh; /* fill the whole screen height */
+  display: flex; /* turn on flexbox */
+  align-items: center; /* center vertically */
+  justify-content: center; /* center horizontally */
+  padding: 2.4rem;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(99, 91, 255, 0.35), transparent 60%),
+    radial-gradient(900px 500px at 110% 110%, rgba(56, 189, 248, 0.25), transparent 55%), var(--bg);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px; /* never grows wider than 420px (layout cap, keep px) */
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 3.4rem 3rem;
+}
+
+/* brand row: logo mark + name */
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* space between logo and name */
+  justify-content: center;
+  margin-bottom: 0.6rem;
+}
+.auth-brand .brand-mark {
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: 1.1rem;
+  display: grid;
+  place-items: center; /* center the "10X" text inside */
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+.auth-brand .brand-name {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+/* SVG wordmark logo on the auth pages (adapts to theme via currentColor) */
+.auth-logo {
+  width: 150px;
+  height: auto;
+  color: var(--text);   /* currentColor in the SVG becomes the theme text color */
+}
+
+/* headings under the logo */
+.auth-title {
+  text-align: center;
+  margin-top: 1.2rem;
+  font-size: 2.2rem;
+}
+.auth-sub {
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 2.2rem;
+}
+.auth-foot {
+  text-align: center;
+  margin-top: 1.8rem;
+  color: var(--text-muted);
+  font-size: 1.4rem;
+}
+
+/* FORMS */
+.field {
+  margin-bottom: 1.6rem;
+} /* space between fields (16px) */
+
+.field label {
+  display: block; /* label sits on its own line */
+  font-size: 1.3rem; /* 13px */
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+
+.input {
+  width: 100%;
+  padding: 1.1rem 1.3rem; /* inner spacing 11px / 13px */
+  background: var(--bg);
+  border: 1.5px solid var(--border); /* keep px: crisp thin border */
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 1.5rem; /* 15px */
+  font-family: inherit; /* use the same font as the page */
+  outline: none; /* remove ugly default outline */
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+/* when the user clicks into the field */
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft); /* soft glow ring */
+}
+
+/* red state when validation fails (JS will add this class later) */
+.input-error {
+  border-color: var(--danger) !important;
+  box-shadow: 0 0 0 3px var(--danger-soft) !important;
+}
+.error-text {
+  display: none; /* hidden until there is an error */
+  color: var(--danger);
+  font-size: 1.25rem;
+  margin-top: 0.5rem;
+}
+.error-text.show {
+  display: block;
+} /* JS adds "show" to reveal it */
+
+/* BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1rem 1.8rem;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: 1.45rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer; /* hand cursor on hover */
+  transition:
+    filter 0.15s ease,
+    transform 0.05s ease;
+}
+.btn:active {
+  transform: translateY(1px);
+} /* tiny press-down effect */
+.btn-block {
+  width: 100%;
+} /* full-width button */
+.btn-lg {
+  padding: 1.2rem 2rem;
+  font-size: 1.55rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+}
+.btn-primary:hover {
+  filter: brightness(1.07);
+}
+
+/*  tiny spacing helpers  */
+.mt-1 {
+  margin-top: 0.8rem;
+}
+.mt-2 {
+  margin-top: 1.6rem;
+}
+
+/*dashboard.html css */
+
+/* APP SHELL (sidebar + topbar + content) */
+.app {
+  display: flex;
+  min-height: 100vh;
+} /* sidebar + main side by side */
+
+/* Sidebar */
+.sidebar {
+  width: 25rem; /* fixed width (250px) */
+  flex-shrink: 0; /* never shrink below 25rem */
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column; /* stack brand / menu / footer vertically */
+  position: sticky; /* stays in place while content scrolls */
+  top: 0;
+  height: 100vh;
+}
+.sidebar-brand {
+  height: 6.4rem; /* same height as the topbar */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 2.2rem; /* only left/right padding now */
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-brand .brand-mark {
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 1rem;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+.sidebar-brand .brand-name {
+  font-weight: 800;
+  font-size: 1.7rem;
+  letter-spacing: -0.3px;
+}
+
+.nav-menu {
+  padding: 1.4rem 1.2rem;
+  flex: 1;
+} /* flex:1 pushes footer down */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.1rem 1.4rem;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 1.45rem;
+  margin-bottom: 0.4rem;
+  transition: all 0.15s ease;
+}
+.nav-link:hover {
+  background: var(--bg);
+  color: var(--text);
+  text-decoration: none;
+}
+.nav-link.active {
+  background: var(--primary-soft);
+  color: var(--primary-2);
+}
+.nav-link .nav-ico {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+}
+.sidebar-foot {
+  padding: 1.4rem;
+  border-top: 1px solid var(--border);
+}
+
+/*  Main area  */
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  height: 6.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.6rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 30; /* stays on top while scrolling */
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.topbar-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0.6rem 0.5rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  text-decoration: none;             /* no underline (it's a link now) */
+  color: var(--text);                /* normal text color, not link-blue */
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+.user-chip:hover { border-color: var(--primary); }   /* subtle highlight on hover */
+.user-chip .u-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.content {
+  padding: 2.6rem;
+  flex: 1;
+}
+
+.page-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  margin-bottom: 2.2rem;
+  flex-wrap: wrap;
+}
+.page-head h1 {
+  font-size: 2.4rem;
+  margin: 0;
+}
+.page-head .sub {
+  color: var(--text-muted);
+  margin: 0.4rem 0 0;
+}
+.page-head .page-actions {
+  flex-wrap: wrap;
+}
+
+/* Avatar + icon button */
+.avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.avatar-initials {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.icon-btn {
+  width: 3.4rem;
+  height: 3.4rem;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 0.9rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.icon-btn:hover {
+  color: var(--text);
+  border-color: var(--primary);
+}
+
+/* CARDS + GRID */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.card-body {
+  padding: 2rem;
+}
+.card-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* grid system */
+.grid {
+  display: grid;
+  gap: 1.8rem;
+}
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+} /* two equal columns */
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+} /* four equal columns */
+
+/* ---------- margin-bottom helpers ---------- */
+.mb-1 {
+  margin-bottom: 0.8rem;
+}
+.mb-2 {
+  margin-bottom: 1.6rem;
+}
+.mb-3 {
+  margin-bottom: 2.4rem;
+}
+
+/*clients.html css*/
+
+/* CLIENTS — toolbar (search + chips + sort) */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  min-width: 20rem;
+}
+.search-box svg {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%); /* vertically center the icon */
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--text-muted);
+}
+.search-box .input {
+  padding-left: 4rem;
+} /* leave room for the icon */
+
+.chips {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.chip {
+  padding: 0.7rem 1.5rem;
+  border-radius: 999px; /* fully rounded pill */
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 1.35rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+.chip:hover {
+  border-color: var(--primary);
+  color: var(--text);
+}
+.chip.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* outline button (Export CSV, Cancel) */
+.btn-outline {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+.btn-outline:hover {
+  border-color: var(--primary);
+  color: var(--primary-2);
+}
+
+/* MODAL */
+.modal-backdrop {
+  position: fixed;
+  inset: 0; /* cover the whole screen */
+  background: rgba(10, 12, 20, 0.6); /* dark see-through overlay */
+  backdrop-filter: blur(3px); /* blur the page behind */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 4rem 2rem;
+  z-index: 100; /* above everything */
+  opacity: 0;
+  visibility: hidden; /* HIDDEN by default */
+  transition:
+    opacity 0.18s ease,
+    visibility 0.18s ease;
+  overflow-y: auto;
+}
+.modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+} /* JS adds .open to show */
+
+.modal {
+  width: 100%;
+  max-width: 480px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transform: translateY(-14px); /* start slightly up... */
+  transition: transform 0.18s ease;
+  margin: auto 0;
+}
+.modal-backdrop.open .modal {
+  transform: translateY(0);
+} /* ...slide into place */
+.modal-lg {
+  max-width: 560px;
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.8rem 2.2rem;
+  border-bottom: 1px solid var(--border);
+}
+.modal-head h3 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+.modal-body {
+  padding: 2.2rem;
+}
+.modal-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.6rem 2.2rem;
+  border-top: 1px solid var(--border);
+}
+
+/* two-column form inside the modal */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1.6rem;
+}
+.form-grid .full {
+  grid-column: 1 / -1;
+} /* span across both columns */
+
+/* ============================================================
+   UTILITIES (small reusable helpers)
+   ============================================================ */
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-1 {
+  gap: 0.8rem;
+}
+.gap-2 {
+  gap: 1.6rem;
+}
+.text-muted {
+  color: var(--text-muted);
+}
+.text-center {
+  text-align: center;
+}
+.hidden {
+  display: none !important;
+}
+
+/*profile other css*/
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+.btn-danger:hover {
+  filter: brightness(1.07);
+}
+
+.text-dim {
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+.mb-0 {
+  margin-bottom: 0;
+}
+.mt-3 {
+  margin-top: 2.4rem;
+}

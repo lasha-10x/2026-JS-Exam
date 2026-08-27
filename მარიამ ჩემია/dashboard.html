@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>10x CRM - Dashboard</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="app-page">
+    <header class="header">
+        <a href="./dashboard.html" class="logo">10x CRM</a>
+        <nav>
+            <a href="./dashboard.html" class="nav-link active">Dashboard</a>
+            <a href="./clients.html" class="nav-link">Clients</a>
+            <a href="./profile.html" class="nav-link">Profile</a>
+        </nav>
+        <div class="app-actions">
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch Theme">
+                <span class="toggle-icon"></span>
+            </button>
+            <button type="button" id="logout-button" class="logout-button">Logout</button>
+        </div>
+    </header>
+    <main class="dashboard-content">
+        <section class="dashboard-welcome">
+            <h1>Welcome Back, <span id="user-name"></span>!</h1>
+
+            <div class="dashboard-date-time-display">
+                <span id="current-date"></span>
+                <span id="current-time"></span>
+            </div>
+        </section>
+        <section class="dashboard-stats">
+            <div class="stat-card">
+                <h2>Total Clients</h2>
+                <p id="total-clients">0</p>
+            </div>
+            <div class="stat-card">
+                <h2>Active Deals</h2>
+                <p id="active-deals">0</p>
+            </div>
+            <div class="stat-card">
+                <h2>Won Revenue</h2>
+                <p id="won-revenue">$0</p>
+            </div>
+            <div class="stat-card">
+                <h2>New This Week</h2>
+                <p id="new-this-week">0</p>
+            </div>
+        </section>
+        <section class="dashboard-overview">
+            <div class="pipeline-card">
+                <h2>Pipeline Overview</h2>
+                <div class="pipeline-stats">
+                    <p>Lead: <span id="lead-count">0</span></p>
+                    <p>Contacted: <span id="contacted-count">0</span></p>
+                    <p>Won: <span id="won-count">0</span></p>
+                    <p>Lost: <span id="lost-count">0</span></p>
+                </div>
+            </div>
+            <div class="recent-clients-card">
+                <h2>Recent Clients</h2>
+                <div id="recent-clients-list">
+                    <p>No clients available yet.</p>
+                </div>
+                <a href="./clients.html" class="view-clients-link">View All Clients</a>
+            </div>
+        </section>
+    </main>
+    <script type="module" src="./js/dashboard.js"></script>
+</body>
+</html>

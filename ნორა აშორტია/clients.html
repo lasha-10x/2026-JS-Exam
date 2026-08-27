@@ -1,0 +1,218 @@
+<!-- Clients.html -->
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clients · 10x CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap"
+   rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/auth.js"></script>
+  <script>
+   requireAuth();
+  </script>
+ </head>
+ <body>
+  <script src="js/theme.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/clients.js"></script>
+
+  <div class="app">
+   <aside class="sidebar">
+    <div class="brand">
+     <div class="brand-mark">10x</div>
+     <div class="brand-name">10x<span>CRM</span></div>
+    </div>
+    <nav class="nav">
+     <a class="nav-item" href="dashboard.html"
+      ><span class="ic">D</span>Dashboard</a
+     >
+     <a class="nav-item active" href="clients.html"
+      ><span class="ic">C</span>Clients</a
+     >
+     <a class="nav-item" href="profile.html"
+      ><span class="ic">P</span>Profile</a
+     >
+    </nav>
+    <div class="sidebar-foot">
+     <button class="logout-btn" onclick="handleLogout()">Log out</button>
+    </div>
+   </aside>
+
+   <main class="main">
+    <header class="topbar">
+     <div>
+      <div class="page-title">Clients</div>
+      <div class="page-sub">Manage the people you sell to</div>
+     </div>
+     <div class="top-actions">
+      <button
+       class="theme-toggle"
+       id="theme-toggle-btn"
+       onclick="toggleTheme()"
+      >
+       🌙
+      </button>
+      <div class="avatar" id="topbar-avatar">–</div>
+     </div>
+    </header>
+
+    <div class="content">
+     <div class="clients-wrap">
+      <div class="clients-table-card card">
+       <div class="sec-title">All clients</div>
+
+       <div class="crm-toolbar">
+        <div class="search-box">
+         <input
+          type="text"
+          id="client-search-input"
+          placeholder="Search by character name or division..."
+         />
+        </div>
+        <div class="filter-pills" id="filter-pills">
+         <button class="pill-btn client-filter-btn active" data-status="all">
+          All Assets
+         </button>
+         <button class="pill-btn client-filter-btn" data-status="lead">
+          Lead
+         </button>
+         <button class="pill-btn client-filter-btn" data-status="contacted">
+          Contacted
+         </button>
+         <button class="pill-btn client-filter-btn" data-status="won">
+          Won
+         </button>
+         <button class="pill-btn client-filter-btn" data-status="lost">
+          Lost
+         </button>
+        </div>
+       </div>
+
+       <!-- სორტირება -->
+       <div class="sorting-row">
+        <select id="client-sort-select" class="sort-dropdown">
+         <option value="newest">Newest Arrived</option>
+         <option value="name">Sort by Name</option>
+         <option value="value">Sort by Value</option>
+        </select>
+       </div>
+
+       <table>
+        <thead>
+         <tr>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Value</th>
+          <th>Status</th>
+          <th></th>
+         </tr>
+        </thead>
+        <tbody id="client-rows"></tbody>
+       </table>
+      </div>
+      <div class="clients-form-card card">
+       <div class="sec-title">Add client</div>
+       <form onsubmit="addClient(event)">
+        <label class="f">Name</label>
+        <input id="in-name" placeholder="e.g. Hatake Kakashi " />
+        <label class="f">Company</label>
+        <input id="in-company" placeholder="e.g. Hidden Leaf Village " />
+        <label class="f">Deal value</label>
+        <input id="in-value" placeholder="e.g. $12,400" />
+        <label class="f">Status</label>
+        <select id="in-status">
+         <option value="lead">Lead</option>
+         <option value="contacted">Contacted</option>
+         <option value="won">Won</option>
+         <option value="lost">Lost</option>
+        </select>
+        <button class="btn" id="add-btn" type="submit">Add client</button>
+       </form>
+      </div>
+     </div>
+    </div>
+   </main>
+  </div>
+
+  <!-- Client Details Modal -->
+  <div id="client-modal" class="modal-overlay hidden">
+   <div class="modal-card card">
+    <button type="button" id="close-modal" class="modal-close-btn">
+     &times;
+    </button>
+
+    <div class="modal-head-row">
+     <div class="modal-avatar" id="m-avatar">N</div>
+     <div>
+      <h3 id="m-name">Client Name</h3>
+      <p id="m-company">Company</p>
+     </div>
+    </div>
+
+    <hr class="modal-divider" />
+
+    <div class="modal-meta-grid">
+     <div class="meta-badge">📧 <span id="m-email">—</span></div>
+     <div class="meta-badge">📞 <span id="m-phone">—</span></div>
+     <div class="meta-badge">💰 <span id="m-value">—</span></div>
+     <div class="meta-badge">📅 <span id="m-inducted">—</span></div>
+    </div>
+
+    <div class="modal-body">
+     <div class="sec-title modal-notes-title">Notes & History</div>
+     <div id="m-notes-list" class="notes-list"></div>
+
+     <div
+      class="modal-note-form"
+      style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px"
+     >
+      <input
+       type="text"
+       id="m-new-note"
+       placeholder="Write logs onto scroll..."
+       style="
+        flex: 1;
+        width: auto;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        color: inherit;
+       "
+      />
+      <button
+       id="m-add-note"
+       class="btn modal-log-btn"
+       style="white-space: nowrap"
+      >
+       Log
+      </button>
+     </div>
+
+     <button id="m-remind" class="btn modal-alarm-btn">
+      ⏳ Set Shadow Alarm (1 Min)
+     </button>
+    </div>
+   </div>
+  </div>
+
+  <script>
+   var s = getSession();
+   if (s)
+    document.getElementById("topbar-avatar").textContent = s.name
+     .split(" ")
+     .map(function (p) {
+      return p[0];
+     })
+     .join("")
+     .slice(0, 2)
+     .toUpperCase();
+  </script>
+ </body>
+</html>

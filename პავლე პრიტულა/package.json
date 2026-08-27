@@ -1,0 +1,14 @@
+{
+  "name": "10x-crm",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sass:build": "sass scss/main.scss css/main.css --style=compressed",
+    "sass:watch": "sass --watch scss/main.scss:css/main.css",
+    "test": "node --test tests/*.test.js"
+  },
+  "devDependencies": {
+    "sass": "^1.90.0"
+  }
+}

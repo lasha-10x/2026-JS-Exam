@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>10X CRM | Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Header -->
+
+    <header>
+      <div class="logo">
+        <i class="fa-solid fa-chart-simple"></i>
+
+        <a href="dashboard.html"
+          ><img
+            src="./assets/images/10x__2_-removebg-preview.png"
+            alt="logo"
+            class="logo-light" />
+          <img
+            src="./assets/images/10x-dark.png"
+            alt="darklogo"
+            class="logo-dark"
+        /></a>
+      </div>
+
+      <nav>
+        <a class="active" href="#">
+          <i class="fa-solid fa-house"></i>
+          Dashboard
+        </a>
+
+        <a href="clients.html">
+          <i class="fa-solid fa-users"></i>
+          Clients
+        </a>
+
+        <a href="profile.html">
+          <i class="fa-solid fa-user"></i>
+          Profile
+        </a>
+      </nav>
+
+      <div class="header-right">
+        <button id="theme-toggle">
+          <i id="theme-icon" class="fa-solid fa-moon"></i>
+        </button>
+
+        <button id="logout-btn">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Main -->
+
+    <main class="container">
+      <!-- Welcome -->
+
+      <section class="welcome">
+        <div>
+          <h1>
+            Welcome back,
+            <span id="user-name">John Doe</span>
+            👋
+          </h1>
+
+          <p id="today-date"></p>
+        </div>
+
+        <!-- Live sync indicator -->
+        <div id="live-indicator" class="live-indicator">
+          <span class="live-dot"></span>
+          <span>Live</span>
+        </div>
+      </section>
+
+      <!-- Date Range Filter -->
+
+      <section class="date-filter-bar">
+        <div class="date-filter-inner">
+          <i class="fa-solid fa-calendar-days"></i>
+          <label for="date-from">From</label>
+          <input type="date" id="date-from" class="date-input" />
+          <label for="date-to">To</label>
+          <input type="date" id="date-to" class="date-input" />
+          <div class="date-presets">
+            <button class="preset-btn active" data-preset="all">
+              All Time
+            </button>
+            <button class="preset-btn" data-preset="7d">7 Days</button>
+            <button class="preset-btn" data-preset="30d">30 Days</button>
+            <button class="preset-btn" data-preset="90d">90 Days</button>
+          </div>
+          <button
+            id="clear-dates-btn"
+            class="clear-dates-btn"
+            title="Clear dates"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div id="filter-badge" class="filter-badge hidden">
+          <i class="fa-solid fa-filter"></i>
+          <span id="filter-badge-text"></span>
+        </div>
+      </section>
+
+      <!-- Statistics -->
+
+      <section class="stats">
+        <article class="card">
+          <div class="card-header">
+            <span>Total Clients</span>
+
+            <i class="fa-solid fa-users"></i>
+          </div>
+
+          <h2 id="total-clients">0</h2>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span>Active Deals</span>
+
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+
+          <h2 id="active-deals">0</h2>
+        </article>
+
+        <article class="card card-won">
+          <div class="card-header">
+            <span>Won Revenue</span>
+
+            <i class="fa-solid fa-sack-dollar"></i>
+          </div>
+
+          <h2 id="won-revenue">$0</h2>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span>New This Week</span>
+
+            <i class="fa-solid fa-user-plus"></i>
+          </div>
+
+          <h2 id="new-clients">0</h2>
+        </article>
+      </section>
+
+      <!-- Charts Row -->
+
+      <section class="charts-row">
+        <!-- Pipeline Donut Chart -->
+        <div class="panel chart-panel">
+          <div class="panel-title">
+            <h2><i class="fa-solid fa-chart-pie"></i> Pipeline Status</h2>
+          </div>
+          <div class="donut-wrapper">
+            <canvas id="pipeline-donut-chart"></canvas>
+            <div class="donut-center" id="donut-center-text">
+              <span id="donut-total">0</span>
+              <small>Clients</small>
+            </div>
+          </div>
+          <div class="chart-legend" id="donut-legend"></div>
+        </div>
+
+        <!-- Revenue Over Time Line Chart -->
+        <div class="panel chart-panel chart-panel--wide">
+          <div class="panel-title">
+            <h2><i class="fa-solid fa-chart-line"></i> Clients Over Time</h2>
+            <div class="chart-period-btns">
+              <button class="chart-period-btn active" data-period="week">
+                Week
+              </button>
+              <button class="chart-period-btn" data-period="month">
+                Month
+              </button>
+              <button class="chart-period-btn" data-period="year">Year</button>
+            </div>
+          </div>
+          <div class="line-chart-wrapper">
+            <canvas id="clients-line-chart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom Grid -->
+
+      <section class="content">
+        <!-- Pipeline -->
+
+        <div class="panel">
+          <div class="panel-title">
+            <h2>Pipeline Overview</h2>
+          </div>
+
+          <div class="pipeline">
+            <div class="pipeline-card status-lead">
+              <h3><i class="fa-solid fa-user"></i> Lead</h3>
+
+              <p id="lead-count">0</p>
+            </div>
+
+            <div class="pipeline-card status-contacted">
+              <h3><i class="fa-solid fa-comments"></i> Contacted</h3>
+
+              <p id="contacted-count">0</p>
+            </div>
+
+            <div class="pipeline-card status-won">
+              <h3><i class="fa-solid fa-circle-check"></i> Won</h3>
+
+              <p id="won-count">0</p>
+            </div>
+
+            <div class="pipeline-card status-lost">
+              <h3><i class="fa-solid fa-circle-xmark"></i> Lost</h3>
+
+              <p id="lost-count">0</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Clients -->
+
+        <div class="panel">
+          <div class="panel-title">
+            <h2>Recent Clients</h2>
+
+            <a href="clients.html"> View All </a>
+          </div>
+
+          <div id="recent-clients">
+            <!-- JS -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Toast for live update notification -->
+    <div id="sync-toast" class="sync-toast hidden">
+      <i class="fa-solid fa-rotate"></i>
+      <span>Dashboard updated from another tab</span>
+    </div>
+
+    <script src="js/guard.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

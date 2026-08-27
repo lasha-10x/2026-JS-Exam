@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile · 10X CRM</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+
+    <aside class="sidebar">
+      <a href="dashboard.html" class="logo">10<span class="logo__letter">x</span>-<span class="logo__accent">CRM</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="dashboard.html" class="nav__link">Dashboard</a>
+        <a href="clients.html" class="nav__link">Clients</a>
+        <a href="profile.html" class="nav__link">Profile</a>
+      </nav>
+      <div class="sidebar__footer">
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark and light theme">🌙</button>
+        <button id="logout-btn" class="btn btn--ghost" type="button">Log Out</button>
+      </div>
+    </aside>
+
+    <main class="app__main profile-page">
+      <div class="profile-layout">
+
+        <div class="profile-content">
+         <h1 class="page__title">Profile</h1>
+
+      <!-- Info block -->
+      <section class="panel profile__info">
+        <div class="profile__avatar" id="profile-initials">--</div>
+        <div>
+          <p class="profile__name" id="profile-name"></p>
+          <p class="profile__meta" id="profile-email"></p>
+          <p class="profile__meta" id="profile-company"></p>
+          <p class="profile__meta" id="profile-since"></p>
+        </div>
+      </section>
+
+      <!-- Edit profile -->
+      <section class="panel colored-panel">
+        <h2 class="panel__title">Edit Profile</h2>
+        <form id="profile-form" class="form" novalidate>
+          <div class="form__group">
+            <label for="edit-name" class="form__label">Full Name</label>
+            <input type="text" id="edit-name" name="fullName" class="form__input" aria-describedby="edit-name-error" required />
+            <p id="edit-name-error" class="form__error" aria-live="polite"></p>
+          </div>
+          <div class="form__group">
+            <label for="edit-company" class="form__label">Company</label>
+            <input type="text" id="edit-company" name="company" class="form__input" placeholder="Company (optional)" />
+          </div>
+          <button type="submit" class="btn btn--primary">Save Changes</button>
+        </form>
+      </section>
+
+      <!-- Change password -->
+      <section class="panel colored-ps">
+        <h2 class="panel__title">Change Password</h2>
+        <form id="password-form" class="form" novalidate>
+          <div class="form__group">
+            <label for="current-password" class="form__label">Current Password</label>
+            <input type="password" id="current-password" name="currentPassword" class="form__input" autocomplete="current-password" aria-describedby="current-password-error" required />
+            <p id="current-password-error" class="form__error" aria-live="polite"></p>
+          </div>
+          <div class="form__group">
+            <label for="new-password" class="form__label">New Password</label>
+            <input type="password" id="new-password" name="newPassword" class="form__input" autocomplete="new-password" aria-describedby="new-password-error" required />
+            <p id="new-password-error" class="form__error" aria-live="polite"></p>
+          </div>
+          <div class="form__group">
+            <label for="confirm-new-password" class="form__label">Confirm New Password</label>
+            <input type="password" id="confirm-new-password" name="confirmNewPassword" class="form__input" autocomplete="new-password" aria-describedby="confirm-new-password-error" required />
+            <p id="confirm-new-password-error" class="form__error" aria-live="polite"></p>
+          </div>
+          <button type="submit" class="btn btn--primary">Change Password</button>
+        </form>
+      </section>
+
+      <!-- Data management -->
+      <section class="panel">
+        <h2 class="panel__title">Data Management</h2>
+        <p class="profile__meta">Reset the client base back to the original 30 from the API. Your account is not affected.</p>
+        <button id="reset-data-btn" class="btn btn--ghost" type="button">Reset CRM Data</button>
+      </section>
+</div>
+      <!--RIGHT SIDE IMAGE-->
+       <aside class="profile-aside">
+      <img src="images/ast.avif" alt="" class="profile-illustration" />
+    </aside>
+
+      </div>
+     
+    </main>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <script type="module" src="js/profile.js"></script>
+</body>
+</html>

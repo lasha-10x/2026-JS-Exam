@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clients — 10X CRM</title>
+  <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+      <a href="dashboard.html" class="sidebar__logo">10X CRM</a>
+
+      <nav class="sidebar__nav">
+        <a href="dashboard.html" class="sidebar__link" data-page="dashboard">Dashboard</a>
+        <a href="clients.html" class="sidebar__link" data-page="clients">Clients</a>
+        <a href="profile.html" class="sidebar__link" data-page="profile">Profile</a>
+      </nav>
+
+      <div class="sidebar__footer">
+        <button type="button" id="theme-toggle" class="btn btn--ghost" aria-label="Toggle theme">
+          Toggle Theme
+        </button>
+        <button type="button" id="logout-btn" class="btn btn--danger">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="page-header page-header--split">
+        <h1>Clients</h1>
+        <button type="button" id="add-client-btn" class="btn btn--primary">+ Add Client</button>
+      </header>
+
+      <div class="clients-toolbar">
+        <input type="search" id="search-input" class="search-input" placeholder="Search by name or company...">
+
+        <div class="filter-chips" id="filter-chips">
+          <button type="button" class="chip chip--active" data-status="All">All</button>
+          <button type="button" class="chip" data-status="Lead">Lead</button>
+          <button type="button" class="chip" data-status="Contacted">Contacted</button>
+          <button type="button" class="chip" data-status="Won">Won</button>
+          <button type="button" class="chip" data-status="Lost">Lost</button>
+        </div>
+
+        <select id="sort-select" class="sort-select">
+          <option value="newest">Newest first</option>
+          <option value="name">Name A→Z</option>
+          <option value="dealValue">Deal value: high → low</option>
+        </select>
+      </div>
+
+      <div id="clients-loading" class="clients-loading">Loading clients...</div>
+      <div id="clients-error" class="clients-error" hidden>
+        <p>Could not load clients. Check your connection and try again.</p>
+        <button type="button" id="retry-btn" class="btn btn--primary">Retry</button>
+      </div>
+      <div id="clients-list" class="clients-list"></div>
+    </main>
+  </div>
+
+  <!-- Add Client Modal -->
+  <div id="add-client-modal" class="modal" hidden>
+    <div class="modal__overlay" data-close-modal></div>
+    <div class="modal__content">
+      <button type="button" class="modal__close" data-close-modal aria-label="Close">&times;</button>
+      <h2>Add Client</h2>
+
+      <form id="add-client-form" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="client-name">Name</label>
+          <input type="text" id="client-name" name="name">
+          <span class="form-error" data-error="name"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="client-email">Email</label>
+          <input type="text" id="client-email" name="email">
+          <span class="form-error" data-error="email"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="client-phone">Phone</label>
+          <input type="text" id="client-phone" name="phone">
+          <span class="form-error" data-error="phone"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="client-company">Company</label>
+          <input type="text" id="client-company" name="company">
+          <span class="form-error" data-error="company"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="client-dealValue">Deal Value</label>
+          <input type="number" id="client-dealValue" name="dealValue">
+          <span class="form-error" data-error="dealValue"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="client-status">Status</label>
+          <select id="client-status" name="status">
+            <option value="Lead">Lead</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Won">Won</option>
+            <option value="Lost">Lost</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full">Add Client</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Client Details Modal -->
+  <div id="client-details-modal" class="modal" hidden>
+    <div class="modal__overlay" data-close-modal></div>
+    <div class="modal__content modal__content--wide">
+      <button type="button" class="modal__close" data-close-modal aria-label="Close">&times;</button>
+      <div id="client-details-content"></div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/clients.js"></script>
+</body>
+</html>

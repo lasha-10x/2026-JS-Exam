@@ -1,0 +1,599 @@
+/* ==========================================================================
+   10X CRM — global stylesheet
+   Design tokens + light/dark theme + shared UI components
+   ========================================================================== */
+
+:root {
+  --bg: #f4f5f8;
+  --surface: #ffffff;
+  --surface-alt: #eef0f4;
+  --border: #e3e5ea;
+  --border-strong: #cdd0d8;
+  --text-primary: #16181d;
+  --text-secondary: #5c606b;
+  --text-muted: #8d919c;
+
+  --accent: #33419e;
+  --accent-hover: #2a3684;
+  --accent-contrast: #ffffff;
+  --accent-bg: #e8eaf7;
+
+  --danger: #b23a2e;
+  --danger-bg: #fbeae8;
+  --success: #1c7a4d;
+  --success-bg: #e4f4ec;
+  --warning: #9c6a12;
+  --warning-bg: #fbf1de;
+  --neutral-bg: #eef0f4;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --shadow-card: 0 1px 2px rgba(20, 22, 27, 0.05);
+  --shadow-pop: 0 8px 28px rgba(20, 22, 27, 0.18);
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+[data-theme="dark"] {
+  --bg: #13151a;
+  --surface: #1b1e25;
+  --surface-alt: #21242c;
+  --border: #2c2f38;
+  --border-strong: #3c4049;
+  --text-primary: #f0f1f4;
+  --text-secondary: #a7abb6;
+  --text-muted: #747883;
+
+  --accent: #7c89e6;
+  --accent-hover: #909bec;
+  --accent-contrast: #10121a;
+  --accent-bg: #262b52;
+
+  --danger: #e58177;
+  --danger-bg: #3a2320;
+  --success: #5fcf98;
+  --success-bg: #17301f;
+  --warning: #e3b06c;
+  --warning-bg: #3a2c14;
+  --neutral-bg: #262a32;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { margin: 0 0 0.25em; font-weight: 600; letter-spacing: -0.01em; }
+h1 { font-size: 26px; }
+h2 { font-size: 20px; }
+h3 { font-size: 16px; }
+p { margin: 0 0 0.75em; color: var(--text-secondary); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+::placeholder { color: var(--text-muted); }
+
+button, input, select, textarea { font-family: inherit; font-size: 14px; color: var(--text-primary); }
+
+input, select, textarea {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+textarea { height: auto; padding: 8px 12px; resize: vertical; min-height: 64px; }
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+input.input-error, textarea.input-error { border-color: var(--danger); }
+input.input-error:focus { box-shadow: 0 0 0 3px var(--danger-bg); }
+
+.field { margin-bottom: 12px; }
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+.field-error { color: var(--danger); font-size: 12px; margin-top: 4px; }
+
+button {
+  cursor: pointer;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-weight: 500;
+  transition: background 0.12s ease, transform 0.05s ease, border-color 0.12s ease;
+}
+button:hover { background: var(--surface-alt); }
+button:active { transform: scale(0.98); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-contrast); }
+.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+.btn-danger { color: var(--danger); border-color: var(--danger); background: transparent; }
+.btn-danger:hover { background: var(--danger-bg); }
+
+.btn-block { width: 100%; }
+.btn-sm { height: 30px; padding: 0 10px; font-size: 13px; }
+
+/* ---------- layout shell (protected pages) ---------- */
+
+/* flex (not grid) so mobile can switch row->column with one property,
+   and so the sidebar and .main can each manage their own scrolling
+   independently instead of the whole page scrolling.
+   100dvh (not 100vh): on phones/tablets the address bar can show or
+   hide, which changes how tall the *visible* viewport actually is —
+   100vh ignores that and uses the tallest possible viewport, so the
+   layout ends up taller than the screen and forces an unwanted
+   scroll. 100dvh tracks the real, current viewport height. The plain
+   100vh line stays first as a fallback for browsers that don't
+   support dvh yet. */
+.app-shell {
+  display: flex;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.sidebar {
+  flex-shrink: 0;
+  width: 220px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+}
+
+.sidebar .logo {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 16px;
+  padding: 6px 10px 20px;
+  color: var(--text-primary);
+  cursor: pointer;
+  text-decoration: none;
+}
+.sidebar .logo:hover { text-decoration: none; }
+.logo-mark {
+  width: 26px; height: 26px; border-radius: 7px;
+  background: var(--accent); color: var(--accent-contrast);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+}
+
+.nav-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; border-radius: var(--radius-sm);
+  color: var(--text-secondary); font-size: 14px; font-weight: 500;
+  text-decoration: none;
+}
+.nav-link:hover { background: var(--surface-alt); text-decoration: none; }
+.nav-link.active { background: var(--accent-bg); color: var(--accent); }
+
+/* Logout is a real <button>, not an <a> like the other nav-links, so
+   without this it would keep the browser's default button border and
+   background — this strips that so it blends in as a nav-link. Was
+   previously an identical inline style repeated across 3 HTML files. */
+.logout-btn { border: none; background: transparent; justify-content: flex-start; width: 100%; }
+
+/* Groups Dashboard/Clients/Profile so the mobile breakpoint can turn
+   this one wrapper into its own row, instead of every link having to
+   individually know it's part of "row 2". Column + the same 2px gap
+   .sidebar used to give these links directly, so desktop looks
+   identical to before this wrapper existed. */
+.sidebar-menu { display: flex; flex-direction: column; gap: 2px; }
+
+.sidebar-bottom {
+  margin-top: auto; display: flex; flex-direction: column; gap: 2px;
+  padding-top: 10px; border-top: 1px solid var(--border);
+}
+
+.main {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0; /* flexbox quirk: without this a flex child with
+    overflow:auto won't actually shrink to fit and scroll internally —
+    it grows and pushes/scrolls the whole page instead, which is
+    exactly the "content scrolls" bug this fixes */
+  overflow-y: auto;
+  padding: 28px 36px;
+  max-width: 1100px;
+}
+
+.page-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 22px; gap: 16px; flex-wrap: wrap;
+}
+.page-header h3 { margin: 0; } /* section headers ("Recent clients") sit flush */
+
+/* ---------- auth pages ---------- */
+
+.auth-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.auth-card {
+  width: 100%; max-width: 400px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 32px 30px; box-shadow: var(--shadow-card);
+}
+.auth-card .logo-row { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.auth-footer { text-align: center; margin-top: 18px; font-size: 13px; color: var(--text-secondary); }
+
+/* ---------- cards / stats ---------- */
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; }
+/* space between stacked cards (profile.html) without needing a class
+   or inline style on every one, and without an unwanted gap after
+   the last card — "+" only matches a .card directly preceded by
+   another .card, so the first one in a stack is naturally skipped */
+.card + .card { margin-top: 20px; }
+
+/* Edit profile + Change password side by side instead of stacked, so
+   they don't push "Data" further down the page than it needs to be.
+   .card-row is a plain <div>, not a .card, so it falls outside the
+   ".card + .card" rule above — spaced against its neighbors here
+   instead, same 20px rhythm as the rest of the stack. Inside the row,
+   the two .card children ARE adjacent .card siblings, so that same
+   rule would otherwise also push the second one down; cancelled back
+   to 0 so the grid's own `gap` is the only spacing between them. */
+.card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.card-row > .card + .card { margin-top: 0; }
+.card + .card-row, .card-row + .card { margin-top: 20px; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 22px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+.stat-label { font-size: 13px; color: var(--text-secondary); margin: 0 0 6px; }
+.stat-value { font-size: 24px; font-weight: 600; }
+
+.pipeline-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 22px; }
+.pipeline-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+.pipeline-card .p-label { font-size: 12px; color: var(--text-secondary); margin: 0; }
+.pipeline-card .p-value { font-size: 20px; font-weight: 600; margin: 4px 0 0; }
+/* same colors as the matching client status badge (.badge-lead etc.
+   in js/dashboard.js's STATUS_BADGE map) so a status reads the same
+   whether it's on a client card or summed up here */
+.pipeline-card.p-lead { background: var(--neutral-bg); }
+.pipeline-card.p-lead .p-label, .pipeline-card.p-lead .p-value { color: var(--text-secondary); }
+.pipeline-card.p-contacted { background: var(--accent-bg); }
+.pipeline-card.p-contacted .p-label, .pipeline-card.p-contacted .p-value { color: var(--accent); }
+.pipeline-card.p-won { background: var(--success-bg); }
+.pipeline-card.p-won .p-label, .pipeline-card.p-won .p-value { color: var(--success); }
+.pipeline-card.p-lost { background: var(--danger-bg); }
+.pipeline-card.p-lost .p-label, .pipeline-card.p-lost .p-value { color: var(--danger); }
+
+/* ---------- badges ---------- */
+
+.badge {
+  display: inline-block; font-size: 12px; font-weight: 500;
+  padding: 3px 10px; border-radius: 20px;
+  border: 1px solid var(--border); color: var(--text-secondary); background: var(--surface-alt);
+  white-space: nowrap;
+}
+.badge-lead { background: var(--neutral-bg); color: var(--text-secondary); border-color: var(--border); }
+.badge-contacted { background: var(--accent-bg); color: var(--accent); border-color: transparent; }
+.badge-won { background: var(--success-bg); color: var(--success); border-color: transparent; }
+.badge-lost { background: var(--danger-bg); color: var(--danger); border-color: transparent; }
+
+/* ---------- recent clients list (dashboard) ---------- */
+
+.recent-list { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.recent-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.recent-row:last-child { border-bottom: none; }
+.recent-row .name { font-size: 15px; font-weight: 500; margin: 0; }
+.recent-row .company { font-size: 12px; color: var(--text-muted); margin: 1px 0 0; }
+.recent-row .date { font-size: 12px; color: var(--text-muted); margin-left: auto; }
+
+.avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--accent-bg); color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600; flex-shrink: 0; overflow: hidden;
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- clients toolbar & list ---------- */
+
+.toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.toolbar input[type="text"] { width: 240px; }
+.chip-group { display: flex; gap: 6px; flex-wrap: wrap; }
+/* Chips are real <button>s (keyboard-focusable, Enter/Space work), so
+   height/font-weight undo the base button styles that don't fit a chip. */
+.chip {
+  font-size: 12px; padding: 7px 14px; border-radius: 20px;
+  border: 1px solid var(--border-strong); background: var(--surface); color: var(--text-secondary);
+  cursor: pointer; height: auto; font-weight: 400;
+}
+.chip:hover { background: var(--surface-alt); }
+.chip.active { background: var(--text-primary); color: var(--bg); border-color: var(--text-primary); }
+.toolbar select.sort-select { width: 190px; margin-left: auto; }
+
+.client-list { display: flex; flex-direction: column; gap: 8px; }
+.client-card {
+  display: flex; align-items: center; gap: 14px;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px 14px; background: var(--surface); cursor: pointer;
+}
+.client-card:hover { border-color: var(--border-strong); }
+.client-card .info { flex: 1; min-width: 0; }
+.client-card .cname { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin: 0; }
+/* #detail-name/#profile-name had no explicit font-size before (just
+   inherited the body's 15px) — set explicitly here so "+2px" has a
+   real base to add to, and so it can be targeted below. */
+#detail-name, #profile-name { font-size: 17px; font-weight: 500; margin: 0; }
+/* client/user names in pure white, but only in dark mode — in light
+   mode the cards are white too, so literal white text would be
+   invisible; the theme-aware --text-primary (used everywhere else)
+   already does the right thing in light mode on its own. */
+[data-theme="dark"] .client-card .cname,
+[data-theme="dark"] .recent-row .name,
+[data-theme="dark"] #detail-name,
+[data-theme="dark"] #profile-name {
+  color: #fff;
+}
+/* ...and pure black in light mode — no readability risk here (dark
+   text on light cards is the normal case), so no need to gate it
+   the way the white rule above is gated. */
+[data-theme="light"] .client-card .cname,
+[data-theme="light"] .recent-row .name,
+[data-theme="light"] #detail-name,
+[data-theme="light"] #profile-name {
+  color: #000;
+}
+.client-card .cmeta { font-size: 12px; color: var(--text-secondary); margin: 2px 0 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.client-card .cvalue { font-size: 12px; font-weight: 600; color: var(--success); margin: 2px 0 0; }
+.client-card select.status-select { width: 130px; height: 32px; font-size: 12px; font-weight: 500; }
+.status-select-lead { background: var(--neutral-bg); color: var(--text-secondary); border-color: var(--border); }
+.status-select-contacted { background: var(--accent-bg); color: var(--accent); border-color: transparent; }
+.status-select-won { background: var(--success-bg); color: var(--success); border-color: transparent; }
+.status-select-lost { background: var(--danger-bg); color: var(--danger); border-color: transparent; }
+.client-card .row-actions { display: flex; align-items: center; gap: 8px; }
+
+.empty-state, .loading-state, .error-state {
+  text-align: center; padding: 40px 20px; color: var(--text-secondary);
+  border: 1px dashed var(--border-strong); border-radius: var(--radius);
+}
+.error-state { color: var(--danger); }
+.error-state p { margin: 0; }
+.error-state button { margin-top: 12px; }
+
+/* ---------- modal ---------- */
+
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(10, 11, 14, 0.5);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; z-index: 100;
+}
+.modal-overlay.hidden { display: none; }
+.modal {
+  background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border);
+  padding: 22px 24px; width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto;
+  box-shadow: var(--shadow-pop);
+}
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.modal-header button { border: none; background: transparent; height: 28px; width: 28px; padding: 0; font-size: 18px; color: var(--text-secondary); }
+.modal-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.detail-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.detail-header .avatar { width: 44px; height: 44px; font-size: 15px; }
+.detail-header .avatar-lg { width: 48px; height: 48px; font-size: 16px; } /* profile page */
+.detail-meta { font-size: 13px; color: var(--text-secondary); }
+/* "label left, value right" table used by the detail modal and the
+   profile card. td + td = only a second cell in a row goes right, so a
+   single full-width cell (e.g. "Member since …") stays left-aligned. */
+.kv-table { width: 100%; font-size: 13px; }
+.kv-table td { padding: 4px 0; }
+.kv-table td + td { text-align: right; }
+.modal .kv-table, .modal .row-actions { margin-bottom: 14px; }
+.notes-list { max-height: 160px; overflow-y: auto; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 10px; margin-bottom: 10px; background: var(--surface-alt); }
+.note-item { font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.note-item:last-child { border-bottom: none; }
+.note-item .note-date { font-size: 11px; color: var(--text-muted); display: block; margin-top: 2px; }
+.note-empty { font-size: 13px; color: var(--text-muted); padding: 6px 0; }
+.add-note-row { display: flex; gap: 8px; margin-bottom: 14px; }
+.add-note-row input { flex: 1; }
+
+/* ---------- toast ---------- */
+
+.toast-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 8px; z-index: 200; }
+.toast {
+  display: flex; align-items: center; gap: 10px;
+  min-width: 240px; max-width: 340px; padding: 12px 14px;
+  border-radius: var(--radius-sm); font-size: 13px; font-weight: 500;
+  box-shadow: var(--shadow-pop); border: 1px solid transparent;
+}
+.toast-success { background: var(--success-bg); color: var(--success); border-color: var(--success); }
+.toast-error { background: var(--danger-bg); color: var(--danger); border-color: var(--danger); }
+.toast button {
+  margin-left: auto; border: none; background: transparent;
+  height: 20px; width: 20px; padding: 0; color: inherit; opacity: 0.7;
+}
+.toast button:hover { opacity: 1; background: transparent; }
+
+/* ---------- theme toggle ---------- */
+
+.theme-toggle { display: flex; align-items: center; justify-content: space-between; }
+.switch {
+  position: relative; width: 38px; height: 22px; border-radius: 20px;
+  background: var(--border-strong); cursor: pointer; flex-shrink: 0; border: none; padding: 0;
+}
+.switch::after {
+  content: ""; position: absolute; top: 2px; left: 2px;
+  width: 18px; height: 18px; border-radius: 50%; background: var(--surface);
+  transition: transform 0.15s ease;
+}
+[data-theme="dark"] .switch { background: var(--accent); }
+[data-theme="dark"] .switch::after { transform: translateX(16px); }
+
+/* Icon standing in for the "Dark mode" text label on mobile, where
+   there's no room for the label (see .theme-toggle-label below) —
+   without it the bare switch gives no clue what it does. */
+.theme-toggle-icon { display: none; font-size: 15px; line-height: 1; }
+.theme-toggle-icon::before { content: "☀️"; }
+[data-theme="dark"] .theme-toggle-icon::before { content: "🌙"; }
+
+/* Label names whichever mode a click would switch *to*, so it flips to
+   "Light mode" once dark is already on. No media query needed: mobile
+   hides the whole label in favor of the icon above regardless of its
+   content. */
+.theme-toggle-label::before { content: "Dark mode"; }
+[data-theme="dark"] .theme-toggle-label::before { content: "Light mode"; }
+
+/* ---------- custom scrollbar ----------
+   Applied to every scrollable area (.main, .sidebar, modals, notes
+   list) so it's a thin, rounded bar that matches the theme instead
+   of the browser's default chunky one. scrollbar-width/-color is the
+   standard property (Firefox, and Chrome/Edge on newer versions); the
+   ::-webkit-scrollbar rules are the older but still necessary way to
+   reach the same result on WebKit/Blink browsers that don't support
+   it yet — both are included so every browser gets a styled bar. */
+.main, .sidebar, .modal, .notes-list {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+.main::-webkit-scrollbar, .sidebar::-webkit-scrollbar,
+.modal::-webkit-scrollbar, .notes-list::-webkit-scrollbar {
+  width: 8px;
+}
+.main::-webkit-scrollbar-track, .sidebar::-webkit-scrollbar-track,
+.modal::-webkit-scrollbar-track, .notes-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+/* Same color as the logo mark (--accent) — the previous
+   --border-strong thumb was too close to --bg's contrast to actually
+   see or grab with the mouse, so click-drag scrolling only "worked"
+   in the sense that the wheel still scrolled the (invisible) area. */
+.main::-webkit-scrollbar-thumb, .sidebar::-webkit-scrollbar-thumb,
+.modal::-webkit-scrollbar-thumb, .notes-list::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 20px;
+}
+.main::-webkit-scrollbar-thumb:hover, .sidebar::-webkit-scrollbar-thumb:hover,
+.modal::-webkit-scrollbar-thumb:hover, .notes-list::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
+
+/* ---------- utility ---------- */
+
+.text-muted { color: var(--text-muted); }
+.mt-0 { margin-top: 0; }
+.hidden { display: none !important; }
+/* narrow single-column page (profile) */
+.main-narrow { max-width: 600px; }
+
+/* ==========================================================================
+   Responsive breakpoints
+   Desktop is the default above (no media query needed) — full sidebar,
+   4-column stat/pipeline grids. Tablet and mobile below only override
+   what actually needs to change at that size, cascading on top of
+   desktop and (for mobile) on top of tablet.
+   ========================================================================== */
+
+/* ---------- tablet (≤1024px, e.g. iPad portrait/landscape) ----------
+   The sidebar stays a vertical column (same as desktop: logo at the
+   top, theme+logout pinned to the bottom via .sidebar-bottom's
+   margin-top:auto) — only the width and a couple of grids shrink.
+   The 100dvh fix on .app-shell above already applies here too, so
+   there's nothing height-related left to fix per breakpoint. */
+@media (max-width: 1024px) {
+  .sidebar { width: 180px; }
+  .main { padding: 22px; }
+  .stat-grid, .pipeline-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .client-card select.status-select { width: 110px; }
+}
+
+/* ---------- mobile (≤640px, e.g. phones in portrait) ----------
+   .app-shell switches from a row (sidebar beside content) to a
+   column (header above content). The sidebar becomes a two-row
+   header instead of a side column, sized to fit its own content
+   (flex-shrink: 0) rather than stretching — it never scrolls because
+   it isn't the flexible item; .main is (flex: 1 1 auto + its own
+   overflow-y: auto from the base rule), so only the content below
+   the header scrolls, same mechanism as desktop/tablet. */
+@media (max-width: 640px) {
+  .app-shell { flex-direction: column; }
+
+  .sidebar {
+    flex-shrink: 0;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    overflow-y: visible;
+    padding: 8px 12px;
+    gap: 10px;
+  }
+
+  /* Row 1 = logo, then (pushed to the far right by margin-left:auto)
+     theme toggle + logout. Row 2 = the nav menu, in its own
+     .sidebar-menu wrapper (see HTML). Giving that wrapper
+     flex-basis:100% forces it onto its own fresh line, since 100% of
+     the row's width can never fit next to anything else — no
+     pseudo-elements or ordering tricks needed, just one real
+     container with one property. */
+  .sidebar .logo { order: 1; padding: 4px 6px; }
+  .sidebar-bottom {
+    order: 2; margin-left: auto; flex-shrink: 0;
+    margin-top: 0; flex-direction: row; border-top: none; padding-top: 0;
+  }
+  .theme-toggle-label { display: none; } /* no room for the "Dark mode" label */
+  .theme-toggle-icon { display: inline-block; } /* icon takes its place instead */
+
+  .sidebar-menu {
+    order: 3;
+    flex-basis: 100%;
+    flex-direction: row; /* base rule has it as column, for desktop */
+    gap: 4px;
+  }
+  .sidebar-menu .nav-link { flex: 1 1 0; justify-content: center; }
+
+  .main { padding: 16px; }
+
+  .auth-card { padding: 24px 20px; }
+
+  /* search / filter chips / sort stack instead of squeezing onto one row */
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .toolbar input[type="text"] { width: 100%; }
+  .toolbar select.sort-select { width: 100%; margin-left: 0; }
+
+  /* a client-card's status-select + Edit + Delete no longer fit next to
+     the name/company text on a narrow screen, so they wrap onto their
+     own full-width row below it (flex-basis: 100% forces the wrap) */
+  .client-card { flex-wrap: wrap; }
+  .client-card .row-actions { flex-basis: 100%; flex-wrap: wrap; margin-top: 10px; }
+
+  .modal { padding: 18px; }
+  .modal-overlay { padding: 12px; }
+  .modal-row-2 { grid-template-columns: 1fr; }
+  /* the grid's own `gap: 20px` already spaces stacked items vertically
+     once there's a single column, so no extra rule is needed here */
+  .card-row { grid-template-columns: 1fr; }
+
+  /* least important column — drop it rather than truncate the name */
+  .recent-row .date { display: none; }
+
+  .toast-container { left: 12px; right: 12px; bottom: 12px; }
+  .toast { min-width: 0; max-width: none; width: 100%; }
+}

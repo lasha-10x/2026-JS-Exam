@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - 10x CRM</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <h1>Sign In</h1>
+            <p class="auth-subtitle">Access your sales pipeline dashboard</p>
+
+            <!-- Error Summary Display Box -->
+            <div id="login-error-box" class="error-summary-box">
+                <ul id="login-error-list" class="error-summary-list"></ul>
+            </div>
+
+            <form id="login-form" novalidate>
+                <!-- Login Field 1: Email -->
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="name@company.com" required>
+                </div>
+
+                <!-- Login Field 2: Password -->
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+
+            <div class="auth-footer">
+                Don't have an account? <a href="signup.html" class="auth-link">Create one</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core App Infrastructure Scripts -->
+    <script src="js/toast.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/guard.js"></script>
+    <!-- Page script to be wired next -->
+    <script src="js/login.js" defer></script>
+</body>
+</html>

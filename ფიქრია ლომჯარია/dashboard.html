@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="dashboardHeader">
+        <h1 class="tenX">10X </h1>
+        <h1 class="crm">CRM</h1>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="clients.html">Clients</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        </ul>
+        <button id="themeToggleBtn">🌙 Dark Mode</button>
+        <button id="logoutBtn"  style="padding: 0 2%;">Logout</button>
+    </header>
+    <main class="dashboardmain">
+        <div id="message"  class="upper">
+            <p id="welcomeText"></p>
+            <p id="clock"></p>
+            <p id="date"></p>
+        </div>
+        <div id="statCards" class="middle">
+            <div class="card"  id="totalClientsCard"></div>
+            <div class="card"  id="activeDealsCard"></div>
+            <div class="card"  id="wonRevenueCard"></div>
+            <div class="card"  id="newThisWeekCard"></div>
+        </div>
+        <div class="lower">
+            <div class="left">
+                <div id="pipeline"></div>
+                <div id="barChart"></div>
+            </div>
+            <div id="recentClients" class="right"></div>
+        </div>
+    </main>
+    
+
+
+    <script src="JS/data.js"></script>
+    <script src="JS/dashboard.js"></script>
+</body>
+</html>

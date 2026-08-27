@@ -1,0 +1,31 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.toast-container {
+  position: fixed;
+  bottom: $space-5;
+  right: $space-5;
+  z-index: 200;
+  @include flex($direction: column, $gap: $space-3);
+}
+
+.toast {
+  min-width: 28rem;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  color: #fff;
+  font-size: $fs-sm;
+  box-shadow: var(--shadow);
+  @include flex($justify: space-between, $align: center, $gap: $space-3);
+
+  &--success { background-color: var(--success); }
+  &--error   { background-color: var(--danger); }
+
+  &__close {
+    color: inherit;
+    font-size: $fs-base;
+    line-height: 1;
+    opacity: 0.8;
+    &:hover { opacity: 1; }
+  }
+}

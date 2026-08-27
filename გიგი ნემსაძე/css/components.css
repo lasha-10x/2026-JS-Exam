@@ -1,0 +1,1344 @@
+/* ===== Auth ======================================================= */
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 0%, var(--glow), transparent 70%),
+    var(--bg);
+}
+
+.auth-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.25rem 2rem 2rem;
+  box-shadow: var(--shadow);
+  animation: rise-in 400ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+/* Brand bar across the top edge — the 10x purple signature. */
+.auth-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--brand);
+}
+
+.auth-card h1 {
+  font-size: 1.65rem;
+  margin-bottom: 1.5rem;
+}
+
+.auth-footer {
+  margin: 1.5rem 0 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ===== Forms ====================================================== */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Themed at the element level, not via a wrapper class: a control that
+   lives outside .form-group (the in-card status select, anything added
+   later) must not fall back to the UA's white box under white text. */
+input,
+select,
+textarea {
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--text);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+/* The open dropdown list is drawn by the OS; give it the theme too. */
+option,
+optgroup {
+  background: var(--input-bg);
+  color: var(--text);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.toolbar input,
+.toolbar select {
+  width: 100%;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.form-group input.input-error,
+.form-group select.input-error,
+.form-group textarea.input-error {
+  border-color: var(--danger);
+}
+
+.field-error {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--danger);
+  min-height: 1.1em;
+}
+
+.form-error {
+  margin-bottom: 0.75rem;
+  color: var(--danger);
+  font-size: 0.875rem;
+}
+
+/* ===== Buttons ==================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: var(--bg-muted);
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: background var(--transition), border-color var(--transition),
+    color var(--transition), transform var(--transition);
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  width: 100%;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  padding: 0.8rem 1.1rem;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: var(--accent-contrast);
+  box-shadow: 0 0 24px var(--glow);
+}
+
+.btn-danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border-color: transparent;
+}
+
+.btn-danger:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border-strong);
+}
+
+.btn-sm {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+}
+
+/* ===== Toasts ===================================================== */
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: min(360px, calc(100vw - 2rem));
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+  animation: toast-in 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.toast-success {
+  border-color: var(--border);
+  border-left-color: var(--success);
+  background: var(--bg-elevated);
+  color: var(--text);
+}
+
+.toast-error {
+  border-color: var(--border);
+  border-left-color: var(--danger);
+  background: var(--bg-elevated);
+}
+
+.toast-close {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.toast-close:hover {
+  color: var(--text);
+}
+
+.toast-hiding {
+  opacity: 0;
+  transform: translateX(8px);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== App shell ================================================== */
+.app-layout {
+  display: grid;
+  grid-template-columns: 248px 1fr;
+  min-height: 100vh;
+}
+
+/* The sidebar frames the viewport, not the page: it stays put while the
+   main column scrolls, so Logout and the theme toggle are always in reach. */
+.sidebar {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--sidebar-bg);
+  color: #e8e8ef;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Sidebar is dark in both themes, so the mark stays light there. */
+.sidebar .brand-lockup,
+.sidebar .brand-lockup:hover {
+  color: #ffffff;
+  padding: 0 0.25rem;
+}
+
+.sidebar .brand-lockup .brand-suffix {
+  border-left-color: rgba(255, 255, 255, 0.24);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.sidebar-nav a {
+  position: relative;
+  color: #a0a0b2;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  transition: color var(--transition), background var(--transition);
+}
+
+.sidebar-nav a:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+/* Active state is a purple edge marker, not a rounded pill. */
+.sidebar-nav a.active {
+  background: var(--accent-soft);
+  color: #fff;
+  font-weight: 500;
+}
+
+.sidebar-nav a.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--brand);
+}
+
+/* A pass-through wrapper: the nav and the actions stay siblings of the
+   brand so each layout can place them independently — side by side in the
+   desktop rail, split between the two mobile bars. */
+.sidebar-menu {
+  display: contents;
+}
+
+.sidebar-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar-actions .btn {
+  color: #d5d5e0;
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.sidebar-actions .btn:hover {
+  color: #fff;
+  border-color: var(--brand);
+  background: var(--accent-soft);
+}
+
+.main-content {
+  padding: 2rem 2.25rem 3rem;
+  min-width: 0;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.page-header h1 {
+  margin: 0;
+}
+
+/* The per-page button slot. The mobile shell owns both viewport edges, so
+   this row — not the header bar — is where a page puts its own actions;
+   it stays a single 44px row on phones however many buttons land in it. */
+.page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ===== Badges ===================================================== */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--bg-muted);
+  border: 1px solid transparent;
+}
+
+.badge-lead {
+  background: var(--lead-bg);
+  border-color: var(--lead);
+  color: var(--lead);
+}
+
+.badge-contacted {
+  background: var(--contacted-bg);
+  border-color: var(--contacted);
+  color: var(--contacted);
+}
+
+.badge-won {
+  background: var(--won-bg);
+  border-color: var(--won);
+  color: var(--won);
+}
+
+.badge-lost {
+  background: var(--lost-bg);
+  border-color: var(--lost);
+  color: var(--lost);
+}
+
+/* ===== Modals ===================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(3px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 900;
+}
+
+.modal-backdrop.open {
+  display: flex;
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  animation: rise-in 220ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+.modal::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--brand);
+}
+
+.modal-lg {
+  max-width: 560px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.modal-close {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  line-height: 1;
+  transition: color var(--transition);
+}
+
+.modal-close:hover {
+  color: var(--danger);
+}
+
+/* ===== Client cards =============================================== */
+.client-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1rem;
+}
+
+.client-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem;
+  cursor: pointer;
+  transition: border-color var(--transition), transform var(--transition),
+    box-shadow var(--transition);
+  animation: rise-in 320ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+.client-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.client-card-top {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  margin-bottom: 0.85rem;
+}
+
+.client-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.client-avatar-fallback {
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.client-meta {
+  min-width: 0;
+}
+
+.client-meta h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.client-meta p {
+  margin: 0.2rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.83rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.client-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border);
+}
+
+.client-card-actions {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.client-card select.status-select {
+  width: auto;
+  min-width: 112px;
+  padding: 0.32rem 0.45rem;
+  font-size: 0.8rem;
+}
+
+.deal-value {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.empty-state,
+.loading-state,
+.error-state {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+.error-state {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* ===== Toolbar / chips ============================================ */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.toolbar .search-input {
+  flex: 1 1 200px;
+  min-width: 180px;
+}
+
+/* The frame adds space after the browser's native downward arrow without
+   replacing or restyling it. */
+.toolbar .sort-select-frame {
+  flex: 0 0 auto;
+  max-width: 100%;
+  padding-right: 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.toolbar .sort-select-frame:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.toolbar .sort-select {
+  width: auto;
+  max-width: 100%;
+  padding-right: 0.9rem;
+  padding-left: 0.9rem;
+  border: 0;
+  background-color: transparent;
+}
+
+.toolbar .sort-select:focus {
+  box-shadow: none;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+/* Square chips — the clearest break from the old pill look. */
+.chip {
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color var(--transition), border-color var(--transition),
+    background var(--transition);
+}
+
+.chip:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* ===== Dashboard ================================================== */
+.welcome-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.welcome-bar h1 {
+  margin: 0;
+}
+
+.welcome-bar h1 span {
+  color: var(--accent);
+}
+
+.live-clock {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.15rem;
+  overflow: hidden;
+  animation: rise-in 380ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--brand);
+  opacity: 0.75;
+}
+
+.stat-card:nth-child(1) { animation-delay: 40ms; }
+.stat-card:nth-child(2) { animation-delay: 90ms; }
+.stat-card:nth-child(3) { animation-delay: 140ms; }
+.stat-card:nth-child(4) { animation-delay: 190ms; }
+
+.stat-card .label {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card .value {
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.section-block {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.35rem 1.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.section-block h2 {
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.15rem;
+}
+
+.pipeline-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.pipeline-item {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-muted);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 0.95rem 0.75rem;
+  text-align: center;
+  transition: border-color var(--transition);
+}
+
+.pipeline-item:hover {
+  border-color: var(--border-strong);
+}
+
+.pipeline-item .count {
+  /* Markup order is label → bar → count so the bar layout reads in source
+     order on phones; the tile puts the figure back on top. */
+  order: -1;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: block;
+  line-height: 1.2;
+}
+
+.pipeline-item .label {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* The bar only carries the comparison in the stacked mobile layout —
+   as a tile, the figure already does that job. */
+.pipeline-item .bar {
+  display: none;
+  height: 8px;
+  background: var(--bg-muted);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.pipeline-item .bar-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  transition: width var(--transition);
+}
+
+/* Tint each stage with its own accent. */
+.pipeline-item:nth-child(1) .count { color: var(--lead); }
+.pipeline-item:nth-child(2) .count { color: var(--contacted); }
+.pipeline-item:nth-child(3) .count { color: var(--won); }
+.pipeline-item:nth-child(4) .count { color: var(--lost); }
+
+.pipeline-item:nth-child(1) .bar-fill { background: var(--lead); }
+.pipeline-item:nth-child(2) .bar-fill { background: var(--contacted); }
+.pipeline-item:nth-child(3) .bar-fill { background: var(--won); }
+.pipeline-item:nth-child(4) .bar-fill { background: var(--lost); }
+
+.recent-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Two columns here, three once the avatar joins in the mobile shell —
+   a hidden grid item takes no track, so the count has to match. */
+.recent-list li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.recent-list li:last-child {
+  border-bottom: none;
+}
+
+.recent-list li.recent-empty {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* The initials chip earns its width only in the narrow layout, where it
+   is the fastest way to tell five rows apart. */
+.recent-avatar {
+  display: none;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  font-weight: 600;
+}
+
+.recent-main {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 0.75rem;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.recent-name,
+.recent-company {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recent-company {
+  color: var(--text-muted);
+}
+
+.recent-side {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.recent-date {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.section-footer {
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+/* ===== Profile ==================================================== */
+.profile-grid {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 660px;
+}
+
+.profile-info {
+  display: flex;
+  gap: 1.15rem;
+  align-items: center;
+}
+
+.profile-info h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.25rem;
+}
+
+.avatar-initials {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.notes-list {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.notes-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.notes-list .note-date {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.detail-grid {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.detail-grid span {
+  color: var(--text-muted);
+}
+
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* ===== Responsive ================================================= */
+@media (max-width: 900px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stacked layout: the sidebar is a top bar, so it sticks by its own
+     height instead of filling the viewport. */
+  .sidebar {
+    height: auto;
+    overflow: visible;
+    z-index: 20;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .sidebar-nav a.active::before {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    width: auto;
+    height: 2px;
+  }
+
+  .sidebar-actions {
+    margin-top: 0;
+    margin-left: auto;
+    flex-direction: row;
+  }
+
+  .stats-row,
+  .pipeline-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Name over company instead of side by side — the row keeps its
+     avatar / detail / status rhythm, it just gets taller. */
+  .recent-main {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+}
+
+/* ---- Mobile shell --------------------------------------------------
+   Below 640px the sidebar stops being one panel and becomes two fixed
+   rails: a 52px header carrying the brand and the session actions, and a
+   64px tab bar pinned to the bottom edge, where thumbs already are. That
+   replaces the hamburger — navigation is always one tap away — and it
+   leaves the page a clean scrolling column between them. Page-specific
+   buttons go in .page-header-actions, never in the bars, so no page has
+   to negotiate for room with the shell. */
+@media (max-width: 640px) {
+  .app-layout {
+    padding-top: var(--topbar-h);
+    padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .sidebar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: var(--topbar-h);
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0.625rem;
+    padding: 0 max(0.875rem, env(safe-area-inset-right, 0px)) 0
+      max(0.875rem, env(safe-area-inset-left, 0px));
+    z-index: 30;
+  }
+
+  .sidebar .brand-lockup {
+    gap: 0.5rem;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .sidebar .logo-10x {
+    width: 58px;
+  }
+
+  .sidebar .brand-lockup .brand-suffix {
+    font-size: 0.8rem;
+    padding-left: 0.5rem;
+  }
+
+  /* The header's action rail. Extra buttons a page needs up here stay
+     44px tall and never push the brand off the row. */
+  .sidebar-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.375rem;
+    margin: 0;
+    flex: none;
+  }
+
+  .sidebar-actions .btn {
+    min-height: 44px;
+    padding: 0 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* Auto columns, so a fourth destination later needs no new CSS. */
+  .sidebar-nav {
+    position: fixed;
+    inset: auto 0 0 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    height: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: var(--sidebar-bg);
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    z-index: 30;
+  }
+
+  .sidebar-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 0;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Active tab marks its top edge — the bottom bar's answer to the
+     rail's left edge marker. */
+  .sidebar-nav a.active::before {
+    inset: 0 0 auto 0;
+    width: auto;
+    height: 2px;
+  }
+
+  .main-content {
+    padding: 0.875rem;
+  }
+
+  /* Toasts clear the header rather than covering the brand. */
+  .toast-container {
+    top: calc(var(--topbar-h) + 0.5rem);
+  }
+
+  .page-header {
+    flex-wrap: nowrap;
+    gap: 0.625rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.25rem;
+    min-width: 0;
+  }
+
+  .page-header-actions {
+    flex-wrap: nowrap;
+    gap: 0.375rem;
+    margin-left: auto;
+    flex: none;
+  }
+
+  .page-header-actions .btn {
+    min-height: 44px;
+    white-space: nowrap;
+  }
+
+  /* ---- Dashboard: everything above the fold, nothing scrolled ---- */
+  .welcome-bar {
+    gap: 0.625rem;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.45rem;
+  }
+
+  .welcome-bar h1 {
+    font-size: 1.1rem;
+  }
+
+  .live-clock {
+    font-size: 0.66rem;
+    white-space: nowrap;
+  }
+
+  .stats-row {
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .stat-card {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .stat-card .label {
+    font-size: 0.68rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-card .value {
+    font-size: 1.4rem;
+  }
+
+  .section-block {
+    padding: 0.75rem 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  /* The column already ends in the tab bar's clearance — a trailing
+     margin here is the difference between fitting the fold and not. */
+  .section-block:last-child {
+    margin-bottom: 0;
+  }
+
+  .section-block h2 {
+    font-size: 0.68rem;
+    margin-bottom: 0.625rem;
+  }
+
+  /* Four tall tiles cost more height than they are worth on a phone;
+     bars compare the stages in a quarter of the space. */
+  .pipeline-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .pipeline-item {
+    display: grid;
+    grid-template-columns: 66px 1fr 26px;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    text-align: left;
+  }
+
+  .pipeline-item .bar {
+    display: block;
+  }
+
+  .pipeline-item .label {
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+  }
+
+  .pipeline-item .count {
+    order: 0;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .recent-list li {
+    grid-template-columns: auto 1fr auto;
+    gap: 0.625rem;
+    padding: 0.25rem 0;
+  }
+
+  .recent-avatar {
+    display: grid;
+  }
+
+  .recent-name {
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+
+  .recent-company {
+    font-size: 0.68rem;
+  }
+
+  .recent-side {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+
+  .recent-date {
+    font-size: 0.66rem;
+  }
+
+  .section-footer {
+    margin-top: 0.25rem;
+  }
+
+  .section-footer a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* ---- Clients toolbar ------------------------------------------- */
+  .toolbar {
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* dvh, so the modal is not cropped by the browser's collapsing chrome. */
+  .modal-backdrop {
+    padding: 0.75rem;
+  }
+
+  .modal {
+    max-height: calc(100dvh - 1.5rem);
+  }
+}

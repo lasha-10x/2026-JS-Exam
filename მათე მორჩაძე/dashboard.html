@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard · 10X CRM</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <div id="toast-container"></div>
+
+  <div class="app-shell">
+    <!-- Sidebar: identical on dashboard/clients/profile, see P0.2 -->
+    <aside class="sidebar">
+      <div class="sidebar-logo" onclick="window.location.href='dashboard.html'">10X CRM</div>
+      <nav>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="clients.html" class="nav-link">Clients</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-user" id="nav-user-name"></div>
+        <button id="theme-toggle" class="btn btn-secondary btn-small">Toggle Theme</button>
+        <button id="logout-btn" class="btn btn-secondary btn-small">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="dashboard-header">
+        <div>
+          <h1 id="greeting">Welcome back!</h1>
+        </div>
+        <div style="text-align:right">
+          <div id="live-clock">--:--:--</div>
+          <div id="live-date"></div>
+        </div>
+      </div>
+
+      <!-- P3.2 stat cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-value" id="stat-total-clients">0</span>
+          <span class="stat-label">Total Clients</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-active-deals">0</span>
+          <span class="stat-label">Active Deals</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-won-revenue">$0</span>
+          <span class="stat-label">Won Revenue</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-new-week">0</span>
+          <span class="stat-label">New This Week</span>
+        </div>
+      </div>
+
+      <!-- P3.3 pipeline overview -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Pipeline Overview</h2>
+        </div>
+        <div class="pipeline-overview" id="pipeline-overview"></div>
+      </div>
+
+      <!-- P3.4 recent clients -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Recent Clients</h2>
+          <a href="clients.html">View all clients &rarr;</a>
+        </div>
+        <div id="recent-clients-list"></div>
+      </div>
+    </main>
+  </div>
+
+
+  <script src="JS/guard.js"></script>
+  <script>requireAuth();</script>
+  <script src="JS/toast.js"></script>
+  <script src="JS/storage.js"></script>
+
+  <script src="JS/auth.js"></script>
+  <script src="JS/dashboard.js"></script>
+  <script src="JS/clients.js"></script>
+  <script src="JS/profile.js"></script>
+  <script src="JS/nav.js"></script>
+
+</body>
+</html>

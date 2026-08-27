@@ -1,0 +1,24 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.nav {
+  @include flex($direction: column, $gap: $space-2);
+}
+
+.nav__link {
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  color: var(--text-muted);
+  font-weight: $fw-medium;
+  transition: background-color $transition, color $transition;
+
+  &:hover {
+    background-color: var(--surface-2);
+    color: var(--text);
+  }
+
+  &--active {
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+  }
+}

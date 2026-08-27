@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — 10X CRM</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/storage.js"></script>
+    <script src="js/guard.js"></script>
+    <script>runAuthGuard('protected');</script>
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- Shared navigation (P0.2) — identical on all protected pages -->
+        <aside class="sidebar">
+            <a href="dashboard.html" class="sidebar-logo" id="nav-logo"><span class="logo-dot"></span>10X CRM</a>
+            <nav class="nav-links">
+                <a href="dashboard.html" class="nav-link active">Dashboard</a>
+                <a href="clients.html" class="nav-link">Clients</a>
+                <a href="profile.html" class="nav-link">Profile</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="theme-toggle" class="btn btn-ghost btn-sm">☀️ Light</button>
+                <button id="logout-btn" class="btn btn-ghost btn-sm">Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- P3.1 — greeting + live clock -->
+            <div class="greeting-bar">
+                <h1 id="greeting-text">Welcome back!</h1>
+                <p class="live-clock" id="live-clock"></p>
+            </div>
+
+            <!-- P3.2 — four stat cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p class="stat-label">Total Clients</p>
+                    <p class="stat-value" id="stat-total">0</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Active Deals</p>
+                    <p class="stat-value" id="stat-active">0</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Won Revenue</p>
+                    <p class="stat-value" id="stat-revenue">$0</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">New This Week</p>
+                    <p class="stat-value" id="stat-new">0</p>
+                </div>
+            </div>
+
+            <!-- P3.3 — pipeline overview -->
+            <section class="panel">
+                <h2>Pipeline Overview</h2>
+                <div class="pipeline-grid">
+                    <div class="pipeline-block lead">
+                        <p class="pipe-count" id="pipe-lead">0</p>
+                        <p class="pipe-label">Lead</p>
+                    </div>
+                    <div class="pipeline-block contacted">
+                        <p class="pipe-count" id="pipe-contacted">0</p>
+                        <p class="pipe-label">Contacted</p>
+                    </div>
+                    <div class="pipeline-block won">
+                        <p class="pipe-count" id="pipe-won">0</p>
+                        <p class="pipe-label">Won</p>
+                    </div>
+                    <div class="pipeline-block lost">
+                        <p class="pipe-count" id="pipe-lost">0</p>
+                        <p class="pipe-label">Lost</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- P3.4 — recent clients -->
+            <section class="panel">
+                <h2>Recent Clients</h2>
+                <div id="recent-list"></div>
+                <a href="clients.html" class="view-all-link">View all clients →</a>
+            </section>
+        </main>
+    </div>
+    <script src="js/ui.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

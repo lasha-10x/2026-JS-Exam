@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard · 10X CRM</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+
+    <aside class="sidebar">
+      <a href="dashboard.html" class="logo">10<span class="logo__letter">x</span>-<span class="logo__accent">CRM</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="dashboard.html" class="nav__link">Dashboard</a>
+        <a href="clients.html" class="nav__link">Clients</a>
+        <a href="profile.html" class="nav__link">Profile</a>
+      </nav>
+      <div class="sidebar__footer">
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark and light theme">🌙</button>
+        <button id="logout-btn" class="btn btn--ghost" type="button">Log Out</button>
+      </div>
+    </aside>
+
+    <main class="app__main">
+
+      <!-- Greeting + live clock -->
+      <header class="dashboard__header">
+        <h1 class="page__title" id="greeting">Welcome back!</h1>
+        <p class="dashboard__date" id="clock"></p>
+      </header>
+
+      <!-- 4 stat cards -->
+      <section class="stats" aria-label="Key statistics">
+        <article class="stat-card">
+          <p class="stat-card__label">Total Clients</p>
+          <p class="stat-card__value" id="stat-total">0</p>
+        </article>
+        <article class="stat-card">
+          <p class="stat-card__label">Active Deals</p>
+          <p class="stat-card__value" id="stat-active">0</p>
+        </article>
+        <article class="stat-card">
+          <p class="stat-card__label">Won Revenue</p>
+          <p class="stat-card__value" id="stat-revenue">$0</p>
+        </article>
+        <article class="stat-card">
+          <p class="stat-card__label">New This Week</p>
+          <p class="stat-card__value" id="stat-new">0</p>
+        </article>
+      </section>
+
+      <!-- Pipeline overview -->
+      <section class="panel" aria-label="Pipeline overview">
+        <h2 class="panel__title">Pipeline Overview</h2>
+        <div class="pipeline">
+          <div class="pipeline__item"><span class="badge badge--lead">Lead</span><span class="pipeline__count" id="pipe-lead">0</span></div>
+          <div class="pipeline__item"><span class="badge badge--contacted">Contacted</span><span class="pipeline__count" id="pipe-contacted">0</span></div>
+          <div class="pipeline__item"><span class="badge badge--won">Won</span><span class="pipeline__count" id="pipe-won">0</span></div>
+          <div class="pipeline__item"><span class="badge badge--lost">Lost</span><span class="pipeline__count" id="pipe-lost">0</span></div>
+        </div>
+      </section>
+
+      <!-- Recent clients -->
+      <section class="panel" aria-label="Recent clients">
+        <div class="panel__head">
+          <h2 class="panel__title">Recent Clients</h2>
+          <a href="clients.html" class="link">View all clients →</a>
+        </div>
+        <ul id="recent-list" class="recent"></ul>
+      </section>
+
+    </main>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Page Information -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>10X CRM - Sign Up</title>
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <!-- Sign Up Page -->
+    <main class="auth-page">
+
+        <section class="auth-card signup-card">
+
+            <h1>Create your account</h1>
+
+            <!-- Sign Up Form -->
+            <form id="signup-form" novalidate>
+
+                <div class="form-group">
+
+                    <label for="full-name">
+                        Full Name
+                    </label>
+
+                    <input type="text" id="full-name" name="fullName" placeholder="Enter your full name"
+                        autocomplete="name">
+
+                    <p class="field-error" id="full-name-error"></p>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email">
+
+                    <p class="field-error" id="email-error"></p>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="company">
+                        Company
+                    </label>
+
+                    <input type="text" id="company" name="company" placeholder="Company (optional)"
+                        autocomplete="organization">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input type="password" id="password" name="password" placeholder="Enter your password"
+                            autocomplete="new-password">
+
+                        <button type="button" class="password-toggle" data-target="password" aria-label="Show password">
+                            👁
+                        </button>
+
+                    </div>
+
+                    <p class="field-error" id="password-error"></p>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="confirm-password">
+                        Confirm Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input type="password" id="confirm-password" name="confirmPassword"
+                            placeholder="Confirm your password" autocomplete="new-password">
+
+                        <button type="button" class="password-toggle" data-target="confirm-password"
+                            aria-label="Show password">
+                            👁
+                        </button>
+
+                    </div>
+
+                    <p class="field-error" id="confirm-password-error"></p>
+
+                </div>
+
+                <button type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+            <!-- Login Link -->
+            <p class="auth-link">
+
+                Already have an account?
+
+                <a href="index.html">
+                    Log in
+                </a>
+
+            </p>
+
+        </section>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite">
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/guard.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/signup.js"></script>
+
+</body>
+
+</html>

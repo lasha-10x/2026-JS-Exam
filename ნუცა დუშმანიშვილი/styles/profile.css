@@ -1,0 +1,22 @@
+/* Profile Page */
+
+.profile-grid { 
+    display:grid; 
+    grid-template-columns:repeat(2,minmax(0,1fr)); 
+    gap:24px; 
+}
+
+.profile-summary { text-align:center; }
+
+
+.profile-summary .avatar { 
+    width:72px; 
+    height:72px; 
+    margin:0 auto 16px; 
+    font-size:24px; 
+}
+
+
+.danger-zone { border-color:#FCA5A5; }
+
+

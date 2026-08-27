@@ -1,0 +1,564 @@
+@use "../abstract/variables" as v;
+@use "sass:map";
+
+.clients-container {
+    width: 100%;
+    max-width: 120rem;
+    margin: 0 auto;
+
+}
+
+.clients-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem;
+}
+
+.clients-title {
+    font-size: map.get(v.$font-size, subtitle);
+    font-weight: map.get(v.$font-weight, bold);
+    color: var(--text-primary);
+}
+
+.add-client-btn {
+    background-color: var(--button-primary);
+    color: #ffffff;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: map.get(v.$font-size, subtitle);
+    font-weight: map.get(v.$font-weight, semibold);
+    border-radius: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+        &:hover {
+            background-color: color-mix(in srgb, var(--button-primary) 85%, var(--bg-main) 15%);
+        }
+}
+
+
+
+.filters-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 1.2rem;
+    padding: 1.6rem 2rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.filter-chips {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.chip {
+    background-color: var(--inactive);
+    color: var(--text-primary);
+    border: none;
+    padding: 0.8rem 1.6rem;
+    font-size: map.get(v.$font-size, subtitle);
+    font-weight: map.get(v.$font-weight, medium);
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+        &:hover {
+            background-color: var(--border-color);
+    }
+}
+
+.chip.active {
+    background-color: var(--active);
+    color: #ffffff;
+}
+
+.sort-box select {
+    padding: 1rem 1.4rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.8rem;
+    font-size: map.get(v.$font-size, subtitle);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    outline: none;
+    cursor: pointer;
+}
+
+.sort-box select:focus {
+    border-color: var(--button-primary);
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.modal-content {
+    background-color: var(--bg-main);
+    padding: 2.4rem;
+    border-radius: 0.8rem;
+    width: 100%;
+    max-width: 50rem;
+    box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+        h2 {
+            font-size: map.get(v.$font-size, heading);
+            font-weight: map.get(v.$font-weight, semibold);
+            color: var(--text-primary);
+            margin: 0;
+        }
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: map.get(v.$font-size, paragraph);
+    font-weight: map.get(v.$font-weight, medium);
+    cursor: pointer;
+    color: var(--text-primary);
+     &:hover {
+        color: var(--text-primary);
+     }
+}
+
+.form-row {
+    display: flex;
+    gap: 1.6rem;
+    margin-bottom: 1.6rem;
+    }
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: map.get(v.$font-size, subtitle);
+    font-weight: map.get(v.$font-weight, medium);
+    color: var(--text-primary);
+    margin-bottom: 0.6rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 1rem;
+    font-size: map.get(v.$font-size, paragraph);
+    border: 0.1rem solid var(--border-color);
+    border-radius: 0.6rem;
+    outline: none;
+    background-color: var(--bg-input);
+    color: var(--text-primary) ;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--button-primary);
+    background-color: var(--bg-main);
+}
+
+.save-client-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background-color: var(--button-primary);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 0.6rem;
+    font-size: map.get(v.$font-size, paragraph);
+    font-weight: map.get(v.$font-weight, semibold);
+    cursor: pointer;
+    margin-top: 0.8rem;
+        &:hover {
+            opacity: 0.9;
+        }
+}
+
+
+.toast-message {
+    width: auto;
+    height: auto;
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    background-color: var(--success);
+    color: var(--text-primary);
+    padding: 2rem 2rem;
+    border-radius: 0.375rem;
+    z-index: 1;
+    font-size: map.get(v.$font-size,small-heading);
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.details-modal-content {
+    background-color: var(--bg-main);
+    padding: 3rem;
+    border-radius: 1.2rem;
+    border: 2px solid var(--border-color);
+    width: 100%;
+    max-width: 85rem;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    gap: 4rem;
+    position: relative;
+    color: var(--text-primary);
+
+    .details-left {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+
+        h2 {
+            font-size: map.get(v.$font-size, heading);
+            font-weight: map.get(v.$font-weight, semibold);
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        p {
+            font-size: map.get(v.$font-size, paragraph);
+            font-weight: map.get(v.$font-weight, semibold);
+            margin: 0;
+            color: var(--text-secondary);
+
+            span {
+                color: var(--text-primary);
+                font-weight: 400;
+            }
+        }
+    }
+
+    .details-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1.6rem;
+
+        h3 {
+            font-size: map.get(v.$font-size, heading);
+            font-weight: map.get(v.$font-weight, semibold);
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        textarea {
+            width: 100%;
+            height: 11rem;
+            padding: 1.2rem;
+            background-color: var(--bg-input);
+            border: 0.1rem solid var(--border-color);
+            border-radius: 0.8rem;
+            color: var(--text-primary);
+            outline: none;
+            resize: none;
+            font-size: map.get(v.$font-size, paragraph);
+            font-weight: map.get(v.$font-weight, semibold);
+
+            &::placeholder {
+                color: var(--text-secondary);
+            }
+        }
+
+        .actions-row {
+            display: flex;
+            gap: 1.2rem;
+
+            button {
+                padding: 1rem 2rem;
+                border-radius: 0.6rem;
+                border: none;
+                cursor: pointer;
+                font-size: map.get(v.$font-size, paragraph);
+                font-weight: map.get(v.$font-weight, semibold);
+                transition: opacity 0.2s;
+
+                &:hover {
+                    opacity: 0.9;
+                }
+            }
+
+            .save-note-btn {
+                background-color: var(--button-primary);
+                color: var(--text-primary);
+            }
+
+            .reminder-btn {
+                background-color: transparent;
+                border: 0.1rem solid var(--border-color);
+                color: var(--text-primary);
+            }
+        }
+
+        .notes-list {
+            max-height: 16rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding-right: 0.4rem;
+
+            .note-item {
+                background-color: var(--bg-input);
+                padding: 1.2rem;
+                border-radius: 0.8rem;
+                border: 0.1rem solid var(--border-color);
+
+                .note-date {
+                    font-size: map.get(v.$font-size, subtitle);
+                    font-weight: map.get(v.$font-weight, semibold);
+                    color: var(--text-secondary);
+                    margin-bottom: 0.4rem;
+                }
+
+                .note-text {
+                    font-size: map.get(v.$font-size, paragraph);
+                    font-weight: map.get(v.$font-weight, semibold);
+                    color: var(--text-primary);
+                    margin: 0;
+                    word-break: break-word;
+                }
+            }
+        }
+    }
+
+    .close-modal-x {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        font-size: 2.2rem;
+        cursor: pointer;
+        transition: color 0.2s;
+
+        &:hover {
+            color: var(--text-primary);
+        }
+    }
+}
+
+.toast-message.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.clients-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+
+    th, td {
+        &:nth-child(1) {
+            width: 55%;
+        }
+        &:nth-child(2) {
+            width: 25%;
+        }
+        &:nth-child(3) {
+            width: 20%;
+            text-align: right;
+        }
+    }
+}
+
+.clients-table thead tr {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+
+}
+
+.clients-table thead th {
+    font-size: map.get(v.$font-size, subtitle);
+    font-weight: map.get(v.$font-weight, semibold);
+    color: var(--text-secondary);
+    padding: 0 1.6rem 0.8rem 1.6rem;
+    border: none;
+}
+
+.clients-table tr {
+    background-color:var(--clients-tr);
+    border: 1px dashed var(--button-secondary);
+    border-radius: 1.2rem;
+    transition: all 0.2s ease;
+    &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border-color: var(--inactive);
+    }
+}
+
+.clients-table td {
+    padding: 1.6rem;
+    vertical-align: middle;
+    
+    &:first-child {
+        border-top-left-radius: 1.2rem;
+        border-bottom-left-radius: 1.2rem;
+    }
+
+    &:last-child {
+        border-top-right-radius: 1.2rem;
+        border-bottom-right-radius: 1.2rem;
+    }
+}
+
+.client-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+}
+
+.client-avatar {
+    width: 4.8rem;
+    height: 4.8rem;
+    background-color:#0ea5e9;
+    color: var(--active);
+    font-weight: map.get(v.$font-weight, bold);
+    font-size: map.get(v.$font-size, paragraph);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.client-details-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.client-name {
+    font-size: map.get(v.$font-size, paragraph);
+    font-weight: map.get(v.$font-weight, bold);
+    color: var(--text-primary);
+}
+
+.client-subtext {
+    font-size: map.get(v.$font-size, caption);
+    color: var(--text-secondary);
+}
+
+.client-deal {
+    font-size: map.get(v.$font-size, caption);
+    font-weight: map.get(v.$font-weight, bold);
+    color: var(--success);
+    margin-top: 0.2rem;
+}
+
+.table-status-select {
+    padding: 0.8rem 1.6rem;
+    border: 1px solid var(--button-secondary);
+    border-radius: 2rem;
+    background-color: var(--button-secondary);
+    color: var(--text-primary);
+    font-size: map.get(v.$font-size, caption);
+    font-weight: map.get(v.$font-weight, medium);
+    cursor: pointer;
+    outline: none;
+}
+
+.table-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.6rem;
+}
+
+.delete-btn {
+    background-color: var(--error);
+    color: #ffffff;
+    border: 1px solid var(--error);
+    padding: 0.8rem 1.6rem;
+    border-radius: 0.8rem;
+    font-weight: map.get(v.$font-weight, semibold);
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
+.details-btn {
+    background-color: var(--button-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--button-secondary);
+    padding: 0.8rem 1.6rem;
+    border-radius: 0.8rem;
+    font-weight: map.get(v.$font-weight, semibold);
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+.empty-message {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 2rem;
+    font-size: map.get(v.$font-size, paragraph);
+}
+
+@media (max-width: 1200px) {
+    .details-modal-content {
+        flex-direction: column;
+        gap: 2rem;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+
+    .filters-panel {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 700px) {
+    .clients-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        margin: 1rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .modal-content {
+        padding: 1.6rem;
+    }
+
+    .details-modal-content {
+        padding: 2rem;
+    }
+
+    .client-info-cell {
+        gap: 0.8rem;
+    }
+}

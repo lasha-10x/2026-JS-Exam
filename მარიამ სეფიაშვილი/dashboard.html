@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Dashboard — 10X CRM</title>
+<script>try{document.documentElement.setAttribute('data-theme', localStorage.getItem('crm_theme') || 'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}</script>
+<link rel="stylesheet" href="css/styles.css?v=2">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <main class="main">
+      <div class="page-head">
+        <div>
+          <h1 id="greeting">Welcome back!</h1>
+          <p data-i18n="dashboard.subtitle">Here's where the pipeline stands right now.</p>
+        </div>
+        <div class="clock">
+          <strong id="clock-time">--:--:--</strong>
+          <span id="clock-date">-- --- ----</span>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card c-total"><span class="bar"></span>
+          <div class="label" data-i18n="stat.totalClients">Total Clients</div>
+          <div class="value" id="stat-total">—</div>
+        </div>
+        <div class="stat-card c-active"><span class="bar"></span>
+          <div class="label" data-i18n="stat.activeDeals">Active Deals</div>
+          <div class="value" id="stat-active">—</div>
+        </div>
+        <div class="stat-card c-won"><span class="bar"></span>
+          <div class="label" data-i18n="stat.wonRevenue">Won Revenue</div>
+          <div class="value" id="stat-revenue">—</div>
+        </div>
+        <div class="stat-card c-new"><span class="bar"></span>
+          <div class="label" data-i18n="stat.newThisWeek">New This Week</div>
+          <div class="value" id="stat-new">—</div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="card">
+          <h2 data-i18n="card.pipelineOverview">Pipeline Overview</h2>
+          <div class="pipeline-row" id="pipeline-overview"></div>
+          <div class="pipeline-donut" id="pipeline-donut"></div>
+        </div>
+
+        <div class="card">
+          <h2 data-i18n="card.recentClients">Recent Clients</h2>
+          <div class="recent-list" id="recent-clients"></div>
+          <a class="link-more" href="clients.html" data-i18n="link.viewAllClients">View all clients &rarr;</a>
+        </div>
+      </div>
+
+      <div class="card mt-16">
+        <div class="chip-row chip-row-center" id="activity-tabs">
+          <button class="chip active" data-tab="notes" type="button" data-i18n="notes.title">Notes</button>
+          <button class="chip" data-tab="calls" type="button" data-i18n="card.activityCalls">Calls</button>
+          <button class="chip" data-tab="deals" type="button" data-i18n="card.topDeals">Top Deals</button>
+        </div>
+        <div class="recent-list tab-panel mt-16" id="activity-notes" data-tab-panel="notes"></div>
+        <div class="recent-list tab-panel mt-16 hidden" id="activity-calls" data-tab-panel="calls"></div>
+        <div class="recent-list tab-panel mt-16 hidden" id="top-deals" data-tab-panel="deals"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Client details modal (shared with clients.html) -->
+  <div class="modal-backdrop" id="detail-modal-backdrop">
+    <div class="modal" id="detail-modal-content"></div>
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/client-detail.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

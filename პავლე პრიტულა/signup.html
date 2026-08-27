@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- Public registration page. New browser-only users are saved to localStorage. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up | 10X CRM</title>
+    <style>html { visibility: hidden; }</style>
+    <script>try { if (JSON.parse(localStorage.getItem("crm_theme") || '"dark"') === "dark") document.documentElement.classList.add("theme-dark"); } catch { document.documentElement.classList.add("theme-dark"); }</script>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body class="auth-page">
+    <main class="auth-card">
+      <a class="brand" href="index.html" aria-label="10X CRM home">10X CRM</a>
+      <h1>Create your account</h1>
+      <p>Start managing your client relationships.</p>
+      <form class="auth-form" id="signup-form" novalidate>
+        <div class="form-field"><label for="full-name">Full Name</label><input id="full-name" name="fullName" type="text" autocomplete="name" /><span class="field-error" id="full-name-error"></span></div>
+        <div class="form-field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" /><span class="field-error" id="email-error"></span></div>
+        <div class="form-field"><label for="company">Company <span>(optional)</span></label><input id="company" name="company" type="text" autocomplete="organization" placeholder="Company (optional)" /><span class="field-error" id="company-error"></span></div>
+        <div class="form-field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="new-password" aria-describedby="password-strength-text password-error" /><div class="password-strength" id="password-strength" role="meter" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><div class="password-strength-track"><span id="password-strength-bar"></span></div><div class="password-strength-copy"><span data-i18n="passwordStrength">Password strength</span><strong id="password-strength-text" data-i18n="passwordStrengthEmpty">Enter a password</strong></div></div><span class="password-hint" data-i18n="passwordStrengthHint">Use 8+ characters with uppercase, lowercase, a number, and a symbol.</span><span class="field-error" id="password-error"></span></div>
+        <div class="form-field"><label for="confirm-password">Confirm Password</label><input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" /><span class="field-error" id="confirm-password-error"></span></div>
+        <button class="button button-primary" type="submit">Create Account</button>
+      </form>
+      <p class="auth-footer">Already have an account? <a href="index.html">Log in</a></p>
+    </main>
+    <script type="module" src="js/pages/signup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up — 10X CRM</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <h1 class="auth-card__title">Create your account</h1>
+
+      <form id="signup-form" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="fullName" autocomplete="name">
+          <span class="form-error" data-error="fullName"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" id="email" name="email" autocomplete="email">
+          <span class="form-error" data-error="email"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" placeholder="Company (optional)" autocomplete="organization">
+          <span class="form-error" data-error="company"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="new-password">
+          <span class="form-error" data-error="password"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password">
+          <span class="form-error" data-error="confirmPassword"></span>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full">Create Account</button>
+      </form>
+
+      <p class="auth-card__footer">
+        Already have an account? <a href="index.html">Log in</a>
+      </p>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

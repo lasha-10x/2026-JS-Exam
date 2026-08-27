@@ -1,0 +1,227 @@
+<!-- profile.html -->
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile · 10x CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap"
+   rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/auth.js"></script>
+  <script>
+   requireAuth();
+  </script>
+ </head>
+ <body>
+  <div id="toast-holder"></div>
+
+  <div class="app">
+   <aside class="sidebar">
+    <div class="brand">
+     <div class="brand-mark">10x</div>
+     <div class="brand-name">10x<span>CRM</span></div>
+    </div>
+    <nav class="nav">
+     <a class="nav-item" href="dashboard.html"
+      ><span class="ic">D</span>Dashboard</a
+     >
+     <a class="nav-item" href="clients.html"
+      ><span class="ic">C</span>Clients</a
+     >
+     <a class="nav-item active" href="profile.html"
+      ><span class="ic">P</span>Profile</a
+     >
+    </nav>
+    <div class="sidebar-foot">
+     <button class="logout-btn" onclick="handleLogout()">Log out</button>
+    </div>
+   </aside>
+
+   <main class="main">
+    <header class="topbar">
+     <div>
+      <div class="page-title">Profile</div>
+      <div class="page-sub">Your account</div>
+     </div>
+     <div class="top-actions">
+      <button
+       class="theme-toggle"
+       id="theme-toggle-btn"
+       onclick="toggleTheme()"
+      >
+       🌙
+      </button>
+      <div class="avatar" id="topbar-avatar">–</div>
+     </div>
+    </header>
+
+    <div class="content">
+     <!-- Informational Profile Header -->
+     <div class="profile-head card">
+      <div class="p-avatar" id="p-avatar">NA</div>
+      <div style="display: flex; flex-direction: column; gap: 4px">
+       <div class="p-name" id="p-name">Nora Ashortia</div>
+       <div class="p-info-details">
+        ✉️ Connection:
+        <span id="p-meta-email">demo@test.com</span>
+        | 🏛️ Division:
+        <span id="p-meta-division">10x</span>
+       </div>
+       <div class="p-info-inducted">
+        Registered: <span id="p-meta-date">7/20/2026</span>
+       </div>
+      </div>
+     </div>
+
+     <div class="profile-layout">
+      <div class="profile-col-main">
+       <!-- Details Card with Edit Option -->
+       <div class="card">
+        <div class="sec-title">
+         <span>Details</span>
+         <button type="button" id="editProfileBtn" class="btn ghost">
+          Edit Profile
+         </button>
+        </div>
+
+        <!-- View Mode -->
+        <div id="profileViewMode">
+         <div class="profile-grid">
+          <div class="field">
+           <label>Email</label>
+           <div class="val" id="p-email">–</div>
+          </div>
+          <div class="field">
+           <label>Company / Store</label>
+           <div class="val" id="p-company">–</div>
+          </div>
+          <div class="field">
+           <label>Signed in since</label>
+           <div class="val" id="p-joined">–</div>
+          </div>
+         </div>
+        </div>
+
+        <!-- Edit Form Mode (Hidden by default) -->
+        <form id="profileEditForm">
+         <div style="display: flex; flex-direction: column; gap: 10px">
+          <div>
+           <label class="f">Name</label>
+           <input
+            type="text"
+            id="editNameInput"
+            class="f-input"
+            required
+            style="
+             width: 100%;
+             padding: 8px;
+             border-radius: 6px;
+             border: 1px solid var(--line);
+             background: var(--panel);
+             color: var(--ink);
+            "
+           />
+          </div>
+          <div>
+           <label class="f">Email</label>
+           <input
+            type="email"
+            id="editEmailInput"
+            class="f-input"
+            required
+            style="
+             width: 100%;
+             padding: 8px;
+             border-radius: 6px;
+             border: 1px solid var(--line);
+             background: var(--panel);
+             color: var(--ink);
+            "
+           />
+          </div>
+          <div>
+           <label class="f">Company / Store</label>
+           <input
+            type="text"
+            id="editCompanyInput"
+            class="f-input"
+            style="
+             width: 100%;
+             padding: 8px;
+             border-radius: 6px;
+             border: 1px solid var(--line);
+             background: var(--panel);
+             color: var(--ink);
+            "
+           />
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 4px">
+           <button type="submit" class="btn" style="padding: 6px 14px">
+            Save Changes
+           </button>
+           <button
+            type="button"
+            id="cancelEditBtn"
+            class="btn ghost"
+            style="padding: 6px 14px"
+           >
+            Cancel
+           </button>
+          </div>
+         </div>
+        </form>
+       </div>
+
+       <div class="card">
+        <div class="sec-title">Danger Zone</div>
+        <p style="font-size: 13px; color: var(--muted); margin-bottom: 12px">
+         Clear active clients cache and restore application state.
+        </p>
+        <button type="button" class="btn ghost" id="resetDataBtn">
+         Reset Operational Data
+        </button>
+       </div>
+      </div>
+
+      <!-- Change Password -->
+      <div class="profile-col-side">
+       <div class="card">
+        <div class="sec-title">Change Password</div>
+        <form id="changePasswordForm">
+         <label class="f">Current Password</label>
+         <input type="password" id="currPass" placeholder="••••••••" required />
+         <div class="field-error show" id="currPassError"></div>
+
+         <label class="f">New Password</label>
+         <input type="password" id="newPass" placeholder="••••••••" required />
+         <div class="field-error show" id="newPassError"></div>
+
+         <label class="f">Confirm New Password</label>
+         <input
+          type="password"
+          id="confNewPass"
+          placeholder="••••••••"
+          required
+         />
+         <div class="field-error show" id="confNewPassError"></div>
+
+         <button type="submit" class="btn" style="margin-top: 8px">
+          Update Password
+         </button>
+        </form>
+       </div>
+      </div>
+     </div>
+    </div>
+   </main>
+  </div>
+
+  <script src="js/theme.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/profile.js"></script>
+ </body>
+</html>

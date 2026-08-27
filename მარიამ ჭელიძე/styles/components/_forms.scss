@@ -1,0 +1,105 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.auth-form,
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.auth-form {
+  width: 100%;
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+.auth-form__row,
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-lg;
+}
+
+.auth-form__group,
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.field--full {
+  grid-column: 1 / -1;
+}
+
+.auth-form__label,
+.field__label {
+  color: var(--color-text-secondary);
+  font-size: 1.4rem;
+  font-weight: $fw-semibold;
+}
+
+.auth-form__options,
+.auth-form__terms {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+}
+
+.auth-form__forgot {
+  color: var(--color-secondary);
+  font-size: 1.4rem;
+  font-weight: $fw-semibold;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-primary);
+  }
+}
+
+.input-error {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 0.3rem rgba(238, 92, 76, 0.14);
+}
+
+.form-error,
+.form-hint {
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+.form-error {
+  color: var(--color-danger);
+}
+
+.form-hint {
+  color: var(--color-text-muted);
+}
+
+.password-strength {
+  overflow: hidden;
+  height: 0.6rem;
+  border-radius: $radius-full;
+  background: var(--color-divider);
+}
+
+.password-strength__bar {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-warning);
+}
+
+@include media(tablet) {
+  .auth-form__row,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-form__options {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

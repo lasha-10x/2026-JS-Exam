@@ -1,0 +1,12 @@
+# Local project documentation and study materials
+/10X-CRM-Exam-PRD.docx
+/docs/
+
+# Secrets and dependencies — never commit these
+.env
+.env.local
+.vercel
+node_modules/
+
+# Local-only dev helper (Vercel runs api/ in production)
+dev-server.mjs

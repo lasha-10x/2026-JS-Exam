@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10X CRM | Profile</title>
+
+    <link rel="stylesheet" href="../css/profile.css" />
+    <link rel="stylesheet" href="../css/theme.css" />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <a class="brand" href="dashboard.html">
+        <span class="brand-mark">10X</span>
+        <span>CRM</span>
+      </a>
+
+      <nav class="main-nav">
+        <a href="../html/dashboard.html">Dashboard</a>
+        <a href="../html/clients.html">Clients</a>
+        <a href="../html/profile.html" class="active">Profile</a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+      <button id="logoutButton" class="logout-button">Log out</button>
+    </header>
+
+    <main class="profile-page">
+      <section class="profile-card">
+        <div class="profile-heading">
+          <div class="profile-avatar" id="profileAvatar">U</div>
+
+          <div>
+            <h1>Your profile</h1>
+            <p>Manage your account information</p>
+          </div>
+        </div>
+
+        <form id="profileForm" novalidate>
+          <div class="form-group">
+            <label for="profileFullName">Full Name</label>
+            <input id="profileFullName" type="text" />
+            <small id="profileFullNameError" class="error"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="profileEmail">Email</label>
+            <input id="profileEmail" type="email" readonly />
+          </div>
+
+          <div class="form-group">
+            <label for="profileCompany">Company</label>
+            <input id="profileCompany" type="text" />
+          </div>
+
+          <div class="form-group">
+            <label for="profileCreatedAt">Account created</label>
+            <input id="profileCreatedAt" type="text" readonly />
+          </div>
+
+          <button type="submit" class="save-button">Save changes</button>
+          <p id="profileSuccess" class="success"></p>
+        </form>
+        <section class="password-section">
+          <h2>Change Password</h2>
+
+          <form id="changePasswordForm" novalidate>
+            <div class="form-group">
+              <label for="currentPassword">Current Password</label>
+              <input type="password" id="currentPassword" />
+              <small class="error" id="currentPasswordError"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <input type="password" id="newPassword" />
+              <small class="error" id="newPasswordError"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmNewPassword">Confirm New Password</label>
+              <input type="password" id="confirmNewPassword" />
+              <small class="error" id="confirmNewPasswordError"></small>
+            </div>
+
+            <button type="submit" class="save-button">Change Password</button>
+            <p class="success" id="passwordSuccess"></p>
+          </form>
+        </section>
+
+        <section class="reset-section">
+          <h2>Reset CRM Data</h2>
+          <p>
+            This will remove all saved clients and restore the original client
+            data.
+          </p>
+
+          <button type="button" id="resetDataButton" class="reset-data-button">
+            Reset CRM Data
+          </button>
+        </section>
+      </section>
+    </main>
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/guard.js" defer></script>
+    <script src="../js/profile.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!-- dashboard.html -->
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard · 10x CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap"
+   rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/auth.js"></script>
+  <script>
+   requireAuth();
+  </script>
+ </head>
+ <body>
+  <div class="app">
+   <aside class="sidebar">
+    <div class="brand">
+     <div class="brand-mark">10x</div>
+     <div class="brand-name">10x<span>CRM</span></div>
+    </div>
+    <nav class="nav">
+     <a class="nav-item active" href="dashboard.html"
+      ><span class="ic">D</span>Dashboard</a
+     >
+     <a class="nav-item" href="clients.html"
+      ><span class="ic">C</span>Clients</a
+     >
+     <a class="nav-item" href="profile.html"
+      ><span class="ic">P</span>Profile</a
+     >
+    </nav>
+    <div class="sidebar-foot">
+     <button class="logout-btn" onclick="handleLogout()">Log out</button>
+    </div>
+   </aside>
+
+   <main class="main">
+    <header class="topbar">
+     <div class="topbar-title-wrap">
+      <div>
+       <div class="page-title">Dashboard</div>
+       <div class="page-sub">Welcome back, <span id="greet-name">–</span></div>
+      </div>
+      <span id="liveClock" class="clock"></span>
+     </div>
+
+     <div class="top-actions">
+      <button
+       class="theme-toggle"
+       id="theme-toggle-btn"
+       onclick="toggleTheme()"
+      >
+       🌙
+      </button>
+      <div class="avatar" id="topbar-avatar">–</div>
+     </div>
+    </header>
+
+    <div class="content">
+     <div class="stats">
+      <div class="stat a">
+       <div class="ic">$</div>
+       <div class="num" id="stat-revenue">–</div>
+       <div class="lbl">Revenue this quarter</div>
+      </div>
+      <div class="stat b">
+       <div class="ic">✓</div>
+       <div class="num" id="stat-deals">–</div>
+       <div class="lbl">Deals won</div>
+      </div>
+      <div class="stat c">
+       <div class="ic">%</div>
+       <div class="num" id="stat-active">–</div>
+       <div class="lbl">Active clients</div>
+      </div>
+      <div class="stat d">
+       <div class="ic">◎</div>
+       <div class="num" id="stat-clients">–</div>
+       <div class="lbl">Total clients</div>
+      </div>
+     </div>
+
+     <div class="board-wrap">
+      <div class="card" id="recent-activity-card">
+       <div class="sec-title">Recent activity</div>
+       <div class="loading-state">Loading activities...</div>
+      </div>
+
+      <div class="card" id="top-deals-card">
+       <div class="sec-title">Top deals</div>
+       <div class="loading-state">Loading top deals...</div>
+      </div>
+     </div>
+    </div>
+   </main>
+  </div>
+
+  <script src="js/theme.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+ </body>
+</html>

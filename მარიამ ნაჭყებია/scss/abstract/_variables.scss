@@ -1,0 +1,75 @@
+@use 'sass:map';
+
+:root {
+    --bg-main: #f8fafc;
+    --card: #e4e4e4;
+    --button-primary: #0ea5e9;
+    --error: #ef4444;
+    --success: #10b981;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --border-color: #334155;
+    --tr-color: #eaeaea;
+ 
+    --text-soft: #94a3b8;
+    --active: #334155; 
+    --inactive: #ededed;
+    --bg-secondary: var(--tr-color);
+    --primary: var(--button-primary);
+    --button-secondary: #e2e8f0;
+    --bg-input: #f9fafb;
+    --clients-tr: #fbfbfb;
+ 
+    --chart-completed: var(--success);
+    --chart-progress: var(--button-primary);
+    --chart-pending: #f59e0b;
+}
+ 
+.crm__theme {
+    --bg-main: #141519;
+    --card: #2f3a4b;
+    --button-primary: #7a808b;
+    --error: #f87171;
+    --success: #34d399;
+    --text-primary: #f8fafc;
+    --text-secondary: #cac7c7;
+    --border-color: #989b9f;
+    --tr-color: #484c54;
+ 
+    --text-soft: #7c8ba0;
+    --active: #4d4d4d;
+    --inactive: #222222;
+    --bg-secondary: var(--tr-color);
+    --primary: var(--button-primary);
+    --button-secondary: #475569;
+    --bg-input: #1e293b;
+    --clients-tr: #202227;
+
+ 
+    --chart-completed: var(--success);
+    --chart-progress: var(--button-primary);
+    --chart-pending: #fbbf24;
+}
+
+//typography
+$font-base: "Inter", sans-serif;
+$font-mono: "Roboto Mono", monospace;
+
+$font-size: (
+  heading: 2rem,
+  small-heading: 1.8rem,
+  paragraph: 1.6rem,
+  subtitle: clamp(1.162rem, 1.095rem + 0.276vw, 1.4rem),
+  caption: clamp(0.996rem, 0.938rem + 0.236vw, 1.2rem),
+);
+
+$font-weight: (
+  regular: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  black: 900,
+);
+
+//breakpoint
+$bp-desktop: 1200px;

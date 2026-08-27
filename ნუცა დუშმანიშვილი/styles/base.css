@@ -1,0 +1,253 @@
+/* Base Styles and Theme Variables */
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* =========================================================
+   COLORS
+========================================================= */
+
+:root {
+    /* Brand colors */
+    --brand-primary: #0f8b8d;
+    --brand-secondary: #00bfa6;
+    --brand-dark: #075e60;
+
+    /* Background colors */
+    --surface: #ffffff;
+    --surface-soft: #f8fafc;
+
+    /* Text colors */
+    --text-main: #172033;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+
+    /* Border color */
+    --border: #e5e7eb;
+
+    /* Status colors */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #0284c7;
+
+    /* Border radius */
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+
+    /* Shadows */
+    --shadow-card:
+        0 8px 30px rgba(15, 23, 42, 0.06);
+
+    --shadow-soft:
+        0 3px 12px rgba(15, 23, 42, 0.05);
+}
+
+/* =========================================================
+   PAGE BACKGROUND
+========================================================= */
+
+body {
+    position: relative;
+
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+
+    font-family:
+        "Inter",
+        "SF Pro Display",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: var(--text-main);
+    background-color: #087f82;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.09) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.09) 1px,
+            transparent 1px
+        ),
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(0, 255, 220, 0.8),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(0, 80, 130, 0.7),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #064f55,
+            #0d9998,
+            #7ce2d8
+        );
+
+    background-size:
+        45px 45px,
+        45px 45px,
+        100% 100%,
+        100% 100%,
+        100% 100%;
+
+    background-attachment: fixed;
+
+    animation:
+        move-grid 15s linear infinite;
+
+    transition:
+        color 300ms ease,
+        background-color 300ms ease;
+}
+
+/* =========================================================
+   SHARED ELEMENTS
+========================================================= */
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #d9ffff;
+    color: var(--brand-primary);
+
+    font-weight: 800;
+}
+
+/* =========================================================
+   BACKGROUND ANIMATION
+========================================================= */
+
+@keyframes move-grid {
+    from {
+        background-position:
+            0 0,
+            0 0,
+            0 0,
+            0 0,
+            0 0;
+    }
+
+    to {
+        background-position:
+            45px 45px,
+            45px 45px,
+            0 0,
+            0 0,
+            0 0;
+    }
+}
+
+/* =========================================================
+   DARK THEME
+========================================================= */
+
+body.dark {
+    --surface: #184440;
+    --surface-soft: #153a34;
+    --text-main: #f0fdfa;
+    --text-secondary: #9cc8be;
+    --text-muted: #6f9e94;
+    --border: #28564d;
+
+    background-color: #061f25;
+
+    background-image:
+        linear-gradient(
+            rgba(45, 212, 191, 0.1) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(45, 212, 191, 0.1) 1px,
+            transparent 1px
+        ),
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(20, 184, 166, 0.4),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(14, 116, 144, 0.5),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #04191d,
+            #0b3840,
+            #11646a
+        );
+
+    background-size:
+        45px 45px,
+        45px 45px,
+        100% 100%,
+        100% 100%,
+        100% 100%;
+}
+
+body.dark .sidebar,
+body.dark .modal-content,
+body.dark input,
+body.dark select,
+body.dark textarea {
+    background: var(--surface);
+    color: var(--text-main);
+}
+
+body.dark .avatar {
+    background: rgba(45, 212, 191, 0.15);
+    color: #5eead4;
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    body {
+        animation: none;
+    }
+}

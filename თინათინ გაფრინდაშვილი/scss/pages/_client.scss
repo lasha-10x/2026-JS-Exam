@@ -1,0 +1,219 @@
+@use "../abstracts" as *;
+
+
+.page-header{
+    @include flex-row;
+    justify-content: space-between;
+    align-items: center;
+    height:80px;
+    padding:10px;
+    button{
+        height:40px;
+        width:90px;
+        background-color: var(--color-bg2);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding:5px;
+        color:var(--color-text2);
+
+    }
+}
+button{
+    cursor: pointer;
+}
+
+.toolbar{
+    @include flex-row;
+    align-items: center;
+    justify-content: space-around;
+    background-color:var(--color-search);
+    margin:5px;
+    border-radius:5px;
+    input{
+        width:300px;
+        height:20px;
+        border-radius: 5px;
+        border: 1px solid var(--color-border);
+        padding:5px;
+        background-color: var(--color-bg);
+        
+    }
+    .filter-chips{
+        @include flex-row;
+        padding: 10px;
+        border-radius: 5px;
+        gap:5px;
+        .chip, div{
+            background-color: var(--color-bg);
+            border-radius:7px;
+            padding:5px;
+            border: 1px solid var(--color-border);
+            cursor: pointer;
+            color: var(--color-text);
+            &.active{
+            background-color: var(--color-accent);
+        }
+        }
+    }
+    select{
+        height: 30px;
+        padding:5px;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        border-radius: 5px;
+
+    }
+}
+
+.client-list{
+    @include flex-row;
+    justify-content: center;
+    flex:1;
+    flex-wrap: wrap;
+    gap:20px;
+    margin-left: 10px;
+    margin-top:15px;
+    .client-card{
+        @include flex-column;
+        justify-content: center; 
+        align-items: center;
+        background-color: var(--color-bg2);
+        color: var(--color-text2);
+        border-radius: 10px;
+        padding:5px;
+        width:250px;
+        .card-actions{
+            .status-select{
+                margin:7px;
+                padding: 2px;
+                background-color: var(--color-bg);
+                border-radius: 5px;
+                color: var(--color-text);
+            }
+            .delete-btn{
+                margin:7px;
+                padding:5px;
+                background-color: var(--color-bg);
+                border-radius: 5px;
+                border: 1px  solid var(--color-border);
+                color: var(--color-text);
+            }
+        }
+    }
+}
+
+#add-client-modal{
+    &[hidden] {
+        display: none;
+    }
+    display: flex;
+    justify-content: center;
+    top: 80px;
+    height: 500px;
+    .modal-close{
+        transform: translateX(-200px);
+        padding:7px;
+    }
+    .field-error{
+        color:red;
+    }
+}
+.modal{
+    position: fixed;
+    top: 200px;  
+    right:40px; 
+    background-color: var(--color-bg2);
+    color: var(--color-text2);
+    border-radius: 10px;
+    padding:5px;
+    width:70%;
+    .modal-backdrop {
+        position: fixed;
+        inset: 0; // shorthand for top:0; right:0; bottom:0; left:0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    .modal-content {
+        position: relative;
+        z-index: 2; // sits above the backdrop
+    }
+    .modal-close{
+        padding:5px;
+        border:none;
+        border-radius:5px;
+        color: var(--color-text);
+        background-color: var(--color-bg);
+        margin:5px;
+        cursor: pointer;
+    }
+    .details-header{
+        @include flex-row;
+        justify-content: space-around;
+        padding:10px;
+    }
+    .notes-section{
+        @include flex-row;
+        justify-content: space-around;
+        align-items: center; 
+    }
+    input, button,select{
+        background-color: var(--color-bg);
+        color:var(--color-text);
+        border:none;
+        border-radius:5px;
+        padding:5px;
+    }
+    form{
+        @include flex-column;
+        gap:5px;
+        justify-content: space-around;
+        height: 400px;
+        button{
+            height:20px;
+            padding:5px;
+            width:100px;
+        }
+        input, select{
+            width:400px;
+            padding:7px;
+        }
+        label{
+            font-size: 15px;
+            padding:0;
+        }
+        
+    }
+    animation: toast-in 0.25s ease-in;
+}
+
+
+#toast-container{
+    &:empty {
+        padding: 0;
+        background-color: transparent;
+        width: 0;
+    }
+    position:fixed;
+    top:25px;
+    left:255px;
+    padding: 10px;
+    background-color: var(--color-bg2);
+    color: var(--color-text2);
+    border: none;
+    border-radius: 5px;
+    width: 70%;
+
+    animation: toast-in 0.25s ease-in;
+}
+
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

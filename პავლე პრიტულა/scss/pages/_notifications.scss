@@ -1,0 +1,65 @@
+// Reminder-history page layout and individual notification card states.
+.notifications-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.notifications-panel { min-width: 0; margin-top: 1rem; }
+
+.notifications-list { display: grid; min-width: 0; gap: 0.8rem; }
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.notification-item > div:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.notification-item:hover { border-color: color-mix(in srgb, var(--primary) 35%, var(--border)); }
+
+.notification-item h2 { margin-top: 0.45rem; font-size: 1rem; }
+.notification-item p, .notification-item small { color: var(--text-muted); }
+.notification-item small { display: block; margin-top: 0.35rem; font-size: 0.78rem; }
+
+.notification-status {
+  display: inline-flex;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.35rem;
+  background: #e1effb;
+  color: #176b99;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.notification-status.pending { background: var(--surface-muted); color: var(--text-muted); }
+.notification-status.active { background: #e1effb; color: #176b99; }
+.notification-status.expired { background: #fff0ce; color: #9b6400; }
+.notification-status.done { background: #dcf5e7; color: #167349; }
+.notification-actions { display: grid; flex: 0 0 auto; justify-items: end; gap: 0.5rem; }
+.notification-client-link { color: var(--primary); font-weight: 700; white-space: nowrap; }
+.notification-delete-button { padding: 0; border: 0; background: transparent; color: var(--danger); font-size: 0.8rem; font-weight: 700; }
+
+.notifications-empty {
+  padding: 2rem;
+  border: 1px dashed var(--border);
+  border-radius: 0.5rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .notifications-header, .notification-item { align-items: stretch; flex-direction: column; }
+  .notifications-header .button, .notification-actions { align-self: flex-start; justify-items: start; }
+}

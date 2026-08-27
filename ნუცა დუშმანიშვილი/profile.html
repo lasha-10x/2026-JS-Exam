@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM - Profile</title>
+    <link rel="stylesheet" href="styles/main.css">
+    
+</head>
+<body class="app-page">
+    <div class="app-layout">
+        <aside id="sidebar" class="sidebar">
+                    <div class="sidebar-brand">
+                        <a href="dashboard.html">10X CRM</a>
+                    </div>
+        
+                    <nav class="sidebar-navigation" aria-label="Main navigation">
+                        <a class="nav-item" href="dashboard.html">Dashboard</a>
+                        <a class="nav-item" href="clients.html">Clients</a>
+                        <a class="nav-item active" href="profile.html" aria-current="page">Profile</a>
+                    </nav>
+        
+                    <div class="sidebar-footer">
+                        <button id="themeToggle" class="nav-button" type="button">Dark / Light</button>
+                        <button id="logoutButton" class="nav-button" type="button">Logout</button>
+                    </div>
+                </aside>
+        <main class="main-content">
+            <header class="page-header">
+                <h1>Profile</h1>
+            </header>
+
+            <div class="profile-grid">
+                <section id="profileInfoCard" class="card profile-summary">
+                    <div id="profileAvatar" class="avatar">U</div>
+                    <h2 id="profileName">User</h2>
+                    <p id="profileEmail"></p>
+                    <p id="profileCompany"></p>
+                    <p id="memberSince"></p>
+                </section>
+
+                <section class="card">
+                    <h2>Edit Profile</h2>
+                    <form id="profileForm" class="stack-form" novalidate>
+                        <div class="form-group">
+                            <label for="profileFullName">Full Name</label>
+                            <input id="profileFullName" type="text">
+                            <small id="profileFullNameError" class="form-error"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profileCompanyInput">Company</label>
+                            <input id="profileCompanyInput" type="text">
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">Save Changes</button>
+                    </form>
+                </section>
+
+                <section class="card">
+                    <h2>Change Password</h2>
+                    <form id="passwordForm" class="stack-form" novalidate>
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input id="currentPassword" type="password">
+                            <small id="currentPasswordError" class="form-error"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input id="newPassword" type="password">
+                            <small id="newPasswordError" class="form-error"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmNewPassword">Confirm New Password</label>
+                            <input id="confirmNewPassword" type="password">
+                            <small id="confirmNewPasswordError" class="form-error"></small>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">Change Password</button>
+                    </form>
+                </section>
+
+                <section class="card danger-zone">
+                    <h2>Data Management</h2>
+                    <p>Delete saved clients and reload the default clients from the API.</p>
+                    <button id="resetDataButton" class="btn btn-danger" type="button">Reset CRM Data</button>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/guard.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/profile.js"></script>
+
+
+</body>
+</html>

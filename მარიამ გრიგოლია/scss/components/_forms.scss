@@ -1,0 +1,50 @@
+@use '../abstracts/variables' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.form__label {
+  font-size: $fs-sm;
+  font-weight: $fw-medium;
+}
+
+.form__input {
+  padding: $space-3 $space-4;
+  font-size: $fs-base;
+  font-family: inherit;
+  color: var(--text);
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: $radius-md;
+  transition: border-color $transition, box-shadow $transition;
+
+  &::placeholder { color: var(--text-muted); }
+
+  &:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(114, 80, 252, 0.25);  // purple focus glow
+  }
+}
+
+// JS adds .input-error on a bad submit (matches PRD P0.4)
+.form__input.input-error {
+  border-color: var(--danger);
+}
+
+.form__error {
+  font-size: $fs-xs;
+  color: var(--danger);
+  min-height: 1.6rem;   // reserve space so the layout doesn't jump when text appears
+}
+
+.form__error--global { text-align: center; }

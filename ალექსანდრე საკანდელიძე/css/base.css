@@ -1,0 +1,376 @@
+/* ============================================================
+   10X CRM — Base layer
+   Reset, page atmosphere (grid + scanlines), typography defaults,
+   focus rings, and the reduced-motion escape hatch.
+   Depends on tokens.css — load that first.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================
+   THE ATMOSPHERE STACK
+
+   Six layers, painted back to front. Every one of them is a fixed,
+   non-interactive pseudo-element, so the whole scene stays put while
+   the page scrolls through it — which is what makes it read as depth
+   rather than as wallpaper.
+
+     html            void colour
+     html::after     blueprint grid                      z -4
+     html::before    two drifting coloured haze clouds   z -3
+     .rain           canvas atmosphere, js/atmosphere.js z -1
+     ...content...
+     body::after     the refresh sweep                   z 9998
+     body::before    scanlines + vignette                z 9999
+
+   The negative z-indexes are why `body` must have NO background
+   of its own: a background on body would paint over every layer
+   sitting behind it.
+
+   EVERY MOVING LAYER HERE ANIMATES `transform` AND NOTHING ELSE.
+
+   That is not a style preference, it is the entire performance budget
+   of the page. A transform is handed to the compositor and costs
+   essentially nothing per frame. `background-position` — which all of
+   these layers used to animate — cannot be composited, so the browser
+   repainted the full viewport sixty times a second, forever, on every
+   page. The sweep was the worst of them by a wide margin, because it
+   sits ON TOP of the interface: every one of its repaints also forced
+   every frosted panel's backdrop-filter blur underneath to be
+   recalculated. That single layer was the app's largest running cost.
+   ============================================================ */
+
+html {
+  /* Stops iOS from auto-inflating text and breaking the pixel grid. */
+  -webkit-text-size-adjust: 100%;
+
+  background-color: var(--bg-void);
+
+  transition: background-color var(--t-med);
+}
+
+/* ---- The blueprint grid -------------------------------------------
+   Two 1px gradients crossed at 32px make a graph-paper field without a
+   single image request.
+
+   It lives on a fixed pseudo-element rather than on <html> itself. As a
+   root background it needed `background-attachment: fixed` to stay
+   still while the page scrolled past — and a fixed background is
+   re-rasterised on every single scroll frame. A fixed *element* is
+   painted once and then left alone. Identical picture, no scroll cost. */
+html::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -4;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ---- Haze: two coloured clouds, slowly wandering ------------------
+   A flat page has no depth cues at all. Two large, very soft radial
+   gradients suggest volume behind the interface without ever being
+   identifiable as shapes.
+
+   Both blobs ride one layer, so they now drift together rather than
+   past each other. That is the price of moving them with a transform
+   instead of a background-position, and it is worth paying: they are
+   60vmax of blurred colour at 15% alpha, and nobody alive can tell you
+   which of the two moved. The slow scale is what keeps the pair from
+   reading as one rigid slab sliding about. */
+html::before {
+  content: "";
+  position: fixed;
+  /* Generous overscan: the layer is translated and scaled up, and this
+     is what guarantees no hard edge ever wanders into view. */
+  inset: -30%;
+  z-index: -3;
+  pointer-events: none;
+  background-image: var(--haze-a), var(--haze-b);
+  background-repeat: no-repeat;
+  background-size: 60vmax 60vmax, 52vmax 52vmax;
+  background-position: 12% 18%, 82% 72%;
+  animation: haze-drift var(--t-drift) ease-in-out infinite alternate;
+}
+
+@keyframes haze-drift {
+  to { transform: translate3d(6%, 9%, 0) scale(1.12); }
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  color: var(--text);
+
+  /* Intentionally no background — see the stack comment above. */
+  background: transparent;
+
+  -webkit-font-smoothing: antialiased;
+  transition: color var(--t-med);
+}
+
+/* ---- Digital rain -------------------------------------------------
+   Drawn by js/atmosphere.js onto a canvas, not by CSS.
+
+   This started as pure CSS — scrolling vertical gradients — and it was
+   wrong. It moved, but it had no characters in it, so it read as
+   stripes rather than as falling code. Real rain needs individual
+   glyphs that change as they fall, and CSS cannot draw text it was
+   never given. The canvas can.
+
+   All this rule does is place and size the element; everything you
+   actually see is painted in JavaScript. The opacity is set inline by
+   the script from a single named constant, so there is one place to
+   turn the whole effect up or down. */
+.rain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ---- CRT glass: scanlines + vignette -----------------------------
+   The front pane of the monitor, over everything including modals.
+
+   Two things in one fixed sheet: 1px scanlines every 3px, and a
+   vignette darkening the corners. The vignette is what makes the
+   whole page look like a curved screen rather than a flat document,
+   and it is the cheapest depth in the entire design.
+
+   This layer never moves. It is the topmost thing on the page, so a
+   repaint here is the most expensive repaint available — which is
+   exactly why the sweep that used to share it was moved out onto its
+   own transform-animated layer below.
+
+   Kept subtle on purpose — this sits on top of body text, so any
+   heavier and it stops being atmosphere and starts being noise. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+
+  background-image:
+    /* the scanlines */
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, var(--scanline-alpha)) 0px,
+      rgba(0, 0, 0, var(--scanline-alpha)) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    /* the vignette */
+    var(--vignette);
+
+  background-size: 100% 100%, 100% 100%;
+  background-repeat: repeat, no-repeat;
+}
+
+/* ---- The refresh sweep -------------------------------------------
+   A wide, very faint bright band travelling down the screen, the way
+   an old monitor's refresh pass does.
+
+   It gets a layer to itself for one reason only: so it can be moved
+   with a transform. It is 45vh tall and sits above the interface, so
+   as part of body::before it was repainting the entire viewport, and
+   every frosted panel underneath it, on every frame. As its own
+   translated layer it costs nothing. */
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 45vh;
+  z-index: 9998;
+  pointer-events: none;
+
+  background-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.035) 45%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.035) 55%,
+    transparent 100%
+  );
+
+  animation: crt-sweep var(--t-sweep) linear infinite;
+}
+
+@keyframes crt-sweep {
+  from { transform: translate3d(0, -45vh, 0); }
+  to   { transform: translate3d(0, 100vh, 0); }
+}
+
+/* ---- Typography -------------------------------------------------- */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--lh-tight);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  /* Headings are short, large and never sit on top of other text, so
+     they can carry a real bloom without hurting anything's legibility.
+     currentColor means this follows whatever colour the heading is. */
+  text-shadow: 0 0 18px currentColor;
+}
+
+h1 { font-size: var(--fs-display); }
+h2 { font-size: var(--fs-display); }
+h3 { font-size: var(--fs-display-sm); }
+
+/* Money, dates, counters and IDs use tabular figures so that columns of
+   numbers line up vertically instead of jittering. */
+.mono,
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--t-fast);
+}
+
+a:hover { color: var(--text); }
+
+/* ---- Forms inherit the app font, not the browser's --------------- */
+input, button, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; }
+
+img { max-width: 100%; display: block; }
+
+/* ---- Focus ------------------------------------------------------
+   :focus-visible only, so a mouse click does not leave a ring behind
+   but keyboard navigation always shows exactly where you are. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  /* The glow is the decoration; the solid outline above is the actual
+     accessibility guarantee. Anyone who cannot perceive the bloom, or
+     is in forced-colours mode where shadows are dropped, still gets an
+     unambiguous 2px ring. */
+  box-shadow: var(--bloom-md) var(--accent);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* ---- Utilities --------------------------------------------------- */
+
+/* Visible to screen readers, invisible on screen. Used for labels on
+   icon-only controls so they are never unlabelled. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.shell {
+  width: 100%;
+  max-width: var(--shell-max);
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-4);
+}
+
+/*
+  RONIN'S RESERVED STRIP.
+
+  He is fixed to the bottom-left corner, so without this the page simply
+  scrolls underneath him and he sits on top of whatever happens to be there —
+  a client card, a chart, the danger zone.
+
+  The fix is to make sure the page is never laid out in his corner at all.
+  Note that on a WIDE screen this is already true for free: the shell is
+  centred at a maximum of 1200px, so anything wider leaves empty margin either
+  side and he stands in it. The overlap only begins once those natural margins
+  are narrower than the strip he needs, which is at:
+
+      1200px of shell  +  170px of strip on each side  =  1540px
+
+  So below that width the shell is pushed right by the difference. Above it,
+  nothing happens, because nothing needs to. Below 720px he hides entirely
+  (see components.css) and the padding goes with him, because a phone has no
+  room to give away.
+*/
+@media (min-width: 721px) and (max-width: 1539px) {
+  .shell {
+    padding-left: calc(var(--sp-4) + var(--ronin-strip));
+  }
+}
+
+.stack   { display: grid; gap: var(--sp-4); }
+.stack-2 { display: grid; gap: var(--sp-2); }
+.stack-5 { display: grid; gap: var(--sp-5); }
+.row     { display: flex; align-items: center; gap: var(--sp-3); }
+.row-between { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
+.grow    { flex: 1; }
+
+.text-dim   { color: var(--text-dim); }
+.text-faint { color: var(--text-faint); }
+
+/* A HUD-style section label: "// CLIENTS.DB" */
+.hud-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.hud-label::before {
+  content: "// ";
+  color: var(--accent);
+}
+
+/* ---- Reduced motion ---------------------------------------------
+   Everything decorative in this design system is animation. A user who
+   has asked their OS for reduced motion gets the full product with all
+   of it switched off, including the scanline overlay's flicker. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Zeroing an animation's duration does not remove it, it freezes it
+     on its final frame. For the sweep that would leave a permanent pale
+     band lying across the middle of the interface, which is worse than
+     not having it: visual noise that no longer explains itself. So it
+     is removed outright, and the haze is flattened to a still wash.
+
+     The canvas atmosphere needs no rule here at all — setUpRain() in
+     js/atmosphere.js checks the same preference and never builds it. */
+  body::after { display: none; }
+
+  html::before { animation: none; transform: none; }
+}

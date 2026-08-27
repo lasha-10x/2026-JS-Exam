@@ -1,0 +1,80 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.client-card {
+  padding: $space-4;
+  background-color: var(--surface);
+  border: 0.1rem solid var(--border);
+  border-radius: $radius-lg;
+  box-shadow: var(--shadow);
+  cursor: pointer;                    // the whole card opens details (FULL phase)
+  transition: transform $transition, border-color $transition;
+  @include flex($direction: column, $gap: $space-3);
+
+  &:hover {
+    transform: translateY(-0.3rem);
+    border-color: var(--accent);
+  }
+}
+
+.client-card__top {
+  @include flex($align: center, $gap: $space-3);
+}
+
+.client-card__avatar {
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: $radius-full;
+  object-fit: cover;
+  background-color: var(--surface-2);
+  flex-shrink: 0;                     // never squash the avatar
+}
+
+.client-card__name {
+  font-size: $fs-base;
+  font-weight: $fw-semibold;
+}
+
+.client-card__company,
+.client-card__email {
+  font-size: $fs-sm;
+  color: var(--text-muted);
+  word-break: break-word;
+}
+
+.client-card__status {
+  padding: $space-2 $space-3;
+  border-radius: $radius-md;
+  border: 0.1rem solid var(--border);
+  background-color: var(--surface-2);
+  color: var(--text);
+  font-size: $fs-xs;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+
+
+.client-card__footer {
+  @include flex($justify: space-between, $align: center, $gap: $space-3);
+  margin-top: auto;                   // pin the footer to the bottom
+  padding-top: $space-3;
+  border-top: 0.1rem solid var(--border);
+}
+
+.client-card__deal {
+  font-weight: $fw-bold;
+}
+
+.client-card__delete {
+  font-size: $fs-lg;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity $transition, transform $transition;
+  color: $color-pink;
+
+  &:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}

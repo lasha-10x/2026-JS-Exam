@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="app-layout">
+
+    <input type="checkbox" id="burger-toggle" class="burger-toggle">
+
+    <!-- header section with logo and navigation menu -->
+
+    <header class="navbar dashboard">
+
+        <nav class="nav-menu">
+            <label for="burger-toggle" class="burger-label">
+                <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.12602 14C8.57006 15.7252 10.1362 17 12 17C13.8638 17 15.4299 15.7252 15.874 14M11.0177 2.764L4.23539 8.03912C3.78202 8.39175 3.55534 8.56806 3.39203 8.78886C3.24737 8.98444 3.1396 9.20478 3.07403 9.43905C3 9.70352 3 9.9907 3 10.5651V17.8C3 18.9201 3 19.4801 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4801 21 18.9201 21 17.8V10.5651C21 9.9907 21 9.70352 20.926 9.43905C20.8604 9.20478 20.7526 8.98444 20.608 8.78886C20.4447 8.56806 20.218 8.39175 19.7646 8.03913L12.9823 2.764C12.631 2.49075 12.4553 2.35412 12.2613 2.3016C12.0902 2.25526 11.9098 2.25526 11.7387 2.3016C11.5447 2.35412 11.369 2.49075 11.0177 2.764Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </label>
+            <div class="right-side-header">
+                <div class="search-box">
+                    <svg class="search-icon" width="20px" height="20px" viewBox="0 0 24 24" id="search" data-name="Line Color" xmlns="http://www.w3.org/2000/svg">
+                    <line id="secondary" x1="21" y1="21" x2="15" y2="15" style="fill: none; stroke: rgb(0 101 245); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                    <circle id="primary" cx="10" cy="10" r="7" style="fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></circle>
+                    </svg>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <button id="theme-switch">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M338.5-338.5Q280-397 280-480t58.5-141.5Q397-680 480-680t141.5 58.5Q680-563 680-480t-58.5 141.5Q563-280 480-280t-141.5-58.5ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M600-640 480-760l120-120 120 120-120 120Zm200 120-80-80 80-80 80 80-80 80ZM483-80q-84 0-157.5-32t-128-86.5Q143-253 111-326.5T79-484q0-146 93-257.5T409-880q-18 99 11 193.5T520-521q71 71 165.5 100T879-410q-26 144-138 237T483-80Z"/></svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-aside">
+        <div class="aside-logo">
+            <a href="index.html">
+                <h2 class="main-logo">10x CRM</h2>
+                <!-- <img src="assets/logo.png" alt="10X CRM Logo" class="logo"> -->
+            </a>
+        </div>
+        <div class="profile">
+            <img src="./assets/profile.png" alt="Profile Picture" class="profile-picture">
+            <div class="info">
+                <h2 id="profile-name">Amily Doe</h2>
+                <p id="profile-email">amily.doe@example.com</p>
+            </div>    
+        </div>
+        <nav class= "sidebar">
+            <ul class="aside-nav">
+                <li class="aside-links">
+                    <a href="dashboard.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M600-160v-280h280v280H600ZM440-520v-280h440v280H440ZM80-160v-280h440v280H80Zm0-360v-280h280v280H80Zm440-80h280v-120H520v120ZM160-240h280v-120H160v120Zm520 0h120v-120H680v120ZM160-600h120v-120H160v120Zm360 0Zm-80 240Zm240 0ZM280-600Z"/></svg>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="aside-links">
+                    <a href="clients.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm146.5-204.5Q340-521 340-580t40.5-99.5Q421-720 480-720t99.5 40.5Q620-639 620-580t-40.5 99.5Q539-440 480-440t-99.5-40.5ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm100-95.5q47-15.5 86-44.5-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160q53 0 100-15.5ZM523-537q17-17 17-43t-17-43q-17-17-43-17t-43 17q-17 17-17 43t17 43q17 17 43 17t43-17Zm-43-43Zm0 360Z"/></svg>
+                        <span>clients</span>
+                    </a>
+                </li>
+                <li class="aside-links">
+                    <a href="profile.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M160-40v-80h640v80H160Zm0-800v-80h640v80H160Zm320 400q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm70-80q45-56 109-88t141-32q77 0 141 32t109 88h70v-480H160v480h70Zm118 0h264q-29-20-62.5-30T480-280q-36 0-69.5 10T348-240Zm103.5-291.5Q440-543 440-560t11.5-28.5Q463-600 480-600t28.5 11.5Q520-577 520-560t-11.5 28.5Q497-520 480-520t-28.5-11.5ZM480-480Z"/></svg>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li class="aside-links">
+                    <a href="tasks.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M80-320v-112q0-34 17.5-62.5T144-538q62-31 126-46.5T400-600q45 0 89 7t88 22q-17 14-31 30.5T521-505q-30-8-60-11.5t-61-3.5q-56 0-111 13.5T180-466q-9 5-14.5 14t-5.5 20v32h323q-2 20-2 40t2 40H80Zm320-80ZM287-687q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47Zm169.5-56.5Q480-767 480-800t-23.5-56.5Q433-880 400-880t-56.5 23.5Q320-833 320-800t23.5 56.5Q367-720 400-720t56.5-23.5ZM400-800Zm353 113q-47 47-113 47-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T584-952q14-5 28-6.5t28-1.5q66 0 113 47t47 113q0 66-47 113Zm7 527q-83 0-141.5-58.5T560-360q0-84 58.5-142T760-560q84 0 142 58t58 142q0 83-58 141.5T760-160Zm-28-110 141-142-28-28-113 113-57-57-28 29 85 85Z"/></svg>
+                        <span>Tasks</span>
+                    </a>
+                </li>
+                <li class="aside-links">
+                    <a href="email.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M320-320h480v-120H698q-21 37-58 58.5T560-360q-42 0-79-21.5T422-440H320v120Zm240-120q34 0 57-23.5t23-56.5h160v-280H320v280h160q0 33 23.5 56.5T560-440ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-240h480-480Z"/></svg>
+                        <span>Emails</span>
+                    </a>
+                </li>
+            </ul>
+            <button class="logout-btn">
+                <a href="index.html">
+                    Log Out
+                </a>
+            </button>
+        </nav>
+
+    </aside>
+
+    <label for="burger-toggle" class="burger-overlay"></label>
+
+    <main class="dashboard-content profile-page">
+        <section class="editInformation">
+            <div class="profile edit-page">
+                <img src="./assets/profile.png" alt="Profile Picture" class="profile-picture">
+                <div class="info">
+                    <h2 id="profile-name">Amily Doe</h2>
+                    <p id="profile-email">amily.doe@example.com</p>
+                </div>    
+            </div>
+            <div class="edit-wrapper">
+                <form class="editProfile">
+                    <h3>Edit Profile</h3>
+                    <input type="text" name="fullname" placeholder="Full Name">
+                    <p id="nameError" class="error-message"></p>
+                    <input type="text" name="company" placeholder="Company">
+                    <button class="login-button" type="submit">Save Changes</button>
+                </form>
+                <form class="editPassword">
+                    <h3>Edit Password</h3>
+                    <input type="password" name="currentPassword" placeholder="Current Password">
+                    <p id="currentPasswordError" class="error-message"></p>
+                    <input type="password" name="newPassword" placeholder="New Password">
+                    <p id="newPasswordError" class="error-message"></p>
+                    <input type="password" name="confirmPassword" placeholder="Confirm New Password">
+                    <p id="confirmError" class="error-message"></p>
+                    <button class="login-button" type="submit">Change Password</button>
+                </form>
+            </div>
+            <div class="editData">
+                <h3>Data</h3>
+                <p class="reset-data-desc">This will clear your current clients list and reload fresh sample data from the API.</p>
+                <button class="danger-button reset-data-btn" type="button">Reset CRM Data</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="toastMessage" class="toast-message"></div>
+
+    <footer>
+        <p>
+        Copyright © 2026 Created By Mariamo All Rights Reserved.
+        </p>
+  </footer>
+    
+  
+  <div class="easter-egg-container">
+    <input type="checkbox" id="cat-toggle" class="cat-checkbox">
+    
+    <label for="cat-toggle" class="cat-btn" title="Click for mood">
+        <img src="./assets/lovely-cat.gif" alt="Cat Button" class="btn-avatar">
+    </label>
+
+    <div class="cat-popup">
+        <label for="cat-toggle" class="popup-overlay"></label>
+        <div class="popup-content">
+            <label for="cat-toggle" class="close-btn">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </label>
+        <h3 class="popup-title">Current Mental Status</h3>
+        <img src="./assets/funny-cat.gif" alt="Funny Cat GIF" class="popup-gif">
+        <p class="popup-text">"I've had enough of this CRM for today."</p>
+        </div>
+    </div>
+</div>
+
+    <script src="js/common.js"></script>
+    <script src="js/darkmode.js"></script>
+    <script src="./js/profile.js"></script>
+    <script src="./js/guard.js"></script>
+    <script src="./js/clients.js"></script>
+</body>
+</html>

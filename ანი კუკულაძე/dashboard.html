@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dashboard | 10X CRM</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+  <header class="main-header">
+
+    <a href="dashboard.html" class="logo">
+      <span class="logo-mark">10X</span>
+      <span>10X CRM</span>
+    </a>
+
+    <nav class="main-navigation">
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="clients.html">Clients</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+
+    <div class="header-actions">
+      <button type="button" id="themeToggle" class="theme-button">
+        🌙
+      </button>
+
+      <button type="button" id="logoutButton" class="logout-button">
+        Logout
+      </button>
+    </div>
+
+  </header>
+
+  <main class="dashboard-container">
+
+    <section class="welcome-section">
+
+      <div class="welcome-text">
+        <h1 id="welcomeMessage">Welcome back!</h1>
+        <p>Here is an overview of your clients and deals.</p>
+      </div>
+
+      <div class="date-time-box">
+        <p id="currentDate">Current date</p>
+        <strong id="currentTime">Current time</strong>
+      </div>
+
+    </section>
+
+    <section class="stats-grid">
+
+      <article class="stat-card">
+        <p>Total Clients</p>
+        <h2 id="totalClients">0</h2>
+        <span>All saved clients</span>
+      </article>
+
+      <article class="stat-card">
+        <p>Active Deals</p>
+        <h2 id="activeDeals">0</h2>
+        <span>Lead and contacted clients</span>
+      </article>
+
+      <article class="stat-card">
+        <p>Won Revenue</p>
+        <h2 id="wonRevenue">$0</h2>
+        <span>Revenue from won deals</span>
+      </article>
+
+      <article class="stat-card">
+        <p>New This Week</p>
+        <h2 id="newThisWeek">0</h2>
+        <span>Added during the last 7 days</span>
+      </article>
+
+    </section>
+
+    <section class="dashboard-content">
+
+      <div class="dashboard-panel pipeline-panel">
+
+        <div class="panel-heading">
+          <h2>Pipeline Overview</h2>
+          <p>Clients grouped by status</p>
+        </div>
+
+        <div class="pipeline-list">
+
+          <div class="pipeline-item">
+            <span>Lead</span>
+            <strong id="leadCount">0</strong>
+          </div>
+
+          <div class="pipeline-item">
+            <span>Contacted</span>
+            <strong id="contactedCount">0</strong>
+          </div>
+
+          <div class="pipeline-item">
+            <span>Won</span>
+            <strong id="wonCount">0</strong>
+          </div>
+
+          <div class="pipeline-item">
+            <span>Lost</span>
+            <strong id="lostCount">0</strong>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="dashboard-panel recent-clients-panel">
+
+        <div class="recent-header">
+          <div>
+            <h2>Recent Clients</h2>
+            <p>Your five most recently added clients</p>
+          </div>
+
+          <a href="clients.html">
+            View all clients &rarr;
+          </a>
+        </div>
+
+        <div class="clients-table">
+
+          <div class="table-header">
+            <span>Name</span>
+            <span>Company</span>
+            <span>Status</span>
+            <span>Date Added</span>
+          </div>
+
+          <div id="recentClientsList">
+            <p class="empty-message">No clients found.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="js/guard.js"></script>
+  <script>
+   checkAuth();
+  </script>
+
+  <script type="module" src="js/dashboard.js"></script>
+  <script src="js/theme.js"></script>
+</body>
+</html>

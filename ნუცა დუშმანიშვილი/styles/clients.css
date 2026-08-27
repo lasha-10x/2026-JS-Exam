@@ -1,0 +1,321 @@
+/* 10X CRM - Clients Page */
+
+/* =========================================================
+   CLIENTS
+========================================================= */
+
+
+.toolbar {
+    background:var(--surface);
+    border: 1px solid var(--border);
+    border-radius:20px;
+    padding:16px;
+    display:flex;
+    gap:16px;
+    margin-bottom:24px;
+}
+
+.filter-chips {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.filter-chip {
+    min-height: 36px;
+    padding: 7px 14px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        color 160ms ease,
+        background-color 160ms ease,
+        box-shadow 160ms ease,
+        transform 160ms ease;
+}
+
+.filter-chip:hover:not(.active) {
+    background: var(--surface);
+    color: var(--text-main);
+}
+
+.filter-chip:active {
+    transform: scale(0.97);
+}
+
+.filter-chip.active {
+    background: var(--brand-primary);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(15, 139, 141, 0.25);
+}
+
+.filter-chip:focus-visible {
+    outline: 3px solid rgba(15, 139, 141, 0.22);
+    outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+    .filter-chips {
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+    }
+
+    .filter-chips::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+.clients-grid {
+    display:grid;
+    grid-template-columns:
+    repeat(3,1fr);
+    gap:20px;
+    
+    max-height: calc(100vh - 260px);
+    min-height: 240px;
+    overflow-y: auto;
+    padding-right: 10px;
+    align-content: start;
+}
+
+.clients-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.clients-grid::-webkit-scrollbar-track {
+    background: var(--surface-soft);
+    border-radius: 10px;
+}
+
+.clients-grid::-webkit-scrollbar-thumb {
+    background: var(--brand-primary);
+    border-radius: 10px;
+}
+
+.client-card {
+    background:var(--surface);
+    border: 1px solid var(--border);
+    border-radius:20px;
+    padding:22px;
+    transition:.2s;
+}
+
+
+
+.client-card:hover {
+    transform:translateY(-3px);
+}
+
+
+
+/* =========================================================
+   CLIENT DETAILS MODAL
+========================================================= */
+
+
+textarea:focus {
+    outline:none;
+    border-color:var(--brand-primary);
+    box-shadow:0 0 0 4px rgba(15,139,141,.12);
+}
+
+.btn-secondary {
+    background:var(--surface-soft);
+    border:1px solid var(--border);
+    color:var(--text-main);
+}
+
+.view-client-details {
+    margin-top:18px;
+    margin-right:8px;
+}
+
+.client-details-content {
+    width:min(620px, calc(100% - 32px));
+}
+
+.client-details-header {
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:24px;
+}
+
+.client-details-header h2,
+.client-details-header p {
+    margin:0 0 6px;
+}
+
+.details-avatar {
+    width:64px;
+    height:64px;
+    overflow:hidden;
+    font-size:22px;
+}
+
+.details-avatar img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.client-details-list {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px;
+    margin:0 0 28px;
+}
+
+.client-details-list div {
+    padding:14px;
+    border-radius:12px;
+    background:var(--surface-soft);
+}
+
+.client-details-list dt {
+    color:var(--text-secondary);
+    font-size:12px;
+    font-weight:600;
+}
+
+.client-details-list dd {
+    margin:5px 0 0;
+    overflow-wrap:anywhere;
+    font-weight:600;
+}
+
+.client-notes-section {
+    margin-bottom:22px;
+}
+
+.note-form {
+    display:grid;
+    gap:10px;
+}
+
+.client-notes-list {
+    display:grid;
+    gap:10px;
+    margin-top:18px;
+}
+
+.client-note {
+    padding:14px;
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+#detailsStatus {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text-main);
+    font: inherit;
+    cursor: pointer;
+}
+
+#detailsStatus:focus {
+    outline: none;
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 4px rgba(15, 139, 141, 0.12);
+}
+
+.client-note p {
+    margin:0 0 8px;
+    white-space:pre-wrap;
+}
+
+.client-note time {
+    color:var(--text-secondary);
+    font-size:12px;
+}
+
+body.dark textarea {
+    background:var(--surface);
+    color:var(--text-main);
+}
+
+@media(max-width:768px) {
+    .client-details-list {
+        grid-template-columns:1fr;
+    }
+}
+
+.delete-client { margin-top:18px; }
+
+.client-avatar { overflow:hidden; }
+
+.client-avatar img { 
+    width:100%; 
+    height:100%; 
+    object-fit:cover; 
+}
+
+.client-name { margin:14px 0 6px; font-size:19px; }
+
+.client-company { 
+    margin:0 0 8px; 
+    color:var(--text-secondary); 
+}
+
+.client-email { 
+    display:block; 
+    overflow:hidden; 
+    color:var(--brand-primary); 
+    text-overflow:ellipsis; 
+    white-space:nowrap; 
+}
+
+.client-card .badge { margin-top:18px; }
+.client-deal-value { 
+    display:block; 
+    margin-top:16px; 
+    font-size:20px; 
+}
+
+.clients-state { 
+    grid-column:1 / -1; 
+    min-height:240px; 
+    display:grid; 
+    place-items:center; 
+    align-content:center; 
+    gap:12px; 
+    text-align:center; 
+    color:var(--text-secondary); 
+}
+
+.clients-state h2,.clients-state p { margin:0; }
+
+.loading-spinner { 
+    width:38px; 
+    height:38px; 
+    border:4px solid var(--border); 
+    border-top-color:var(--brand-primary); 
+    border-radius:50%; 
+    animation:client-loading .8s linear infinite; 
+}
+
+.error-state { 
+    padding:32px; 
+    border:1px solid #FCA5A5; 
+    border-radius:20px; 
+    background:rgba(239,68,68,.05); 
+}
+
+@keyframes client-loading { to { transform:rotate(360deg); } }
+

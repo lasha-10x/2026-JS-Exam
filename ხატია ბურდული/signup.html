@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM - Sign Up</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+<body>
+
+    <div class="container">
+
+        <form id="signupForm" class="card" novalidate>
+
+            <h1>Create your account</h1>
+
+            <input
+                type="text"
+                id="fullName"
+                placeholder="Full Name"
+  
+            >
+            <small id="fullNameError" class="error-message"></small>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email"
+            >
+            <small id="emailError" class="error-message"></small>
+
+
+            <input
+                type="text"
+                id="company"
+                placeholder="Company (optional)"
+            >
+            <small id="companyError" class="error-message"></small>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+            >
+
+        <small id="passwordError" class="error-message"></small>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+            >
+            <small id="confirmPasswordError" class="error-message"></small>
+
+            <button type="submit">
+                Create Account
+            </button>
+
+            <p>
+                Already have an account?
+                <a href="index.html">Log in</a>
+            </p>
+
+        </form>
+
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/js/helpers.js"></script>
+    <script src="assets/js/auth.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "10x-crm",
+  "version": "1.0.0",
+  "description": "10X CRM — Client Relationship Management System",
+  "scripts": {
+    "sass": "sass scss/main.scss css/main.css",
+    "sass:watch": "sass --watch scss/main.scss css/main.css"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0"
+  }
+}

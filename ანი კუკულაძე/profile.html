@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Profile | 10X CRM</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+
+<body>
+
+  <header class="main-header">
+
+    <a href="dashboard.html" class="logo">
+      <span class="logo-mark">10X</span>
+      <span>10X CRM</span>
+    </a>
+
+    <nav class="main-navigation">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="clients.html">Clients</a>
+      <a href="profile.html" class="active">Profile</a>
+    </nav>
+
+    <div class="header-actions">
+      <button
+        type="button"
+        id="themeToggle"
+        class="theme-button"
+        aria-label="Change theme"
+      >
+        🌙
+      </button>
+
+      <button
+        type="button"
+        id="logoutButton"
+        class="logout-button"
+      >
+        Logout
+      </button>
+    </div>
+
+  </header>
+
+  <main class="profile-page">
+
+    <section class="profile-heading">
+      <div>
+        <span class="heading-badge">ACCOUNT SETTINGS</span>
+
+        <h1>My Profile</h1>
+
+        <p>
+          Manage your personal information, password and CRM data.
+        </p>
+      </div>
+    </section>
+
+    <div class="profile-layout">
+
+      <!-- Profile overview -->
+      <aside class="profile-sidebar">
+
+        <div class="profile-cover"></div>
+
+        <div class="profile-sidebar-content">
+
+          <div class="profile-avatar">
+            <span id="profileInitials">AK</span>
+          </div>
+
+          <h2 id="profileDisplayName">
+            Ani Kukuladze
+          </h2>
+
+          <p id="profileDisplayEmail" class="profile-email">
+            ani@example.com
+          </p>
+
+          <div class="profile-status">
+            <span class="status-dot"></span>
+            Active account
+          </div>
+
+          <div class="profile-details">
+
+            <div class="detail-item">
+              <span>Company</span>
+
+              <strong id="profileDisplayCompany">
+                Not provided
+              </strong>
+            </div>
+
+            <div class="detail-item">
+              <span>Account Type</span>
+              <strong>CRM User</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+      <!-- Account settings -->
+      <div class="settings-column">
+
+        <!-- Edit profile -->
+        <section class="settings-card">
+
+          <div class="settings-card-header">
+
+            <div class="settings-icon profile-icon">
+              ✦
+            </div>
+
+            <div>
+              <h2>Personal Information</h2>
+              <p>Update the information connected to your account.</p>
+            </div>
+
+          </div>
+
+          <form id="profileForm" novalidate>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label for="profileFullName">
+                  Full Name
+                </label>
+
+                <input
+                  type="text"
+                  id="profileFullName"
+                  placeholder="Enter your full name"
+                >
+
+                <p
+                  id="profileFullNameError"
+                  class="field-error"
+                ></p>
+              </div>
+
+              <div class="form-group">
+                <label for="profileCompany">
+                  Company
+                </label>
+
+                <input
+                  type="text"
+                  id="profileCompany"
+                  placeholder="Enter your company"
+                >
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <label for="profileEmail">
+                Email Address
+              </label>
+
+              <input
+                type="email"
+                id="profileEmail"
+                placeholder="Enter your email"
+              >
+
+              <p
+                id="profileEmailError"
+                class="field-error"
+              ></p>
+            </div>
+
+            <div class="form-footer">
+              <p>Your account information is stored locally.</p>
+
+              <button
+                type="submit"
+                class="save-button"
+              >
+                Save Changes
+              </button>
+            </div>
+
+          </form>
+
+        </section>
+
+        <!-- Password -->
+        <section class="settings-card">
+
+          <div class="settings-card-header">
+
+            <div class="settings-icon password-icon">
+              ●
+            </div>
+
+            <div>
+              <h2>Password & Security</h2>
+              <p>Choose a strong password for your account.</p>
+            </div>
+
+          </div>
+
+          <form id="passwordForm" novalidate>
+
+            <div class="form-group">
+              <label for="currentPassword">
+                Current Password
+              </label>
+
+              <input
+                type="password"
+                id="currentPassword"
+                placeholder="Enter your current password"
+              >
+
+              <p
+                id="currentPasswordError"
+                class="field-error"
+              ></p>
+            </div>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label for="newPassword">
+                  New Password
+                </label>
+
+                <input
+                  type="password"
+                  id="newPassword"
+                  placeholder="Minimum 8 characters"
+                >
+
+                <p
+                  id="newPasswordError"
+                  class="field-error"
+                ></p>
+              </div>
+
+              <div class="form-group">
+                <label for="confirmNewPassword">
+                  Confirm Password
+                </label>
+
+                <input
+                  type="password"
+                  id="confirmNewPassword"
+                  placeholder="Repeat new password"
+                >
+
+                <p
+                  id="confirmNewPasswordError"
+                  class="field-error"
+                ></p>
+              </div>
+
+            </div>
+
+            <div class="form-footer">
+              <p>Use at least 8 characters.</p>
+
+              <button
+                type="submit"
+                class="password-button"
+              >
+                Update Password
+              </button>
+            </div>
+
+          </form>
+
+        </section>
+
+        <!-- Reset CRM -->
+        <section class="reset-card">
+
+          <div class="reset-card-content">
+
+            <div class="reset-icon">
+              ↻
+            </div>
+
+            <div>
+              <h2>Reset CRM Data</h2>
+
+              <p>
+                Remove saved clients and restore the initial client data.
+              </p>
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            id="resetCrmButton"
+            class="reset-button"
+          >
+            Reset Data
+          </button>
+
+        </section>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <div
+    id="toast"
+    class="toast"
+    role="status"
+  ></div>
+
+  <script src="js/guard.js"></script>
+
+  <script>
+    checkAuth();
+  </script>
+
+<script src="js/theme.js"></script>
+ <script type="module" src="js/profile.js"></script>
+</body>
+</html>

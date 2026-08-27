@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+#logout_butt {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 10px;
+  
+  &:hover {
+    background-color: #c9302c;
+  }
+}
+
+.controls {
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+
+  input, select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+
+  input {
+    flex: 1;
+  }
+}
+
+// scroll container
+.table-container {
+  width: 100%;
+  overflow-x: auto; 
+  margin-bottom: 20px;
+  -webkit-overflow-scrolling: touch; 
+  
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+}
+
+//table style
+.crm_table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  border: 1px solid #ddd;
+  min-width: 700px; 
+
+  th, td {
+    padding: 4px 6px; 
+    border: 1px solid #ddd;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    
+    // Column width
+    &:nth-child(1) { width: 70px; text-align: center; }  // Avatar
+    &:nth-child(2) { width: 100px; }                     // Name
+    &:nth-child(3) { width: 200px; }                     // Email
+    &:nth-child(4) { width: 50px; }                     // Gender
+    &:nth-child(5) { width: 50px; text-align: center; } // Actions 
+  }
+
+  tbody td {
+    &:nth-child(1), &:nth-child(5) {
+      text-align: center;
+    }
+    
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+}
+
+#dash{
+  max-width: 900px;
+}

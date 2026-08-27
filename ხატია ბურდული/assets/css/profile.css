@@ -1,0 +1,293 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+}
+
+/* Header */
+
+.header {
+    background: #233b8b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+.header h2 {
+    color: white;
+}
+
+.header nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.header a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.header a:hover {
+    text-decoration: underline;
+}
+
+.header button {
+    background: white;
+    color: #233b8b;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Profile Page */
+
+.profile-page {
+    max-width: 1000px;
+    margin: 40px auto;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* Profile Card */
+
+.profile-card {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.1);
+    text-align: center;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #233b8b;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    font-weight: bold;
+}
+
+.profile-card h2 {
+    color: #233b8b;
+    margin-bottom: 10px;
+}
+
+.profile-card p {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+/* Edit Form */
+
+.profile-form {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.1);
+}
+
+.profile-form h2 {
+    color: #233b8b;
+    margin-bottom: 25px;
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.profile-form button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 6px;
+    background: #233b8b;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.profile-form button:hover {
+    background: #1b2f73;
+}
+
+/* Error */
+
+.error-message {
+    display: block;
+    color: red;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.input-error {
+    border: 1px solid red !important;
+}
+
+/* Toast */
+
+#toast {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: #233b8b;
+    color: white;
+    padding: 14px 24px;
+    border-radius: 8px;
+    visibility: hidden;
+    opacity: 0;
+    transition: .3s;
+}
+
+
+.password-form {
+    margin-top: 30px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.1);
+}
+
+.password-form h2 {
+    color: #233b8b;
+    margin-bottom: 25px;
+}
+
+.password-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.password-form button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 6px;
+    background: #233b8b;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.password-form button:hover {
+    background: #1b2f73;
+}
+
+
+
+.danger-zone {
+    margin-top: 30px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.1);
+}
+
+.danger-zone h2 {
+    color: #d32f2f;
+    margin-bottom: 15px;
+}
+
+.danger-zone p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+#resetDataBtn {
+    background: #d32f2f;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#resetDataBtn:hover {
+    background: #b71c1c;
+}
+
+/* ===== Dark Theme ===== */
+
+body.dark {
+    background: #1f2937;
+    color: white;
+}
+
+body.dark .header {
+    background: #111827;
+}
+
+body.dark .header a {
+    color: white;
+}
+
+body.dark .profile-card,
+body.dark .profile-form,
+body.dark .password-form,
+body.dark .danger-zone {
+    background: #374151;
+    color: white;
+}
+
+body.dark .profile-card h2,
+body.dark .profile-form h2,
+body.dark .password-form h2 {
+    color: white;
+}
+
+body.dark .profile-card p,
+body.dark .danger-zone p {
+    color: #d1d5db;
+}
+
+body.dark input {
+    background: #4b5563;
+    color: white;
+    border: 1px solid #6b7280;
+}
+
+body.dark input::placeholder {
+    color: #d1d5db;
+}
+
+body.dark .avatar {
+    background: #2563eb;
+}
+
+body.dark #resetDataBtn {
+    background: #dc2626;
+}
+
+body.dark #resetDataBtn:hover {
+    background: #b91c1c;
+}

@@ -1,0 +1,2146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explore the 10X SensAI CRM dashboard with clients, tasks, reports, files, activity, communication, and MongoDB-backed data."
+    />
+    <meta property="og:title" content="10X SensAI | Vanilla JavaScript CRM Platform" />
+    <meta
+      property="og:description"
+      content="A polished CRM workspace for clients, tasks, reports, files, communication, and MongoDB-backed account data."
+    />
+    <meta property="og:image" content="https://10xsensai.xyz/assets/images/og-10x-crm.png" />
+    <meta property="og:url" content="https://10xsensai.xyz/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="10X SensAI" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="10X SensAI | Vanilla JavaScript CRM Platform" />
+    <meta
+      name="twitter:description"
+      content="A polished CRM workspace built with Vanilla JavaScript, SCSS, Express, and MongoDB."
+    />
+    <meta name="twitter:image" content="https://10xsensai.xyz/assets/images/og-10x-crm.png" />
+    <title>Dashboard | 10X CRM</title>
+    <!-- --- Early Auth Redirect --- -->
+    <script>
+      try {
+        const session = JSON.parse(localStorage.getItem("crm_session") || "null");
+        if (!session || (!session.userId && !session.email)) {
+          localStorage.removeItem("crm_session");
+          window.location.replace("./index.html");
+        }
+      } catch (error) {
+        localStorage.removeItem("crm_session");
+        window.location.replace("./index.html");
+      }
+    </script>
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon/10xsensai.svg" />
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+
+  <body class="theme-dark dashboardPage" data-theme="dark" data-page="dashboard">
+    <!-- --- Toast Notifications --- -->
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <button
+      class="sidebar-toggle js-sidebar-toggle"
+      type="button"
+      aria-label="Open navigation"
+      aria-controls="app-sidebar"
+      aria-expanded="false"
+    >
+      <img
+        src="./assets/icons/burger-menu.svg"
+        data-theme-src-dark="./assets/icons/burger-menu.svg"
+        data-theme-src-light="./assets/icons/burger-menu-light-theme.svg"
+        alt=""
+        class="sidebar-toggle__icon sidebar-toggle__icon--open"
+      />
+      <img
+        src="./assets/icons/close.svg"
+        data-theme-src-dark="./assets/icons/close.svg"
+        data-theme-src-light="./assets/icons/close-light-theme.svg"
+        alt=""
+        class="sidebar-toggle__icon sidebar-toggle__icon--close"
+      />
+    </button>
+
+    <div class="sidebar-backdrop js-sidebar-backdrop" hidden></div>
+    <div class="app-shell">
+      <!-- --- Sidebar Navigation --- -->
+      <aside class="sidebar js-sidebar" id="app-sidebar" aria-label="Primary navigation">
+        <a href="./dashboard.html" class="sidebar__brand" aria-label="10X CRM dashboard">
+          <img
+            src="./assets/icons/Logo-dark-theme.svg"
+            data-theme-src-dark="./assets/icons/Logo-dark-theme.svg"
+            data-theme-src-light="./assets/icons/Logo-light-theme.svg"
+            alt=""
+            class="sidebar__logo-image"
+          />
+          <span class="sidebar__brand-text">10X CRM</span>
+        </a>
+
+        <nav class="sidebar__navigation" aria-label="Main navigation">
+          <ul class="sidebar__menu">
+            <li class="sidebar__item">
+              <a
+                href="./dashboard.html"
+                class="sidebar__link sidebar__link--active"
+                data-nav="dashboard"
+                aria-current="page"
+              >
+                <img
+                  src="./assets/icons/dashboard.svg"
+                  data-theme-src-dark="./assets/icons/dashboard.svg"
+                  data-theme-src-light="./assets/icons/dashboard-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="sidebar__item">
+              <a href="./clients.html" class="sidebar__link" data-nav="clients">
+                <img
+                  src="./assets/icons/users.svg"
+                  data-theme-src-dark="./assets/icons/users.svg"
+                  data-theme-src-light="./assets/icons/users-light-mode.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Clients</span>
+              </a>
+            </li>
+            <li class="sidebar__item">
+              <a href="./profile.html" class="sidebar__link" data-nav="profile">
+                <img
+                  src="./assets/icons/user-profile.svg"
+                  data-theme-src-dark="./assets/icons/user-profile.svg"
+                  data-theme-src-light="./assets/icons/user-profile-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Profile</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="sidebar__divider" role="presentation"></div>
+          <p class="sidebar__group-label">Workspace</p>
+
+          <ul class="sidebar__menu sidebar__menu--secondary">
+            <li class="sidebar__item">
+              <a
+                href="./dashboard.html#sales"
+                class="sidebar__link sidebar__link--secondary"
+                data-dashboard-section-link="sales"
+              >
+                <img
+                  src="./assets/icons/goals.svg"
+                  data-theme-src-dark="./assets/icons/goals.svg"
+                  data-theme-src-light="./assets/icons/goals-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Sales</span>
+              </a>
+            </li>
+            <li class="sidebar__item">
+              <a
+                href="./dashboard.html#reports"
+                class="sidebar__link sidebar__link--secondary"
+                data-dashboard-section-link="reports"
+              >
+                <img
+                  src="./assets/icons/statistics.svg"
+                  data-theme-src-dark="./assets/icons/statistics.svg"
+                  data-theme-src-light="./assets/icons/statistics-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Reports</span>
+              </a>
+            </li>
+            <li class="sidebar__item">
+              <a
+                href="./dashboard.html#favourites"
+                class="sidebar__link sidebar__link--secondary"
+                data-dashboard-section-link="favourites"
+              >
+                <img
+                  src="./assets/icons/star.svg"
+                  data-theme-src-dark="./assets/icons/star.svg"
+                  data-theme-src-light="./assets/icons/star-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Favourites</span>
+              </a>
+            </li>
+            <li class="sidebar__item">
+              <a
+                href="./dashboard.html#activity"
+                class="sidebar__link sidebar__link--secondary"
+                data-dashboard-section-link="activity"
+              >
+                <img
+                  src="./assets/icons/clock.svg"
+                  data-theme-src-dark="./assets/icons/clock.svg"
+                  data-theme-src-light="./assets/icons/clock-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Activity</span>
+              </a>
+            </li>
+            <li class="sidebar__item">
+              <a
+                href="./dashboard.html#files"
+                class="sidebar__link sidebar__link--secondary"
+                data-dashboard-section-link="files"
+              >
+                <img
+                  src="./assets/icons/folder.svg"
+                  data-theme-src-dark="./assets/icons/folder.svg"
+                  data-theme-src-light="./assets/icons/folder-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Files</span>
+              </a>
+            </li>
+            <li class="sidebar__item sidebar__item--dropdown">
+              <details class="sidebar-dropdown">
+                <summary class="sidebar__link sidebar__link--secondary sidebar-dropdown__summary">
+                  <span class="sidebar-dropdown__label">
+                    <img
+                      src="./assets/icons/team.svg"
+                      data-theme-src-dark="./assets/icons/team.svg"
+                      data-theme-src-light="./assets/icons/team-light-mode.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Team</span>
+                  </span>
+                  <img
+                    src="./assets/icons/arrow-down.svg"
+                    data-theme-src-dark="./assets/icons/arrow-down.svg"
+                    data-theme-src-light="./assets/icons/arrow-down-light-mode.svg"
+                    data-arrow-src-down-dark="./assets/icons/arrow-down.svg"
+                    data-arrow-src-down-light="./assets/icons/arrow-down-light-mode.svg"
+                    data-arrow-src-up-dark="./assets/icons/arrow-up.svg"
+                    data-arrow-src-up-light="./assets/icons/arrow-up-light-mode.svg"
+                    alt=""
+                    class="sidebar-dropdown__arrow"
+                  />
+                </summary>
+                <div class="sidebar-dropdown__menu">
+                  <a
+                    href="./dashboard.html#users"
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    data-dashboard-section-link="users"
+                  >
+                    <img
+                      src="./assets/icons/users.svg"
+                      data-theme-src-dark="./assets/icons/users.svg"
+                      data-theme-src-light="./assets/icons/users-light-mode.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Users</span>
+                  </a>
+                  <a
+                    href="./dashboard.html#roles"
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    data-dashboard-section-link="roles"
+                  >
+                    <img
+                      src="./assets/icons/user-profile.svg"
+                      data-theme-src-dark="./assets/icons/user-profile.svg"
+                      data-theme-src-light="./assets/icons/user-profile-light-theme.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Roles</span>
+                  </a>
+                </div>
+              </details>
+            </li>
+            <li class="sidebar__item sidebar__item--dropdown">
+              <details class="sidebar-dropdown">
+                <summary class="sidebar__link sidebar__link--secondary sidebar-dropdown__summary">
+                  <span class="sidebar-dropdown__label">
+                    <img
+                      src="./assets/icons/tasks.svg"
+                      data-theme-src-dark="./assets/icons/tasks.svg"
+                      data-theme-src-light="./assets/icons/tasks-light-mode.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Tasks</span>
+                  </span>
+                  <img
+                    src="./assets/icons/arrow-down.svg"
+                    data-theme-src-dark="./assets/icons/arrow-down.svg"
+                    data-theme-src-light="./assets/icons/arrow-down-light-mode.svg"
+                    data-arrow-src-down-dark="./assets/icons/arrow-down.svg"
+                    data-arrow-src-down-light="./assets/icons/arrow-down-light-mode.svg"
+                    data-arrow-src-up-dark="./assets/icons/arrow-up.svg"
+                    data-arrow-src-up-light="./assets/icons/arrow-up-light-mode.svg"
+                    alt=""
+                    class="sidebar-dropdown__arrow"
+                  />
+                </summary>
+                <div class="sidebar-dropdown__menu">
+                  <a
+                    href="./dashboard.html#tasks"
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    data-dashboard-section-link="tasks"
+                  >
+                    <img
+                      src="./assets/icons/tasks.svg"
+                      data-theme-src-dark="./assets/icons/tasks.svg"
+                      data-theme-src-light="./assets/icons/tasks-light-mode.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Task Board</span>
+                  </a>
+                  <a
+                    href="./dashboard.html#recycle-bin"
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    data-dashboard-section-link="recycle-bin"
+                  >
+                    <img
+                      src="./assets/icons/recycle.svg"
+                      data-theme-src-dark="./assets/icons/recycle.svg"
+                      data-theme-src-light="./assets/icons/recycle-light-mode.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Recycle Bin</span>
+                  </a>
+                </div>
+              </details>
+            </li>
+            <li class="sidebar__item sidebar__item--dropdown">
+              <details class="sidebar-dropdown">
+                <summary class="sidebar__link sidebar__link--secondary sidebar-dropdown__summary">
+                  <span class="sidebar-dropdown__label">
+                    <img
+                      src="./assets/icons/chat.svg"
+                      data-theme-src-dark="./assets/icons/chat.svg"
+                      data-theme-src-light="./assets/icons/chat-light-theme.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Communications</span>
+                  </span>
+                  <img
+                    src="./assets/icons/arrow-down.svg"
+                    data-theme-src-dark="./assets/icons/arrow-down.svg"
+                    data-theme-src-light="./assets/icons/arrow-down-light-mode.svg"
+                    data-arrow-src-down-dark="./assets/icons/arrow-down.svg"
+                    data-arrow-src-down-light="./assets/icons/arrow-down-light-mode.svg"
+                    data-arrow-src-up-dark="./assets/icons/arrow-up.svg"
+                    data-arrow-src-up-light="./assets/icons/arrow-up-light-mode.svg"
+                    alt=""
+                    class="sidebar-dropdown__arrow"
+                  />
+                </summary>
+                <div class="sidebar-dropdown__menu">
+                  <button
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    type="button"
+                    data-modal-target="#communication-chat-modal"
+                    aria-haspopup="dialog"
+                    aria-controls="communication-chat-modal"
+                  >
+                    <img
+                      src="./assets/icons/chat.svg"
+                      data-theme-src-dark="./assets/icons/chat.svg"
+                      data-theme-src-light="./assets/icons/chat-light-theme.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Messenger</span>
+                  </button>
+                  <button
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    type="button"
+                    data-modal-target="#phone-modal"
+                    aria-haspopup="dialog"
+                    aria-controls="phone-modal"
+                  >
+                    <img
+                      src="./assets/icons/phone.svg"
+                      data-theme-src-dark="./assets/icons/phone.svg"
+                      data-theme-src-light="./assets/icons/phone-light-mode.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Phone</span>
+                  </button>
+                  <button
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    type="button"
+                    data-modal-target="#ai-chat-modal"
+                    aria-haspopup="dialog"
+                    aria-controls="ai-chat-modal"
+                  >
+                    <img
+                      src="./assets/icons/theme-edit.svg"
+                      data-theme-src-dark="./assets/icons/theme-edit.svg"
+                      data-theme-src-light="./assets/icons/theme-edit-light-theme.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>10X SensAI</span>
+                  </button>
+                </div>
+              </details>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="sidebar__footer">
+          <button
+            class="btn btn--ghost btn--full sidebar__settings-btn"
+            type="button"
+            data-modal-target="#settings-modal"
+            aria-haspopup="dialog"
+            aria-controls="settings-modal"
+          >
+            <img
+              src="./assets/icons/settings.svg"
+              data-theme-src-dark="./assets/icons/settings.svg"
+              data-theme-src-light="./assets/icons/settings-light-theme.svg"
+              alt=""
+              class="btn__icon"
+            />
+            <span>Settings</span>
+          </button>
+
+          <div class="appearance-controls" aria-label="Appearance controls">
+            <button class="theme-toggle js-theme-toggle" type="button" aria-label="Switch theme">
+              <span class="theme-toggle__track" aria-hidden="true">
+                <span class="theme-toggle__icon theme-toggle__icon--moon">
+                  <img
+                    src="./assets/icons/moon.svg"
+                    data-theme-src-dark="./assets/icons/moon.svg"
+                    data-theme-src-light="./assets/icons/moon-light-theme.svg"
+                    alt=""
+                  />
+                </span>
+
+                <span class="theme-toggle__icon theme-toggle__icon--sun">
+                  <img
+                    src="./assets/icons/sun.svg"
+                    data-theme-src-dark="./assets/icons/sun.svg"
+                    data-theme-src-light="./assets/icons/sun-light-theme.svg"
+                    alt=""
+                  />
+                </span>
+
+                <span class="theme-toggle__thumb"></span>
+              </span>
+              <span class="visually-hidden js-theme-label">Dark</span>
+            </button>
+
+            <div class="language-toggle" role="group" aria-label="Language">
+              <button
+                class="language-toggle__button js-language-toggle"
+                type="button"
+                data-language="en"
+                aria-pressed="true"
+              >
+                EN
+              </button>
+              <button
+                class="language-toggle__button js-language-toggle"
+                type="button"
+                data-language="ka"
+                aria-pressed="false"
+              >
+                KA
+              </button>
+            </div>
+          </div>
+
+          <button class="btn btn--ghost btn--full js-logout-btn" id="logout-btn" type="button">
+            <img
+              src="./assets/icons/log out.svg"
+              data-theme-src-dark="./assets/icons/log out.svg"
+              data-theme-src-light="./assets/icons/log out-light-theme.svg"
+              alt=""
+              class="btn__icon"
+            />
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- --- Dashboard Workspace --- -->
+      <main class="app-main dashboard-page">
+        <header class="app-header">
+          <div class="app-header__content">
+            <div>
+              <p class="app-header__eyebrow">Overview</p>
+              <h1 class="app-header__title">Dashboard</h1>
+            </div>
+
+            <div class="app-header__actions">
+              <button
+                class="icon-btn notification-button js-notifications-button"
+                type="button"
+                aria-label="Open notifications"
+                data-modal-target="#notifications-modal"
+                aria-haspopup="dialog"
+                aria-controls="notifications-modal"
+              >
+                <img
+                  src="./assets/icons/notification.svg"
+                  data-theme-src-dark="./assets/icons/notification.svg"
+                  data-theme-src-light="./assets/icons/notification-light-theme.svg"
+                  alt=""
+                />
+                <span class="notification-button__count js-notification-count" hidden>0</span>
+              </button>
+              <button
+                class="visually-hidden js-open-delete-task-helper"
+                type="button"
+                data-modal-target="#delete-task-modal"
+                aria-controls="delete-task-modal"
+              >
+                Open delete task options
+              </button>
+              <button
+                class="visually-hidden js-open-task-details-helper"
+                type="button"
+                data-modal-target="#task-details-modal"
+                aria-controls="task-details-modal"
+              >
+                Open task details
+              </button>
+              <div class="date-card" aria-live="polite">
+                <span class="date-card__label">Today</span>
+                <time class="date-card__value js-live-date" id="dashboard-date" datetime="">Loading date</time>
+                <span class="date-card__clock js-live-clock" id="dashboard-clock">--:--:--</span>
+                <span class="date-card__timezone js-live-timezone">Local time</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="dashboard-default-view js-dashboard-view" data-dashboard-view="overview">
+          <!-- --- Welcome Summary --- -->
+          <section class="welcome-panel" aria-labelledby="welcome-title">
+            <div>
+              <p class="welcome-panel__subtitle js-dynamic-greeting">Welcome back,</p>
+              <h2 class="welcome-panel__title" id="welcome-title">
+                <span id="dashboard-greeting">Account Owner</span>
+              </h2>
+              <p class="welcome-panel__description">Here is a clean snapshot of client activity and sales progress.</p>
+            </div>
+
+            <a href="./clients.html" class="btn btn--primary">Manage Clients</a>
+          </section>
+
+          <!-- --- Dashboard Statistics --- -->
+          <section class="stats-grid" aria-label="Dashboard statistics">
+            <article class="stats-card" data-stat="clients">
+              <img src="./assets/icons/users.svg" alt="" class="stats-card__icon" />
+              <p class="stats-card__label">Total Clients</p>
+              <strong class="stats-card__value" id="stats-total" data-dashboard-metric="totalClients">0</strong>
+              <span class="stats-card__trend" data-dashboard-trend="totalClients">No clients yet</span>
+            </article>
+
+            <article class="stats-card" data-stat="active">
+              <img src="./assets/icons/folder.svg" alt="" class="stats-card__icon" />
+              <p class="stats-card__label">Active Deals</p>
+              <strong class="stats-card__value" id="stats-active" data-dashboard-metric="activeDeals">0</strong>
+              <span class="stats-card__trend" data-dashboard-trend="activeDeals">No active deals yet</span>
+            </article>
+
+            <article class="stats-card" data-stat="revenue">
+              <img src="./assets/icons/statistics.svg" alt="" class="stats-card__icon" />
+              <p class="stats-card__label">Won Revenue</p>
+              <strong class="stats-card__value" id="stats-revenue" data-dashboard-metric="wonRevenue">$0</strong>
+              <span class="stats-card__trend" data-dashboard-trend="wonRevenue">No won revenue yet</span>
+            </article>
+
+            <article class="stats-card" data-stat="pending">
+              <img src="./assets/icons/clock.svg" alt="" class="stats-card__icon" />
+              <p class="stats-card__label">Pending Tasks</p>
+              <strong class="stats-card__value" id="stats-pending" data-dashboard-metric="pendingTasks">0</strong>
+              <span class="stats-card__trend" data-dashboard-trend="pendingTasks">No pending tasks yet</span>
+            </article>
+          </section>
+
+          <section class="dashboard-grid">
+            <article class="card pipeline-card" aria-labelledby="pipeline-title">
+              <header class="card__header">
+                <div>
+                  <p class="card__eyebrow">Pipeline</p>
+                  <h2 class="card__title" id="pipeline-title">Status Overview</h2>
+                </div>
+              </header>
+
+              <div class="card__body pipeline-list" id="pipeline-overview">
+                <div class="pipeline-item" data-status="lead">
+                  <div class="pipeline-item__info">
+                    <span class="pipeline-item__label">Lead</span>
+                    <strong class="pipeline-item__count" id="pipeline-lead">0</strong>
+                  </div>
+                  <div class="pipeline-item__track" aria-hidden="true">
+                    <span class="pipeline-item__fill" id="pipeline-lead-fill" style="width: 0%"></span>
+                  </div>
+                </div>
+
+                <div class="pipeline-item" data-status="contacted">
+                  <div class="pipeline-item__info">
+                    <span class="pipeline-item__label">Contacted</span>
+                    <strong class="pipeline-item__count" id="pipeline-contacted">0</strong>
+                  </div>
+                  <div class="pipeline-item__track" aria-hidden="true">
+                    <span class="pipeline-item__fill" id="pipeline-contacted-fill" style="width: 0%"></span>
+                  </div>
+                </div>
+
+                <div class="pipeline-item" data-status="won">
+                  <div class="pipeline-item__info">
+                    <span class="pipeline-item__label">Won</span>
+                    <strong class="pipeline-item__count" id="pipeline-won">0</strong>
+                  </div>
+                  <div class="pipeline-item__track" aria-hidden="true">
+                    <span class="pipeline-item__fill" id="pipeline-won-fill" style="width: 0%"></span>
+                  </div>
+                </div>
+
+                <div class="pipeline-item" data-status="lost">
+                  <div class="pipeline-item__info">
+                    <span class="pipeline-item__label">Lost</span>
+                    <strong class="pipeline-item__count" id="pipeline-lost">0</strong>
+                  </div>
+                  <div class="pipeline-item__track" aria-hidden="true">
+                    <span class="pipeline-item__fill" id="pipeline-lost-fill" style="width: 0%"></span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="card recent-clients" aria-labelledby="recent-clients-title">
+              <header class="card__header card__header--split">
+                <div>
+                  <p class="card__eyebrow">Recent activity</p>
+                  <h2 class="card__title" id="recent-clients-title">Recent Clients</h2>
+                </div>
+                <a href="./clients.html" class="card__link" id="view-all-clients">View all</a>
+              </header>
+
+              <div class="card__body">
+                <div class="recent-clients__list" id="recent-clients-list" data-render-target="recent-clients"></div>
+              </div>
+            </article>
+          </section>
+        </div>
+
+        <section
+          class="dashboard-section js-dashboard-view"
+          id="sales"
+          data-dashboard-view="sales"
+          aria-labelledby="sales-title"
+          hidden
+        >
+          <header class="dashboard-section__header">
+            <div>
+              <p class="card__eyebrow">Sales workspace</p>
+              <h2 class="dashboard-section__title" id="sales-title">Sales</h2>
+            </div>
+            <a href="./clients.html" class="btn btn--primary">
+              <img
+                src="./assets/icons/add.svg"
+                data-theme-src-dark="./assets/icons/add.svg"
+                data-theme-src-light="./assets/icons/add-light-theme.svg"
+                alt=""
+                class="btn__icon"
+              />
+              <span>Add Client</span>
+            </a>
+          </header>
+
+          <div class="dashboard-panel-grid">
+            <article class="dashboard-panel-card">
+              <img
+                src="./assets/icons/goals.svg"
+                data-theme-src-dark="./assets/icons/goals.svg"
+                data-theme-src-light="./assets/icons/goals-light-theme.svg"
+                alt=""
+                class="dashboard-panel-card__icon"
+              />
+              <span class="dashboard-panel-card__label">Monthly Target</span>
+              <strong class="dashboard-panel-card__value" data-dashboard-metric="monthlyTarget">$0</strong>
+              <p class="dashboard-panel-card__text" data-dashboard-trend="monthlyTarget">
+                Add clients and won deals to calculate target progress.
+              </p>
+            </article>
+            <article class="dashboard-panel-card">
+              <img
+                src="./assets/icons/users.svg"
+                data-theme-src-dark="./assets/icons/users.svg"
+                data-theme-src-light="./assets/icons/users-light-mode.svg"
+                alt=""
+                class="dashboard-panel-card__icon"
+              />
+              <span class="dashboard-panel-card__label">Hot Leads</span>
+              <strong class="dashboard-panel-card__value" data-dashboard-metric="hotLeads">0</strong>
+              <p class="dashboard-panel-card__text" data-dashboard-trend="hotLeads">
+                Leads with recent activity and high projected value.
+              </p>
+            </article>
+            <article class="dashboard-panel-card">
+              <img
+                src="./assets/icons/calendar.svg"
+                data-theme-src-dark="./assets/icons/calendar.svg"
+                data-theme-src-light="./assets/icons/calendar-light-theme.svg"
+                alt=""
+                class="dashboard-panel-card__icon"
+              />
+              <span class="dashboard-panel-card__label">Follow-ups</span>
+              <strong class="dashboard-panel-card__value" data-dashboard-metric="followUps">0</strong>
+              <p class="dashboard-panel-card__text" data-dashboard-trend="followUps">
+                Tasks that need attention today or tomorrow.
+              </p>
+            </article>
+          </div>
+
+          <article class="card sales-workspace">
+            <header class="card__header card__header--split sales-workspace__header">
+              <div>
+                <h3 class="card__title">Sales Pipeline</h3>
+                <p class="card__subtitle">
+                  Track target progress, active opportunities, and high-value deals from live CRM data.
+                </p>
+              </div>
+              <div class="sales-controls" aria-label="Sales controls">
+                <label class="sales-controls__field" for="sales-target-input">
+                  <span>Target</span>
+                  <input
+                    class="input sales-controls__input js-sales-target-input"
+                    id="sales-target-input"
+                    type="number"
+                    min="0"
+                    step="500"
+                    inputmode="numeric"
+                  />
+                </label>
+                <label class="sales-controls__field" for="sales-status-filter">
+                  <span>Status</span>
+                  <select
+                    class="input select-field sales-controls__select js-sales-status-filter"
+                    id="sales-status-filter"
+                  >
+                    <option value="all">All deals</option>
+                    <option value="lead">Lead</option>
+                    <option value="contacted">Contacted</option>
+                    <option value="won">Won</option>
+                    <option value="lost">Lost</option>
+                  </select>
+                </label>
+                <label class="sales-controls__field" for="sales-sort-select">
+                  <span>Sort</span>
+                  <select class="input select-field sales-controls__select js-sales-sort-select" id="sales-sort-select">
+                    <option value="value-desc">Highest value</option>
+                    <option value="value-asc">Lowest value</option>
+                    <option value="newest">Newest</option>
+                    <option value="oldest">Oldest</option>
+                    <option value="name">Client name</option>
+                  </select>
+                </label>
+              </div>
+            </header>
+
+            <div class="card__body sales-workspace__body">
+              <section class="sales-stage-grid js-sales-stage-summary" aria-label="Sales stage summary"></section>
+
+              <div class="sales-workspace__columns">
+                <section class="sales-focus-panel" aria-labelledby="sales-focus-title">
+                  <div class="sales-subheader">
+                    <div>
+                      <p class="card__eyebrow">Priority focus</p>
+                      <h4 class="sales-subheader__title" id="sales-focus-title">Sales Focus</h4>
+                    </div>
+                    <span class="status-badge status-badge--neutral js-sales-focus-count">0 active</span>
+                  </div>
+                  <div class="dashboard-list sales-focus-list" id="sales-focus-list" data-render-target="sales-focus">
+                    <p class="task-empty">Sales focus will appear after client data is loaded.</p>
+                  </div>
+                </section>
+
+                <section class="sales-deals-panel" aria-labelledby="sales-deals-title">
+                  <div class="sales-subheader">
+                    <div>
+                      <p class="card__eyebrow">Deal table</p>
+                      <h4 class="sales-subheader__title" id="sales-deals-title">All Sales Deals</h4>
+                    </div>
+                    <span class="status-badge status-badge--neutral js-sales-deal-count">0 deals</span>
+                  </div>
+                  <div class="sales-deal-list js-sales-deal-list" aria-live="polite">
+                    <p class="task-empty">Add clients to build your sales pipeline.</p>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section
+          class="dashboard-section js-dashboard-view"
+          id="reports"
+          data-dashboard-view="reports"
+          aria-labelledby="reports-title"
+          hidden
+        >
+          <header class="dashboard-section__header">
+            <div>
+              <p class="card__eyebrow">Reporting center</p>
+              <h2 class="dashboard-section__title" id="reports-title">Reports</h2>
+            </div>
+          </header>
+
+          <div class="dashboard-panel-grid">
+            <article class="dashboard-panel-card">
+              <img
+                src="./assets/icons/statistics.svg"
+                data-theme-src-dark="./assets/icons/statistics.svg"
+                data-theme-src-light="./assets/icons/statistics-light-theme.svg"
+                alt=""
+                class="dashboard-panel-card__icon"
+              />
+              <span class="dashboard-panel-card__label">Pipeline Health</span>
+              <strong class="dashboard-panel-card__value" data-dashboard-metric="pipelineHealth">0%</strong>
+              <p class="dashboard-panel-card__text" data-dashboard-trend="pipelineHealth">
+                Pipeline health will update from client statuses.
+              </p>
+            </article>
+            <article class="dashboard-panel-card">
+              <img
+                src="./assets/icons/data.svg"
+                data-theme-src-dark="./assets/icons/data.svg"
+                data-theme-src-light="./assets/icons/data-light-theme.svg"
+                alt=""
+                class="dashboard-panel-card__icon"
+              />
+              <span class="dashboard-panel-card__label">Conversion</span>
+              <strong class="dashboard-panel-card__value" data-dashboard-metric="conversionRate">0%</strong>
+              <p class="dashboard-panel-card__text" data-dashboard-trend="conversionRate">
+                Conversion rate will update when client outcomes are available.
+              </p>
+            </article>
+          </div>
+          <section class="reports-visual-grid" aria-label="Report charts">
+            <article class="chart-card">
+              <header class="chart-card__header">
+                <div>
+                  <p class="card__eyebrow">Pipeline</p>
+                  <h3 class="chart-card__title">Client Stage Mix</h3>
+                </div>
+              </header>
+              <canvas class="crm-chart js-crm-chart" data-chart-type="bar" aria-label="Client stage bar chart"></canvas>
+            </article>
+            <article class="chart-card">
+              <header class="chart-card__header">
+                <div>
+                  <p class="card__eyebrow">Revenue</p>
+                  <h3 class="chart-card__title">Monthly Won Value</h3>
+                </div>
+              </header>
+              <canvas
+                class="crm-chart js-crm-chart"
+                data-chart-type="line"
+                aria-label="Monthly revenue line chart"
+              ></canvas>
+            </article>
+            <article class="chart-card">
+              <header class="chart-card__header">
+                <div>
+                  <p class="card__eyebrow">Outcomes</p>
+                  <h3 class="chart-card__title">Contracts</h3>
+                </div>
+              </header>
+              <canvas
+                class="crm-chart js-crm-chart"
+                data-chart-type="pie"
+                aria-label="Contract outcome pie chart"
+              ></canvas>
+            </article>
+          </section>
+
+          <article class="card">
+            <header class="card__header">
+              <h3 class="card__title">Saved Reports</h3>
+            </header>
+            <div class="card__body dashboard-list js-saved-reports-list" data-render-target="saved-reports">
+              <p class="task-empty">Saved reports will be generated from current CRM data.</p>
+            </div>
+          </article>
+        </section>
+
+        <section
+          class="dashboard-section js-dashboard-view"
+          id="favourites"
+          data-dashboard-view="favourites"
+          aria-labelledby="favourites-title"
+          hidden
+        >
+          <header class="dashboard-section__header">
+            <div>
+              <p class="card__eyebrow">Pinned workspace</p>
+              <h2 class="dashboard-section__title" id="favourites-title">Favourites</h2>
+            </div>
+          </header>
+
+          <div class="dashboard-panel-grid">
+            <article class="dashboard-panel-card">
+              <img
+                src="./assets/icons/stared.svg"
+                data-theme-src-dark="./assets/icons/stared.svg"
+                data-theme-src-light="./assets/icons/stared-light-theme.svg"
+                alt=""
+                class="dashboard-panel-card__icon"
+              />
+              <span class="dashboard-panel-card__label">Pinned Clients</span>
+              <strong class="dashboard-panel-card__value" data-dashboard-section-metric="favouriteCount">0</strong>
+              <p class="dashboard-panel-card__text" data-dashboard-section-text="favouriteCount">
+                Pin high-value clients from the list below.
+              </p>
+            </article>
+          </div>
+
+          <article class="card">
+            <header class="card__header">
+              <h3 class="card__title">Favourite Items</h3>
+            </header>
+            <div class="card__body dashboard-list js-favourites-list" data-render-target="favourites">
+              <p class="task-empty">No favourites pinned yet.</p>
+            </div>
+          </article>
+        </section>
+
+        <section
+          class="dashboard-section js-dashboard-view"
+          id="activity"
+          data-dashboard-view="activity"
+          aria-labelledby="activity-title"
+          hidden
+        >
+          <header class="dashboard-section__header">
+            <div>
+              <p class="card__eyebrow">Timeline</p>
+              <h2 class="dashboard-section__title" id="activity-title">Activity</h2>
+            </div>
+          </header>
+
+          <article class="card">
+            <header class="card__header">
+              <h3 class="card__title">Recent Activity</h3>
+            </header>
+            <div class="card__body activity-timeline js-activity-list" data-render-target="activity">
+              <p class="task-empty">
+                No activity yet. Client updates, notes, reminders, tasks, and notifications will appear here.
+              </p>
+            </div>
+          </article>
+        </section>
+
+        <section
+          class="dashboard-section js-dashboard-view"
+          id="files"
+          data-dashboard-view="files"
+          aria-labelledby="files-title"
+          hidden
+        >
+          <header class="dashboard-section__header">
+            <div>
+              <p class="card__eyebrow">Account documents</p>
+              <h2 class="dashboard-section__title" id="files-title">Files</h2>
+            </div>
+            <button class="btn btn--ghost" type="button" disabled title="Backend upload will be connected later">
+              <img
+                src="./assets/icons/upload.svg"
+                data-theme-src-dark="./assets/icons/upload.svg"
+                data-theme-src-light="./assets/icons/upload-light-theme.svg"
+                alt=""
+                class="btn__icon"
+              />
+              <span>Upload later</span>
+            </button>
+          </header>
+
+          <article class="card">
+            <header class="card__header card__header--split">
+              <div>
+                <h3 class="card__title">CRM Files</h3>
+                <p class="card__subtitle">Export live CRM data and reopen compatible CSV files inside the workspace.</p>
+              </div>
+            </header>
+            <div class="card__body files-workspace">
+              <div class="files-toolbar" aria-label="File export controls">
+                <label class="files-toolbar__field" for="file-export-type">
+                  <span>Export source</span>
+                  <select class="input select-field js-file-export-type" id="file-export-type">
+                    <option value="clients">Clients CSV</option>
+                    <option value="sales">Sales Pipeline CSV</option>
+                    <option value="tasks">Tasks CSV</option>
+                    <option value="activity">Activity CSV</option>
+                  </select>
+                </label>
+                <button class="btn btn--primary file-list__export js-export-file" type="button">
+                  <img
+                    src="./assets/icons/download.svg"
+                    data-theme-src-dark="./assets/icons/download.svg"
+                    data-theme-src-light="./assets/icons/download-light-theme.svg"
+                    alt=""
+                    class="btn__icon"
+                  />
+                  <span>Export File</span>
+                </button>
+              </div>
+              <div class="file-list js-file-list" aria-live="polite">
+                <p class="task-empty">No files yet. Export CRM data to create your first file.</p>
+              </div>
+            </div>
+          </article>
+        </section>
+        <section
+          class="dashboard-section js-dashboard-view"
+          id="users"
+          data-dashboard-view="users"
+          aria-labelledby="users-title"
+          hidden
+        >
+          <header class="dashboard-section__header">
+            <div>
+              <p class="card__eyebrow">Team workspace</p>
+              <h2 class="dashboard-section__title" id="users-title">Users</h2>
+            </div>
+          </header>
+          <div class="dashboard-panel-grid js-team-users-stats" aria-live="polite"></div>
+          <article class="card">
+            <header class="card__header">
+              <div>
+                <p class="card__eyebrow">Registered users</p>
+                <h3 class="card__title">Team Members</h3>
+              </div>
+            </header>
+            <div class="card__body team-member-list js-team-users-list" aria-live="polite">
+              <p class="task-empty">Team users will appear after account data is loaded.</p>
+            </div>
+          </article>
+        </section>
+
+        <section
+          class="dashboard-section js-dashboard-view"
+          id="roles"
+          data-dashboard-view="roles"
+          aria-labelledby="roles-title"
+          hidden
+        >
+          <header class="dashboard-section__header">
+            <div>
+              <p class="card__eyebrow">Team permissions</p>
+              <h2 class="dashboard-section__title" id="roles-title">Roles</h2>
+            </div>
+          </header>
+          <div class="role-card-grid js-team-roles-list" aria-live="polite">
+            <p class="task-empty">Roles will appear after team data is loaded.</p>
+          </div>
+        </section>
+        <section
+          class="dashboard-section task-board-section js-dashboard-view"
+          id="tasks"
+          data-dashboard-view="tasks"
+          aria-labelledby="tasks-title"
+          hidden
+        >
+          <header class="dashboard-section__header task-board-section__header">
+            <div>
+              <p class="card__eyebrow">Personal workflow</p>
+              <h2 class="dashboard-section__title" id="tasks-title">Task Board</h2>
+              <p class="dashboard-section__text">
+                Drag tasks between columns to update their status. Archive keeps task history, while delete removes it
+                permanently.
+              </p>
+            </div>
+          </header>
+
+          <!-- --- Task Board Columns --- -->
+          <section class="task-board js-task-board" aria-label="Task status board">
+            <article class="task-column task-column--todo" data-task-status="todo">
+              <header class="task-column__header">
+                <div>
+                  <p class="task-column__eyebrow">Queue</p>
+                  <h3 class="task-column__title">To Do</h3>
+                </div>
+                <div class="task-column__tools">
+                  <span class="task-column__count js-task-count" data-task-count="todo">0</span>
+                  <button
+                    class="btn btn--primary btn--sm task-column__add js-open-add-task-modal"
+                    type="button"
+                    data-modal-target="#add-task-modal"
+                    aria-haspopup="dialog"
+                    aria-controls="add-task-modal"
+                  >
+                    <img
+                      src="./assets/icons/add.svg"
+                      data-theme-src-dark="./assets/icons/add.svg"
+                      data-theme-src-light="./assets/icons/add-light-theme.svg"
+                      alt=""
+                      class="btn__icon"
+                    />
+                    <span>Add Task</span>
+                  </button>
+                </div>
+              </header>
+              <div
+                class="task-column__dropzone js-task-dropzone"
+                data-task-dropzone="todo"
+                aria-label="To Do tasks"
+              ></div>
+            </article>
+
+            <article class="task-column task-column--progress" data-task-status="in-progress">
+              <header class="task-column__header">
+                <div>
+                  <p class="task-column__eyebrow">Active</p>
+                  <h3 class="task-column__title">In Progress</h3>
+                </div>
+                <span class="task-column__count js-task-count" data-task-count="in-progress">0</span>
+              </header>
+              <div
+                class="task-column__dropzone js-task-dropzone"
+                data-task-dropzone="in-progress"
+                aria-label="In Progress tasks"
+              ></div>
+            </article>
+
+            <article class="task-column task-column--overdue" data-task-status="overdue">
+              <header class="task-column__header">
+                <div>
+                  <p class="task-column__eyebrow">Needs attention</p>
+                  <h3 class="task-column__title">Overdue</h3>
+                </div>
+                <span class="task-column__count js-task-count" data-task-count="overdue">0</span>
+              </header>
+              <div
+                class="task-column__dropzone js-task-dropzone"
+                data-task-dropzone="overdue"
+                aria-label="Overdue tasks"
+              ></div>
+            </article>
+
+            <article class="task-column task-column--done" data-task-status="done">
+              <header class="task-column__header">
+                <div>
+                  <p class="task-column__eyebrow">Completed</p>
+                  <h3 class="task-column__title">Done</h3>
+                </div>
+                <span class="task-column__count js-task-count" data-task-count="done">0</span>
+              </header>
+              <div
+                class="task-column__dropzone js-task-dropzone"
+                data-task-dropzone="done"
+                aria-label="Done tasks"
+              ></div>
+            </article>
+          </section>
+
+          <article class="card task-archive" aria-labelledby="archived-tasks-title">
+            <header class="card__header card__header--split">
+              <div>
+                <p class="card__eyebrow">Hidden from board</p>
+                <h3 class="card__title" id="archived-tasks-title">Archived Tasks</h3>
+              </div>
+              <span class="status-badge status-badge--neutral js-task-archive-count">0 archived</span>
+            </header>
+            <div class="card__body task-archive__list js-task-archive-list">
+              <p class="task-empty">No archived tasks yet.</p>
+            </div>
+          </article>
+        </section>
+        <section
+          class="dashboard-section recycle-bin-section js-dashboard-view"
+          id="recycle-bin"
+          data-dashboard-view="recycle-bin"
+          aria-labelledby="recycle-bin-title"
+          hidden
+        >
+          <header class="dashboard-section__header">
+            <div>
+              <p class="card__eyebrow">Deleted tasks</p>
+              <h2 class="dashboard-section__title" id="recycle-bin-title">Recycle Bin</h2>
+              <p class="dashboard-section__text">
+                Deleted tasks stay here until you restore them or remove them permanently.
+              </p>
+            </div>
+          </header>
+
+          <article class="card recycle-bin-card">
+            <header class="card__header card__header--split">
+              <div>
+                <p class="card__eyebrow">Recoverable</p>
+                <h3 class="card__title">Deleted Tasks</h3>
+              </div>
+              <span class="status-badge status-badge--neutral js-recycle-count">0 deleted</span>
+            </header>
+            <div class="card__body recycle-bin-list js-recycle-bin-list">
+              <p class="task-empty">Recycle bin is empty.</p>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <section
+      class="modal"
+      id="delete-task-modal"
+      aria-labelledby="delete-task-title"
+      aria-describedby="delete-task-description"
+      aria-hidden="true"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--small" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Delete task</p>
+            <h2 class="modal__title" id="delete-task-title">Choose Delete Option</h2>
+            <p class="modal__description" id="delete-task-description">
+              Would you like to delete the task permanently or move it to recycle bin?
+            </p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close delete task" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+        <div class="modal__body delete-choice">
+          <button class="delete-choice__button js-move-task-recycle" type="button">
+            <img
+              src="./assets/icons/recycle.svg"
+              data-theme-src-dark="./assets/icons/recycle.svg"
+              data-theme-src-light="./assets/icons/recycle-light-mode.svg"
+              alt=""
+            />
+            <span>
+              <strong>Move to Recycle Bin</strong>
+              <small>Hide the task now, but keep it recoverable.</small>
+            </span>
+          </button>
+          <button class="delete-choice__button delete-choice__button--danger js-delete-task-permanently" type="button">
+            <img
+              src="./assets/icons/Delete.svg"
+              data-theme-src-dark="./assets/icons/Delete.svg"
+              data-theme-src-light="./assets/icons/Delete-light-theme.svg"
+              alt=""
+            />
+            <span>
+              <strong>Delete Permanently</strong>
+              <small>Remove the task from everywhere.</small>
+            </span>
+          </button>
+        </div>
+        <footer class="modal__footer">
+          <button class="btn btn--ghost" type="button" data-modal-close>Cancel</button>
+        </footer>
+      </div>
+    </section>
+
+    <!-- --- Task Details Modal --- -->
+    <section
+      class="modal"
+      id="task-details-modal"
+      aria-labelledby="task-details-title"
+      aria-describedby="task-details-description"
+      aria-hidden="true"
+      data-modal-initial-focus="#task-detail-title"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--task-details" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Task details</p>
+            <h2 class="modal__title" id="task-details-title">Open Task</h2>
+            <p class="modal__description" id="task-details-description">
+              Edit task content, manage checklist items, and leave team comments.
+            </p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close task details" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+
+        <div class="modal__body task-details">
+          <div class="task-details__main">
+            <form class="task-details__form js-task-details-form" id="task-details-form" novalidate>
+              <input class="js-task-detail-id" type="hidden" name="taskId" />
+
+              <div class="field">
+                <label class="field__label" for="task-detail-title">Title</label>
+                <input class="input js-task-detail-title" id="task-detail-title" name="title" type="text" required />
+                <p class="form-error" data-error-for="task-detail-title" hidden></p>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="task-detail-description">Description</label>
+                <textarea
+                  class="input input--textarea task-form__textarea js-task-detail-description"
+                  id="task-detail-description"
+                  name="description"
+                  rows="4"
+                ></textarea>
+              </div>
+
+              <div class="field visually-hidden">
+                <label class="field__label" for="task-detail-assignee">Assignee</label>
+                <select class="input select-field js-task-detail-assignee" id="task-detail-assignee" name="assignee">
+                  <option value="">Unassigned</option>
+                </select>
+              </div>
+            </form>
+
+            <section class="task-details__panel" aria-labelledby="task-checklist-title">
+              <div class="task-details__panel-header">
+                <h3 class="task-details__title" id="task-checklist-title">Checklist</h3>
+                <span class="task-details__meta js-task-checklist-progress">0/0 done</span>
+              </div>
+              <div class="task-checklist js-task-checklist"></div>
+              <form class="task-inline-form js-add-subtask-form">
+                <label class="visually-hidden" for="new-subtask">New subtask</label>
+                <input
+                  class="input js-new-subtask"
+                  id="new-subtask"
+                  name="subtask"
+                  type="text"
+                  placeholder="Add checklist item"
+                />
+                <button class="btn btn--ghost btn--sm" type="submit">Add</button>
+              </form>
+            </section>
+
+            <section class="task-details__panel" aria-labelledby="task-comments-title">
+              <div class="task-details__panel-header">
+                <h3 class="task-details__title" id="task-comments-title">Comments</h3>
+                <span class="task-details__meta js-task-comment-count">0 comments</span>
+              </div>
+              <div class="task-comments js-task-comments"></div>
+              <form class="task-comment-form js-task-comment-form">
+                <label class="field__label" for="task-comment-mention">Mention teammate</label>
+                <select class="input select-field js-task-comment-mention" id="task-comment-mention" name="mention">
+                  <option value="">No mention</option>
+                </select>
+
+                <label class="field__label" for="task-comment-message">Comment</label>
+                <textarea
+                  class="input input--textarea task-form__textarea js-task-comment-message"
+                  id="task-comment-message"
+                  name="message"
+                  rows="3"
+                  placeholder="Leave directions, error notes, or next steps"
+                ></textarea>
+                <p class="form-error js-task-comment-error" hidden></p>
+                <button class="btn btn--secondary" type="submit">Leave Comment</button>
+              </form>
+            </section>
+          </div>
+
+          <aside class="task-details__aside" aria-labelledby="task-assignee-title">
+            <section class="task-details__panel task-assignee-panel">
+              <div class="task-details__panel-header">
+                <h3 class="task-details__title" id="task-assignee-title">Assignee</h3>
+              </div>
+              <div class="task-assignee-preview">
+                <span class="task-assignee-preview__avatar js-task-detail-assignee-avatar">--</span>
+                <div>
+                  <p class="task-assignee-preview__name js-task-detail-assignee-name">Unassigned</p>
+                  <p class="task-assignee-preview__hint">Task owner</p>
+                </div>
+              </div>
+              <label class="field__label" for="task-detail-status">Task status</label>
+              <select class="input select-field js-task-detail-status" id="task-detail-status" name="status">
+                <option value="todo">To Do</option>
+                <option value="in-progress">In Progress</option>
+                <option value="overdue">Overdue</option>
+                <option value="done">Done</option>
+              </select>
+
+              <label class="field__label" for="task-detail-assignee-control">Change assignee</label>
+              <select class="input select-field js-task-detail-assignee-control" id="task-detail-assignee-control">
+                <option value="">Unassigned</option>
+              </select>
+            </section>
+          </aside>
+        </div>
+
+        <footer class="modal__footer">
+          <button class="btn btn--ghost" type="button" data-modal-close>Close</button>
+          <button class="btn btn--primary" type="submit" form="task-details-form">Save Changes</button>
+        </footer>
+      </div>
+    </section>
+
+    <!-- --- Notifications Modal --- -->
+    <section class="modal" id="notifications-modal" aria-labelledby="notifications-title" aria-hidden="true" hidden>
+      <div class="modal__dialog modal__dialog--notifications" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Updates</p>
+            <h2 class="modal__title" id="notifications-title">Notifications</h2>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close notifications" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+        <div class="modal__body notification-list js-notification-list">
+          <p class="task-empty">No notifications yet.</p>
+        </div>
+        <footer class="modal__footer">
+          <button class="btn btn--ghost js-clear-notifications" type="button">Mark all read</button>
+          <button class="btn btn--ghost js-select-read-notifications" type="button" data-skip-delete-confirm>
+            Mark all
+          </button>
+          <button class="btn btn--ghost js-delete-selected-notifications" type="button" data-skip-delete-confirm>
+            Delete selected
+          </button>
+          <button class="btn btn--danger js-delete-read-notifications" type="button" data-skip-delete-confirm>
+            Delete read
+          </button>
+          <button class="btn btn--primary" type="button" data-modal-close>Done</button>
+        </footer>
+      </div>
+    </section>
+    <!-- --- Add Task Modal --- -->
+    <section
+      class="modal"
+      id="add-task-modal"
+      aria-labelledby="add-task-modal-title"
+      aria-describedby="add-task-modal-description"
+      aria-hidden="true"
+      data-modal-initial-focus="#task-title"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--task" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">To Do task</p>
+            <h2 class="modal__title" id="add-task-modal-title">Add New Task</h2>
+            <p class="modal__description" id="add-task-modal-description">
+              New tasks start in To Do. You can drag them to another status after creating them.
+            </p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close add task" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+
+        <form class="modal__body modal__body--form task-form js-add-task-form" id="add-task-form" novalidate>
+          <div class="field">
+            <label class="field__label" for="task-title">Task Title</label>
+            <input
+              class="input js-task-title"
+              id="task-title"
+              name="title"
+              type="text"
+              placeholder="Follow up with client"
+              required
+            />
+            <p class="form-error" data-error-for="task-title" hidden></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="task-client">Client</label>
+            <input
+              class="input js-task-client"
+              id="task-client"
+              name="client"
+              type="text"
+              placeholder="Client name"
+              required
+            />
+            <p class="form-error" data-error-for="task-client" hidden></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="task-due-date">Due Date</label>
+            <input class="input js-task-due-date" id="task-due-date" name="dueDate" type="date" required />
+            <p class="form-error" data-error-for="task-due-date" hidden></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="task-priority">Priority</label>
+            <select class="input select-field js-task-priority" id="task-priority" name="priority" required>
+              <option value="">Choose priority</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+            <p class="form-error" data-error-for="task-priority" hidden></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="task-assignee">Assignee</label>
+            <select class="input select-field js-task-assignee" id="task-assignee" name="assignee">
+              <option value="">Unassigned</option>
+            </select>
+          </div>
+
+          <div class="field field--full">
+            <label class="field__label" for="task-description">Description</label>
+            <textarea
+              class="input input--textarea task-form__textarea js-task-description"
+              id="task-description"
+              name="description"
+              rows="3"
+              placeholder="Write a short task note"
+            ></textarea>
+          </div>
+
+          <div class="field field--full">
+            <label class="field__label" for="task-subtasks">Subtasks</label>
+            <textarea
+              class="input input--textarea task-form__textarea js-task-subtasks"
+              id="task-subtasks"
+              name="subtasks"
+              rows="3"
+              placeholder="Write each subtask on a new line"
+            ></textarea>
+            <p class="field__hint">Example: Call client, prepare offer, send email.</p>
+          </div>
+
+          <p class="form-status js-add-task-status" hidden></p>
+        </form>
+
+        <footer class="modal__footer">
+          <button class="btn btn--ghost" type="button" data-modal-close>Cancel</button>
+          <button class="btn btn--primary js-save-task" type="submit" form="add-task-form">Create Task</button>
+        </footer>
+      </div>
+    </section>
+    <!-- --- Settings Modal --- -->
+    <section
+      class="modal"
+      id="settings-modal"
+      aria-labelledby="settings-modal-title"
+      aria-describedby="settings-modal-description"
+      aria-hidden="true"
+      data-modal-initial-focus="#settings-theme-dark"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--settings" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Application settings</p>
+            <h2 class="modal__title" id="settings-modal-title">Settings</h2>
+            <p class="modal__description" id="settings-modal-description">
+              Adjust the CRM appearance for this browser. These options are saved locally.
+            </p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close settings" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+
+        <form class="modal__body settings-grid js-settings-form">
+          <fieldset class="settings-group">
+            <legend class="settings-group__legend">Theme</legend>
+            <div class="settings-options settings-options--three">
+              <label class="settings-option" for="settings-theme-dark">
+                <input
+                  class="settings-option__input js-settings-theme"
+                  id="settings-theme-dark"
+                  type="radio"
+                  name="settings-theme"
+                  value="dark"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Dark</span>
+                  <span class="settings-option__text">Default CRM theme</span>
+                </span>
+              </label>
+              <label class="settings-option" for="settings-theme-light">
+                <input
+                  class="settings-option__input js-settings-theme"
+                  id="settings-theme-light"
+                  type="radio"
+                  name="settings-theme"
+                  value="light"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Light</span>
+                  <span class="settings-option__text">Bright workspace</span>
+                </span>
+              </label>
+              <label class="settings-option" for="settings-theme-custom">
+                <input
+                  class="settings-option__input js-settings-theme"
+                  id="settings-theme-custom"
+                  type="radio"
+                  name="settings-theme"
+                  value="custom"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Custom</span>
+                  <span class="settings-option__text">Accent color only</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="settings-group">
+            <legend class="settings-group__legend">Font Size</legend>
+            <div class="settings-options settings-options--three">
+              <label class="settings-option" for="settings-font-small">
+                <input
+                  class="settings-option__input js-settings-font"
+                  id="settings-font-small"
+                  type="radio"
+                  name="settings-font-size"
+                  value="small"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Small</span>
+                  <span class="settings-option__text">Dense reading</span>
+                </span>
+              </label>
+              <label class="settings-option" for="settings-font-medium">
+                <input
+                  class="settings-option__input js-settings-font"
+                  id="settings-font-medium"
+                  type="radio"
+                  name="settings-font-size"
+                  value="medium"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Medium</span>
+                  <span class="settings-option__text">Recommended</span>
+                </span>
+              </label>
+              <label class="settings-option" for="settings-font-large">
+                <input
+                  class="settings-option__input js-settings-font"
+                  id="settings-font-large"
+                  type="radio"
+                  name="settings-font-size"
+                  value="large"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Large</span>
+                  <span class="settings-option__text">More readable</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="settings-group">
+            <legend class="settings-group__legend">Layout Density</legend>
+            <div class="settings-options settings-options--two">
+              <label class="settings-option" for="settings-density-comfortable">
+                <input
+                  class="settings-option__input js-settings-density"
+                  id="settings-density-comfortable"
+                  type="radio"
+                  name="settings-density"
+                  value="comfortable"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Comfortable</span>
+                  <span class="settings-option__text">Roomier spacing</span>
+                </span>
+              </label>
+              <label class="settings-option" for="settings-density-compact">
+                <input
+                  class="settings-option__input js-settings-density"
+                  id="settings-density-compact"
+                  type="radio"
+                  name="settings-density"
+                  value="compact"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Compact</span>
+                  <span class="settings-option__text">More data on screen</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset
+            class="settings-group settings-group--custom js-custom-theme-panel"
+            aria-describedby="custom-theme-note"
+          >
+            <legend class="settings-group__legend">Custom Appearance</legend>
+            <p class="settings-group__hint" id="custom-theme-note">
+              Uses the current Dark or Light base and unlocks accent colors.
+            </p>
+            <div class="settings-color-row">
+              <label class="settings-color-field" for="settings-accent-color">
+                <span class="settings-color-field__label">Accent color</span>
+                <input
+                  class="settings-color-field__input js-settings-accent"
+                  id="settings-accent-color"
+                  type="color"
+                  value="#ff6b1a"
+                />
+              </label>
+              <div class="settings-swatches" aria-label="Suggested accent colors">
+                <button
+                  class="settings-swatch"
+                  type="button"
+                  data-accent-color="#ff6b1a"
+                  style="--swatch-color: #ff6b1a"
+                >
+                  <span class="visually-hidden">Orange</span>
+                </button>
+                <button
+                  class="settings-swatch"
+                  type="button"
+                  data-accent-color="#4c8fea"
+                  style="--swatch-color: #4c8fea"
+                >
+                  <span class="visually-hidden">Blue</span>
+                </button>
+                <button
+                  class="settings-swatch"
+                  type="button"
+                  data-accent-color="#55b975"
+                  style="--swatch-color: #55b975"
+                >
+                  <span class="visually-hidden">Green</span>
+                </button>
+                <button
+                  class="settings-swatch"
+                  type="button"
+                  data-accent-color="#800080"
+                  style="--swatch-color: #800080"
+                >
+                  <span class="visually-hidden">Purple</span>
+                </button>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="settings-group">
+            <legend class="settings-group__legend">Language</legend>
+            <div class="settings-options settings-options--two">
+              <label class="settings-option" for="settings-language-en">
+                <input
+                  class="settings-option__input js-settings-language"
+                  id="settings-language-en"
+                  type="radio"
+                  name="settings-language"
+                  value="en"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">English</span>
+                  <span class="settings-option__text">Current default</span>
+                </span>
+              </label>
+              <label class="settings-option" for="settings-language-ka">
+                <input
+                  class="settings-option__input js-settings-language"
+                  id="settings-language-ka"
+                  type="radio"
+                  name="settings-language"
+                  value="ka"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Georgian</span>
+                  <span class="settings-option__text">Prepared for translation</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+          <fieldset class="settings-group settings-group--danger">
+            <legend class="settings-group__legend">Danger Zone</legend>
+            <div class="settings-danger">
+              <div>
+                <h3 class="settings-danger__title">Delete Account</h3>
+                <p class="settings-danger__text">Delete this account and all CRM data saved in this browser.</p>
+              </div>
+              <button
+                class="btn btn--danger js-delete-account-trigger"
+                type="button"
+                data-modal-target="#delete-account-modal"
+                data-skip-delete-confirm
+                aria-haspopup="dialog"
+                aria-controls="delete-account-modal"
+              >
+                Delete Account
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+
+    <!-- --- Account Deletion Modal --- -->
+    <section
+      class="modal"
+      id="delete-account-modal"
+      aria-labelledby="delete-account-title"
+      aria-describedby="delete-account-description"
+      aria-hidden="true"
+      data-modal-initial-focus="#delete-account-password"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--small" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Danger zone</p>
+            <h2 class="modal__title" id="delete-account-title">Are you sure to delete account?</h2>
+            <p class="modal__description" id="delete-account-description">
+              To delete your account permanently please enter your password here.
+            </p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close delete account" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+
+        <form class="modal__body delete-account-confirm js-delete-account-form" id="delete-account-form" novalidate>
+          <p class="delete-account-confirm__warning">
+            This action permanently clears the account, session, clients, profile image, tasks, notifications,
+            settings, and theme preferences stored in this browser.
+          </p>
+          <div class="field">
+            <label class="field__label" for="delete-account-password">Password</label>
+            <input
+              class="input js-delete-account-password"
+              id="delete-account-password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            />
+            <p class="form-error js-delete-account-error" hidden></p>
+          </div>
+        </form>
+
+        <footer class="modal__footer">
+          <button class="btn btn--ghost" type="button" data-modal-close>Cancel</button>
+          <button class="btn btn--danger js-confirm-delete-account" type="submit" form="delete-account-form">
+            Delete Account
+          </button>
+        </footer>
+      </div>
+    </section>
+    <section
+      class="modal communication-modal"
+      id="communication-chat-modal"
+      aria-labelledby="communication-chat-title"
+      aria-hidden="true"
+      data-modal-initial-focus="#communication-chat-input"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--chat" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Communication</p>
+            <h2 class="modal__title" id="communication-chat-title">Messenger</h2>
+            <p class="modal__description">Call, text, WhatsApp, or continue your internal team conversation.</p>
+          </div>
+          <div class="communication-modal__header-actions">
+            <button
+              class="btn btn--ghost btn--sm js-clear-team-chat"
+              type="button"
+              aria-label="Delete messenger chat history"
+            >
+              Clear Chat
+            </button>
+            <button
+              class="icon-btn js-close-modal"
+              type="button"
+              aria-label="Close communication chat"
+              data-modal-close
+            >
+              <img
+                src="./assets/icons/close.svg"
+                data-theme-src-dark="./assets/icons/close.svg"
+                data-theme-src-light="./assets/icons/close-light-theme.svg"
+                alt=""
+              />
+            </button>
+          </div>
+        </header>
+        <div class="modal__body communication-chat">
+          <div class="communication-chat__quick-actions">
+            <button class="btn btn--ghost" type="button" data-modal-target="#phone-modal">Open CRM Phone</button>
+            <a class="btn btn--ghost" href="./clients.html">Client Directory</a>
+          </div>
+          <div class="communication-chat__recipient-row">
+            <label class="field" for="communication-recipient">
+              <span class="field__label">Send to</span>
+              <select class="input select-field js-communication-recipient" id="communication-recipient">
+                <option value="">Choose teammate</option>
+              </select>
+            </label>
+            <p class="communication-chat__recipient-hint">
+              Message will be saved to the selected teammate or department inbox.
+            </p>
+          </div>
+          <div class="communication-chat__messages js-communication-chat-messages" aria-live="polite"></div>
+        </div>
+        <form class="modal__footer communication-chat__form js-communication-chat-form">
+          <label class="visually-hidden" for="communication-chat-input">Message team</label>
+          <input
+            class="input js-communication-chat-input"
+            id="communication-chat-input"
+            type="text"
+            placeholder="Message your team"
+          />
+          <button class="btn btn--primary" type="submit">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- --- Application Phone Modal --- -->
+    <section
+      class="modal phone-modal"
+      id="phone-modal"
+      aria-labelledby="phone-title"
+      aria-hidden="true"
+      data-modal-initial-focus=".js-phone-key"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--phone" role="dialog" aria-modal="true">
+        <header class="modal__header phone-modal__header">
+          <div>
+            <p class="modal__eyebrow">Application phone</p>
+            <h2 class="modal__title" id="phone-title">10X CRM Phone</h2>
+            <p class="modal__description">
+              Use the CRM keypad to prepare calls and save call notes.
+            </p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close phone" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+        <div class="modal__body phone-dialer js-phone-dialer">
+          <div class="phone-dialer__device">
+            <div class="phone-dialer__screen">
+              <img
+                class="phone-dialer__screen-icon"
+                src="./assets/icons/phone.svg"
+                data-theme-src-dark="./assets/icons/phone.svg"
+                data-theme-src-light="./assets/icons/phone-light-mode.svg"
+                alt=""
+              />
+              <output class="phone-dialer__number js-phone-display" aria-live="polite">Dial number</output>
+              <p class="phone-dialer__status js-phone-status">Choose a client or dial manually.</p>
+            </div>
+            <div class="phone-dialer__keys" aria-label="Phone keypad">
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="1">1</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="2">2</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="3">3</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="4">4</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="5">5</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="6">6</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="7">7</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="8">8</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="9">9</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="+">+</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="0">0</button>
+              <button
+                class="phone-dialer__key phone-dialer__key--backspace js-phone-delete"
+                type="button"
+                data-skip-delete-confirm
+                aria-label="Delete last digit"
+              >
+                <img
+                  src="./assets/icons/Delete.svg"
+                  data-theme-src-dark="./assets/icons/Delete.svg"
+                  data-theme-src-light="./assets/icons/Delete-light-theme.svg"
+                  alt=""
+                />
+              </button>
+            </div>
+            <div class="phone-dialer__actions">
+              <button class="btn btn--primary btn--full phone-dialer__action js-phone-call" type="button">
+                <img
+                  src="./assets/icons/phone.svg"
+                  data-theme-src-dark="./assets/icons/phone.svg"
+                  data-theme-src-light="./assets/icons/phone-light-mode.svg"
+                  alt=""
+                />
+                Call
+              </button>
+            </div>
+          </div>
+          <aside class="phone-dialer__panel">
+            <section class="phone-dialer__queue" aria-labelledby="phone-queue-title">
+              <div class="phone-dialer__section-header">
+                <p class="modal__eyebrow">Call Queue</p>
+                <h3 class="phone-dialer__subtitle" id="phone-queue-title">Calls To Make</h3>
+              </div>
+              <div class="phone-dialer__queue-list js-phone-queue" aria-live="polite"></div>
+            </section>
+            <form class="phone-dialer__note-form js-phone-note-form">
+              <div class="phone-dialer__section-header">
+                <p class="modal__eyebrow">Call note</p>
+                <h3 class="phone-dialer__subtitle">Call Essentials</h3>
+              </div>
+              <label class="visually-hidden" for="phone-note">Call note</label>
+              <textarea
+                class="input input--textarea js-phone-note"
+                id="phone-note"
+                rows="5"
+                placeholder="Write important details from this call"
+              ></textarea>
+              <button class="btn btn--secondary btn--full" type="submit">Save Call Note</button>
+            </form>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- --- 10X SensAI Modal --- -->
+    <section
+      class="modal communication-modal sensai-modal"
+      id="ai-chat-modal"
+      aria-labelledby="ai-chat-title"
+      aria-hidden="true"
+      data-modal-initial-focus="#ai-chat-input"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--chat modal__dialog--sensai" role="dialog" aria-modal="true">
+        <header class="modal__header sensai-header">
+          <div class="sensai-avatar sensai-avatar--idle js-sensai-avatar" aria-hidden="true">
+            <span class="sensai-avatar__aura"></span>
+            <span class="sensai-avatar__headband">10X</span>
+            <span class="sensai-avatar__head">
+              <span class="sensai-avatar__screen">
+                <span class="sensai-avatar__eye"></span>
+                <span class="sensai-avatar__eye"></span>
+                <span class="sensai-avatar__mouth"></span>
+              </span>
+            </span>
+            <span class="sensai-avatar__scarf"></span>
+            <span class="sensai-avatar__body">
+              <span class="sensai-avatar__badge"></span>
+            </span>
+          </div>
+          <div>
+            <p class="modal__eyebrow">CRM helper agent</p>
+            <h2 class="modal__title" id="ai-chat-title">10X SensAI</h2>
+            <p class="modal__description">
+              Ask SensAI about clients, tasks, activity, reminders, or today&apos;s CRM focus.
+            </p>
+          </div>
+          <div class="communication-modal__header-actions">
+            <button
+              class="btn btn--ghost btn--sm js-clear-ai-chat"
+              type="button"
+              aria-label="Delete 10X SensAI chat history"
+            >
+              Clear Chat
+            </button>
+            <button class="icon-btn js-close-modal" type="button" aria-label="Close 10X SensAI" data-modal-close>
+              <img
+                src="./assets/icons/close.svg"
+                data-theme-src-dark="./assets/icons/close.svg"
+                data-theme-src-light="./assets/icons/close-light-theme.svg"
+                alt=""
+              />
+            </button>
+          </div>
+        </header>
+        <div class="modal__body sensai-chat">
+          <div class="sensai-suggestions js-sensai-suggestions" aria-label="SensAI suggestions"></div>
+          <div class="communication-chat__messages sensai-chat__messages js-ai-chat-messages" aria-live="polite"></div>
+        </div>
+        <form class="modal__footer communication-chat__form sensai-chat__form js-ai-chat-form">
+          <label class="visually-hidden" for="ai-chat-input">Ask 10X SensAI</label>
+          <input
+            class="input js-ai-chat-input"
+            id="ai-chat-input"
+            type="text"
+            placeholder="Ask SensAI: show overdue tasks"
+          />
+          <button class="btn btn--primary" type="submit">Ask SensAI</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- --- Global Delete Confirmation Modal --- -->
+    <section
+      class="modal destructive-confirm js-destructive-confirm"
+      id="global-delete-confirm-modal"
+      aria-labelledby="global-delete-confirm-title"
+      aria-describedby="global-delete-confirm-description"
+      aria-hidden="true"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--small" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Confirm action</p>
+            <h2 class="modal__title" id="global-delete-confirm-title">Delete item?</h2>
+            <p class="modal__description" id="global-delete-confirm-description">
+              Are you sure you want to delete this?
+            </p>
+          </div>
+          <button class="icon-btn js-global-delete-cancel" type="button" aria-label="Close delete confirmation">
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+        <footer class="modal__footer">
+          <button class="btn btn--ghost js-global-delete-cancel" type="button">Cancel</button>
+          <button class="btn btn--danger js-global-delete-confirm" type="button">Yes, Delete</button>
+        </footer>
+      </div>
+    </section>
+
+    <!-- --- JavaScript Entry Point --- -->
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

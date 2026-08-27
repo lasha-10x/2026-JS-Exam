@@ -1,0 +1,25 @@
+"use strict";
+
+/* --- API Environment Detection --- */
+const localApiBaseUrl = "http://localhost:5000/api";
+const productionApiBaseUrl = "https://one0x-crm-mariam-tchelidze-1.onrender.com/api";
+const localHostnames = ["localhost", "127.0.0.1", ""];
+const isLocalFrontend = localHostnames.includes(window.location.hostname) || window.location.protocol === "file:";
+
+/* --- Shared Local Storage Keys --- */
+window.crmConstants = {
+  USERS_KEY: "crm_users",
+  TEAM_MEMBERS_KEY: "crm_team_members",
+  TEAM_ROLES_KEY: "crm_team_roles",
+  SESSION_KEY: "crm_session",
+  CLIENTS_KEY: "crm_clients",
+  FILES_KEY: "crm_files",
+  ACTIVITY_KEY: "crm_activity",
+  THEME_KEY: "crm_theme",
+  API_BASE_URL: window.CRM_API_BASE_URL || (isLocalFrontend ? localApiBaseUrl : productionApiBaseUrl),
+  PAGES: {
+    login: "index.html",
+    signup: "signup.html",
+    dashboard: "dashboard.html",
+  },
+};

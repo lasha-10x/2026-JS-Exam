@@ -1,0 +1,132 @@
+/* Application Layout and Sidebar */
+
+/* =========================================================
+   APP WINDOW
+========================================================= */
+
+.app-layout {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    margin: 40px;
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 32px;
+
+    box-shadow:
+        0 35px 90px rgba(0, 40, 45, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.12);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.main-content {
+    flex: 1;
+    padding: 35px 45px;
+    background: var(--surface);
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.page-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    width: 270px;
+    background: #FFFFFF;
+    border-right: 1px solid var(--border);
+    padding: 32px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+
+
+.sidebar-brand {
+    margin-bottom: 40px;
+}
+
+.sidebar-brand a {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--brand-primary);
+    display: block;
+}
+
+.sidebar-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.nav-item {
+    width: 100%;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    border-radius: 14px;
+    color: var(--text-secondary);
+    font-size: 15px;
+    transition: .2s;
+}
+
+.nav-item:hover {
+    background: #ECFEFF;
+    color: var(--brand-primary);
+}
+
+.nav-item.active {
+    background: linear-gradient(90deg, #D9FFFF, #F0FDFA);
+    color: var(--brand-primary);
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 var(--brand-primary);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-button {
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    text-align: left;
+    padding: 0 18px;
+    border-radius: 14px;
+}
+
+.nav-button:hover {
+    background: #F1F5F9;
+}
+
+body.dark .sidebar {
+    background: var(--surface);
+}
+
+body.dark .nav-item:hover,
+body.dark .nav-button:hover {
+    background: var(--surface-soft);
+}

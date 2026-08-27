@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- Public login page. Authentication state is created in js/pages/login.js. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In | 10X CRM</title>
+    <style>html { visibility: hidden; }</style>
+    <script>try { if (JSON.parse(localStorage.getItem("crm_theme") || '"dark"') === "dark") document.documentElement.classList.add("theme-dark"); } catch { document.documentElement.classList.add("theme-dark"); }</script>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body class="auth-page">
+    <main class="auth-card">
+      <a class="brand" href="index.html" aria-label="10X CRM home">10X</a>
+      <h1 data-i18n="welcomeBack">Welcome back</h1>
+      <p data-i18n="pipelineText">Log in to manage your sales pipeline.</p>
+      <form class="auth-form" id="login-form" novalidate>
+        <div class="form-field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" /><span class="field-error" id="email-error"></span></div>
+        <div class="form-field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" /><span class="field-error" id="password-error"></span></div>
+        <label class="remember-session"><input id="remember-me" name="remember-me" type="checkbox" /><span><strong data-i18n="rememberMe">Remember me</strong><small data-i18n="sessionExpiry">Session expires after 30 minutes.</small></span></label>
+        <button class="button button-primary" type="submit">Log In</button>
+      </form>
+      <p class="auth-footer">Don't have an account? <a href="signup.html">Sign up</a></p>
+    </main>
+    <script type="module" src="js/pages/login.js"></script>
+  </body>
+</html>

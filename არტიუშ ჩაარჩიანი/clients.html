@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage clients in 10X CRM.">
+    <script>
+      (() => {
+        let theme = "light";
+
+        try {
+          theme = localStorage.getItem("crm_theme") === "dark" ? "dark" : "light";
+        } catch {
+          theme = "light";
+        }
+
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.backgroundColor =
+          theme === "dark" ? "#101116" : "#e9e9ed";
+      })();
+    </script>
+    <style>
+      html {
+        min-height: 100%;
+        background: #e9e9ed;
+        color-scheme: light;
+      }
+
+      body {
+        min-height: 100%;
+        margin: 0;
+        background: inherit;
+      }
+
+      html[data-theme="dark"] {
+        background: #101116;
+        color-scheme: dark;
+      }
+    </style>
+    <title>Clients | 10X CRM</title>
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body class="app-layout" data-page="clients">
+    <aside class="app-sidebar" data-navigation-root aria-label="Application navigation"></aside>
+
+    <main class="clients-page" id="main-content">
+      <header class="clients-page__header">
+        <div>
+          <p class="eyebrow">Customer relationships</p>
+          <h1 id="page-title">Clients</h1>
+        </div>
+        <button id="add-client-button" type="button">+ Add Client</button>
+      </header>
+
+      <section class="clients-panel" aria-labelledby="client-list-title">
+        <div class="clients-toolbar">
+          <div class="clients-toolbar__search">
+            <label class="visually-hidden" for="client-search">
+              Search clients by name or company
+            </label>
+            <input
+              id="client-search"
+              type="search"
+              placeholder="Search by name or company"
+              autocomplete="off"
+            >
+          </div>
+
+          <div
+            class="clients-toolbar__filters"
+            role="group"
+            aria-label="Filter clients by status"
+          >
+            <button
+              class="filter-chip is-active"
+              type="button"
+              data-status-filter="All"
+              aria-pressed="true"
+            >All</button>
+            <button
+              class="filter-chip"
+              type="button"
+              data-status-filter="Lead"
+              aria-pressed="false"
+            >Lead</button>
+            <button
+              class="filter-chip"
+              type="button"
+              data-status-filter="Contacted"
+              aria-pressed="false"
+            >Contacted</button>
+            <button
+              class="filter-chip"
+              type="button"
+              data-status-filter="Won"
+              aria-pressed="false"
+            >Won</button>
+            <button
+              class="filter-chip"
+              type="button"
+              data-status-filter="Lost"
+              aria-pressed="false"
+            >Lost</button>
+          </div>
+
+          <div class="clients-toolbar__sort">
+            <label class="visually-hidden" for="client-sort">Sort clients</label>
+            <select id="client-sort">
+              <option value="newest" selected>Newest first</option>
+              <option value="name">Name A-&gt;Z</option>
+              <option value="deal-value">Deal value: high -&gt; low</option>
+            </select>
+          </div>
+
+          <button
+            class="button--secondary clients-toolbar__export"
+            id="export-clients-button"
+            type="button"
+          >
+            Export CSV
+          </button>
+        </div>
+
+        <h2 class="visually-hidden" id="client-list-title">Client list</h2>
+        <div class="client-list" id="client-list" aria-live="polite">
+          <p class="client-list__message">Loading clients...</p>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal-backdrop" id="add-client-modal" aria-hidden="true" hidden>
+      <section
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="add-client-title"
+      >
+        <header class="modal__header">
+          <div>
+            <p class="eyebrow" id="client-form-eyebrow">New relationship</p>
+            <h2 id="add-client-title">Add Client</h2>
+          </div>
+          <button
+            class="modal__close"
+            id="client-form-close"
+            type="button"
+            aria-label="Close client form"
+            data-modal-close
+          >
+            &times;
+          </button>
+        </header>
+
+        <form class="client-form" id="add-client-form" novalidate>
+          <div class="form-field">
+            <label for="client-name">Name</label>
+            <input
+              id="client-name"
+              name="name"
+              type="text"
+              autocomplete="name"
+              aria-describedby="client-name-error"
+              required
+            >
+            <p class="form-error" id="client-name-error" aria-live="polite"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="client-email">Email</label>
+            <input
+              id="client-email"
+              name="email"
+              type="text"
+              autocomplete="email"
+              aria-describedby="client-email-error"
+              required
+            >
+            <p class="form-error" id="client-email-error" aria-live="polite"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="client-phone">Phone</label>
+            <input
+              id="client-phone"
+              name="phone"
+              type="tel"
+              autocomplete="tel"
+              aria-describedby="client-phone-error"
+            >
+            <p class="form-error" id="client-phone-error" aria-live="polite"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="client-company">Company</label>
+            <input
+              id="client-company"
+              name="company"
+              type="text"
+              autocomplete="organization"
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="client-image">Image URL</label>
+            <input
+              id="client-image"
+              name="image"
+              type="url"
+              inputmode="url"
+              autocomplete="url"
+              placeholder="https://example.com/avatar.jpg"
+              aria-describedby="client-image-error"
+            >
+            <p class="form-error" id="client-image-error" aria-live="polite"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="client-deal-value">Deal Value</label>
+            <input
+              id="client-deal-value"
+              name="dealValue"
+              type="number"
+              inputmode="decimal"
+              min="0"
+              step="any"
+              aria-describedby="client-deal-value-error"
+              required
+            >
+            <p
+              class="form-error"
+              id="client-deal-value-error"
+              aria-live="polite"
+            ></p>
+          </div>
+
+          <div class="form-field">
+            <label for="client-status">Status</label>
+            <select id="client-status" name="status">
+              <option value="Lead" selected>Lead</option>
+              <option value="Contacted">Contacted</option>
+              <option value="Won">Won</option>
+              <option value="Lost">Lost</option>
+            </select>
+          </div>
+
+          <p
+            class="form-error form-error--summary"
+            id="add-client-submit-error"
+            role="alert"
+          ></p>
+
+          <footer class="modal__footer">
+            <button class="button--secondary" type="button" data-modal-close>
+              Cancel
+            </button>
+            <button id="client-form-submit" type="submit">Add Client</button>
+          </footer>
+        </form>
+      </section>
+    </div>
+
+    <div
+      class="modal-backdrop"
+      id="client-details-modal"
+      aria-hidden="true"
+      hidden
+    >
+      <section
+        class="modal modal--details"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="client-details-title"
+      >
+        <header class="modal__header">
+          <div>
+            <p class="eyebrow">Relationship overview</p>
+            <h2 id="client-details-title">Client details</h2>
+          </div>
+          <button
+            class="modal__close"
+            type="button"
+            aria-label="Close client details"
+            data-modal-close
+          >
+            &times;
+          </button>
+        </header>
+
+        <div class="client-details" id="client-details-content"></div>
+      </section>
+    </div>
+
+    <script type="module" src="js/pages/clients.js"></script>
+  </body>
+</html>
+

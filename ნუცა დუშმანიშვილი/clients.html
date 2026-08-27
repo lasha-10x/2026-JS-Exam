@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM - Clients</title>
+    <link rel="stylesheet" href="styles/main.css">
+    
+</head>
+<body class="app-page">
+
+    <div class="app-layout">
+        <aside id="sidebar" class="sidebar">
+                    <div class="sidebar-brand">
+                        <a href="dashboard.html">10X CRM</a>
+                    </div>
+        
+                    <nav class="sidebar-navigation" aria-label="Main navigation">
+                        <a class="nav-item" href="dashboard.html">Dashboard</a>
+                        <a class="nav-item active" href="clients.html" aria-current="page">Clients</a>
+                        <a class="nav-item" href="profile.html">Profile</a>
+                    </nav>
+        
+                    <div class="sidebar-footer">
+                        <button id="themeToggle" class="nav-button" type="button">Dark / Light</button>
+                        <button id="logoutButton" class="nav-button" type="button">Logout</button>
+                    </div>
+                </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <h1>Clients</h1>
+                <button id="addClientButton" class="btn btn-primary">+ Add Client</button>
+            </header>
+
+            <section class="toolbar">
+                <input id="clientSearch" type="search" placeholder="Search clients...">
+
+                <div id="filterChips" class="filter-chips">
+                    <button data-status="All" class="filter-chip active">All</button>
+                    <button data-status="Lead" class="filter-chip">Lead</button>
+                    <button data-status="Contacted" class="filter-chip">Contacted</button>
+                    <button data-status="Won" class="filter-chip">Won</button>
+                    <button data-status="Lost" class="filter-chip">Lost</button>
+                </div>
+
+                <select id="clientSort">
+                    <option value="newest">Newest first</option>
+                    <option value="name">Name A-Z</option>
+                    <option value="deal-value">Deal value: high - low</option>
+                </select>
+            </section>
+
+            <section id="clientsContainer" class="clients-grid">
+                <!-- Client cards injected here -->
+            </section>
+        </main>
+    </div>
+
+    <!-- ADD CLIENT MODAL -->
+    <div id="clientModal" class="modal hidden">
+        <div class="modal-content">
+            <button id="closeModalButton" type="button" class="modal-close" aria-label="Close add client modal">X</button>
+            <h2>Add Client</h2>
+            
+            <form id="clientForm" novalidate>
+                <div class="form-group">
+                    <label for="clientName">Name</label>
+                    <input id="clientName" name="name" type="text" placeholder="Name">
+                    <small id="clientNameError" class="form-error"></small>
+                </div>
+                <div class="form-group">
+                    <label for="clientEmail">Email</label>
+                    <input id="clientEmail" name="email" type="email" placeholder="Email">
+                    <small id="clientEmailError" class="form-error"></small>
+                </div>
+                <div class="form-group">
+                    <label for="clientPhone">Phone</label>
+                    <input id="clientPhone" name="phone" type="tel" placeholder="Phone">
+                    <small id="clientPhoneError" class="form-error"></small>
+                </div>
+                <div class="form-group">
+                    <label for="clientCompany">Company</label>
+                    <input id="clientCompany" name="company" type="text" placeholder="Company">
+                    <small id="clientCompanyError" class="form-error"></small>
+                </div>
+                <div class="form-group">
+                    <label for="clientDealValue">Deal Value</label>
+                    <input id="clientDealValue" name="dealValue" type="number" min="0" step="0.01" placeholder="Deal Value">
+                    <small id="clientDealValueError" class="form-error"></small>
+                </div>
+                <div class="form-group">
+                    <label for="clientStatus">Status</label>
+                    <select id="clientStatus" name="status">
+                        <option>Lead</option>
+                        <option>Contacted</option>
+                        <option>Won</option>
+                        <option>Lost</option>
+                    </select>
+                    <small id="clientStatusError" class="form-error"></small>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Client</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CLIENT DETAILS MODAL -->
+    <div id="clientDetailsModal" class="modal hidden">
+        <section class="modal-content client-details-content" aria-labelledby="detailsName">
+            <button id="closeDetailsButton" class="modal-close" type="button" aria-label="Close client details">X</button>
+
+            <header class="client-details-header">
+                <div id="detailsAvatar" class="avatar details-avatar"></div>
+                <div>
+                    <h2 id="detailsName">Client Name</h2>
+                    <p id="detailsCompany">Company</p>
+                </div>
+            </header>
+
+            <dl class="client-details-list">
+                <div>
+                    <dt>Phone</dt>
+                    <dd id="detailsPhone"></dd>
+                </div>
+                <div>
+                    <dt>Email</dt>
+                    <dd id="detailsEmail"></dd>
+                </div>
+                <div>
+                <dt>Status</dt>
+                    <dd>
+                        <select id="detailsStatus">
+                            <option value="Lead">Lead</option>
+                            <option value="Contacted">Contacted</option>
+                            <option value="Won">Won</option>
+                            <option value="Lost">Lost</option>
+                        </select>
+                    </dd>
+                </div>
+                <div>
+                    <dt>Deal Value</dt>
+                    <dd id="detailsDealValue"></dd>
+                </div>
+                <div>
+                    <dt>Created</dt>
+                    <dd id="detailsCreatedAt"></dd>
+                </div>
+            </dl>
+
+            <section class="client-notes-section">
+                <h3>Notes</h3>
+                <form id="clientNoteForm" class="note-form">
+                    <label for="clientNoteInput">Add a note</label>
+                    <textarea id="clientNoteInput" rows="3" placeholder="Write your note..."></textarea>
+                    <button class="btn btn-primary" type="submit">Add Note</button>
+                </form>
+                <div id="clientNotesList" class="client-notes-list"></div>
+            </section>
+
+            <button id="clientReminderButton" class="btn btn-secondary" type="button">Remind me in 1 min</button>
+        </section>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/guard.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/clients.js"></script>
+
+
+</body>
+</html>

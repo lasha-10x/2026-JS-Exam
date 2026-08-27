@@ -1,0 +1,22 @@
+<!doctype html>
+<!-- Protected dashboard page. The inline head script prevents protected-content flashing. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | 10X CRM</title>
+    <style>html { visibility: hidden; }</style>
+    <script>try { const session = JSON.parse(sessionStorage.getItem("crm_tab_session") || localStorage.getItem("crm_session") || "null"); const users = JSON.parse(localStorage.getItem("crm_users") || "[]"); const expiresAt = Date.parse(session?.expiresAt || "") || Date.parse(session?.loginAt || "") + 1800000; const expired = !Number.isFinite(expiresAt) || expiresAt <= Date.now(); if (!session?.userId || expired || !users.some((user) => user.id === session.userId)) { if (expired) { localStorage.removeItem("crm_session"); sessionStorage.removeItem("crm_tab_session"); } location.replace(expired && session?.userId ? "index.html?reason=session-expired" : "index.html"); } else if (JSON.parse(localStorage.getItem("crm_theme") || '"dark"') === "dark") document.documentElement.classList.add("theme-dark"); } catch { location.replace("index.html"); }</script>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar"><div class="sidebar-top"><a class="brand" href="dashboard.html">10X</a><div class="sidebar-actions"><button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle color theme"></button><a class="notifications-link" href="notifications.html" aria-label="Notifications" title="Notifications"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" /></svg></a><button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="main-navigation"><span></span><span></span><span></span></button></div></div><nav class="sidebar-nav" id="main-navigation" aria-label="Main navigation"><a class="active" aria-current="page" href="dashboard.html"><svg class="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6v-9h-6v9Zm0-16v4h6V4h-6Z" /></svg><span data-i18n="dashboard">Dashboard</span></a><a href="clients.html"><svg class="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 20v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1m12-12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 20v-1a4 4 0 0 0-3-3.87M17 3.13a4 4 0 0 1 0 7.75" /></svg><span data-i18n="clients">Clients</span></a><a href="profile.html"><svg class="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" /></svg><span data-i18n="profile">Profile</span></a><button class="logout-button" type="button" id="logout-button"><svg class="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5m5 5H3m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5" /></svg><span data-i18n="logout">Log out</span></button></nav></aside>
+      <main class="app-content">
+        <header class="page-header"><h1 data-i18n="dashboard">Dashboard</h1><p data-i18n="dashboardIntro">Your sales activity at a glance.</p></header>
+        <div id="dashboard-content" class="dashboard-grid" aria-live="polite"><p class="loading-state">Loading dashboard...</p></div>
+      </main>
+    </div>
+    <script type="module" src="js/pages/dashboard.js"></script>
+  </body>
+</html>

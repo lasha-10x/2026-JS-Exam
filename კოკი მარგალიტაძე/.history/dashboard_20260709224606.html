@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - 10x CRM</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="app-container nav-wrapper">
+            <a href="dashboard.html" class="nav-brand">10X CRM</a>
+            <ul class="nav-links">
+                <li><a href="dashboard.html" class="nav-item" data-page="dashboard">Dashboard</a></li>
+                <li><a href="clients.html" class="nav-item" data-page="clients">Clients</a></li>
+                <li><a href="profile.html" class="nav-item" data-page="profile">Profile</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="btn-icon" title="Toggle theme">🌙</button>
+                <button id="logout-btn" class="btn-logout">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <!-- Greeting + live clock -->
+        <div class="dashboard-greeting">
+            <h1 id="greeting-text">Welcome back!</h1>
+            <p id="live-clock"></p>
+        </div>
+
+        <!-- 4 stat cards -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Total Clients</span>
+                <span class="stat-value" id="stat-total-clients">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Active Deals</span>
+                <span class="stat-value" id="stat-active-deals">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Won Revenue</span>
+                <span class="stat-value" id="stat-won-revenue">$0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">New This Week</span>
+                <span class="stat-value" id="stat-new-week">0</span>
+            </div>
+        </section>
+
+        <!-- Pipeline overview -->
+        <section class="pipeline-section">
+            <h2>Pipeline Overview</h2>
+            <div id="pipeline-overview" class="pipeline-grid"></div>
+        </section>
+
+        <!-- Recent clients -->
+        <section class="recent-section">
+            <h2>Recent Clients</h2>
+            <div id="recent-clients-list"></div>
+            <a href="clients.html" class="auth-link">View all clients →</a>
+        </section>
+    </main>
+
+    <script src="js/toast.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/guard.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/dashboard.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clients Page - 10X CRM</title>
+
+    <!-- სტილების ფაილის დაკავშირება -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- JavaScript ფაილების დაკავშირება defer ატრიბუტით -->
+    <!-- მნიშვნელოვანია: ჯერ ვრთავთ საერთო ფუნქციებს, მერე კონკრეტული გვერდის ლოგიკას -->
+    <script src="js/storage.js" defer></script>
+    <script src="js/guard.js" defer></script>
+    <script src="js/clients.js" defer></script>
+    <script src="js/theme.js" defer></script>
+
+</head>
+
+<body>
+    <!-- მთავარი კონტეინერი -->
+    <div class="app-container">
+
+        <!-- 1. ნავიგაციის ზოლი (Header) -->
+        <header class="main-header">
+            <div class="logo">10X CRM</div>
+            <nav class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="clients.html" class="active">Clients</a>
+                <a href="profile.html">Profile</a>
+                <button id="theme-toggle" class="btn-theme-toggle">🌙</button>
+                <!-- Logout ღილაკი AuthGuard-ის ფუნქციით -->
+                <button id="btn-logout" class="btn-logout">Log Out</button>
+            </nav>
+        </header>
+
+        <!-- მთავარი კონტენტი -->
+        <main class="main-content">
+            <div class="page-title-bar">
+                <h2>Clients Management</h2>
+                <!-- კლიენტის დამატების ღილაკი (მოგვიანებით გახსნის მოდალს) -->
+                <button id="btn-add-client" class="btn-primary">Add Client</button>
+            </div>
+
+            <!-- 2. ძებნის და ფილტრაციის ზოლი (Toolbar) -->
+            <div class="toolbar">
+                <input type="text" id="search-input" placeholder="Search clients by name or company...">
+
+                <select id="status-filter">
+                    <option value="all">All Statuses</option>
+                    <option value="Lead">Lead</option>
+                    <option value="Contacted">Contacted</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Won">Won</option>
+                    <option value="Lost">Lost</option>
+                </select>
+
+                <select id="sort-by">
+                    <option value="name-asc">Name (A-Z)</option>
+                    <option value="name-desc">Name (Z-A)</option>
+                    <option value="value-high">Value (High to Low)</option>
+                    <option value="value-low">Value (Low to High)</option>
+                </select>
+            </div>
+
+            <!-- 3. კლიენტების დინამიური კონტეინერი -->
+            <!-- სწორედ აქ ჩაჯდება JS-ით API-დან წამოღებული კლიენტების ბარათები -->
+            <div id="clients-container" class="clients-grid">
+                <div class="loading-state">Loading clients...</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ახალი კლიენტის დამატების მოდალი -->
+    <div id="add-client-modal" class="modal">
+        <div class="modal-content">
+            <span id="btn-close-modal" class="close-btn">&times;</span>
+            <h3>Add New Client</h3>
+
+            <form id="add-client-form">
+                <div class="form-group">
+                    <label for="client-name">Name *</label>
+                    <input type="text" id="client-name" required>
+                    <span id="nameError" class="error-msg"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="client-email">Email *</label>
+                    <input type="email" id="client-email" required>
+                    <span id="emailError" class="error-msg"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="client-phone">Phone</label>
+                    <input type="text" id="client-phone">
+                    <span id="phoneError" class="error-msg"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="client-company">Company</label>
+                    <input type="text" id="client-company" placeholder="Independent Contractor">
+                </div>
+
+                <div class="form-group">
+                    <label for="client-value">Deal Value ($) *</label>
+                    <input type="number" id="client-value" min="0" required>
+                    <span id="dealValueError" class="error-msg"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="client-status">Status *</label>
+                    <select id="client-status" required>
+                        <option value="Lead" selected>Lead</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Won">Won</option>
+                        <option value="Lost">Lost</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit">Save Client</button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- კლიენტის დეტალებისა და ჩანაწერების მოდალი -->
+    <div id="details-modal" class="modal">
+        <div class="modal-content">
+            <span id="btn-close-details" class="close-btn">&times;</span>
+            <h3 id="details-title">Client Details</h3>
+
+            <div class="details-body">
+                <p><strong>Company:</strong> <span id="details-company"></span></p>
+                <p><strong>Status:</strong> <span id="details-status"></span></p>
+                <p><strong>Amount:</strong> <span id="details-value"></span></p>
+            </div>
+
+            <hr>
+
+            <!-- ჩანაწერების (Notes) სექცია -->
+            <div class="notes-section">
+                <h4>📝 Notes </h4>
+                <textarea id="notes-textarea" rows="4"
+                    placeholder="Record important information about the client..."></textarea>
+                <button id="btn-save-notes" class="btn-primary">Save</button>
+            </div>
+
+            <hr>
+
+            <!-- შეხსენების (Reminder) სექცია -->
+            <div class="reminder-section">
+                <h4>⏰ Reminder timer </h4>
+                <div class="reminder-inputs">
+                    <input type="number" id="reminder-seconds" min="1" placeholder="Secons (Example: 5)">
+                    <button id="btn-set-reminder" class="btn-submit">Start Timer</button>
+                </div>
+                <span id="reminder-status" class="reminder-status-msg"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- კლიენტის წაშლის მორგებული მოდალი და ტოსტი ერთად -->
+    <div id="delete-client-modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); justify-content: center; align-items: center; z-index: 9999;">
+        <div
+            style="background: #111c44; padding: 28px; border-radius: 16px; max-width: 400px; width: 90%; text-align: center; border: 1px solid #1f2c61; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);">
+            <h3 style="color: #ffffff; font-size: 20px; font-weight: 600; margin-top: 0; margin-bottom: 12px;">Delete client</h3>
+            <p style="color: #aeaeae; font-size: 14px; margin-bottom: 24px;">Do you really want to delete the selected client from the system?</p>
+            <div style="display: flex; gap: 12px; justify-content: center;">
+                <button id="btn-delete-cancel"
+                    style="background: #1f2c61; color: white; padding: 10px 22px; border-radius: 8px; border: none; cursor: pointer; font-weight: 500;">Cancel</button>
+                <button id="btn-delete-confirm"
+                    style="background: #dc2626; color: white; padding: 10px 22px; border-radius: 8px; border: none; cursor: pointer; font-weight: 500;">Delete</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- დამოუკიდებელი ტოსტი, რომელიც გარანტირებულად ამოხტება -->
+    <div id="universal-delete-toast"
+        style="display: none; position: fixed; bottom: 20px; right: 20px; background-color: #111c44; border: 1px solid #22c55e; padding: 14px 24px; border-radius: 12px; color: #ffffff; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); z-index: 99999; align-items: center; gap: 10px; font-size: 14px; font-family: sans-serif;">
+        <span style="font-size: 18px;">✅</span>
+        <span>The client has been successfully deleted!</span>
+    </div>
+
+
+</body>
+
+</html>

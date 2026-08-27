@@ -1,0 +1,354 @@
+@use './abstract/variables.scss' as *;
+@use 'dashboard';
+@use 'clients';
+
+// Common styles
+body {
+  min-height: 100vh;
+  background-color: #b5f0dc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.flex_rule {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Wrapper for Dashboard & Clients pages (Full Width Layout)
+.main_wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+// Card style specifically for LogIn and SignUp forms
+.auth_wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(240, 243, 243);
+  border-radius: 20px; 
+  width: 90%;
+  max-width: 400px;
+  padding: 40px 30px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  margin: 40px auto;
+
+  header {
+    margin-bottom: 25px;
+    h1 {
+      font-size: 28px;
+      color: #333;
+    }
+  }
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  margin-bottom: 20px;
+
+  input, button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    outline: none;
+  }
+
+  input:focus {
+    border-color: #b5f0dc; 
+  }
+
+  button {
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background 0.2s;
+
+    &:hover {
+      background-color: #444;
+    }
+  }
+}
+
+.login_action {
+  display: flex;
+  justify-content: space-around; 
+  width: 100%;
+  font-size: 13px;
+  
+  a {
+    color: #2b8a6a;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    color: #677;
+  }
+}
+
+/* Dark Theme Styles */
+html.dark-theme {
+    background-color: #0f172a;
+    color: #f8fafc;
+
+    body {
+        background-color: #0f172a;
+        color: #f8fafc;
+    }
+    .user-info {
+        
+        
+        span {
+            color: #f8fafc !important; 
+        }
+    }
+    .navbar {
+        background-color: #1e293b;
+        border-bottom: 1px solid #334155;
+
+        h2, a {
+            color: #f8fafc;
+        }
+    }
+
+    .analytics-card, div[style*="background: #ffffff"] {
+        background-color: #1e293b !important;
+        color: #f8fafc !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+        h3 {
+            color: #94a3b8 !important;
+        }
+
+        p {
+            color: #f8fafc !important;
+        }
+    }
+
+    .toolbar {
+        input, select {
+            background-color: #1e293b;
+            color: #f8fafc;
+            border-color: #334155;
+
+            &::placeholder {
+                color: #94a3b8;
+            }
+        }
+    }
+
+    .crm_table {
+        background-color: #1e293b;
+        border-color: #334155;
+
+        th {
+            background-color: #334155;
+            color: #f8fafc;
+            border-color: #475569;
+        }
+
+        td {
+            border-color: #334155;
+            color: #f8fafc;
+        }
+
+        tr:nth-child(even) {
+            background-color: #162235;
+        }
+    }
+    
+    .auth_wrapper {
+        background-color: #1e293b;
+        border: 1px solid #334155;
+        
+        header h1 {
+            color: #f8fafc;
+        }
+    }
+
+    .login_form {
+        input {
+            background-color: #0f172a;
+            border-color: #334155;
+            color: #f8fafc;
+
+            &::placeholder {
+                color: #94a3b8;
+            }
+        }
+
+        button {
+            background-color: #3b82f6;
+            &:hover {
+                background-color: #2563eb;
+            }
+        }
+    }
+}
+
+/* Enhanced Profile Page Styles */
+.profile-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.profile-hero-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background: linear-gradient(90deg, #2563eb, #4f46e5);
+    }
+
+    .profile-large-avatar {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background-color: #dbeafe;
+        color: #1d4ed8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 2rem;
+        flex-shrink: 0;
+        box-shadow: 0 0 0 4px #eff6ff;
+    }
+
+    .profile-hero-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+
+        h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #0f172a;
+        }
+
+        p {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background-color: #e0f2fe;
+            color: #0284c7;
+            padding: 0.2rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-top: 0.4rem;
+        }
+    }
+}
+
+.profile-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+
+    .info-card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        span.label {
+            font-size: 0.8rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        span.value {
+            font-size: 1.05rem;
+            color: #1e293b;
+            font-weight: 500;
+        }
+    }
+}
+
+/* Dark Theme Support for Profile */
+html.dark-theme {
+    .profile-hero-card {
+        background-color: #1e293b;
+        border-color: #334155;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+
+        .profile-large-avatar {
+            background-color: #1e293b;
+            color: #60a5fa;
+            box-shadow: 0 0 0 4px #0f172a;
+            border: 2px solid #334155;
+        }
+
+        .profile-hero-info {
+            h2 { color: #f8fafc; }
+            p { color: #94a3b8; }
+            .role-badge {
+                background-color: rgba(2, 132, 199, 0.2);
+                color: #38bdf8;
+            }
+        }
+    }
+
+    .profile-details-grid .info-card {
+        background-color: #1e293b;
+        border-color: #334155;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+
+        span.label { color: #94a3b8; }
+        span.value { color: #f8fafc; }
+    }
+}
+
+html.dark-theme {
+    #change_password_form {
+        input {
+            background-color: #0f172a;
+            border-color: #334155;
+            color: #f8fafc;
+        }
+    }
+}

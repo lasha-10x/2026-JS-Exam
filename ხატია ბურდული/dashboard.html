@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM - Dashboard</title>
+
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+
+    <header class="header">
+
+        <h2>10X CRM</h2>
+
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="clients.html">Clients</a>
+            <a href="profile.html">Profile</a>
+            <button id="themeToggle"> Dark Mode</button>
+            <button id="logoutBtn">Logout</button>
+        </nav>
+
+    </header>
+
+    <main class="dashboard">
+
+        <h1 id="welcomeMessage">Welcome!</h1>
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <h3>Total Clients</h3>
+                <p id="totalClients">0</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>New This Month</h3>
+                <p id="newClients">0</p>
+            </div>
+
+        </section>
+
+        <section class="quick-actions">
+
+            <h2>Quick Actions</h2>
+
+            <button id="addClientBtn">
+                Add Client
+            </button>
+
+        </section>
+
+    </main>
+
+
+
+    <script src="assets/js/helpers.js"></script>
+    <script src="assets/js/guard.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+</body>
+</html>

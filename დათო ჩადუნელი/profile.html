@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile — 10X CRM</title>
+  <!-- Runs before CSS/body render, so data-theme is set and a missing
+       session is caught before the first frame — otherwise the page
+       briefly paints the default theme, and this protected page's
+       content, before data.js/guard.js get a chance to run and redirect.
+       Self-contained on purpose: data.js hasn't loaded yet here, so
+       the "crm_theme"/"crm_session" keys are read directly instead of
+       using data.js's STORAGE_KEYS/getSession(). -->
+  <script>
+    document.documentElement.setAttribute("data-theme", localStorage.getItem("crm_theme") || "light");
+    if (!localStorage.getItem("crm_session")) {
+      window.location.href = "index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <nav class="sidebar">
+      <a href="dashboard.html" class="logo">
+        <div class="logo-mark">10X</div>
+        10X CRM
+      </a>
+      <div class="sidebar-menu">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="clients.html" class="nav-link">Clients</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="nav-link theme-toggle">
+          <span class="theme-toggle-label"></span>
+          <span class="theme-toggle-icon" aria-hidden="true"></span>
+          <button id="theme-toggle" class="switch" aria-label="Toggle dark mode"></button>
+        </div>
+        <button id="logout-btn" class="nav-link logout-btn">
+          Logout
+        </button>
+      </div>
+    </nav>
+
+    <main class="main main-narrow">
+      <div class="page-header">
+        <h1>Profile</h1>
+      </div>
+
+      <div class="card">
+        <div class="detail-header">
+          <div class="avatar avatar-lg" id="profile-avatar"></div>
+          <div>
+            <p id="profile-name"></p>
+            <p class="detail-meta" id="profile-email"></p>
+          </div>
+        </div>
+        <table class="kv-table">
+          <tr><td class="text-muted">Company</td><td id="profile-company"></td></tr>
+          <tr><td class="text-muted" id="profile-since" colspan="2"></td></tr>
+        </table>
+      </div>
+
+      <div class="card-row">
+        <div class="card">
+          <h3>Edit profile</h3>
+          <form id="edit-profile-form" novalidate>
+            <div class="field">
+              <label for="edit-fullname">Full name</label>
+              <input type="text" id="edit-fullname" name="fullName" placeholder="Nino Beridze" />
+              <div class="field-error" data-error-for="fullName"></div>
+            </div>
+            <div class="field">
+              <label for="edit-company">Company</label>
+              <input type="text" id="edit-company" name="company" placeholder="Company (optional)" />
+              <div class="field-error" data-error-for="company"></div>
+            </div>
+            <div class="field">
+              <label for="edit-avatar-url">Avatar URL (optional)</label>
+              <input type="text" id="edit-avatar-url" name="avatarUrl" placeholder="https://example.com/photo.jpg" />
+              <div class="field-error" data-error-for="avatarUrl"></div>
+            </div>
+            <button type="submit" class="btn-primary">Save changes</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h3>Change password</h3>
+          <form id="change-password-form" novalidate>
+            <div class="field">
+              <label for="current-password">Current password</label>
+              <input type="password" id="current-password" name="currentPassword" placeholder="Your current password" />
+              <div class="field-error" data-error-for="currentPassword"></div>
+            </div>
+            <div class="field">
+              <label for="new-password">New password</label>
+              <input type="password" id="new-password" name="newPassword" placeholder="At least 8 characters" />
+              <div class="field-error" data-error-for="newPassword"></div>
+            </div>
+            <div class="field">
+              <label for="confirm-new-password">Confirm new password</label>
+              <input type="password" id="confirm-new-password" name="confirmNewPassword" placeholder="Repeat new password" />
+              <div class="field-error" data-error-for="confirmNewPassword"></div>
+            </div>
+            <button type="submit" class="btn-primary">Change password</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Data</h3>
+        <p>Reset your client list back to a fresh sample from the API. Your account is not affected.</p>
+        <button id="reset-data-btn" class="btn-danger">Reset CRM data</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

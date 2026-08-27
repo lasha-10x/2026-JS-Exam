@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10x CRM</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="light content">
+    <!-- aside placeholder -->
+    <aside id="aside-placeholder"></aside>
+
+    <main class="main-content">
+        <div class="theme-toggle-cont">
+            <a href="#" id="theme-toggle">
+                <img src="./assets/sleep-mode.svg" alt="theme icon" id="theme-icon">
+            </a>
+        </div>
+
+         <header class="page-header">
+            <h1>Clients</h1>
+            <button id="add-client-btn" type="button">+ Add Client</button>
+        </header>
+
+        <!-- Toolbar: search / filter chips / sort -->
+        <section class="toolbar">
+
+            
+            <input
+            id="search-input"
+            type="text"
+            placeholder="Search..."
+            autocomplete="off"
+            >
+
+            <div id="filter-chips" class="filter-chips">
+                <div>status:</div>
+                <button type="button" class="chip active" data-status="All">All</button>
+                <button type="button" class="chip" data-status="Lead">Lead</button>
+                <button type="button" class="chip" data-status="Contacted">Contacted</button>
+                <button type="button" class="chip" data-status="Won">Won</button>
+                <button type="button" class="chip" data-status="Lost">Lost</button>
+            </div>
+
+            <select id="sort-select">
+            <option value="newest">Sort: Newest</option>
+            <option value="name">Name A→Z</option>
+            <option value="deal">Deal value: high → low</option>
+            </select>
+
+        </section>
+
+        
+        <div id="loading-state" hidden>Loading clients...</div>
+
+        <div id="error-state" hidden>
+            <p>Could not load clients. Check your connection and try again.</p>
+            <button id="retry-btn" type="button">Retry</button>
+        </div>
+
+    
+        <div id="empty-state" hidden>No clients found.</div>
+
+        <section id="client-list" class="client-list">
+
+            <article class="client-card" data-id="">
+            <img class="avatar" src="" alt="">
+            <div class="client-info">
+                <h3 class="client-name"></h3>
+                <p class="client-company"></p>
+                <p class="client-email"></p>
+                <span class="status-badge"></span>
+                <p class="deal-value"></p>
+            </div>
+
+            <div class="card-actions">
+                <select class="status-select">
+                <option value="Lead">Lead</option>
+                <option value="Contacted">Contacted</option>
+                <option value="Won">Won</option>
+                <option value="Lost">Lost</option>
+                </select>
+                <button type="button" class="delete-btn">Delete</button>
+            </div>
+            </article>
+        </section>
+
+        <div id="add-client-modal" class="modal" hidden>
+            <div class="modal-backdrop"></div>
+            <div class="modal-content">
+            <button type="button" class="modal-close" aria-label="Close">×</button>
+
+            <h2>Add Client</h2>
+
+            <form id="add-client-form" novalidate>
+                
+                <label for="field-name">Name</label>
+                <input id="field-name" name="name" type="text">
+                <p class="field-error" data-for="field-name"></p>
+
+                <label for="field-email">Email</label>
+                <input id="field-email" name="email" type="email">
+                <p class="field-error" data-for="field-email"></p>
+               
+                <label for="field-phone">Phone</label>
+                <input id="field-phone" name="phone" type="text">
+                <p class="field-error" data-for="field-phone"></p>
+                
+                <label for="field-company">Company</label>
+                <input id="field-company" name="company" type="text">
+              
+                <label for="field-deal-value">Deal Value</label>
+                <input id="field-deal-value" name="dealValue" type="number">
+                <p class="field-error" data-for="field-deal-value"></p>
+                
+                <label for="field-status">Status</label>
+                <select id="field-status" name="status">
+                <option value="Lead" selected>Lead</option>
+                <option value="Contacted">Contacted</option>
+                <option value="Won">Won</option>
+                <option value="Lost">Lost</option>
+                </select>
+                <button type="submit">Add Client</button>
+            </form>
+            </div>
+        </div>
+
+        <div id="client-details-modal" class="modal" hidden>
+            <div class="modal-backdrop"></div>
+
+            <div class="modal-content">
+            <button type="button" class="modal-close" aria-label="Close">×</button>
+
+            <div class="details-header">
+                <img class="avatar" src="" alt="">
+                <div>
+                    <h2 class="details-name"></h2>
+                    <p class="details-company"></p>
+                    <p class="details-email"></p>
+                    <p class="details-phone"></p>
+                </div>
+                <div>
+                    <span class="details-status"></span>
+                    <p class="details-deal-value"></p>
+                    <p class="details-since"></p>
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <div>
+                    <h3>Notes</h3>
+                    <ul id="notes-list"></ul>
+                </div>
+                <div class="add-note-row">
+                <input id="note-input" type="text" placeholder="Write a note...">
+                <button id="add-note-btn" type="button">Add note</button>
+                </div>
+
+                <button id="remind-btn" type="button">Remind me in 1 min</button>
+            </div>
+            </div>
+        </div>
+
+    
+        <div id="toast-container" aria-live="polite"></div>
+    </main>
+
+    <script src="./js/auth.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/theme.js"></script>
+    <script src="./js/aside.js"></script>
+    <script src="./js/client.js"></script>
+    
+</body>

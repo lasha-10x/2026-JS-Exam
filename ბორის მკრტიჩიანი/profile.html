@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10X CRM | Profile</title>
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo"><i class="fa-solid fa-chart-simple"></i><a href="dashboard.html"><img src="assets/images/10x__2_-removebg-preview.png" alt="10X CRM" class="logo-light" /><img src="assets/images/10x-dark.png" alt="10X CRM" class="logo-dark" /></a></div>
+      <nav>
+        <a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+        <a href="clients.html"><i class="fa-solid fa-users"></i> Clients</a>
+        <a class="active" href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
+      </nav>
+      <div class="header-right"><button id="theme-toggle" type="button" title="Change theme"><i id="theme-icon" class="fa-solid fa-moon"></i></button><button id="logout-btn" type="button"><i class="fa-solid fa-right-from-bracket"></i> Logout</button></div>
+    </header>
+
+    <main class="container">
+      <section class="welcome"><h1>Profile</h1><p>Manage your account and client data.</p></section>
+      <section class="profile-grid">
+        <article class="panel">
+          <div class="panel-title"><h2>Account Details</h2></div>
+          <form id="profile-form" class="profile-form">
+            <label for="profile-name">Full Name</label><input id="profile-name" class="form-control" type="text" />
+            <span id="profile-name-error" class="profile-error"></span>
+            <label for="profile-email">Email</label><input id="profile-email" class="form-control" type="email" disabled />
+            <label for="profile-company">Company</label><input id="profile-company" class="form-control" type="text" />
+            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save Profile</button>
+          </form>
+        </article>
+
+        <article class="panel">
+          <div class="panel-title"><h2>Change Password</h2></div>
+          <form id="password-form" class="profile-form">
+            <label for="current-password">Current Password</label><input id="current-password" class="form-control" type="password" />
+            <label for="new-password">New Password</label><input id="new-password" class="form-control" type="password" />
+            <label for="confirm-new-password">Confirm New Password</label><input id="confirm-new-password" class="form-control" type="password" />
+            <span id="password-error" class="profile-error"></span>
+            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-key"></i> Update Password</button>
+          </form>
+        </article>
+
+        <article class="panel danger-panel">
+          <div class="panel-title"><h2>CRM Data</h2></div>
+          <p>Reload the client list from DummyJSON. Your account and session stay safe.</p>
+          <button id="reset-clients-btn" class="btn btn-danger" type="button"><i class="fa-solid fa-rotate"></i> Reset CRM Data</button>
+        </article>
+      </section>
+    </main>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script src="js/guard.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/profile.js"></script>
+  </body>
+</html>

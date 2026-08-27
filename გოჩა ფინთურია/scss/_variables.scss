@@ -1,0 +1,26 @@
+// Color palette - dark theme by default (P0.3)
+$primary-color: #3b82f6;
+$error-color: #ef4444;
+$success-color: #10b981;
+
+// Dark theme colors (default)
+$bg-color: #0f172a;
+$card-bg: #1e293b;
+$text-color: #f1f5f9;
+$text-muted: #94a3b8;
+$border-color: #334155;
+$input-bg: #0f172a;
+
+// Light theme explicit colors (for better control)
+$bg-light: #f8fafc;
+$card-light: #F5F6FA;
+$text-light: #0f172a;
+$text-muted-light: #64748b;
+$border-light: #cbd5e1;
+$input-bg-light: #ffffff;
+
+// Breakpoints for responsive design
+$breakpoint-mobile: 767px;
+$breakpoint-tablet: 1023px;
+$breakpoint-desktop: 1024px;
+

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Clients</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="js/theme.js"></script>
+    <script src="js/guard.js"></script>
+    <script src="js/clients.js" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="img/logo.png" alt="10x">
+            <!-- <h2>CRM Clients</h2> -->
+            <a href="dashboard.html">Dashboard</a>
+            <a href="clients.html" class="active">Clients</a>
+            <a href="profile.html">Profile</a>
+        </div>
+
+        <div class="user-info">
+            <button type="button" onclick="toggleDarkMode()" class="theme-toggle-btn" title="Toggle Dark Mode">🌙</button>
+            <div class="user-welcome">
+                <span class="welcome-label">Welcome,</span>
+                <span id="welcome_user" class="user-name">User</span>
+            </div>
+            <button id="logout_butt" class="btn-secondary">Logout</button>
+        </div>
+    </nav>
+
+    <div class="main_wrapper">
+        <div class="page-header">
+            <h1>Clients</h1>
+            <button id="addClientBtn" class="btn-primary">+ Add Client</button>
+        </div>
+
+        <div class="toolbar">
+            <input type="text" id="search_input" placeholder="Search clients by name or email...">
+            
+            <div class="status-chips">
+                <button class="chip active" data-status="All">All</button>
+                <button class="chip" data-status="Lead">Lead</button>
+                <button class="chip" data-status="Contacted">Contacted</button>
+                <button class="chip" data-status="Won">Won</button>
+                <button class="chip" data-status="Lost">Lost</button>
+            </div>
+
+            <select id="genderSelect">
+                <option value="All">All Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+
+            <select id="sortSelect">
+                <option value="default">Sort By</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="email-asc">Email (A-Z)</option>
+            </select>
+        </div>
+
+        <div id="clients_cards_container" class="clients-grid">
+        </div>
+    </div>
+
+    <!-- Add Client Modal -->
+    <div id="addClientModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtn" class="close-btn">&times;</span>
+            <h2>Add New Client</h2>
+            <form id="addClientForm" class="modal-form">
+                <div class="form-group">
+                    <label for="new_firstName">First Name</label>
+                    <input type="text" id="new_firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_lastName">Last Name</label>
+                    <input type="text" id="new_lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_email">Email</label>
+                    <input type="email" id="new_email" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_gender">Gender</label>
+                    <select id="new_gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="new_status">Status</label>
+                    <select id="new_status">
+                        <option value="Lead">Lead</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Won">Won</option>
+                        <option value="Lost">Lost</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Save Client</button>
+                    <button type="button" id="cancelModalBtn" class="btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Client Details / Preview & Edit Modal -->
+    <div id="clientDetailsModal" class="modal">
+        <div class="modal-content">
+            <span id="closeDetailsModalBtn" class="close-btn">&times;</span>
+            <h2 id="modal_client_name">Client Details</h2>
+            
+            <!-- Preview Mode -->
+            <div id="modal_preview_mode" class="preview-mode">
+                <p><strong>Email:</strong> <span id="view_email"></span></p>
+                <p><strong>Phone:</strong> <span id="view_phone"></span></p>
+                <p><strong>Gender:</strong> <span id="view_gender"></span></p>
+                <p><strong>Status:</strong> <span id="view_status"></span></p>
+                <p><strong>Note:</strong> <span id="view_note"></span></p>
+                <div class="form-actions" style="margin-top: 1.5rem;">
+                    <button type="button" id="switchToEditBtn" class="btn-primary">Edit Client</button>
+                </div>
+            </div>
+
+            <!-- Edit Form Mode -->
+            <form id="editClientForm" class="modal-form" style="display: none;">
+                <div class="form-group">
+                    <label for="edit_firstName">First Name</label>
+                    <input type="text" id="edit_firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_lastName">Last Name</label>
+                    <input type="text" id="edit_lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_email">Email</label>
+                    <input type="email" id="edit_email" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_phone">Phone</label>
+                    <input type="text" id="edit_phone">
+                </div>
+                <div class="form-group">
+                    <label for="edit_gender">Gender</label>
+                    <select id="edit_gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit_status">Status</label>
+                    <select id="edit_status">
+                        <option value="Lead">Lead</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Won">Won</option>
+                        <option value="Lost">Lost</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit_note">Note</label>
+                    <input type="text" id="edit_note">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                    <button type="button" id="cancelEditBtn" class="btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

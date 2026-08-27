@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM - Login</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <form id="loginForm" class="card">
+
+            <h1>Welcome back</h1>
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Email"
+            >
+            <small id="loginEmailError" class="error-message"></small>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+            >
+            <small id="loginPasswordError" class="error-message"></small>
+
+            <button type="submit">
+                Log In
+            </button>
+
+            <p>
+                Don't have an account?
+                <a href="signup.html">Sign up</a>
+            </p>
+
+        </form>
+
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="assets/js/helpers.js"></script>
+    <script src="assets/js/auth.js"></script>
+
+</body>
+</html>

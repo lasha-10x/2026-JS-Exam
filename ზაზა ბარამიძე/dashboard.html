@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - 10X CRM</title>
+
+    <!-- სტილების ფაილის დაკავშირება -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- JavaScript ფაილების დაკავშირება defer ატრიბუტით -->
+    <!-- მნიშვნელოვანია: ჯერ ვრთავთ საერთო ფუნქციებს, მერე კონკრეტული გვერდის ლოგიკას -->
+    <script src="js/storage.js" defer></script>
+    <script src="js/guard.js" defer></script>
+    <script src="js/dashboard.js" defer></script>
+    <script src="js/theme.js" defer></script>
+
+
+</head>
+
+<body>
+    <nav class="crm-navbar">
+        <div class="nav-brand">10X CRM</div>
+        <div class="nav-links">
+            <a href="dashboard.html" class="nav-item active">📊 Dashboard</a>
+            <a href="clients.html" class="nav-item">👥 Clients</a>
+            <a href="profile.html" class="nav-item">⚙️ Profile</a>
+            <button id="theme-toggle" class="btn-theme-toggle">🌙</button>
+            <button id="btn-logout" class="btn-logout">Log Out</button>
+        </div>
+        
+    </nav>
+    <!-- მისალმების ზოლი და ცოცხალი საათი -->
+    <div class="welcome-bar">
+        <div class="welcome-text">
+            <h1>Welcome, <span id="userName">Admin</span> 👋</h1>
+            <p>WELCOME 10X CRM ANALITIC DASHBOARD.</p>
+        </div>
+        <div class="live-clock">
+            📅 <span id="currentDate"></span> | 🕒 <span id="liveTime">00:00:00</span>
+        </div>
+    </div>
+
+    <!-- dashboard.html-ის ძირითადი სექცია -->
+    <div class="metrics-grid">
+        <!-- Card 1: Total Pipeline -->
+        <div class="metric-card">
+            <h3>Total Pipeline</h3>
+            <p id="totalPipeline">$0</p>
+        </div>
+
+        <!-- Card 2: Won Revenue -->
+        <div class="metric-card">
+            <h3>Won Revenue</h3>
+            <p id="wonRevenue">$0</p>
+        </div>
+
+        <!-- Card 3: Conversion Rate -->
+        <div class="metric-card">
+            <h3>Conversion Rate</h3>
+            <p id="conversionRate">0%</p>
+        </div>
+
+        <!-- Card 4: Active Leads -->
+        <div class="metric-card">
+            <h3>Total Clients</h3>
+            <p id="totalClients">0</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

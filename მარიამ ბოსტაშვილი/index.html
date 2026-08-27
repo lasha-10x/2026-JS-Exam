@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Log in to 10X CRM - Manage your clients and deals efficiently">
+    <title>Log In · 10X CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/glass.css?v=11" />
+</head>
+<body class="theme-light">
+  <div class="auth-wrap">
+    <div class="auth-shell">
+      <section class="auth-visual" aria-hidden="true">
+        <div id="liquid"></div>
+        <div class="auth-visual__label">Welcome back</div>
+        <h2 class="auth-visual__title">Build stronger<br>relationships.</h2>
+        <p class="auth-visual__text">Manage every opportunity and keep your whole pipeline in one calm, clear workspace.</p>
+      </section>
+
+      <div class="auth-card">
+      <div class="auth-brand">
+        <svg class="auth-logo" viewBox="0 0 1910 823" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="10X CRM">
+          <path fill="var(--primary)" d="M1142.596,507.546h123.766l-118.241,133.712h214.934l87.299-101.644,86.195,101.644h213.829l-116.031-133.712h240.902v256.373H248.604v-121.556h291.183l1.658-1.658v-133.159h33.704c20.106,45.552,54.433,84.406,98.161,108.485,88.909,48.958,244.445,50.851,338.356,15.301,58.658-22.205,107.87-64.675,130.93-123.786Z"/>
+          <path fill="currentColor" d="M835.162,121.101c143.587-7.891,283.13,39.313,315.949,193.938,22.048,103.877-3.28,225.924-97.449,285.356-88.846,56.072-248.048,58.68-344.522,21.799-122.304-46.755-161.862-165.57-140.999-288.518,22.567-132.987,138.792-205.527,267.021-212.574ZM848.425,268.076c-82.449,5.818-119.571,56.463-113.582,137.238,4.82,65.002,50.843,94.539,112.103,97.857,97.11,5.26,150.126-34.242,143.139-135.404-5.491-79.515-70.196-104.735-141.661-99.692Z"/>
+          <path fill="currentColor" d="M1166.907,632.418l187.638-209.396-175.482-192.834,191.261-.666,82.241,95.67,83.404-95.675c57.564.163,115.441,2.018,173.022.711,5.303-.12,10.576-1.309,15.96-1.156.796,1.08-2.959,5.577-3.842,6.644-30.329,36.64-67.043,73.969-99.455,109.401-24.108,26.355-49.518,51.575-72.436,78.996l182.373,208.303h-191.727l-88.419-104.995-6.632,5.525-85.074,99.471h-192.832Z"/>
+          <path fill="currentColor" d="M412.153,134.037v348.093h121.556v151.393H108.262v-149.735l1.658-1.658h139.79v-142.552h-87.852c-.387,0-1.226,1.96-2.763-.553v-115.478c7.713-1.477,15.699-1.258,23.453-2.516,46.277-7.509,83.873-40.243,92.578-86.994h137.027Z"/>
+        </svg>
+      </div>
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-sub">Log in to your account</p>
+
+      <form id="loginForm" novalidate>
+        <p class="error-text" id="loginErr" role="alert"></p>
+        <div class="field">
+          <label for="email">Email</label>
+          <input class="input" type="email" id="email" placeholder="you@example.com" autocomplete="email">
+          <small class="error-text" id="emailErr"></small>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input class="input" type="password" id="password" placeholder="••••••••">
+          <small class="error-text" id="passwordErr"></small>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg mt-1">Log In</button>
+      </form>
+
+      <p class="auth-foot">Don't have an account? <a href="signup.html">Sign up</a></p>
+    </div>
+    </div>
+  </div>
+
+   <script src="js/storage.js"></script>
+   <script src="js/ui.js"></script>
+   <script src="js/guard.js"></script>
+   <script src="js/login.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="js/glass-depth-bg.js?v=4"></script>
+  <script src="js/glass-liquid.js?v=5"></script>
+  <script src="js/glass-ui.js?v=7"></script>
+
+
+
+</body>
+</html>

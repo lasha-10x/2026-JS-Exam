@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM - Sign Up</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body class="auth-page">
+    <main class="auth-container">
+        <section class="auth-card">
+            <div class="brand">
+                <h1>10X CRM</h1>
+            </div>
+            <header class="auth-header">
+                <h2>Create your account</h2>
+                <p>Start managing your clients</p>
+            </header>
+            
+            <form id="signupForm" class="auth-form" novalidate>
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input id="signupName" name="fullName" type="text" autocomplete="name">
+                    <small id="signupNameError" class="form-error"></small>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input id="signupEmail" name="email" type="email" autocomplete="email">
+                    <small id="signupEmailError" class="form-error"></small>
+                </div>
+                <div class="form-group">
+                    <label for="signupCompany">Company</label>
+                    <input id="signupCompany" name="company" type="text">
+                    <small class="form-hint">Optional</small>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input id="signupPassword" name="password" type="password" autocomplete="new-password">
+                    <small id="signupPasswordError" class="form-error"></small>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input id="signupConfirmPassword" name="confirmPassword" type="password" autocomplete="new-password">
+                    <small id="signupConfirmPasswordError" class="form-error"></small>
+                </div>
+                <button class="btn btn-primary" type="submit">Create Account</button>
+            </form>
+            
+            <p class="auth-footer">Already have an account? <a href="index.html">Log in</a></p>
+        </section>
+    </main>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/signup.js"></script>
+
+</body>
+</html>

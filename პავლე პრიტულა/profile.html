@@ -1,0 +1,45 @@
+<!doctype html>
+<!-- Protected account settings page for profile, password, language, and data reset. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile | 10X CRM</title>
+    <style>html { visibility: hidden; }</style>
+    <script>try { const session = JSON.parse(sessionStorage.getItem("crm_tab_session") || localStorage.getItem("crm_session") || "null"); const users = JSON.parse(localStorage.getItem("crm_users") || "[]"); const expiresAt = Date.parse(session?.expiresAt || "") || Date.parse(session?.loginAt || "") + 1800000; const expired = !Number.isFinite(expiresAt) || expiresAt <= Date.now(); if (!session?.userId || expired || !users.some((user) => user.id === session.userId)) { if (expired) { localStorage.removeItem("crm_session"); sessionStorage.removeItem("crm_tab_session"); } location.replace(expired && session?.userId ? "index.html?reason=session-expired" : "index.html"); } else if (JSON.parse(localStorage.getItem("crm_theme") || '"dark"') === "dark") document.documentElement.classList.add("theme-dark"); } catch { location.replace("index.html"); }</script>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <a class="brand" href="dashboard.html">10X</a>
+          <div class="sidebar-actions">
+            <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle color theme"></button>
+            <a class="notifications-link" href="notifications.html" aria-label="Notifications" title="Notifications"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" /></svg></a>
+            <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="main-navigation"><span></span><span></span><span></span></button>
+          </div>
+        </div>
+        <nav class="sidebar-nav" id="main-navigation" aria-label="Main navigation">
+          <a href="dashboard.html"><svg class="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6v-9h-6v9Zm0-16v4h6V4h-6Z" /></svg><span data-i18n="dashboard">Dashboard</span></a>
+          <a href="clients.html"><svg class="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 20v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1m12-12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 20v-1a4 4 0 0 0-3-3.87M17 3.13a4 4 0 0 1 0 7.75" /></svg><span data-i18n="clients">Clients</span></a>
+          <a class="active" aria-current="page" href="profile.html"><svg class="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" /></svg><span data-i18n="profile">Profile</span></a>
+          <button class="logout-button" type="button" id="logout-button"><svg class="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5m5 5H3m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5" /></svg><span data-i18n="logout">Log out</span></button>
+        </nav>
+      </aside>
+      <main class="app-content">
+        <header class="page-header"><h1 data-i18n="profile">Profile</h1><p data-i18n="profileIntro">Manage your account and preferences.</p></header>
+        <section class="profile-layout">
+          <article class="profile-card profile-summary" id="profile-summary"></article>
+          <div class="settings-stack">
+            <article class="settings-card"><h2 data-i18n="profileDetails">Profile details</h2><form class="settings-form" id="profile-form" novalidate><div class="form-field"><label for="profile-full-name" data-i18n="fullName">Full Name</label><input id="profile-full-name" type="text" /><span class="field-error" id="profile-full-name-error"></span></div><div class="form-field"><label for="profile-company" data-i18n="company">Company</label><input id="profile-company" type="text" /><span class="field-error" id="profile-company-error"></span></div><button class="button button-primary" type="submit" data-i18n="saveChanges">Save Changes</button></form></article>
+            <article class="settings-card language-card"><h2 data-i18n="language">Language</h2><div class="settings-form"><div class="form-field language-control"><label for="language-select" data-i18n="language">Language</label><select id="language-select"><option value="en" data-i18n="english">English</option><option value="ka" data-i18n="georgian">ქართული</option></select></div></div></article>
+            <article class="settings-card"><h2 data-i18n="changePassword">Change password</h2><form class="settings-form" id="password-form" novalidate><div class="form-field"><label for="current-password" data-i18n="currentPassword">Current Password</label><input id="current-password" type="password" autocomplete="current-password" /><span class="field-error" id="current-password-error"></span></div><div class="form-field"><label for="new-password" data-i18n="newPassword">New Password</label><input id="new-password" type="password" autocomplete="new-password" /><span class="field-error" id="new-password-error"></span></div><div class="form-field"><label for="confirm-new-password" data-i18n="confirmPassword">Confirm New Password</label><input id="confirm-new-password" type="password" autocomplete="new-password" /><span class="field-error" id="confirm-new-password-error"></span></div><button class="button button-primary" type="submit" data-i18n="changePassword">Change Password</button></form></article>
+            <article class="settings-card danger-zone"><h2 data-i18n="resetData">Reset CRM Data</h2><p data-i18n="resetDescription">Reload the original 30 clients. Your account and active session will stay intact.</p><button class="button button-danger" id="reset-data-button" type="button" data-i18n="resetData">Reset CRM Data</button></article>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="js/pages/profile.js"></script>
+  </body>
+</html>

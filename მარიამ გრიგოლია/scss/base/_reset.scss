@@ -1,0 +1,41 @@
+@use '../abstracts/variables' as *;
+
+//reset
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+ul, ol{
+  list-style-type: none;
+}
+html{
+  font-size: 62.5%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img{
+  display: block;
+  max-width: 100%;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+button{
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+label {
+  cursor: pointer;
+  font: inherit;
+}

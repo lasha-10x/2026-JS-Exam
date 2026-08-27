@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile · 10X CRM</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <div id="toast-container"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo" onclick="window.location.href='dashboard.html'">10X CRM</div>
+      <nav>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="clients.html" class="nav-link">Clients</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-user" id="nav-user-name"></div>
+        <button id="theme-toggle" class="btn btn-secondary btn-small">Toggle Theme</button>
+        <button id="logout-btn" class="btn btn-secondary btn-small">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <h1>Profile</h1>
+
+      <!-- P5.1 info block -->
+      <div class="profile-header panel">
+        <div class="profile-avatar-initials" id="profile-initials"></div>
+        <div>
+          <h2 id="profile-name"></h2>
+          <p id="profile-email" style="color:var(--text-muted)"></p>
+          <p style="font-size:13px;color:var(--text-muted)">
+            <span id="profile-company"></span> · Member since <span id="profile-since"></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="profile-grid">
+        <!-- A. Save Changes -->
+        <div class="panel">
+          <h2>Edit Profile</h2>
+          <form id="edit-profile-form" novalidate>
+            <div class="form-group">
+              <label for="edit-fullName">Full Name</label>
+              <input type="text" id="edit-fullName" name="fullName" />
+            </div>
+            <div class="form-group">
+              <label for="edit-company">Company</label>
+              <input type="text" id="edit-company" name="company" placeholder="Optional" />
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
+
+        <!-- B. Change Password -->
+        <div class="panel">
+          <h2>Change Password</h2>
+          <form id="change-password-form" novalidate>
+            <div class="form-group">
+              <label for="currentPassword">Current Password</label>
+              <input type="password" id="currentPassword" name="currentPassword" />
+            </div>
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <input type="password" id="newPassword" name="newPassword" />
+            </div>
+            <div class="form-group">
+              <label for="confirmNewPassword">Confirm New Password</label>
+              <input type="password" id="confirmNewPassword" name="confirmNewPassword" />
+            </div>
+            <button type="submit" class="btn btn-primary">Change Password</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- C. Reset CRM Data -->
+      <div class="panel danger-zone" style="margin-top:20px">
+        <h2>Danger Zone</h2>
+        <p style="color:var(--text-muted); margin-bottom:14px;">
+          This clears your locally stored clients and reloads a fresh set of 30 from the API.
+          Your account is not affected.
+        </p>
+        <button id="reset-data-btn" class="btn btn-danger">Reset CRM Data</button>
+      </div>
+    </main>
+  </div>
+
+
+  <script src="JS/guard.js"></script>
+  <script>requireAuth();</script>
+  <script src="JS/toast.js"></script>
+  <script src="JS/storage.js"></script>
+  
+  <script src="JS/auth.js"></script>
+  <script src="JS/dashboard.js"></script>
+  <script src="JS/clients.js"></script>
+  <script src="JS/profile.js"></script>
+  <script src="JS/nav.js"></script>
+
+</body>
+</html>

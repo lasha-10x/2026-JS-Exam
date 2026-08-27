@@ -1,0 +1,189 @@
+@use 'variables' as vars;
+
+.auth-page {
+    min-height: 100vh;
+    background-color: vars.$color-bg;
+    color: vars.$color-primary;
+    font-family: vars.$font-primary;
+}
+
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+    padding: 40px;
+    background-color: vars.$color-surface;
+    border-radius: 14px;
+    box-shadow: 0px 10px 30px rgba(30, 55, 102, 0.1);
+}
+
+.auth-logo {
+    margin: 0 0 24px 0;
+    color: vars.$color-primary;
+    font-size: vars.$font-size-logo;
+    font-weight: bold;
+    text-align: center;
+}
+
+.auth-title {
+    margin: 0 0 8px 0;
+    color: vars.$color-primary;
+    font-size: vars.$font-size-title;
+    text-align: center;
+}
+
+.auth-subtitle {
+    margin: 0 0 32px 0;
+    color: vars.$color-text-secondary;
+    font-size: vars.$font-size-subtitle;
+    text-align: center;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .form-label {
+        margin-bottom: 8px;
+        color: vars.$color-text;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .form-input {
+        
+        width: 100%;
+        padding: 12px 14px;
+        color: vars.$color-text;
+        background-color: vars.$color-surface;
+        border: 1px solid vars.$color-border;
+        border-radius: 8px;
+        outline: none;
+
+        &:focus {
+            outline: none;
+            border-color: vars.$color-primary;
+            border-width: 1.5px;
+            box-shadow: 0 0 0 2px rgba(30, 55, 102, 0.2);
+        }
+
+    }
+
+    .form-error, .form-hint {
+        margin: 6px 0 0 ;
+        font-size: 12px;
+    }
+
+    .form-error {
+        color: vars.$color-error;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    .form-hint {
+        color: vars.$color-text-secondary;
+    }
+}
+
+.primary-button {
+    width: 100%;
+    padding: 12px 14px;
+    color: vars.$color-surface;
+    background-color: vars.$color-primary;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darken(vars.$color-primary, 10%);
+    }
+
+    &:disabled {
+        background-color: lighten(vars.$color-primary, 20%);
+        cursor: not-allowed;
+    }
+}
+
+.auth-footer {
+    margin: 24px 0 0;
+    color: vars.$color-text-secondary;
+    font-size: vars.$font-size-footer;
+    text-align: center;
+}
+
+.auth-link {
+    color: vars.$color-primary;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.auth-error {
+    margin: 16px 0 0;
+    color: vars.$color-error;
+    font-size: vars.$font-size-footer;
+    text-align: center;
+
+    &:empty {
+        display: none;
+    }
+}
+
+.auth-success {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 1000;
+    max-width: calc(100% - 48px);
+    margin: 0 auto;
+    padding: 16px 20px;
+    color: vars.$color-surface;
+    background-color: vars.$color-success;
+    border-radius: 8px;
+    box-shadow: 0px 10px 30px rgba(30, 55, 102, 0.1);
+    font-size: vars.$font-size-footer;
+
+
+    &:empty {
+        display: none;
+    }
+}
+
+.form-input.input-error {
+    border-color: vars.$color-error;
+   
+    &:focus {
+        border-color: vars.$color-error;
+    }
+}
+
+@media (max-width: 480px) {
+   .auth-container {
+        align-items: flex-start;
+        padding: 16px;
+   }
+
+   .auth-card {
+        padding: 24px;
+   }
+}

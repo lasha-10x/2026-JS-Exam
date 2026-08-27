@@ -1,0 +1,84 @@
+body.dark-theme {
+  --page: #101726;
+  --white: #182235;
+  --surface: #182235;
+  --ink: #edf2ff;
+  --muted: #aab6cb;
+  --line: #2d3a52;
+  --primary-soft: #1e315d;
+
+  background: var(--page);
+  color: var(--ink);
+}
+
+body.dark-theme .navbar,
+body.dark-theme .site-header,
+body.dark-theme .signup-card,
+body.dark-theme .login-card,
+body.dark-theme .profile-card,
+body.dark-theme .client-profile-card,
+body.dark-theme .details-card,
+body.dark-theme .notes-card,
+body.dark-theme .client-card,
+body.dark-theme .stat-card,
+body.dark-theme .pipeline-card,
+body.dark-theme .recent-card,
+body.dark-theme .modal-card {
+  border-color: var(--line);
+  background: var(--white);
+  color: var(--ink);
+}
+
+body.dark-theme input,
+body.dark-theme textarea,
+body.dark-theme select {
+  border-color: var(--line);
+  background: #111a2b;
+  color: var(--ink);
+}
+
+body.dark-theme input[readonly] {
+  background: #111a2b;
+  color: var(--muted);
+}
+
+body.dark-theme .theme-toggle,
+body.dark-theme .logout-button {
+  border-color: var(--line);
+  background: #111a2b;
+  color: var(--ink);
+}
+
+body.dark-theme .client-company,
+body.dark-theme .company-name,
+body.dark-theme .client-identity p,
+body.dark-theme .detail-row span,
+body.dark-theme .note-item small {
+  color: var(--muted);
+}
+
+body.dark-theme .note-item {
+  background: #111a2b;
+}
+
+body.dark-theme .client-details {
+  border-color: var(--line);
+}
+
+body.dark-theme section:has(#welcomeName) {
+  border-color: var(--line);
+  background: var(--white);
+}
+
+body.dark-theme #welcomeName {
+  color: var(--ink);
+}
+
+body.dark-theme #currentDate,
+body.dark-theme #currentTime {
+  color: var(--muted);
+}
+
+body.dark-theme .brand {
+  color: var(--ink);
+}

@@ -1,0 +1,329 @@
+@use 'variables' as vars;
+
+.dashboard-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px;
+}
+
+.dashboard-welcome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+
+    h1 {
+        margin: 0;
+        color: vars.$color-primary;
+        font-size: vars.$font-size-welcome;
+    }
+
+    .dashboard-date-time-display {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        color: vars.$color-text-secondary;
+        text-align: right;
+    }
+}
+
+
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    .stat-card {
+        padding: 24px;
+        background-color: vars.$color-surface;
+        border: 1px solid vars.$color-border;
+        border-radius: 12px;
+        box-shadow: 0 4px 14px rgba(30, 55, 102, 0.08);
+
+        h2 {
+            margin: 0 0 12px;
+            color: vars.$color-text-secondary;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        p {
+            margin: 0;
+            color: vars.$color-primary;
+            font-size: vars.$font-size-welcome;
+            font-weight: bold;
+        }
+    }
+
+    
+}
+
+.dashboard-overview {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 24px;
+
+    .pipeline-card, .recent-clients-card {
+        padding: 24px;
+        background-color: vars.$color-surface;
+        border: 1px solid vars.$color-border;
+        border-radius: 12px;
+        box-shadow: 0 4px 14px rgba(30, 55, 102, 0.08);
+
+        h2 {
+            margin: 0 0 20px;
+            color: vars.$color-primary;
+            font-size: vars.$font-size-header;
+        }
+    }
+
+    .pipeline-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+
+        p {
+            margin: 0;
+            padding: 12px;
+            color: vars.$color-text-secondary;
+            background-color: vars.$color-bg;
+            border-radius: 8px;
+        }
+
+        span {
+            color: vars.$color-primary;
+            font-weight: bold;
+        }
+    }
+
+    #recent-client-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+
+        p {
+            margin: 0;
+            color: vars.$color-text-secondary;
+        }
+    }
+
+    .view-clients-link {
+        display: inline-block;
+        color: vars.$color-primary;
+        font-weight: bold;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+#recent-clients-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    .recent-client-item {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        background-color: vars.$color-bg;
+        border-radius: 8px;
+    }
+
+    .recent-client-name {
+        color: vars.$color-text-secondary;
+        font-size: 14px;
+    }
+
+    .recent-client-company {
+        color: vars.$color-text-secondary;
+        font-size: 14px;
+    }
+
+    .recent-client-status {
+        padding: 4px 8px;
+        color: vars.$color-primary;
+        background-color: vars.$color-surface;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: bold;
+
+        
+        padding: 6px 12px;
+        border: 1.5px solid transparent;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: bold;
+
+        &.status-lead {
+            color: #1d4ed8;
+            background-color: #dbeafe;
+            border-color: #426fea;
+        }
+
+        &.status-contacted {
+            color: #7e22ce;
+            background-color: #f3e8ff;
+            border-color: #7e22ce;
+        }
+
+        &.status-won {
+            color: #15803d;
+            background-color: #dcfce7;
+            border-color: #15803d;
+        }
+
+        &.status-lost {
+            color: #b91c1c;
+            background-color: #ffd5d5;
+            border-color: #b91c1c;
+        }
+    
+
+    }
+}
+
+//dark theme colors
+
+.app-page.dark-theme {
+    .dashboard-welcome {
+        h1 {
+            color: vars.$color-dark-text;
+        }
+    }
+
+    .dashboard-date-time-display {
+        color: vars.$color-dark-text-secondary;
+    }
+
+    .stat-card, .pipeline-card, .recent-clients-card {
+        background-color: vars.$color-dark-surface;
+        border-color: vars.$color-dark-border;
+    }
+
+    .stat-card {
+        h2 {
+            color: vars.$color-dark-text-secondary;
+        }
+
+        p {
+            color: vars.$color-dark-text;
+        }
+    }
+
+    .pipeline-card, .recent-clients-card {
+        h2 {
+            color: vars.$color-dark-text;
+        }
+    }
+
+    .pipeline-stats {
+        p {
+            color: vars.$color-dark-text-secondary;
+            background-color: vars.$color-dark-bg;       
+        }
+
+        span {
+            color: vars.$color-dark-text;
+        }
+    }
+
+    #recent-clients-list p {
+        color: vars.$color-dark-text-secondary;
+    }
+
+    .view-clients-link {
+        color: vars.$color-dark-text;
+    }
+
+    #recent-clients-list {
+        .recent-client-item {
+            background-color: vars.$color-dark-bg;
+            border-color: vars.$color-dark-border;
+        }
+
+        .recent-client-name {
+            color: vars.$color-dark-text;
+        }
+
+        .recent-client-company {
+            color: vars.$color-dark-text-secondary;
+        }
+
+        .recent-client-status {
+            &.status-lead {
+                color: #bfdbfe;
+                background-color: #1e3a8a;
+                border-color: #3b82f6;
+            }
+
+            &.status-contacted {
+                color: #e9d5ff;
+                background-color: #581c87;
+                border-color: #a855f7;
+            }
+
+            &.status-won {
+                color: #bbf7d0;
+                background-color: #14532d;
+                border-color: #22c55e;
+            }
+
+            &.status-lost {
+                color: #fecaca;
+                background-color: #7f1d1d;
+                border-color: #ef4444;
+            }
+        }
+    }
+}
+
+//styles for smaller resolutions
+
+@media (max-width: 900px) {
+    .dashboard-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-overview {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-content {
+        padding: 24px 16px;
+    }
+
+    .dashboard-welcome {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .dashboard-date-time-display {
+        text-align: left;
+    }
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .recent-client-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .recent-client-status {
+        justify-self: start;
+    }
+}

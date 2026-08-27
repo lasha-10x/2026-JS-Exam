@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en" data-page="clients" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clients — 10X CRM</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</head>
+
+<body>
+  <!-- The navigation markup is repeated on the three protected pages. Only the
+       markup is repeated: which link is highlighted, what the theme button
+       says, and what Logout does all come from js/app.js, so behaviour is
+       defined once. Without a templating language there is no way to share
+       static HTML across separate files, and generating the bar from
+       JavaScript would mean the page has no navigation until a script runs. -->
+  <nav class="taskbar">
+    <a class="taskbar__logo" href="dashboard.html">10X CRM</a>
+    <a class="nav-link" href="dashboard.html" data-nav="dashboard">Dashboard</a>
+    <a class="nav-link" href="clients.html" data-nav="clients">Clients</a>
+    <a class="nav-link" href="analytics.html" data-nav="analytics">Analytics</a>
+    <a class="nav-link" href="profile.html" data-nav="profile">Profile</a>
+    <span class="taskbar__spacer"></span>
+    <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch theme">☀</button>
+    <button class="icon-btn" type="button" data-logout>Logout</button>
+  </nav>
+
+  <main class="shell">
+    <div class="page-head">
+      <h1 class="page-title">Clients</h1>
+      <button class="btn btn--primary" type="button" id="open-add-client">+ Add Client</button>
+    </div>
+
+    <!-- Toolbar. Search, status chips and sort all combine, and all three feed
+         the same getVisibleClients() call in js/data.js. -->
+    <div class="toolbar">
+      <div class="toolbar__row">
+        <input class="input toolbar__search" id="search" type="search"
+               placeholder="Search by name or company..." aria-label="Search clients">
+        <select class="select toolbar__sort" id="sort" aria-label="Sort clients"></select>
+      </div>
+      <div class="toolbar__row">
+        <!-- Chips are generated from CLIENT_STATUSES so they cannot drift out
+             of step with the dropdown or the badge colours. -->
+        <div class="toolbar__row" id="filter-chips" role="group" aria-label="Filter by status"></div>
+        <span class="taskbar__spacer"></span>
+        <span class="result-count" id="result-count"></span>
+      </div>
+    </div>
+
+    <!-- renderClients() empties and refills this one container. Every action in
+         the app finishes by calling it, so there is a single place where the
+         list is drawn and no way for two code paths to draw it differently. -->
+    <div class="client-list" id="client-list"></div>
+  </main>
+
+  <!-- ============================================================
+       Add Client window. Lives in the HTML rather than being built in
+       JavaScript so the form fields, their labels and their error slots are
+       readable in one place. `hidden` keeps it out of the page (and out of the
+       tab order) until it is opened.
+       ============================================================ -->
+  <div class="overlay" id="add-client-overlay" hidden>
+    <div class="modal window" role="dialog" aria-modal="true" aria-labelledby="add-client-title">
+      <div class="window__bar">
+        <span class="window__title" id="add-client-title">ADD_CLIENT.EXE</span>
+        <div class="window__controls">
+          <button class="window__btn window__btn--close" type="button"
+                  data-close-modal aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="window__body">
+        <form id="add-client-form" class="stack" novalidate>
+          <div class="field">
+            <label class="field__label" for="client-name">Name</label>
+            <input class="input" id="client-name" name="name" type="text">
+            <p class="field__error" data-error-for="client-name"></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="client-email">Email</label>
+            <input class="input" id="client-email" name="email" type="text">
+            <p class="field__error" data-error-for="client-email"></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="client-phone">Phone</label>
+            <input class="input" id="client-phone" name="phone" type="text"
+                   placeholder="Optional">
+            <p class="field__error" data-error-for="client-phone"></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="client-company">Company</label>
+            <input class="input" id="client-company" name="company" type="text"
+                   placeholder="Optional">
+            <p class="field__error" data-error-for="client-company"></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="client-value">Deal Value</label>
+            <input class="input" id="client-value" name="dealValue" type="text"
+                   inputmode="numeric" placeholder="5000">
+            <p class="field__error" data-error-for="client-value"></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="client-status">Status</label>
+            <!-- Options are generated from CLIENT_STATUSES in js/data.js, so
+                 this dropdown can never fall out of step with the filter chips
+                 or the badge colours. -->
+            <select class="select" id="client-status" name="status"></select>
+          </div>
+
+          <div class="row" style="justify-content: flex-end">
+            <button class="btn btn--ghost" type="button" data-close-modal>Cancel</button>
+            <button class="btn btn--primary" type="submit" id="submit-add-client">Add Client</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       Client detail window. Opened by clicking a card anywhere except a
+       control. Filled in by js/clients.js when it opens.
+       ============================================================ -->
+  <div class="overlay" id="detail-overlay" hidden>
+    <div class="modal modal--wide window" role="dialog" aria-modal="true"
+         aria-labelledby="detail-title">
+      <div class="window__bar">
+        <span class="window__title" id="detail-title">CLIENT_DETAIL.EXE</span>
+        <div class="window__controls">
+          <button class="window__btn window__btn--close" type="button"
+                  data-close-detail aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="window__body stack">
+        <div class="row" style="align-items: flex-start">
+          <!-- Avatar plus its upload control. The file input is visually
+               hidden but still in the accessibility tree and still keyboard
+               operable; the <label> beside it is the styled trigger, because
+               clicking a label activates its input with no JavaScript. -->
+          <div class="stack-2" style="justify-items: center">
+            <div id="detail-avatar"></div>
+            <input class="sr-only" type="file" id="client-avatar-input" accept="image/*">
+            <label class="btn btn--sm btn--ghost" for="client-avatar-input">Photo</label>
+            <button class="btn btn--sm btn--ghost" type="button"
+                    id="client-avatar-remove" hidden>Remove</button>
+            <p class="field__error" data-error-for="client-avatar-input"></p>
+          </div>
+          <div class="stack-2 grow">
+            <div id="detail-name" style="font-size: var(--fs-xl); font-weight: 500; line-height: 1.2"></div>
+            <div class="text-dim" id="detail-company" style="font-size: var(--fs-sm)"></div>
+            <div class="text-dim" id="detail-email" style="font-size: var(--fs-sm)"></div>
+            <div class="text-dim" id="detail-phone" style="font-size: var(--fs-sm)"></div>
+            <div class="row" id="detail-figures"></div>
+            <div class="mono text-faint" id="detail-since" style="font-size: var(--fs-xs)"></div>
+          </div>
+        </div>
+
+        <div class="hud-label">Notes</div>
+        <div class="note-list" id="note-list"></div>
+
+        <form class="toolbar__row" id="note-form">
+          <input class="input grow" id="note-text" type="text"
+                 placeholder="Write a note..." aria-label="Note text">
+          <button class="btn btn--sm" type="submit">Add note</button>
+        </form>
+
+        <button class="btn btn--ghost" type="button" id="remind-btn">⏰ Remind me in 1 min</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard shortcut help, opened with "?" -->
+  <div class="overlay" id="shortcuts-overlay" hidden>
+    <div class="modal window" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title"
+         style="max-width: 420px">
+      <div class="window__bar">
+        <span class="window__title" id="shortcuts-title">SHORTCUTS.HLP</span>
+        <div class="window__controls">
+          <button class="window__btn window__btn--close" type="button"
+                  data-close-shortcuts aria-label="Close">✕</button>
+        </div>
+      </div>
+      <div class="window__body">
+        <div class="shortcut-row"><span>Focus search</span><kbd class="kbd">/</kbd></div>
+        <div class="shortcut-row"><span>New client</span><kbd class="kbd">N</kbd></div>
+        <div class="shortcut-row"><span>Close window</span><kbd class="kbd">Esc</kbd></div>
+        <div class="shortcut-row"><span>Filter by stage</span><kbd class="kbd">1–5</kbd></div>
+        <div class="shortcut-row"><span>This help</span><kbd class="kbd">?</kbd></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/ui.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/clients.js"></script>
+  <script src="js/assistant.js"></script>
+  <script src="js/atmosphere.js"></script>
+</body>
+</html>

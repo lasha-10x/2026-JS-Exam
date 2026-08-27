@@ -1,0 +1,11 @@
+# ─── OS / editor junk ───
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Sass build artifacts ───
+.sass-cache/
+*.css.map
+
+# ─── Node (not used here, but just in case) ───
+node_modules/

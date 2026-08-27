@@ -1,0 +1,91 @@
+@use "../abstract/variables" as v;
+@use "sass:map";
+
+.editInformation {
+    display: flex;
+    flex-direction: column;
+    row-gap: 3rem;
+        
+}
+
+.edit-page {
+    border-radius: 0.8rem;
+    padding: 2rem;
+    border: 4px dashed var(--border-color);
+}
+
+.profile-page {
+    justify-items: center ;
+    align-content: start;
+}
+
+.edit-wrapper {
+    display: flex;
+    gap: 10rem;
+}
+
+.editProfile, .editPassword, .editData {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 4px dashed var(--border-color);
+    border-radius: 0.8rem;
+    padding: 2rem;
+    width: 28rem;
+    background-color: var(--card);
+        input {
+            width: 24rem;
+        }
+        h3 {
+            font-size: map.get(v.$font-size, subtitle);
+        }
+}
+.reset-data-desc {
+    color: var(--text-secondary);
+    font-size: map.get(v.$font-size, caption);
+    margin: 0;
+}
+
+.danger-button {
+    background-color: var(--error);
+    color: #fff;
+    border: none;
+    border-radius: 0.6rem;
+    padding: 0.9rem 1.6rem;
+    font-size: map.get(v.$font-size, body);
+    cursor: pointer;
+    align-self: flex-start;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+        opacity: 0.85;
+    }
+}
+
+
+.error-message {
+    display: none;
+    color: var(--error);
+    font-size: map.get(v.$font-size, caption);
+    margin-top: 0.4rem;
+    margin-bottom: 0.8rem;
+}
+
+@media (max-width: 1200px) {
+    .edit-wrapper {
+        flex-direction: column;
+        gap: 3rem;
+        align-items: center;
+    }
+}
+
+@media (max-width: 700px) {
+    .editProfile, .editPassword, .editData {
+        width: 100%;
+        padding: 1.5rem;
+
+        input {
+            width: 100%;
+        }
+    }
+}

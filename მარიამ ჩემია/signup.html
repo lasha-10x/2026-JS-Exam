@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM - Sign Up</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="auth-page">
+    <main class="auth-container">
+        <section class="auth-card">
+            <p class="auth-logo">10X CRM</p>
+            <h1 class="auth-title">Create Account</h1>
+            <p class="auth-subtitle">Enter your details</p>
+            <form id="signup-form" class="auth-form" novalidate>
+                <div class="form-field">
+                    <label for="full-name" class="form-label">Full Name</label>
+                    <input type="text" id="full-name" name="full-name" class="form-input" autocomplete="name">
+                    <p id="full-name-error" class="form-error"></p>
+                </div>
+                <div class="form-field">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" autocomplete="email">
+                    <p id="email-error" class="form-error"></p>
+                </div>
+                <div class="form-field">
+                    <label for="company" class="form-label">Company</label>
+                    <input type="text" id="company" name="company" class="form-input" autocomplete="organization">
+                    <p class="form-hint">Optional</p>
+                </div>
+                <div class="form-field">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" class="form-input" autocomplete="new-password">
+                    <p id="password-error" class="form-error"></p>
+                </div>
+                <div class="form-field">
+                    <label for="confirm-password" class="form-label">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" class="form-input" autocomplete="new-password">
+                    <p id="confirm-password-error" class="form-error"></p>
+                </div>
+                <button type="submit" class="primary-button">Sign Up</button>
+            </form> 
+            <p id="signup-success" class="auth-success" aria-live="polite"></p>
+            <p class="auth-footer">Already have an account? <a href="./index.html" class="auth-link">Log in</a></p>
+        </section>
+    </main>
+    <script type="module" src="./js/auth.js"></script>
+</body>
+</html>

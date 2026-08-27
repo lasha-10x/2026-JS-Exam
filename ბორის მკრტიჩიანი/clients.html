@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10X CRM | Clients</title>
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/clients.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <i class="fa-solid fa-chart-simple"></i>
+        <a href="dashboard.html">
+          <img
+            src="./assets/images/10x__2_-removebg-preview.png"
+            alt="10X CRM"
+            class="logo-light"
+          />
+          <img
+            src="./assets/images/10x-dark.png"
+            alt="10X CRM"
+            class="logo-dark"
+          />
+        </a>
+      </div>
+      <nav>
+        <a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+        <a class="active" href="clients.html"
+          ><i class="fa-solid fa-users"></i> Clients</a
+        >
+        <a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
+      </nav>
+      <div class="header-right">
+        <button id="theme-toggle" type="button" title="Change theme">
+          <i id="theme-icon" class="fa-solid fa-moon"></i>
+        </button>
+        <button id="logout-btn" type="button">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="page-header welcome">
+        <div>
+          <h1>Clients</h1>
+          <p>Track leads, deals, notes and follow-ups.</p>
+        </div>
+        <div class="page-actions">
+          <button id="export-csv-btn" class="btn btn-secondary" type="button">
+            <i class="fa-solid fa-file-export"></i> Export CSV
+          </button>
+          <button id="add-client-btn" class="btn btn-primary" type="button">
+            <i class="fa-solid fa-plus"></i> Add Client
+          </button>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Client statistics">
+        <article class="card">
+          <div class="card-header">
+            <span>Total Clients</span><i class="fa-solid fa-users"></i>
+          </div>
+          <h2 id="total-clients">0</h2>
+        </article>
+        <article class="card">
+          <div class="card-header">
+            <span>Active Deals</span><i class="fa-solid fa-bolt"></i>
+          </div>
+          <h2 id="active-deals">0</h2>
+        </article>
+        <article class="card card-won">
+          <div class="card-header">
+            <span>Won Revenue</span><i class="fa-solid fa-sack-dollar"></i>
+          </div>
+          <h2 id="won-revenue">$0</h2>
+        </article>
+        <article class="card">
+          <div class="card-header">
+            <span>Visible Clients</span><i class="fa-solid fa-eye"></i>
+          </div>
+          <h2 id="visible-clients">0</h2>
+        </article>
+      </section>
+
+      <section
+        class="pipeline-panel panel"
+        aria-labelledby="pipeline-chart-title"
+      >
+        <div class="panel-title">
+          <h2 id="pipeline-chart-title">Pipeline Distribution</h2>
+        </div>
+        <div id="pipeline-chart" class="pipeline-chart"></div>
+      </section>
+
+      <section class="content clients-content">
+        <div class="panel">
+          <div class="panel-title clients-title">
+            <h2>Client List</h2>
+            <div class="view-switcher" aria-label="Client view">
+              <button
+                id="list-view-btn"
+                class="icon-btn active"
+                type="button"
+                title="List view"
+                aria-label="List view"
+                aria-pressed="true"
+              >
+                <i class="fa-solid fa-list"></i>
+              </button>
+              <button
+                id="kanban-view-btn"
+                class="icon-btn"
+                type="button"
+                title="Kanban view"
+                aria-label="Kanban view"
+                aria-pressed="false"
+              >
+                <i class="fa-solid fa-table-columns"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="client-toolbar">
+            <label class="search-control" for="search-input">
+              <span class="sr-only">Search clients</span>
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input
+                type="search"
+                id="search-input"
+                class="form-control"
+                placeholder="Search name, company or email"
+              />
+            </label>
+            <label class="sort-control" for="sort-select">
+              <span class="sr-only">Sort clients</span>
+              <select id="sort-select" class="form-control">
+                <option value="newest">Newest first</option>
+                <option value="name">Name A-Z</option>
+                <option value="deal">Deal value: high to low</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="filter-chips" aria-label="Filter clients by status">
+            <button class="filter-chip active" type="button" data-status="All">
+              <i class="fa-solid fa-layer-group"></i> All
+            </button>
+            <button
+              class="filter-chip status-chip-lead"
+              type="button"
+              data-status="Lead"
+            >
+              <i class="fa-solid fa-user"></i> Lead
+            </button>
+            <button
+              class="filter-chip status-chip-contacted"
+              type="button"
+              data-status="Contacted"
+            >
+              <i class="fa-solid fa-comments"></i> Contacted
+            </button>
+            <button
+              class="filter-chip status-chip-won"
+              type="button"
+              data-status="Won"
+            >
+              <i class="fa-solid fa-circle-check"></i> Won
+            </button>
+            <button
+              class="filter-chip status-chip-lost"
+              type="button"
+              data-status="Lost"
+            >
+              <i class="fa-solid fa-circle-xmark"></i> Lost
+            </button>
+          </div>
+
+          <!-- Bulk action bar (hidden until items selected) -->
+          <div id="bulk-bar" class="bulk-bar hidden">
+            <div class="bulk-bar-left">
+              <button
+                id="bulk-select-all-btn"
+                class="btn btn-secondary"
+                type="button"
+              >
+                <i class="fa-solid fa-check-double"></i>
+                <span id="bulk-select-all-label">Select All</span>
+              </button>
+              <span id="bulk-count-label" class="bulk-count-label"
+                >0 selected</span
+              >
+            </div>
+            <div class="bulk-bar-right">
+              <label class="bulk-status-label" for="bulk-status-select"
+                >Move to:</label
+              >
+              <select
+                id="bulk-status-select"
+                class="form-control bulk-status-select"
+              >
+                <option value="">— Status —</option>
+                <option value="Lead">Lead</option>
+                <option value="Contacted">Contacted</option>
+                <option value="Won">Won</option>
+                <option value="Lost">Lost</option>
+              </select>
+              <button
+                id="bulk-apply-status-btn"
+                class="btn btn-secondary"
+                type="button"
+              >
+                <i class="fa-solid fa-check"></i> Apply
+              </button>
+              <button id="bulk-delete-btn" class="btn btn-danger" type="button">
+                <i class="fa-solid fa-trash"></i> Delete Selected
+              </button>
+              <button
+                id="bulk-cancel-btn"
+                class="btn btn-secondary"
+                type="button"
+              >
+                <i class="fa-solid fa-xmark"></i> Cancel
+              </button>
+            </div>
+          </div>
+
+          <p id="search-status" class="search-status" aria-live="polite"></p>
+          <div id="clients-list" aria-live="polite"></div>
+          <div
+            id="kanban-board"
+            class="kanban-board hidden"
+            aria-live="polite"
+          ></div>
+
+          <!-- Pagination -->
+          <div id="pagination-wrap" class="pagination-wrap hidden">
+            <button
+              id="page-prev-btn"
+              class="page-btn"
+              type="button"
+              aria-label="Previous page"
+            >
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div id="page-numbers" class="page-numbers"></div>
+            <button
+              id="page-next-btn"
+              class="page-btn"
+              type="button"
+              aria-label="Next page"
+            >
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <span id="page-info" class="page-info"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Add / Edit Client Modal -->
+    <div
+      id="client-modal"
+      class="modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="client-modal-title"
+    >
+      <div class="modal-content">
+        <div class="modal-heading">
+          <h2 id="client-modal-title">Add New Client</h2>
+          <button
+            id="close-client-modal-btn"
+            class="icon-btn"
+            type="button"
+            title="Close"
+            aria-label="Close"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <form id="client-form" novalidate>
+          <!-- Photo upload -->
+          <div class="form-group avatar-upload-group">
+            <div class="avatar-upload-preview" id="avatar-preview">
+              <span id="avatar-preview-initials"></span>
+              <img
+                id="avatar-preview-img"
+                src=""
+                alt=""
+                style="display: none"
+              />
+            </div>
+            <div class="avatar-upload-controls">
+              <label
+                class="btn btn-secondary avatar-upload-label"
+                for="client-photo"
+              >
+                <i class="fa-solid fa-camera"></i> Upload Photo
+                <input
+                  type="file"
+                  id="client-photo"
+                  accept="image/*"
+                  class="sr-only"
+                />
+              </label>
+              <button
+                type="button"
+                id="remove-photo-btn"
+                class="btn btn-secondary avatar-remove-btn hidden"
+              >
+                <i class="fa-solid fa-trash"></i> Remove
+              </button>
+              <p class="avatar-upload-hint">
+                Or leave blank for initials avatar
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="client-name">Full Name</label>
+            <input type="text" id="client-name" class="form-control" />
+            <span class="form-error" data-error-for="client-name"></span>
+          </div>
+          <div class="form-group">
+            <label for="client-email">Email</label>
+            <input type="email" id="client-email" class="form-control" />
+            <span class="form-error" data-error-for="client-email"></span>
+          </div>
+          <div class="form-group">
+            <label for="client-phone">Phone</label>
+            <input
+              type="tel"
+              id="client-phone"
+              maxlength="16"
+              inputmode="tel"
+              class="form-control"
+            />
+            <span class="form-error" data-error-for="client-phone"></span>
+          </div>
+          <div class="form-group">
+            <label for="client-company">Company</label>
+            <input type="text" id="client-company" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="client-deal">Deal Value ($)</label>
+            <input
+              type="number"
+              id="client-deal"
+              class="form-control"
+              min="1"
+              step="1"
+            />
+            <span class="form-error" data-error-for="client-deal"></span>
+          </div>
+          <div class="form-group">
+            <label for="client-status">Status</label>
+            <select id="client-status" class="form-control">
+              <option value="Lead">Lead</option>
+              <option value="Contacted">Contacted</option>
+              <option value="Won">Won</option>
+              <option value="Lost">Lost</option>
+            </select>
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="cancel-client-btn"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="client-submit-btn"
+            >
+              Add Client
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Details Modal -->
+    <div
+      id="details-modal"
+      class="modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="details-modal-title"
+    >
+      <div class="modal-content modal-content-wide">
+        <div class="modal-heading">
+          <h2 id="details-modal-title">Client Details</h2>
+          <button
+            id="close-details-modal-btn"
+            class="icon-btn"
+            type="button"
+            title="Close"
+            aria-label="Close"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="details-identity">
+          <div
+            id="detail-avatar"
+            class="client-avatar client-avatar-large"
+          ></div>
+          <div>
+            <h3 id="detail-name"></h3>
+            <p id="detail-company"></p>
+          </div>
+        </div>
+        <dl class="detail-grid">
+          <div>
+            <dt>Email</dt>
+            <dd id="detail-email"></dd>
+          </div>
+          <div>
+            <dt>Phone</dt>
+            <dd id="detail-phone"></dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd id="detail-status"></dd>
+          </div>
+          <div>
+            <dt>Deal Value</dt>
+            <dd id="detail-deal"></dd>
+          </div>
+          <div>
+            <dt>Client Since</dt>
+            <dd id="detail-created-at"></dd>
+          </div>
+        </dl>
+
+        <div class="details-actions">
+          <button id="detail-edit-btn" class="btn btn-secondary" type="button">
+            <i class="fa-solid fa-pen"></i> Edit Client
+          </button>
+          <button id="reminder-btn" class="btn btn-secondary" type="button">
+            <i class="fa-solid fa-bell"></i> Remind in 1 min
+          </button>
+        </div>
+
+        <section class="notes-section" aria-labelledby="notes-title">
+          <h3 id="notes-title">Notes</h3>
+          <div id="notes-list" class="notes-list"></div>
+          <label class="sr-only" for="note-input">New note</label>
+          <textarea
+            id="note-input"
+            class="form-control"
+            rows="3"
+            placeholder="Write a note..."
+          ></textarea>
+          <button id="add-note-btn" class="btn btn-primary" type="button">
+            <i class="fa-solid fa-plus"></i> Add Note
+          </button>
+        </section>
+      </div>
+    </div>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <script src="js/guard.js"></script>
+    <script src="js/theme.js"></script>
+    <script type="module" src="js/clients.js"></script>
+  </body>
+</html>

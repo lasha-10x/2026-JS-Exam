@@ -1,0 +1,106 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use 'sass:color';
+
+
+.profile-page {
+  max-width: 92rem;
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: 1fr 28rem; // content wider than the image
+  gap: $space-6;
+  align-items: start; // vertically center the image next to the panels
+}
+
+.profile-aside {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-illustration {
+  width: 100%;
+  max-width: 28rem;
+  animation: float 4s ease-in-out infinite; 
+}
+body.light .profile-illustration {
+  background: linear-gradient(
+    135deg,
+    color.adjust($color-primary, $lightness: -18%),   // darker purple
+    color.adjust($color-pink,    $lightness: -18%)     // darker pink
+  );    
+  padding: $space-5;
+  border-radius: $radius-lg;
+}
+
+.profile__info {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  width: 100%;
+  border: 0.1rem solid $color-secondary;
+}
+
+.profile__avatar {
+  flex-shrink: 0;
+  width: 7.2rem;
+  height: 7.2rem;
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+  font-size: $fs-xl;
+  font-weight: $fw-bold;
+}
+
+.profile__name {
+  margin-bottom: $space-1;
+  font-size: $fs-lg;
+  font-weight: $fw-semibold;
+}
+.profile__meta {
+  font-size: $fs-sm;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+// keep the forms readable (scoped to panels so it won't touch auth/modal forms)
+.panel .form {
+  max-width: 100%;
+}
+
+.colored-panel {
+  border: 0.1rem solid $color-primary;
+}
+
+.colored-ps {
+  border: 0.1rem solid $color-yellow;
+}
+
+
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1.5rem);
+  }
+}
+
+// On tablet/mobile
+@include respond($bp-tablet) {
+  .profile-layout {
+    grid-template-columns: 1fr; // single column
+  }
+  .profile-aside {
+    order: -1; // move image above 
+  }
+  .profile-illustration {
+    max-width: 20rem; // smaller on mobile
+  }
+}

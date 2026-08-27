@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Create a 10X SensAI CRM account and manage clients, tasks, reports, and CRM activity from a responsive Vanilla JavaScript platform."
+    />
+    <meta property="og:title" content="10X SensAI | Vanilla JavaScript CRM Platform" />
+    <meta
+      property="og:description"
+      content="A polished CRM workspace for clients, tasks, reports, files, communication, and MongoDB-backed account data."
+    />
+    <meta property="og:image" content="https://10xsensai.xyz/assets/images/og-10x-crm.png" />
+    <meta property="og:url" content="https://10xsensai.xyz/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="10X SensAI" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="10X SensAI | Vanilla JavaScript CRM Platform" />
+    <meta
+      name="twitter:description"
+      content="A polished CRM workspace built with Vanilla JavaScript, SCSS, Express, and MongoDB."
+    />
+    <meta name="twitter:image" content="https://10xsensai.xyz/assets/images/og-10x-crm.png" />
+    <title>Sign Up | 10X CRM</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon/10xsensai.svg" />
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+
+  <body class="theme-dark signupPage" data-theme="dark">
+    <!-- --- Toast Notifications --- -->
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+    <!-- --- Sign Up Page Layout --- -->
+    <main class="auth auth--signup" data-auth-page="signup">
+      <div class="auth__tools" aria-label="Page tools">
+        <div class="appearance-controls appearance-controls--auth" aria-label="Appearance controls">
+          <button class="theme-toggle theme-toggle--compact js-theme-toggle" type="button" aria-label="Switch theme">
+            <span class="theme-toggle__track" aria-hidden="true">
+              <span class="theme-toggle__icon theme-toggle__icon--moon">
+                <img
+                  src="./assets/icons/moon.svg"
+                  data-theme-src-dark="./assets/icons/moon.svg"
+                  data-theme-src-light="./assets/icons/moon-light-theme.svg"
+                  alt=""
+                />
+              </span>
+
+              <span class="theme-toggle__icon theme-toggle__icon--sun">
+                <img
+                  src="./assets/icons/sun.svg"
+                  data-theme-src-dark="./assets/icons/sun.svg"
+                  data-theme-src-light="./assets/icons/sun-light-theme.svg"
+                  alt=""
+                />
+              </span>
+
+              <span class="theme-toggle__thumb"></span>
+            </span>
+            <span class="visually-hidden js-theme-label">Dark</span>
+          </button>
+
+          <div class="language-toggle" role="group" aria-label="Language">
+            <button class="language-toggle__button js-language-toggle" type="button" data-language="en" aria-pressed="true">EN</button>
+            <button class="language-toggle__button js-language-toggle" type="button" data-language="ka" aria-pressed="false">KA</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth__container">
+        <!-- --- Sign Up Form --- -->
+        <section class="auth__content" aria-labelledby="signup-title">
+          <header class="auth-header">
+            <div class="auth-header__heading">
+              <h1 class="auth-header__title" id="signup-title">Create Account</h1>
+              <img
+                src="./assets/icons/verified.svg"
+                data-theme-src-dark="./assets/icons/verified.svg"
+                data-theme-src-light="./assets/icons/verified-light-theme.svg"
+                alt=""
+                aria-hidden="true"
+                class="auth-header__icon"
+              />
+            </div>
+            <p class="auth-header__subtitle">
+              Start managing your clients, projects, and team from one secure workspace.
+            </p>
+          </header>
+
+          <form class="auth-form js-signup-form" id="signup-form" autocomplete="on" novalidate>
+            <div class="auth-form__row">
+              <div class="auth-form__group">
+                <label for="signup-full-name" class="auth-form__label">Full Name</label>
+                <input
+                  type="text"
+                  id="signup-full-name"
+                  name="fullName"
+                  class="input js-full-name"
+                  placeholder="Enter your full name"
+                  autocomplete="name"
+                  required
+                />
+                <p class="form-error" id="signup-full-name-error" data-error-for="signup-full-name" hidden></p>
+              </div>
+
+              <div class="auth-form__group">
+                <label for="signup-company" class="auth-form__label">Company</label>
+                <input
+                  type="text"
+                  id="signup-company"
+                  name="company"
+                  class="input js-company"
+                  placeholder="Company name"
+                  autocomplete="organization"
+                />
+                <p class="form-hint">Optional for now, useful for profile setup later.</p>
+              </div>
+            </div>
+
+            <div class="auth-form__group">
+              <label for="signup-email" class="auth-form__label">Email Address</label>
+              <input
+                type="email"
+                id="signup-email"
+                name="email"
+                class="input js-email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+              />
+              <p class="form-error" id="signup-email-error" data-error-for="signup-email" hidden></p>
+            </div>
+
+            <div class="auth-form__row">
+              <div class="auth-form__group">
+                <label for="signup-password" class="auth-form__label">Password</label>
+                <div class="password-field">
+                  <input
+                    type="password"
+                    id="signup-password"
+                    name="password"
+                    class="input js-password"
+                    placeholder="Create a password"
+                    autocomplete="new-password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-field__toggle js-password-toggle"
+                    data-password-toggle
+                    aria-label="Show password"
+                  >
+                    <img src="./assets/icons/eye-closed.svg" alt="" class="password-field__icon js-password-icon" />
+                  </button>
+                </div>
+                <div class="password-strength js-password-strength" aria-live="polite">
+                  <span class="password-strength__bar" data-strength-bar></span>
+                </div>
+                <p class="form-error" id="signup-password-error" data-error-for="signup-password" hidden></p>
+              </div>
+
+              <div class="auth-form__group">
+                <label for="signup-confirm-password" class="auth-form__label">Confirm Password</label>
+                <div class="password-field">
+                  <input
+                    type="password"
+                    id="signup-confirm-password"
+                    name="confirmPassword"
+                    class="input js-confirm-password"
+                    placeholder="Confirm your password"
+                    autocomplete="new-password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-field__toggle js-password-toggle"
+                    data-password-toggle
+                    aria-label="Show password"
+                  >
+                    <img src="./assets/icons/eye-closed.svg" alt="" class="password-field__icon js-password-icon" />
+                  </button>
+                </div>
+                <p
+                  class="form-error"
+                  id="signup-confirm-password-error"
+                  data-error-for="signup-confirm-password"
+                  hidden
+                ></p>
+              </div>
+            </div>
+
+            <label class="checkbox auth-form__terms">
+              <input type="checkbox" class="checkbox__input js-terms" name="terms" required />
+              <span class="checkbox__box" aria-hidden="true"></span>
+              <span class="checkbox__label">I agree to use this CRM project responsibly for learning and testing.</span>
+            </label>
+
+            <button type="submit" class="btn btn--primary btn--full js-signup-btn">Create Account</button>
+          </form>
+
+          <div class="auth-divider" aria-hidden="true">
+            <span class="auth-divider__text">or</span>
+          </div>
+
+          <!-- --- Social Sign Up Buttons --- -->
+          <section class="social-login" aria-label="Social sign up">
+            <button type="button" class="btn btn--google js-google-auth js-google-signup">
+              <span class="btn__content">
+                <img src="./assets/icons/Google.svg" alt="" class="btn__icon" />
+                <span>Continue with Google</span>
+              </span>
+            </button>
+          </section>
+
+          <footer class="auth-footer">
+            <p class="auth-footer__text">
+              Already have an account?
+              <a href="./index.html" class="auth-footer__link js-auth-link" data-auth-target="login">Log In</a>
+            </p>
+          </footer>
+        </section>
+
+        <!-- --- CRM Preview Panel --- -->
+        <aside class="auth__visual" aria-label="CRM preview">
+          <div class="auth__brand">
+            <a href="#" class="auth__brand-link" aria-label="10X CRM dashboard">
+              <img
+                src="./assets/icons/Logo-dark-theme.svg"
+                data-theme-src-dark="./assets/icons/Logo-dark-theme.svg"
+                data-theme-src-light="./assets/icons/Logo-light-theme.svg"
+                alt=""
+                class="auth__brand-logo"
+              />
+              <span class="auth__brand-name">10X CRM</span>
+            </a>
+          </div>
+
+          <section class="dashboard-preview">
+            <header class="dashboard-preview__header">
+              <span class="dashboard-preview__eyebrow">10X CRM</span>
+              <h2 class="dashboard-preview__title">A responsive CRM shell ready for vanilla JavaScript.</h2>
+              <p class="dashboard-preview__subtitle">
+                Structured markup, clear IDs, and stable data hooks make the upcoming functionality easier to build.
+              </p>
+            </header>
+
+            <div class="dashboard-preview__stats" aria-label="Preview statistics">
+              <article class="metric-card">
+                <img src="./assets/icons/check-symbol.svg" alt="" class="metric-card__icon" />
+                <div class="metric-card__content">
+                  <span class="metric-card__value">5</span>
+                  <span class="metric-card__label">Core pages</span>
+                </div>
+              </article>
+
+              <article class="metric-card">
+                <img src="./assets/icons/data.svg" alt="" class="metric-card__icon" />
+                <div class="metric-card__content">
+                  <span class="metric-card__value">4</span>
+                  <span class="metric-card__label">Storage keys</span>
+                </div>
+              </article>
+
+              <article class="metric-card">
+                <img src="./assets/icons/theme-edit.svg" alt="" class="metric-card__icon" />
+                <div class="metric-card__content">
+                  <span class="metric-card__value">2</span>
+                  <span class="metric-card__label">Themes</span>
+                </div>
+              </article>
+            </div>
+
+            <section class="dashboard-preview__performance" aria-label="Project readiness">
+              <div class="dashboard-preview__performance-header">
+                <span>Markup readiness</span>
+                <strong>100%</strong>
+              </div>
+              <div class="dashboard-preview__progress" aria-hidden="true">
+                <span class="dashboard-preview__progress-fill"></span>
+              </div>
+            </section>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <!-- --- JavaScript Entry Point --- -->
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

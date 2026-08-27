@@ -1,0 +1,45 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// .theme-toggle {
+//   position: fixed;
+//   top: $space-4;
+//   right: $space-4;
+//   z-index: 100;
+
+//   width: 4.4rem;
+//   height: 4.4rem;
+//   border-radius: $radius-full;
+//   font-size: $fs-lg;
+
+//   background-color: var(--surface);
+//   border: 1px solid var(--border);
+//   color: var(--text);
+
+//   @include flex($justify: center, $align: center);   // ← your mixin!
+//   transition: transform $transition, background-color $transition;
+
+//   &:hover { transform: scale(1.05); }
+// }
+
+.theme-toggle {
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: $radius-full;
+  font-size: $fs-lg;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  @include flex($justify: center, $align: center);
+  transition: transform $transition, background-color $transition;
+
+  &:hover { transform: scale(1.05); }
+
+  // Auth pages only: float it top-right
+  &--fixed {
+    position: fixed;
+    top: $space-4;
+    right: $space-4;
+    z-index: 100;
+  }
+}

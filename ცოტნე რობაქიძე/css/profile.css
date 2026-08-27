@@ -1,0 +1,284 @@
+:root {
+  --primary: #315be8;
+  --primary-soft: #edf1ff;
+  --ink: #17233b;
+  --muted: #6f7d92;
+  --line: #dde4ef;
+  --page: #f5f7fb;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: Arial, sans-serif;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  min-height: 72px;
+  padding: 0 6vw;
+  display: flex;
+  align-items: center;
+  gap: 42px;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #102144;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.brand-mark {
+  padding: 5px 7px;
+  border-radius: 7px;
+  background: var(--primary);
+  color: white;
+  font-size: 0.78rem;
+}
+
+.main-nav {
+  display: flex;
+  align-self: stretch;
+  gap: 28px;
+}
+
+.main-nav a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.main-nav .active,
+.main-nav a:hover {
+  color: var(--primary);
+}
+
+.main-nav .active::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--primary);
+  content: "";
+}
+
+.logout-button {
+  margin-left: 0;
+  padding: 10px 16px;
+  border: 1px solid #d9e0ec;
+  border-radius: 8px;
+  background: white;
+  color: #40506b;
+  font-size: 0.88rem;
+  font-weight: bold;
+}
+
+.profile-page {
+  display: grid;
+  min-height: calc(100vh - 70px);
+  place-items: start center;
+  padding: 48px 20px;
+}
+
+.profile-card {
+  width: min(100%, 620px);
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--white);
+  box-shadow: 0 8px 22px rgba(28, 48, 78, 0.06);
+}
+
+.profile-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.profile-avatar {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.profile-heading h1 {
+  margin: 0 0 5px;
+  font-size: 1.35rem;
+}
+
+.profile-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--ink);
+  font: inherit;
+}
+
+.form-group input:focus {
+  outline: 2px solid #b9c7ff;
+  border-color: var(--primary);
+}
+
+.form-group input[readonly] {
+  cursor: not-allowed;
+  background: #f7f9fd;
+  color: var(--muted);
+}
+
+.error {
+  min-height: 16px;
+  color: #c53030;
+  font-size: 0.78rem;
+}
+
+.save-button {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.save-button:hover {
+  background: #264bd0;
+}
+
+.success {
+  min-height: 18px;
+  margin: 14px 0 0;
+  color: #16803c;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 580px) {
+  .navbar {
+    gap: 14px;
+    padding: 0 20px;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .profile-card {
+    padding: 22px;
+  }
+}
+
+.theme-toggle {
+  width: 38px;
+  height: 38px;
+  margin-left: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.theme-toggle:hover {
+  background: var(--primary-soft);
+}
+
+.reset-section {
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.reset-section h2 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.reset-section p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.reset-data-button {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #dc2626;
+  border-radius: 9px;
+  background: transparent;
+  color: #dc2626;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.reset-data-button:hover {
+  background: #fff1f2;
+}
+
+.success.no-changes {
+  color: var(--muted);
+}
+
+.password-section {
+  padding-top: 30px;
+  margin-top: 30px;
+  border-top: 1px solid var(--line);
+}
+
+.password-section h2 {
+  margin: 0 0 20px;
+  font-size: 1.05rem;
+}

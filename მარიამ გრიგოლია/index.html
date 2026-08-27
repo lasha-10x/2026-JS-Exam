@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In · 10X CRM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Theme toggle,fixed top-right, appears on every page -->
+    <button
+      id="theme-toggle"
+      class="theme-toggle theme-toggle--fixed"
+      type="button"
+      aria-label="Toggle dark and light theme"
+    >
+      🌙
+    </button>
+
+
+
+    <!--MAIN section starts here-->
+    <main class="auth">
+      <section class="auth-card">
+        <!-- Brand -->
+        <header class="auth-header">
+          <a href="index.html" class="logo"
+            >10<span class="logo__letter">x</span>-<span class="logo__accent">CRM</span></a
+          >
+          <h1 id="auth-title" class="auth-card__title">Welcome back</h1>
+          <p class="auth-card__subtitle">Log in to your account</p>
+        </header>
+
+        <!-- novalidate = turn OFF browser's built-in validation so OUR JavaScript and exact error texts are in full control -->
+        <form id="login-form" class="form" novalidate>
+          <!-- Email field -->
+          <div class="form__group">
+            <label for="email" class="form__label">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form__input"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            />
+            <p id="email-error" class="form__error" aria-live="polite"></p>
+          </div>
+
+          <!-- Password field -->
+          <div class="form__group">
+            <label for="password" class="form__label">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form__input"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              required
+            />
+            <p id="password-error" class="form__error" aria-live="polite"></p>
+          </div>
+
+          <!-- Generic pair error ("Invalid email or password") shows here -->
+          <p
+            id="form-error"
+            class="form__error form__error--global"
+            aria-live="polite"
+          ></p>
+
+          <button type="submit" class="btn btn--primary btn--block">
+            Log In
+          </button>
+        </form>
+
+        <!-- Switch to signup -->
+        <p class="auth-card__switch">
+          Don't have an account?
+          <a href="signup.html" class="link">Sign up</a>
+        </p>
+      </section>
+    </main>
+    <!--MAIN section ends here-->
+
+    <!-- Shared notification area, toasts appear here (built later) -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+    <script type="module" src="js/login.js"></script>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clients · 10X CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    // Applied inline, before first paint, so there's no flash of the wrong theme.
+    if (localStorage.getItem('crm_theme') === 'dark') {
+      document.documentElement.classList.add('theme-dark');
+    }
+  </script>
+</head>
+<body>
+  <script src="js/guard.js"></script>
+  <script>requireAuth();</script>
+
+  <div class="app-shell">
+    <div id="sidebar-root"></div>
+
+    <main class="content">
+      <div class="content-header">
+        <div>
+          <h1>Clients</h1>
+          <p class="content-sub">Everyone in your pipeline, in one place.</p>
+        </div>
+        <span class="count-pill" id="client-count">Loading…</span>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn btn-primary" id="add-client-btn" type="button">+ Add Client</button>
+        <input
+          type="text"
+          class="search-input"
+          id="search-input"
+          placeholder="Search by name or company…"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="toolbar">
+        <div class="filter-chips" id="filter-chips"></div>
+        <select class="sort-select" id="sort-select">
+          <option value="newest">Newest first</option>
+          <option value="name">Name A→Z</option>
+          <option value="deal-value">Deal value: high → low</option>
+        </select>
+      </div>
+
+      <div class="toolbar">
+        <div class="view-toggle" id="view-toggle">
+          <button type="button" data-view="grid" class="is-active">Grid</button>
+          <button type="button" data-view="kanban">Kanban</button>
+        </div>
+        <div style="display:flex; align-items:center; gap:16px;">
+          <span class="shortcut-hint"><kbd>/</kbd> search <kbd>N</kbd> add client <kbd>Esc</kbd> close</span>
+          <button class="btn btn-secondary" id="export-csv-btn" type="button">Export CSV</button>
+        </div>
+      </div>
+
+      <div id="clients-area"></div>
+      <div id="kanban-area" style="display:none;"></div>
+      <div class="load-more-row" id="load-more-row" style="display:none;">
+        <button class="btn btn-secondary" id="load-more-btn" type="button">Load More</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Client Modal (P4.4) -->
+  <div class="modal-backdrop" id="add-client-modal-backdrop">
+    <div class="modal">
+      <button class="modal-close" id="close-modal-btn" type="button" aria-label="Close">×</button>
+      <h2 id="add-client-modal-title">Add Client</h2>
+      <form id="add-client-form" novalidate>
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Jane Cooper" autocomplete="off" />
+          <div class="field-error" id="name-error"></div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="text" id="email" placeholder="jane@company.com" autocomplete="off" />
+          <div class="field-error" id="email-error"></div>
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" placeholder="+1 555-123-4567" autocomplete="off" />
+          <div class="field-error" id="phone-error"></div>
+        </div>
+
+        <div class="field">
+          <label for="company">Company</label>
+          <input type="text" id="company" placeholder="Acme Corp" autocomplete="off" />
+          <div class="field-error" id="company-error"></div>
+        </div>
+
+        <div class="field">
+          <label for="dealValue">Deal Value</label>
+          <input type="number" id="dealValue" placeholder="5000" min="1" max="100000000" step="100" autocomplete="off" />
+          <div class="field-error" id="dealValue-error"></div>
+        </div>
+
+        <div class="field">
+          <label for="status">Status</label>
+          <select id="status">
+            <option value="Lead">Lead</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Won">Won</option>
+            <option value="Lost">Lost</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="add-client-submit-btn">Add Client</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Client Details Modal (P4.8) -->
+  <div class="details-modal" id="details-modal">
+    <div class="details-modal-content">
+      <button class="details-modal-close" id="close-details-modal-btn" type="button" aria-label="Close">×</button>
+      
+      <!-- Header -->
+      <div class="details-header">
+        <img class="details-avatar" id="details-avatar" src="" alt="" />
+        <div class="details-header-info">
+          <h2 id="details-name">—</h2>
+          <p id="details-company">—</p>
+        </div>
+        <button class="btn btn-secondary" id="details-edit-btn" type="button" style="align-self:flex-start;">Edit</button>
+      </div>
+
+      <!-- Call timer -->
+      <div class="call-timer">
+        <span class="call-timer__display" id="call-timer-display">00:00</span>
+        <button class="btn btn-primary" id="call-timer-btn" type="button">Start Call</button>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="details-section">
+        <div class="details-section-title">Contact Info</div>
+        <div class="details-field">
+          <span class="details-field-label">Email</span>
+          <span class="details-field-value" id="details-email">—</span>
+        </div>
+        <div class="details-field">
+          <span class="details-field-label">Phone</span>
+          <span class="details-field-value" id="details-phone">—</span>
+        </div>
+      </div>
+
+      <!-- Deal Info -->
+      <div class="details-section">
+        <div class="details-section-title">Deal Info</div>
+        <div class="details-field">
+          <span class="details-field-label">Status</span>
+          <span class="details-field-value" id="details-status">—</span>
+        </div>
+        <div class="details-field">
+          <span class="details-field-label">Deal Value</span>
+          <span class="details-field-value" id="details-deal-value">—</span>
+        </div>
+        <div class="details-field">
+          <span class="details-field-label">Client Since</span>
+          <span class="details-field-value" id="details-since">—</span>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="details-section">
+        <div class="details-section-title">Notes</div>
+        <div class="notes-list" id="notes-list"></div>
+        <div class="add-note-form">
+          <input type="text" id="add-note-input" placeholder="Write a note…" />
+          <button class="btn btn-primary" id="add-note-btn" type="button">Add</button>
+        </div>
+      </div>
+
+      <!-- Reminder -->
+      <button class="remind-btn" id="remind-btn" type="button">⏰ Remind me in 1 min</button>
+    </div>
+  </div>
+
+  <script src="js/ui.js"></script>
+  <script src="js/shell.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/clients.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10x CRM - Profile</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="app-page">
+    <header class="header">
+        <a href="./dashboard.html" class="logo">10x CRM</a>
+        <nav>
+            <a href="./dashboard.html" class="nav-link">Dashboard</a>
+            <a href="./clients.html" class="nav-link">Clients</a>
+            <a href="./profile.html" class="nav-link active">Profile</a>
+        </nav>
+        <div class="app-actions">
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch Theme">
+                <span class="toggle-icon"></span>
+            </button>
+            <button type="button" id="logout-button" class="logout-button">Logout</button>
+        </div>
+    </header>
+    <main class="profile-content">
+        <section class="profile-header">
+            <h1>Profile</h1>
+        </section>
+        <section class="profile-summary">
+            <div class="profile-avatar" id="profile-avatar-initials">--</div>
+            <div class="profile-summary-details">
+                <h2 id="profile-summary-name">user@user.user</h2>
+                <p>
+                    <strong>Email:</strong>
+                    <span id="profile-summary-email"></span>
+                </p>
+                <p>
+                    <strong>Company:</strong>
+                    <span id="profile-summary-company">No company</span>
+                </p>
+                <p>
+                    <strong>Member Since:</strong>
+                    <span id="profile-member-since">-</span>
+                </p>
+            </div>
+        </section>
+        <section class="profile-sections">
+            <div class="profile-card">
+                <h2>Personal Information</h2>
+                <form id="profile-info-form">
+                    <label for="profile-full-name"> Full Name </label>
+                    <input type="text" id="profile-full-name">
+
+                    <label for="profile-company">Company:</label>
+                    <input type="text" id="profile-company" placeholder="Enter Your Company">
+
+                    <label for="profile-email">Email</label>
+                    <input type="text" id="profile-email" disabled>
+
+                    <button type="submit" class="profile-save-btn"> Save Changes </button>
+
+                    <p id="profile-info-message" class="profile-message"></p>
+
+                </form>
+            </div>
+            <div class="profile-card">
+                <h2>Change Password</h2>
+                <form id="password-form">
+                    <label for="current-password">Current Password</label>
+                    <input type="password" id="current-password" required>
+
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" required>
+
+                    <label for="confirm-new-password">Confirm New Password</label>
+                    <input type="password" id="confirm-new-password" required>
+
+                    <p id="password-message" class="profile-message"></p>
+                    <button type="submit" class="profile-save-btn">Save Changes</button>
+                </form>
+            </div>
+        </section>
+        <section class="profile-card reset-section">
+            <div>
+                <h2>Reset CRM Data</h2>
+                <p>Delete all locally stored clients.</p>
+            </div>
+            <button type="button" id="reset-crm-btn" class="reset-crm-btn">Reset CRM Data</button>
+            <p id="reset-crm-msg" class="profile-message"></p>
+        </section>
+    </main>
+    <script type="module" src="./js/profile.js"></script>
+</body>
+</html>

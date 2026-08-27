@@ -1,0 +1,669 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+/*.plus-jakarta-sans-<uniquifier> {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}*/
+
+
+
+/*Global Styles*/
+/* --- Light mode (default) --- */
+:root {
+    --bg: #FAF9FF;
+    --navbar: #F2EEFF;
+    --card: #FFFFFF;
+    --accent: #8D72FD;
+    --hover: #7250FC;
+    --text: #222;
+    --buttontext: #eee;
+}
+
+/* --- Dark mode --- */
+body.dark {
+    --bg: #141118;
+    --navbar: #1B1725;
+    --card: #E0D5FF;
+    --accent: #8D72FD;
+    --hover: #A993FD;
+    --text: #eee;
+}
+
+.tenX{
+    color: #5e36fc;
+    font-weight: bolder;
+    
+}
+
+.crm{
+    background: linear-gradient(
+        90deg,
+        #7250FC,
+        #8D72FD,
+        #E0D5FF
+        
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+a{
+    text-decoration: none;
+    color: #7250FC;
+}
+
+
+ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 15% 0 20%;
+}
+
+li{
+    list-style: none;
+    margin-right:  5px;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-size: x-large;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+button{
+    border-radius: 15px;
+    background-color: var(--accent);
+    color: var(--buttontext);
+    padding: 0 auto;
+    border: 0;
+    margin: 1em 0;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+button:hover{
+    background-color: var(--hover);
+}
+
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h3{
+    font-family: "Plus Jakarta Sans", sans-serif;
+    color: var(--hover);
+}
+
+p{
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.dashboardHeader ul li a.active,
+.clientsHeader ul li a.active, .profileHeader ul li a.active {
+    color: var(--hover);
+    font-weight: bold;
+    /*border-bottom: 2px solid var(--accent);*/
+    border: 2px solid var(--hover);
+    border-radius: 15px;
+    padding: 5px 10px;
+}
+
+/*-----------------------Log In Page Styling--------------------------*/
+.loginmain{
+    width: 420px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/*------------------------Sign Up Page Styles--------------------------*/
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+input {
+    padding: 8px;
+    border: 1px solid var(--hover);
+    border-radius: 4px;
+}
+
+/* Red border for invalid input */
+input.input-error {
+    border: 1px solid #e53935;
+}
+
+/* Green border for valid input (optional, nice UX touch) */
+input.input-valid {
+    border: 1px solid #43a047;
+}
+
+/* Red text under invalid input */
+.error-message {
+    color: #e53935;
+    font-size: 0.8em;
+    min-height: 1em; /* keeps layout stable even when empty */
+    margin-top: 4px;
+}
+
+/* Toast/snackbar */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+.toast.success {
+    background-color: #e6f4ea;
+    color: #2e7d32;
+    border: 1px solid #2e7d32;
+}
+
+.toast.error {
+    background-color: #fdecea;
+    color: #c62828;
+    border: 1px solid #c62828;
+}
+
+
+/*-------------------Clients Styles-------------------------*/
+.clientsHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 1px;
+    margin: 0 10% 0 10%;
+    background-color: var(--navbar);
+}
+
+.clientMain{
+    margin: 5% 10% 0 10%;
+}
+
+.addClientDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.form-group select{
+    border: 2px solid var(--hover);
+    color: var(--hover);
+    padding: 0.7%;
+    border-radius: 15px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.card, .client, .modal-content {
+    background-color: var(--card);
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+#searchInput{
+    border: 2px solid var(--hover);
+    color: var(--hover);
+    
+    border-radius: 15px;
+}
+
+::placeholder{
+    color: var(--hover);
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.chip{
+    color: #7250FC;
+}
+
+.chip.active, #themeToggleBtn {
+    background-color: var(--accent);
+    color: white;
+}
+
+.chip.active:hover, #themeToggleBtn:hover {
+    background-color: var(--hover);
+}
+
+#sortSelect{
+    border: 2px solid var(--hover);
+    color: var(--hover);
+    padding: 0.7%;
+    border-radius: 15px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+#sortSelect option{
+    color: var(--hover);
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+
+
+.status {
+    text-align: center;
+    padding: 10px;
+}
+
+.status.loading {
+    color: #666;
+    font-style: italic;
+}
+
+.status.error {
+    color: #c62828;
+}
+
+.status.error button {
+    margin-top: 8px;
+    padding: 6px 14px;
+    border: 1px solid #c62828;
+    background: none;
+    color: #c62828;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 24px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+}
+
+/* clientStatus div styles- search, filter, sort*/
+.clientStatus {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.filterChips {
+    display: flex;
+    gap: 8px;
+}
+
+.chip {
+    padding: 6px 14px;
+    border: 1px solid var(--hover);
+    border-radius: 999px;
+    background: white;
+    cursor: pointer;
+}
+
+.chip.active {
+    background: #7250FC;
+    color: white;
+    border-color: #7250FC;
+}
+
+
+.client {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--hover);
+    border-radius: 6px;
+    padding: 2%;
+    margin-bottom: 10px;
+    color: var(--hover);
+    background-color: #E0D5FF;
+}
+
+.fullName{
+    font-weight: 700;
+}
+
+.company{
+    font-size: small;
+}
+
+.dealValue{
+    font-weight: 800;
+    color: #43a047;
+}
+
+.statusSelect{
+    border: 2px solid var(--hover);
+    color: var(--hover);
+    padding: 0.7%;
+    border-radius: 15px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background-color: #E0D5FF;
+}
+
+.statusSelect option{
+    color: var(--hover);
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.client button{
+    color: var(--buttontext);
+}
+
+.detailModal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.detailModal.show {
+    display: flex;
+}
+
+.detailMeta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px; /* row-gap column-gap */
+}
+
+.detailMeta p {
+    margin: 0;
+    white-space: nowrap;
+}
+
+
+.detailMeta p:not(:last-child)::after {
+    content: '•';
+    margin-left: 12px;
+    color: var(--hover);
+}
+
+#detailCompany, #detailEmail, #detailPhone, #detailStatus, #detailDealValue, #detailSince{
+    color: #A993FD;
+    font-size: smaller;
+}
+
+#notesList{
+    display: flex;
+    flex-direction: column;
+}
+
+#notesList li{
+    color: var(--accent);
+    font-size: smaller;
+}
+
+
+/*-----------------DASHBOARD styles--------------------*/
+.dashboardHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 1px;
+    margin: 0 10% 0 10%;
+    background-color: var(--navbar);
+}
+
+
+.dashboardmain{
+    height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+    margin: 5% 10% 0 10%;
+    
+}
+
+.upper, .card, .right, #pipeline, #links{
+    align-items: center;
+    border-radius: 15px;
+    /*background-image: linear-gradient(#7B20E2, #2B1043);*/
+    background-color: #E0D5FF;
+    border: solid 2px #8D72FD;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.middle{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    height: 30%;
+}
+
+.card{
+    width: 25%;
+    height: 100%;
+    color: var(--accent);
+    text-align: center;
+}
+
+h4{
+    color: var(--hover);
+}
+
+.upper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 30%;
+}
+
+.upper p{
+    color: var(--accent);
+}
+
+#pipeline, #links{
+    width: 100%;
+    height: 50%;
+    align-items: center;
+    text-align: center;
+}
+
+.pipelineCounts{
+    color: var(--hover);
+}
+
+.lower{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.left{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.right{
+    width: 50%;
+    height: 100%;
+   padding-left: 2em;
+}
+
+.recentClientRow  {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.recentClientRow  p {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.5em;
+    color: var(--accent);
+}
+
+.recentStatus {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.viewAllLink {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--accent);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.viewAllLink:hover {
+    color: var(--hover);
+}
+
+
+/*-------------------Bar Charts------------*/
+.barChartCard {
+    border-radius: 15px;
+    background-color: #E0D5FF;;
+    border: solid 2px var(--accent);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    padding: 16px;
+}
+
+.barChartWrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 100px;
+    padding: 5px 0;
+    background-color: #E0D5FF;
+}
+
+.barColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    width: 20%;
+}
+
+.barTrack {
+    display: flex;
+    align-items: flex-end;
+    height: 60px;
+    width: 20px;
+}
+
+.bar {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    background-color: var(--hover);
+    transition: height 0.3s ease;
+}
+
+.barValue {
+    margin-top: 6px;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.barLabel {
+    font-size: 0.8em;
+    color: var(--text);
+    opacity: 0.8;
+}
+
+
+/*---------------------Profile Page Styles---------------------*/
+.profileHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 1px;
+    margin: 0 10% 0 10%;
+    background-color: var(--navbar);
+}
+
+.profileMain{
+    margin: 5% 10% 0 10%;
+    padding-right: 50%;
+}
+
+#userName, #userMail, #memberSince{
+    color: var(--hover)
+}
+
+#userMail::after {
+    content: '• 10X CRM';
+    margin-left: 12px;
+    color: var(--hover);
+}
+
+#profile form,
+#password form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.errorMsg {
+  color: #d33;
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0;
+  min-height: 1.1em;      /* reserves space so the form doesn't jump */
+  visibility: hidden;
+}
+.errorMsg.visible { visibility: visible; }
+
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%, 1rem);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background: #222;
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+}
+.toast.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+

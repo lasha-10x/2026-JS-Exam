@@ -1,0 +1,31 @@
+@use 'variables' as *;
+@use 'base';
+@use 'auth';
+@use 'layout';
+@use 'components';
+@use 'dashboard';
+@use 'clients';
+@use 'profile';
+
+// CSS custom properties for theming
+:root {
+  --primary: #{$color-primary};
+  --primary-hover: #{$color-primary-hover};
+  --primary-disabled: #{$color-primary-disabled};
+}
+
+body {
+  --bg: #{$dark-bg};
+  --surface: #{$dark-surface};
+  --text: #{$dark-text};
+  --text-muted: #{$dark-text-muted};
+  --border: #{$dark-border};
+}
+
+body.theme-light {
+  --bg: #{$light-bg};
+  --surface: #{$light-surface};
+  --text: #{$light-text};
+  --text-muted: #{$light-text-muted};
+  --border: #{$light-border};
+}

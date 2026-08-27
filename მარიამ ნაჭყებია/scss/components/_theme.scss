@@ -1,0 +1,28 @@
+@use "../abstract/variables" as v;
+@use "sass:map";
+
+
+#theme-switch {
+    width: 5rem;
+    height: 5rem;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+}
+
+#theme-switch svg {
+        fill: #0ea5e9;
+}
+
+#theme-switch svg:last-child {
+    display: none;
+}
+
+.crm__theme #theme-switch svg:first-child {
+    display: none;
+}
+
+.crm__theme #theme-switch svg:last-child {
+    display: block;
+}

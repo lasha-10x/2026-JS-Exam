@@ -1,0 +1,72 @@
+@use '../abstracts/variables' as *;
+
+.dashboard__header { margin-bottom: $space-5; }
+.dashboard__date  { margin-top: $space-1; font-size: $fs-sm; color: var(--text-muted); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: $space-4;
+  margin-bottom: $space-5;
+}
+
+.stat-card {
+  padding: $space-5;
+  background-color: var(--surface);
+  border: 0.1rem solid var(--border);
+  border-radius: $radius-lg;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(1rem); 
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover{
+  transform: translateY(-0.6rem); 
+  border-color: rgb(9, 198, 184); 
+  box-shadow: 0 1rem 2rem rgba(9, 198, 184, 0.2); 
+  }
+}
+
+.stat-card__label { margin-bottom: $space-2; font-size: $fs-sm; color: var(--text-muted); }
+.stat-card__value { font-size: $fs-2xl; font-weight: $fw-bold; }
+
+.panel {
+  padding: $space-5;
+  margin-bottom: $space-5;
+  background-color: var(--surface);
+  border: 0.1rem solid var(--border);
+  border-radius: $radius-lg;
+}
+.panel__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: $space-4; }
+.panel__title { font-size: $fs-lg; 
+  padding-bottom: 1rem;
+}
+
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: $space-3;
+}
+.pipeline__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-3 $space-4;
+  background-color: var(--surface-2);
+  border-radius: $radius-md;
+}
+.pipeline__count { font-size: $fs-lg; font-weight: $fw-bold; }
+
+.recent { display: flex; flex-direction: column; }
+.recent__item {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3 0;
+  border-bottom: 0.1rem solid var(--border);
+
+  &:last-child { border-bottom: none; }
+}
+.recent__info    { flex: 1; }
+.recent__name    { font-weight: $fw-medium; }
+.recent__company { font-size: $fs-sm; color: var(--text-muted); }
+.recent__date    { font-size: $fs-sm; color: var(--text-muted); }
+.recent__empty   { padding: $space-3 0; color: var(--text-muted); }

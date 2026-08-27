@@ -1,0 +1,42 @@
+@use '../abstracts/variables' as *;
+
+// ─────────  DARK theme = default (:root)  ─────────
+:root {
+  // Brand colors — pulled from your SCSS variables via interpolation
+  --accent: #{$color-primary};
+  --accent-hover: #{$color-primary-hover};
+  --accent-2: #{$color-secondary};   // teal
+  --pink: #{$color-pink};
+  --accent-contrast: #ffffff;
+
+  // Status colors (Lead / Contacted / Won / Lost)
+  --lead: #{$color-pink};
+  --contacted: #{$color-yellow};
+  --won: #{$color-secondary};
+  --lost: #{$color-red};
+  --success: #22c55e;
+  --danger: #ef4444;
+
+  // Structural (DARK values)
+  --bg: #0f1117;
+  --surface: #181b24;
+  --surface-2: #212530;
+  --border: #2a2f3a;
+  --text: #e6e8ee;          // soft off-white (easier than pure #fff)
+  --text-muted: #9aa0ae;
+
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+// ─────────  LIGHT theme = <body class="light">  ─────────
+body.light {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface-2: #f0f1f4;
+  --border: #e2e5ea;
+  --text: #1a1d24;
+  --text-muted: #5c6270;
+
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+

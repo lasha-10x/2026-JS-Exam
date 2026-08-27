@@ -1,0 +1,175 @@
+/* Auth Page Background & Alignment */
+.auth-page {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+  transition:
+    background-color var(--transition-normal),
+    color var(--transition-normal);
+}
+
+.auth-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Centralized Card (max-width ~420px) */
+.auth-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 42rem;
+  padding: 2.5rem 2rem;
+  transition:
+    background-color var(--transition-normal),
+    border-color var(--transition-normal);
+}
+
+.auth-card__title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.auth-card__text {
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+/********* Form Styles **********/
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Form Group Block */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.form-group__label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.125rem;
+}
+
+/* Input Wrapper to hold Icon and Input */
+.form-group__input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Icon Styles inside Input */
+.form-group__icon {
+  position: absolute;
+  left: 1rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  color: var(--text-muted);
+  pointer-events: none;
+  transition: color var(--transition-fast);
+}
+
+.form-group__input {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  padding: 0.75rem 1rem 0.75rem 3.2rem;
+  width: 100%;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.form-group__input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ფოკუსის დროს აიკონიც რომ გაფერადება */
+.form-group__input-wrapper:focus-within .form-group__icon {
+  color: var(--accent-primary);
+}
+
+.form-group__input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+/* Error State for Input */
+.input-error {
+  border-color: var(--color-error);
+}
+
+
+/* Error Message Span */
+.form-group__error-message {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-error);
+  height: 1.5rem;
+  display: block;
+  font-weight: 500;
+  margin-top: 0.25rem;
+  white-space: nowrap;
+}
+
+/* Submit Button */
+.auth-form__submit-btn {
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  border-radius: var(--radius-md);
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.875rem;
+  text-align: center;
+  transition: background-color var(--transition-fast);
+  margin-top: 0.5rem;
+}
+
+.auth-form__submit-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+.auth-form__submit-btn:active {
+  transform: translateY(1px);
+}
+
+
+/* Card Footer (Toggle Link) */
+.auth-card__footer {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.auth-card__link {
+  color: var(--accent-primary);
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.auth-card__link:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}

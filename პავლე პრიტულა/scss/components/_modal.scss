@@ -1,0 +1,177 @@
+// Shared modal, client-detail, and note-editor presentation rules.
+@use "../abstracts/mixins" as *;
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  align-items: end;
+  padding: 0.75rem;
+  background: rgb(15 23 42 / 62%);
+  backdrop-filter: blur(5px);
+}
+
+.modal-dialog {
+  width: 100%;
+  max-height: calc(100svh - 1.5rem);
+  overflow: auto;
+  padding: 1.15rem;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, var(--primary));
+  border-radius: 0.7rem 0.7rem 0.45rem 0.45rem;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow);
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.modal-header h2 {
+  letter-spacing: -0.04em;
+}
+
+.modal-close {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface-muted);
+  color: var(--text);
+  font-size: 1.4rem;
+}
+
+.client-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.client-details {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.details-client-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.details-client-header h3 {
+  margin: 0;
+}
+
+.detail-list {
+  display: grid;
+  gap: 0.7rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.detail-list strong {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.notes-panel {
+  display: grid;
+  gap: 0.8rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+}
+
+.notes-list {
+  display: grid;
+  gap: 0.6rem;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.note-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  border-radius: 0.45rem;
+  background: var(--surface-muted);
+}
+
+.note-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.25rem;
+}
+
+.note-edit-button,
+.note-delete-button {
+  flex: 0 0 auto;
+  padding: 0.25rem 0.45rem;
+  border: 0;
+  border-radius: 0.25rem;
+  background: transparent;
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.note-edit-button:hover,
+.note-delete-button:hover { background: var(--surface); }
+
+.note-delete-button { color: var(--danger); }
+
+.note-item time {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.note-form {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.note-form .button { width: 100%; }
+
+.note-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  background: var(--surface-raised);
+  color: var(--text);
+}
+
+.client-form select {
+  min-height: 46px;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+@include desktop {
+  .modal { place-items: center; padding: 1.25rem; }
+  .modal-dialog { width: min(100%, 520px); max-height: calc(100vh - 2.5rem); padding: 1.5rem; border-radius: 0.5rem; }
+  .note-form { display: flex; }
+  .note-form .button { width: auto; }
+}

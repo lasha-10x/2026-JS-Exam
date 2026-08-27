@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/guard.js"></script>
+    <script src="js/theme.js"></script>
+</head>
+<body class="flex_rule">
+    
+    <main class="auth_wrapper" id="reg_form">
+        <header>
+        <h1>Create your account</h1>
+    </header>
+        <form class="login_form">
+           <input type="text" placeholder="Full Name" id="reg_name" autocomplete="name" required>
+           <input type="text" placeholder="Email" id="reg_email" autocomplete="email" required>
+           <input type="text" placeholder="Company (optional)" id="reg_company" autocomplete="organization">
+           <input type="password" placeholder="Password" id="reg_pass" autocomplete="new-password" required>
+           <input type="password" placeholder="Confirm Password" id="reg_pass_conf" autocomplete="new-password" required>
+           <button type="submit" id="reg_butt">Create Account</button>
+           <div class="login_action">
+            <span>Already have an account?</span>
+            <a href="index.html">Log in</a>
+           </div>
+        </form>
+    </main>
+    <script src="./js/auth.js"></script>
+</body>
+</html>

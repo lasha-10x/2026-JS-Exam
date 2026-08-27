@@ -1,0 +1,109 @@
+// Centered authentication screens shared by Login and Sign Up.
+.auth-page {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  padding: 1rem;
+  background:
+    radial-gradient(circle at 20% 15%, rgb(20 140 129 / 18%), transparent 30rem),
+    radial-gradient(circle at 85% 85%, rgb(31 122 161 / 14%), transparent 28rem),
+    var(--bg);
+}
+
+.auth-card {
+  width: min(100%, 430px);
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.7rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.brand {
+  display: inline-block;
+  margin-bottom: 2rem;
+  color: var(--primary);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+
+.auth-card h1 {
+  font-size: clamp(1.65rem, 5vw, 2rem);
+  letter-spacing: -0.04em;
+}
+
+.auth-card > p {
+  margin-top: 0.5rem;
+  color: var(--text-muted);
+}
+
+.auth-form {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.auth-form .field-error:empty { display: none; }
+
+.auth-form .button {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.password-strength {
+  display: grid;
+  gap: 0.42rem;
+  margin-top: 0.1rem;
+}
+
+.password-strength-track {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 1px;
+  background: var(--surface-muted);
+}
+
+.password-strength-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--text-muted);
+  transition: width 180ms ease, background-color 180ms ease;
+}
+
+.password-strength[data-level="weak"] .password-strength-track span { background: var(--danger); }
+.password-strength[data-level="medium"] .password-strength-track span { background: #d18a16; }
+.password-strength[data-level="strong"] .password-strength-track span { background: var(--success); }
+
+.password-strength-copy {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+}
+
+.password-strength-copy strong { color: var(--text); }
+.password-strength[data-level="weak"] .password-strength-copy strong { color: var(--danger); }
+.password-strength[data-level="medium"] .password-strength-copy strong { color: #b56d00; }
+.password-strength[data-level="strong"] .password-strength-copy strong { color: var(--success); }
+
+.password-hint {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.auth-footer {
+  margin-top: 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+@media (min-width: 641px) {
+  .auth-page { padding: 1.5rem; }
+  .auth-card { padding: 1.75rem 2rem; }
+}

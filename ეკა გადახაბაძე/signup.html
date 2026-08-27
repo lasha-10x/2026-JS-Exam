@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up — 10X CRM</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/storage.js"></script>
+    <script src="js/guard.js"></script>
+    <script>runAuthGuard('public');</script>
+</head>
+
+<body class="auth-page">
+    <main class="auth-card">
+        <div class="auth-brand">10X CRM</div>
+        <h1>Create your account</h1>
+
+        <!-- Field order is fixed by the PRD: Full Name, Email, Company,
+         Password, Confirm Password. -->
+        <form id="signup-form" novalidate>
+            <div class="form-group">
+                <label for="signup-fullname">Full Name</label>
+                <input type="text" id="signup-fullname" placeholder="John Doe" autocomplete="name">
+            </div>
+
+            <div class="form-group">
+                <label for="signup-email">Email</label>
+                <input type="text" id="signup-email" placeholder="John@example.com" autocomplete="email">
+            </div>
+
+            <div class="form-group">
+                <label for="signup-company">Company</label>
+                <input type="text" id="signup-company" placeholder="Company (optional)" autocomplete="organization">
+            </div>
+
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" placeholder="At least 8 characters, a letter and a number"
+                    autocomplete="new-password">
+            </div>
+
+            <div class="form-group">
+                <label for="signup-confirm">Confirm Password</label>
+                <input type="password" id="signup-confirm" placeholder="Repeat your password"
+                    autocomplete="new-password">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+        </form>
+
+        <p class="auth-switch">Already have an account? <a href="index.html">Log in</a></p>
+    </main>
+
+    <script src="js/ui.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1688 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Manage CRM clients in 10X SensAI with search, filters, notes, reminders, reports, and MongoDB-backed records."
+    />
+    <meta property="og:title" content="10X SensAI | Vanilla JavaScript CRM Platform" />
+    <meta
+      property="og:description"
+      content="A polished CRM workspace for clients, tasks, reports, files, communication, and MongoDB-backed account data."
+    />
+    <meta property="og:image" content="https://10xsensai.xyz/assets/images/og-10x-crm.png" />
+    <meta property="og:url" content="https://10xsensai.xyz/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="10X SensAI" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="10X SensAI | Vanilla JavaScript CRM Platform" />
+    <meta
+      name="twitter:description"
+      content="A polished CRM workspace built with Vanilla JavaScript, SCSS, Express, and MongoDB."
+    />
+    <meta name="twitter:image" content="https://10xsensai.xyz/assets/images/og-10x-crm.png" />
+    <title>Clients | 10X CRM</title>
+    <!-- --- Early Auth Redirect --- -->
+    <script>
+      try {
+        const session = JSON.parse(localStorage.getItem("crm_session") || "null");
+        if (!session || (!session.userId && !session.email)) {
+          localStorage.removeItem("crm_session");
+          window.location.replace("./index.html");
+        }
+      } catch (error) {
+        localStorage.removeItem("crm_session");
+        window.location.replace("./index.html");
+      }
+    </script>
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon/10xsensai.svg" />
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+
+  <body class="theme-dark clientsPage" data-theme="dark" data-page="clients">
+    <!-- --- Toast Notifications --- -->
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <button
+      class="sidebar-toggle js-sidebar-toggle"
+      type="button"
+      aria-label="Open navigation"
+      aria-controls="app-sidebar"
+      aria-expanded="false"
+    >
+      <img
+        src="./assets/icons/burger-menu.svg"
+        data-theme-src-dark="./assets/icons/burger-menu.svg"
+        data-theme-src-light="./assets/icons/burger-menu-light-theme.svg"
+        alt=""
+        class="sidebar-toggle__icon sidebar-toggle__icon--open"
+      />
+      <img
+        src="./assets/icons/close.svg"
+        data-theme-src-dark="./assets/icons/close.svg"
+        data-theme-src-light="./assets/icons/close-light-theme.svg"
+        alt=""
+        class="sidebar-toggle__icon sidebar-toggle__icon--close"
+      />
+    </button>
+
+    <div class="sidebar-backdrop js-sidebar-backdrop" hidden></div>
+    <div class="app-shell">
+      <!-- --- Sidebar Navigation --- -->
+      <aside class="sidebar js-sidebar" id="app-sidebar" aria-label="Primary navigation">
+        <a href="./dashboard.html" class="sidebar__brand" aria-label="10X CRM dashboard">
+          <img
+            src="./assets/icons/Logo-dark-theme.svg"
+            data-theme-src-dark="./assets/icons/Logo-dark-theme.svg"
+            data-theme-src-light="./assets/icons/Logo-light-theme.svg"
+            alt=""
+            class="sidebar__logo-image"
+          />
+          <span class="sidebar__brand-text">10X CRM</span>
+        </a>
+
+        <nav class="sidebar__navigation" aria-label="Main navigation">
+          <ul class="sidebar__menu">
+            <li class="sidebar__item">
+              <a href="./dashboard.html" class="sidebar__link" data-nav="dashboard">
+                <img
+                  src="./assets/icons/dashboard.svg"
+                  data-theme-src-dark="./assets/icons/dashboard.svg"
+                  data-theme-src-light="./assets/icons/dashboard-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="sidebar__item">
+              <a
+                href="./clients.html"
+                class="sidebar__link sidebar__link--active"
+                data-nav="clients"
+                aria-current="page"
+              >
+                <img
+                  src="./assets/icons/users.svg"
+                  data-theme-src-dark="./assets/icons/users.svg"
+                  data-theme-src-light="./assets/icons/users-light-mode.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Clients</span>
+              </a>
+            </li>
+            <li class="sidebar__item">
+              <a href="./profile.html" class="sidebar__link" data-nav="profile">
+                <img
+                  src="./assets/icons/user-profile.svg"
+                  data-theme-src-dark="./assets/icons/user-profile.svg"
+                  data-theme-src-light="./assets/icons/user-profile-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Profile</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="sidebar__divider" role="presentation"></div>
+          <p class="sidebar__group-label">Workspace</p>
+
+          <ul class="sidebar__menu sidebar__menu--secondary">
+            <li class="sidebar__item">
+              <a
+                href="./dashboard.html#sales"
+                class="sidebar__link sidebar__link--secondary"
+                data-dashboard-section-link="sales"
+              >
+                <img
+                  src="./assets/icons/goals.svg"
+                  data-theme-src-dark="./assets/icons/goals.svg"
+                  data-theme-src-light="./assets/icons/goals-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Sales</span>
+              </a>
+            </li>
+            <li class="sidebar__item">
+              <a
+                href="./dashboard.html#reports"
+                class="sidebar__link sidebar__link--secondary"
+                data-dashboard-section-link="reports"
+              >
+                <img
+                  src="./assets/icons/statistics.svg"
+                  data-theme-src-dark="./assets/icons/statistics.svg"
+                  data-theme-src-light="./assets/icons/statistics-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Reports</span>
+              </a>
+            </li>
+            <li class="sidebar__item">
+              <a
+                href="./dashboard.html#favourites"
+                class="sidebar__link sidebar__link--secondary"
+                data-dashboard-section-link="favourites"
+              >
+                <img
+                  src="./assets/icons/star.svg"
+                  data-theme-src-dark="./assets/icons/star.svg"
+                  data-theme-src-light="./assets/icons/star-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Favourites</span>
+              </a>
+            </li>
+            <li class="sidebar__item">
+              <a
+                href="./dashboard.html#activity"
+                class="sidebar__link sidebar__link--secondary"
+                data-dashboard-section-link="activity"
+              >
+                <img
+                  src="./assets/icons/clock.svg"
+                  data-theme-src-dark="./assets/icons/clock.svg"
+                  data-theme-src-light="./assets/icons/clock-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Activity</span>
+              </a>
+            </li>
+            <li class="sidebar__item">
+              <a
+                href="./dashboard.html#files"
+                class="sidebar__link sidebar__link--secondary"
+                data-dashboard-section-link="files"
+              >
+                <img
+                  src="./assets/icons/folder.svg"
+                  data-theme-src-dark="./assets/icons/folder.svg"
+                  data-theme-src-light="./assets/icons/folder-light-theme.svg"
+                  alt=""
+                  class="sidebar__icon"
+                />
+                <span>Files</span>
+              </a>
+            </li>
+            <li class="sidebar__item sidebar__item--dropdown">
+              <details class="sidebar-dropdown">
+                <summary class="sidebar__link sidebar__link--secondary sidebar-dropdown__summary">
+                  <span class="sidebar-dropdown__label">
+                    <img
+                      src="./assets/icons/team.svg"
+                      data-theme-src-dark="./assets/icons/team.svg"
+                      data-theme-src-light="./assets/icons/team-light-mode.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Team</span>
+                  </span>
+                  <img
+                    src="./assets/icons/arrow-down.svg"
+                    data-theme-src-dark="./assets/icons/arrow-down.svg"
+                    data-theme-src-light="./assets/icons/arrow-down-light-mode.svg"
+                    data-arrow-src-down-dark="./assets/icons/arrow-down.svg"
+                    data-arrow-src-down-light="./assets/icons/arrow-down-light-mode.svg"
+                    data-arrow-src-up-dark="./assets/icons/arrow-up.svg"
+                    data-arrow-src-up-light="./assets/icons/arrow-up-light-mode.svg"
+                    alt=""
+                    class="sidebar-dropdown__arrow"
+                  />
+                </summary>
+                <div class="sidebar-dropdown__menu">
+                  <a
+                    href="./dashboard.html#users"
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    data-dashboard-section-link="users"
+                  >
+                    <img
+                      src="./assets/icons/users.svg"
+                      data-theme-src-dark="./assets/icons/users.svg"
+                      data-theme-src-light="./assets/icons/users-light-mode.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Users</span>
+                  </a>
+                  <a
+                    href="./dashboard.html#roles"
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    data-dashboard-section-link="roles"
+                  >
+                    <img
+                      src="./assets/icons/user-profile.svg"
+                      data-theme-src-dark="./assets/icons/user-profile.svg"
+                      data-theme-src-light="./assets/icons/user-profile-light-theme.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Roles</span>
+                  </a>
+                </div>
+              </details>
+            </li>
+            <li class="sidebar__item sidebar__item--dropdown">
+              <details class="sidebar-dropdown">
+                <summary class="sidebar__link sidebar__link--secondary sidebar-dropdown__summary">
+                  <span class="sidebar-dropdown__label">
+                    <img
+                      src="./assets/icons/tasks.svg"
+                      data-theme-src-dark="./assets/icons/tasks.svg"
+                      data-theme-src-light="./assets/icons/tasks-light-mode.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Tasks</span>
+                  </span>
+                  <img
+                    src="./assets/icons/arrow-down.svg"
+                    data-theme-src-dark="./assets/icons/arrow-down.svg"
+                    data-theme-src-light="./assets/icons/arrow-down-light-mode.svg"
+                    data-arrow-src-down-dark="./assets/icons/arrow-down.svg"
+                    data-arrow-src-down-light="./assets/icons/arrow-down-light-mode.svg"
+                    data-arrow-src-up-dark="./assets/icons/arrow-up.svg"
+                    data-arrow-src-up-light="./assets/icons/arrow-up-light-mode.svg"
+                    alt=""
+                    class="sidebar-dropdown__arrow"
+                  />
+                </summary>
+                <div class="sidebar-dropdown__menu">
+                  <a
+                    href="./dashboard.html#tasks"
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    data-dashboard-section-link="tasks"
+                  >
+                    <img
+                      src="./assets/icons/tasks.svg"
+                      data-theme-src-dark="./assets/icons/tasks.svg"
+                      data-theme-src-light="./assets/icons/tasks-light-mode.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Task Board</span>
+                  </a>
+                  <a
+                    href="./dashboard.html#recycle-bin"
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    data-dashboard-section-link="recycle-bin"
+                  >
+                    <img
+                      src="./assets/icons/recycle.svg"
+                      data-theme-src-dark="./assets/icons/recycle.svg"
+                      data-theme-src-light="./assets/icons/recycle-light-mode.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Recycle Bin</span>
+                  </a>
+                </div>
+              </details>
+            </li>
+            <li class="sidebar__item sidebar__item--dropdown">
+              <details class="sidebar-dropdown">
+                <summary class="sidebar__link sidebar__link--secondary sidebar-dropdown__summary">
+                  <span class="sidebar-dropdown__label">
+                    <img
+                      src="./assets/icons/chat.svg"
+                      data-theme-src-dark="./assets/icons/chat.svg"
+                      data-theme-src-light="./assets/icons/chat-light-theme.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Communications</span>
+                  </span>
+                  <img
+                    src="./assets/icons/arrow-down.svg"
+                    data-theme-src-dark="./assets/icons/arrow-down.svg"
+                    data-theme-src-light="./assets/icons/arrow-down-light-mode.svg"
+                    data-arrow-src-down-dark="./assets/icons/arrow-down.svg"
+                    data-arrow-src-down-light="./assets/icons/arrow-down-light-mode.svg"
+                    data-arrow-src-up-dark="./assets/icons/arrow-up.svg"
+                    data-arrow-src-up-light="./assets/icons/arrow-up-light-mode.svg"
+                    alt=""
+                    class="sidebar-dropdown__arrow"
+                  />
+                </summary>
+                <div class="sidebar-dropdown__menu">
+                  <button
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    type="button"
+                    data-modal-target="#communication-chat-modal"
+                    aria-haspopup="dialog"
+                    aria-controls="communication-chat-modal"
+                  >
+                    <img
+                      src="./assets/icons/chat.svg"
+                      data-theme-src-dark="./assets/icons/chat.svg"
+                      data-theme-src-light="./assets/icons/chat-light-theme.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Messenger</span>
+                  </button>
+                  <button
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    type="button"
+                    data-modal-target="#phone-modal"
+                    aria-haspopup="dialog"
+                    aria-controls="phone-modal"
+                  >
+                    <img
+                      src="./assets/icons/phone.svg"
+                      data-theme-src-dark="./assets/icons/phone.svg"
+                      data-theme-src-light="./assets/icons/phone-light-mode.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>Phone</span>
+                  </button>
+                  <button
+                    class="sidebar__link sidebar__link--secondary sidebar-dropdown__link"
+                    type="button"
+                    data-modal-target="#ai-chat-modal"
+                    aria-haspopup="dialog"
+                    aria-controls="ai-chat-modal"
+                  >
+                    <img
+                      src="./assets/icons/theme-edit.svg"
+                      data-theme-src-dark="./assets/icons/theme-edit.svg"
+                      data-theme-src-light="./assets/icons/theme-edit-light-theme.svg"
+                      alt=""
+                      class="sidebar__icon"
+                    />
+                    <span>10X SensAI</span>
+                  </button>
+                </div>
+              </details>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="sidebar__footer">
+          <button
+            class="btn btn--ghost btn--full sidebar__settings-btn"
+            type="button"
+            data-modal-target="#settings-modal"
+            aria-haspopup="dialog"
+            aria-controls="settings-modal"
+          >
+            <img
+              src="./assets/icons/settings.svg"
+              data-theme-src-dark="./assets/icons/settings.svg"
+              data-theme-src-light="./assets/icons/settings-light-theme.svg"
+              alt=""
+              class="btn__icon"
+            />
+            <span>Settings</span>
+          </button>
+
+          <div class="appearance-controls" aria-label="Appearance controls">
+            <button class="theme-toggle js-theme-toggle" type="button" aria-label="Switch theme">
+              <span class="theme-toggle__track" aria-hidden="true">
+                <span class="theme-toggle__icon theme-toggle__icon--moon">
+                  <img
+                    src="./assets/icons/moon.svg"
+                    data-theme-src-dark="./assets/icons/moon.svg"
+                    data-theme-src-light="./assets/icons/moon-light-theme.svg"
+                    alt=""
+                  />
+                </span>
+
+                <span class="theme-toggle__icon theme-toggle__icon--sun">
+                  <img
+                    src="./assets/icons/sun.svg"
+                    data-theme-src-dark="./assets/icons/sun.svg"
+                    data-theme-src-light="./assets/icons/sun-light-theme.svg"
+                    alt=""
+                  />
+                </span>
+
+                <span class="theme-toggle__thumb"></span>
+              </span>
+              <span class="visually-hidden js-theme-label">Dark</span>
+            </button>
+
+            <div class="language-toggle" role="group" aria-label="Language">
+              <button class="language-toggle__button js-language-toggle" type="button" data-language="en" aria-pressed="true">EN</button>
+              <button class="language-toggle__button js-language-toggle" type="button" data-language="ka" aria-pressed="false">KA</button>
+            </div>
+          </div>
+
+          <button class="btn btn--ghost btn--full js-logout-btn" id="logout-btn" type="button">
+            <img
+              src="./assets/icons/log out.svg"
+              data-theme-src-dark="./assets/icons/log out.svg"
+              data-theme-src-light="./assets/icons/log out-light-theme.svg"
+              alt=""
+              class="btn__icon"
+            />
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- --- Clients Workspace --- -->
+      <main class="app-main clients-page">
+        <header class="app-header">
+          <div class="app-header__content">
+            <div>
+              <p class="app-header__eyebrow">CRM database</p>
+              <h1 class="app-header__title">Clients</h1>
+            </div>
+
+            <div class="app-header__actions">
+              <button
+                class="icon-btn notification-button js-notifications-button"
+                type="button"
+                aria-label="Open notifications"
+                data-modal-target="#notifications-modal"
+                aria-haspopup="dialog"
+                aria-controls="notifications-modal"
+              >
+                <img
+                  src="./assets/icons/notification.svg"
+                  data-theme-src-dark="./assets/icons/notification.svg"
+                  data-theme-src-light="./assets/icons/notification-light-theme.svg"
+                  alt=""
+                />
+                <span class="notification-button__count js-notification-count" hidden>0</span>
+              </button>
+              <div class="date-card" aria-live="polite">
+                <span class="date-card__label">Today</span>
+                <time class="date-card__value js-live-date" datetime="">Loading date</time>
+                <span class="date-card__clock js-live-clock">--:--:--</span>
+                <span class="date-card__timezone js-live-timezone">Local time</span>
+              </div>
+            </div>
+            <div class="clients-page__header-actions">
+              <button class="btn btn--secondary js-import-clients" type="button">
+                <img
+                  src="./assets/icons/upload.svg"
+                  data-theme-src-dark="./assets/icons/upload.svg"
+                  data-theme-src-light="./assets/icons/upload-light-theme.svg"
+                  alt=""
+                  class="btn__icon"
+                />
+                <span>Import Clients</span>
+              </button>
+              <button
+                class="btn btn--primary js-open-client-modal"
+                id="add-client-btn"
+                type="button"
+                data-modal-target="#client-modal"
+                aria-haspopup="dialog"
+                aria-controls="client-modal"
+              >
+                <img
+                  src="./assets/icons/add.svg"
+                  data-theme-src-dark="./assets/icons/add.svg"
+                  data-theme-src-light="./assets/icons/add-light-theme.svg"
+                  alt=""
+                  class="btn__icon"
+                />
+                <span>Add Client</span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <!-- --- Client Summary Cards --- -->
+        <section class="client-summary" aria-label="Client summary">
+          <article class="summary-card">
+            <span class="summary-card__label">Total</span>
+            <strong class="summary-card__value" id="clients-count-total">0</strong>
+          </article>
+          <article class="summary-card">
+            <span class="summary-card__label">Leads</span>
+            <strong class="summary-card__value" id="clients-count-lead">0</strong>
+          </article>
+          <article class="summary-card">
+            <span class="summary-card__label">Contacted</span>
+            <strong class="summary-card__value" id="clients-count-contacted">0</strong>
+          </article>
+          <article class="summary-card">
+            <span class="summary-card__label">Won</span>
+            <strong class="summary-card__value" id="clients-count-won">0</strong>
+          </article>
+        </section>
+
+        <!-- --- Client Table Workspace --- -->
+        <section class="card client-workspace" aria-labelledby="clients-workspace-title">
+          <header class="card__header client-toolbar">
+            <div>
+              <p class="card__eyebrow">Search and filter</p>
+              <h2 class="card__title" id="clients-workspace-title">Client List</h2>
+            </div>
+
+            <div class="client-toolbar__actions">
+              <label class="search-field" for="clients-search">
+                <img
+                  src="./assets/icons/search.svg"
+                  data-theme-src-dark="./assets/icons/search.svg"
+                  data-theme-src-light="./assets/icons/search-light-theme.svg"
+                  alt=""
+                  class="search-field__icon"
+                />
+                <span class="visually-hidden">Search clients</span>
+                <input
+                  type="search"
+                  id="clients-search"
+                  class="search-field__input js-client-search"
+                  placeholder="Search by name, company, or email"
+                  data-search-field="clients"
+                />
+              </label>
+
+              <label class="select-field select-field--icon js-icon-select" for="clients-sort">
+                <span class="visually-hidden">Sort clients</span>
+                <span class="select-field__icon-preview js-select-icon-preview" aria-hidden="true"></span
+                ><select id="clients-sort" class="select-field__control js-client-sort" data-sort-field="clients">
+                  <option
+                    value="created-desc"
+                    data-icon="./assets/icons/sort-general.svg"
+                    data-icon-light="./assets/icons/sort-general-light-theme.svg"
+                  >
+                    Newest first
+                  </option>
+                  <option
+                    value="name-asc"
+                    data-icon="./assets/icons/sort-alph-up.svg"
+                    data-icon-light="./assets/icons/sort-alph-up-light-theme.svg"
+                  >
+                    Name A-Z
+                  </option>
+                  <option
+                    value="name-desc"
+                    data-icon="./assets/icons/sort-alph-down.svg"
+                    data-icon-light="./assets/icons/sort-alph-down-light-theme.svg"
+                  >
+                    Name Z-A
+                  </option>
+                  <option
+                    value="value-desc"
+                    data-icon="./assets/icons/sort-num-down.svg"
+                    data-icon-light="./assets/icons/sort-num-down-light-theme.svg"
+                  >
+                    Highest value
+                  </option>
+                  <option
+                    value="value-asc"
+                    data-icon="./assets/icons/sort-num-up.svg"
+                    data-icon-light="./assets/icons/sort-num-up-light-theme.svg"
+                  >
+                    Lowest value
+                  </option>
+                </select>
+              </label>
+            </div>
+          </header>
+
+          <div class="client-filters" aria-label="Client status filters">
+            <button class="filter-chip filter-chip--active js-status-filter" type="button" data-status-filter="all">
+              All
+            </button>
+            <button class="filter-chip js-status-filter" type="button" data-status-filter="lead">Lead</button>
+            <button class="filter-chip js-status-filter" type="button" data-status-filter="contacted">Contacted</button>
+            <button class="filter-chip js-status-filter" type="button" data-status-filter="won">Won</button>
+            <button class="filter-chip js-status-filter" type="button" data-status-filter="lost">Lost</button>
+            <button class="filter-chip filter-chip--action js-select-visible-clients" type="button">
+              Select visible
+            </button>
+          </div>
+
+          <div class="client-selection-bar js-client-selection-bar" hidden>
+            <p class="client-selection-bar__text">
+              <strong class="js-selected-clients-count">0</strong>
+              selected
+            </p>
+            <div class="client-selection-bar__actions">
+              <button class="btn btn--ghost js-clear-client-selection" type="button">Clear selection</button>
+              <button class="btn btn--danger js-delete-selected-clients" type="button">Delete selected</button>
+            </div>
+          </div>
+
+          <div class="state-panel" id="clients-loading" aria-live="polite" hidden>
+            <span class="loader" aria-hidden="true"></span>
+            <p>Loading clients...</p>
+          </div>
+
+          <div class="state-panel state-panel--error" id="clients-error" role="alert" aria-live="assertive" hidden>
+            <img
+              src="./assets/icons/warning.svg"
+              data-theme-src-dark="./assets/icons/warning.svg"
+              data-theme-src-light="./assets/icons/warning-light-theme.svg"
+              alt=""
+            />
+            <p class="js-clients-error-message">Could not load clients. Check your connection and try again.</p>
+            <button class="btn btn--secondary js-retry-clients" type="button">Retry</button>
+          </div>
+
+          <!-- --- Dynamic Client List --- -->
+          <div class="client-list" id="clients-list" data-render-target="clients"></div>
+
+          <div class="empty-state" id="clients-empty" hidden>
+            <img
+              src="./assets/icons/folder.svg"
+              data-theme-src-dark="./assets/icons/folder.svg"
+              data-theme-src-light="./assets/icons/folder-light-theme.svg"
+              alt=""
+            />
+            <h3>No clients found</h3>
+            <p>Adjust filters or add a new client to start building the CRM database.</p>
+            <button class="btn btn--secondary js-import-clients" type="button">Import starter clients</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- --- Add and Edit Client Modal --- -->
+    <section
+      class="modal"
+      id="client-modal"
+      aria-labelledby="client-modal-title"
+      aria-describedby="client-modal-description"
+      aria-hidden="true"
+      data-modal-initial-focus="#client-name"
+      hidden
+    >
+      <div class="modal__dialog" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Client manager</p>
+            <h2 class="modal__title" id="client-modal-title">Add Client</h2>
+            <p class="modal__description" id="client-modal-description">
+              Add the main client details now. Saving and rendering the client will connect in the next JavaScript step.
+            </p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close client form" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+
+        <form class="modal__body modal__body--form form-grid js-client-form" id="client-form" novalidate>
+          <div class="field">
+            <label for="client-name" class="field__label">Client Name</label>
+            <input
+              id="client-name"
+              name="name"
+              class="input"
+              type="text"
+              placeholder="Client or contact name"
+              required
+            />
+            <p class="form-error" id="client-name-error" data-error-for="client-name" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="client-company" class="field__label">Company</label>
+            <input id="client-company" name="company" class="input" type="text" placeholder="Company name" required />
+            <p class="form-error" id="client-company-error" data-error-for="client-company" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="client-email" class="field__label">Email</label>
+            <input
+              id="client-email"
+              name="email"
+              class="input"
+              type="email"
+              placeholder="client@example.com"
+              required
+            />
+            <p class="form-error" id="client-email-error" data-error-for="client-email" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="client-phone" class="field__label">Phone</label>
+            
+            
+            <p class="form-error" id="client-phone-error" data-error-for="client-phone" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="client-timezone" class="field__label">Country / Timezone</label>
+            <select id="client-timezone" name="timezone" class="input select-field">
+              <option value="" data-country="">Detect from phone or choose manually</option>
+              <option value="Pacific/Auckland" data-country="New Zealand">New Zealand - Auckland</option>
+              <option value="Asia/Tbilisi" data-country="Georgia">Georgia - Tbilisi</option>
+              <option value="America/New_York" data-country="United States / Canada">
+                United States / Canada - Eastern
+              </option>
+              <option value="Europe/London" data-country="United Kingdom">United Kingdom - London</option>
+              <option value="Europe/Berlin" data-country="Germany">Germany - Berlin</option>
+              <option value="Europe/Paris" data-country="France">France - Paris</option>
+              <option value="Europe/Rome" data-country="Italy">Italy - Rome</option>
+              <option value="Europe/Madrid" data-country="Spain">Spain - Madrid</option>
+              <option value="Europe/Amsterdam" data-country="Netherlands">Netherlands - Amsterdam</option>
+              <option value="Europe/Warsaw" data-country="Poland">Poland - Warsaw</option>
+              <option value="Europe/Istanbul" data-country="Turkey">Turkey - Istanbul</option>
+              <option value="Asia/Dubai" data-country="United Arab Emirates">United Arab Emirates - Dubai</option>
+              <option value="Asia/Kolkata" data-country="India">India - Kolkata</option>
+              <option value="Asia/Tokyo" data-country="Japan">Japan - Tokyo</option>
+              <option value="Asia/Seoul" data-country="South Korea">South Korea - Seoul</option>
+              <option value="Asia/Shanghai" data-country="China">China - Shanghai</option>
+              <option value="Australia/Sydney" data-country="Australia">Australia - Sydney</option>
+              <option value="America/Sao_Paulo" data-country="Brazil">Brazil - Sao Paulo</option>
+              <option value="America/Mexico_City" data-country="Mexico">Mexico - Mexico City</option>
+            </select>
+            <p class="field__hint">
+              Used by Live Time Center. Phone code can auto-suggest it, but manual choice is more reliable.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="client-status" class="field__label">Status</label>
+            <select id="client-status" name="status" class="input" required>
+              <option value="lead">Lead</option>
+              <option value="contacted">Contacted</option>
+              <option value="won">Won</option>
+              <option value="lost">Lost</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="client-value" class="field__label">Deal Value</label>
+            <input id="client-value" name="value" class="input" type="number" min="0" step="100" placeholder="0" />
+          </div>
+
+          <div class="field field--full">
+            <label for="client-notes" class="field__label">Notes</label>
+            <textarea
+              id="client-notes"
+              name="notes"
+              class="input input--textarea"
+              rows="4"
+              placeholder="Add a short note for future follow-up"
+            ></textarea>
+          </div>
+        </form>
+
+        <footer class="modal__footer">
+          <button class="btn btn--ghost js-close-modal" type="button" data-modal-close>Cancel</button>
+          <button class="btn btn--primary js-save-client" type="submit" form="client-form">Save Client</button>
+        </footer>
+      </div>
+    </section>
+
+    <button
+      class="visually-hidden js-open-client-details-helper"
+      type="button"
+      data-modal-target="#client-details-modal"
+      aria-controls="client-details-modal"
+    >
+      Open client details
+    </button>
+
+    <!-- --- Client Details, Notes, and Reminders Modal --- -->
+    <section class="modal" id="client-details-modal" aria-labelledby="client-details-title" aria-hidden="true" hidden>
+      <div class="modal__dialog" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="card__eyebrow">Client details</p>
+            <h2 class="modal__title" id="client-details-title">Client Name</h2>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close client details" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+
+        <div class="modal__body client-details" id="client-details-content" data-active-client-id="">
+          <div class="client-details__summary">
+            <div class="client-details__avatar" data-details-initials aria-hidden="true">CL</div>
+            <div>
+              <p class="client-details__company" data-details-company>Company</p>
+              <p class="client-details__since">Client since <span data-details-created>--</span></p>
+            </div>
+          </div>
+
+          <dl class="details-list">
+            <div>
+              <dt>Email</dt>
+              <dd id="details-email" data-details-email>client@example.com</dd>
+            </div>
+            <div>
+              <dt>Phone</dt>
+              <dd id="details-phone" data-details-phone>+995 555 000 000</dd>
+            </div>
+            <div>
+              <dt>Country / Timezone</dt>
+              <dd data-details-country-timezone>Not selected</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd id="details-status">
+                <span class="status-badge" data-details-status>Lead</span>
+                <form class="client-status-editor js-client-status-form" aria-label="Change client status">
+                  <select class="input select-field js-client-status-select" aria-label="Client status">
+                    <option value="lead">Lead</option>
+                    <option value="contacted">Contacted</option>
+                    <option value="won">Won</option>
+                    <option value="lost">Lost</option>
+                  </select>
+                  <button class="btn btn--secondary" type="submit">Update</button>
+                </form>
+              </dd>
+            </div>
+            <div>
+              <dt>Deal Value</dt>
+              <dd data-details-value>$0</dd>
+            </div>
+            <div>
+              <dt>Notes</dt>
+              <dd data-details-note-count>0 notes</dd>
+            </div>
+          </dl>
+
+          <form class="note-form js-note-form" id="client-note-form" novalidate>
+            <div class="field field--full">
+              <label for="client-note" class="field__label">Add Note</label>
+              <textarea
+                id="client-note"
+                class="input input--textarea js-client-note-text"
+                rows="3"
+                placeholder="Write a dated note"
+                required
+              ></textarea>
+              <p class="form-error js-client-note-error" hidden></p>
+            </div>
+
+            <div class="note-form__controls">
+              <div class="field">
+                <label for="client-note-status" class="field__label">Status</label>
+                <select id="client-note-status" class="input select-field js-client-note-status">
+                  <option value="">No status</option>
+                  <option value="reviewed">Reviewed</option>
+                  <option value="approved">Approved</option>
+                  <option value="declined">Declined</option>
+                  <option value="processed">Processed</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="client-note-task" class="field__label">Attach task</label>
+                <select id="client-note-task" class="input select-field js-client-note-task">
+                  <option value="">No task attached</option>
+                </select>
+              </div>
+
+              <div class="field field--full js-client-note-new-task-field" hidden>
+                <label for="client-note-new-task" class="field__label">New task title</label>
+                <input
+                  id="client-note-new-task"
+                  class="input js-client-note-new-task"
+                  type="text"
+                  placeholder="Create a task for this note"
+                />
+              </div>
+            </div>
+
+            <button class="btn btn--secondary" type="submit">Add Note</button>
+          </form>
+
+          <div class="reminder-panel">
+            <label for="client-reminder" class="field__label">Reminder</label>
+            <input id="client-reminder" class="input js-client-reminder-input" type="datetime-local" />
+            <button class="btn btn--ghost js-set-reminder" type="button">Set Reminder</button>
+            <p class="reminder-panel__status js-client-reminder-status" aria-live="polite"></p>
+          </div>
+
+          <section class="client-notes" aria-labelledby="client-notes-title">
+            <div class="client-notes__header">
+              <h3 class="client-notes__title" id="client-notes-title">Notes</h3>
+              <span class="client-notes__count" data-details-note-count-inline>0 notes</span>
+            </div>
+            <div class="client-notes__list js-client-notes-list">
+              <p class="client-notes__empty">No notes yet.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+    <!-- --- Client Note Delete Confirmation Modal --- -->
+    <section
+      class="modal note-delete-modal"
+      id="delete-note-modal"
+      data-skip-delete-confirm
+      aria-labelledby="delete-note-title"
+      aria-describedby="delete-note-description"
+      aria-hidden="true"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--small" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Delete note</p>
+            <h2 class="modal__title" id="delete-note-title">Delete this note?</h2>
+          </div>
+          <button class="icon-btn js-close-note-delete" type="button" aria-label="Close note delete confirmation">
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+        <div class="modal__body">
+          <p class="note-delete-modal__message js-delete-note-message" id="delete-note-description">
+            Are you sure you want to delete this note?
+          </p>
+        </div>
+        <footer class="modal__footer">
+          <button class="btn btn--ghost js-close-note-delete" type="button">Cancel</button>
+          <button class="btn btn--danger js-confirm-delete-note" type="button">Delete Note</button>
+        </footer>
+      </div>
+    </section>
+
+    <!-- --- Client Delete Confirmation Modal --- -->
+    <section class="modal" id="delete-client-modal" aria-labelledby="delete-client-title" aria-hidden="true" hidden>
+      <div class="modal__dialog modal__dialog--small" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <h2 class="modal__title" id="delete-client-title">Delete Client</h2>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close delete confirmation" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+        <div class="modal__body">
+          <p>This action will remove the selected client from the CRM list.</p>
+        </div>
+        <footer class="modal__footer">
+          <button class="btn btn--ghost js-close-modal" type="button" data-modal-close>Cancel</button>
+          <button class="btn btn--danger js-confirm-delete" type="button">Delete</button>
+        </footer>
+      </div>
+    </section>
+
+    <template id="client-card-template">
+      <article class="client-card" data-client-id="" data-status="">
+        <label class="client-card__select">
+          <input class="client-card__checkbox js-client-select" type="checkbox" />
+          <span class="visually-hidden">Select client</span>
+        </label>
+        <div class="client-card__main">
+          <div class="client-card__avatar" data-client-initials aria-hidden="true"></div>
+          <div>
+            <h3 class="client-card__name" data-client-name></h3>
+            <p class="client-card__company" data-client-company></p>
+          </div>
+        </div>
+        <dl class="client-card__meta">
+          <div>
+            <dt>Email</dt>
+            <dd data-client-email></dd>
+          </div>
+          <div>
+            <dt>Phone</dt>
+            <dd data-client-phone></dd>
+          </div>
+          <div>
+            <dt>Value</dt>
+            <dd data-client-value></dd>
+          </div>
+        </dl>
+        <div class="client-card__footer">
+          <span class="status-badge" data-client-status></span>
+          <div class="client-card__actions">
+            <button class="icon-btn js-view-client" type="button" data-client-action="view" aria-label="View client">
+              <img
+                src="./assets/icons/info.svg"
+                data-theme-src-dark="./assets/icons/info.svg"
+                data-theme-src-light="./assets/icons/info-light-theme.svg"
+                alt=""
+              />
+            </button>
+            <button class="icon-btn js-edit-client" type="button" data-client-action="edit" aria-label="Edit client">
+              <img
+                src="./assets/icons/Edit.svg"
+                data-theme-src-dark="./assets/icons/Edit.svg"
+                data-theme-src-light="./assets/icons/Edit-light-theme.svg"
+                alt=""
+              />
+            </button>
+            <button
+              class="icon-btn icon-btn--danger js-delete-client"
+              type="button"
+              data-client-action="delete"
+              data-skip-delete-confirm
+              aria-label="Delete client"
+            >
+              <img
+                src="./assets/icons/Delete.svg"
+                data-theme-src-dark="./assets/icons/Delete.svg"
+                data-theme-src-light="./assets/icons/Delete-light-theme.svg"
+                alt=""
+              />
+            </button>
+          </div>
+        </div>
+      </article>
+    </template>
+    <!-- --- Settings Modal --- -->
+    <section
+      class="modal"
+      id="settings-modal"
+      aria-labelledby="settings-modal-title"
+      aria-describedby="settings-modal-description"
+      aria-hidden="true"
+      data-modal-initial-focus="#settings-theme-dark"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--settings" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Application settings</p>
+            <h2 class="modal__title" id="settings-modal-title">Settings</h2>
+            <p class="modal__description" id="settings-modal-description">
+              Adjust the CRM appearance for this browser. These options are saved locally.
+            </p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close settings" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+
+        <form class="modal__body settings-grid js-settings-form">
+          <fieldset class="settings-group">
+            <legend class="settings-group__legend">Theme</legend>
+            <div class="settings-options settings-options--three">
+              <label class="settings-option" for="settings-theme-dark">
+                <input
+                  class="settings-option__input js-settings-theme"
+                  id="settings-theme-dark"
+                  type="radio"
+                  name="settings-theme"
+                  value="dark"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Dark</span>
+                  <span class="settings-option__text">Default CRM theme</span>
+                </span>
+              </label>
+              <label class="settings-option" for="settings-theme-light">
+                <input
+                  class="settings-option__input js-settings-theme"
+                  id="settings-theme-light"
+                  type="radio"
+                  name="settings-theme"
+                  value="light"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Light</span>
+                  <span class="settings-option__text">Bright workspace</span>
+                </span>
+              </label>
+              <label class="settings-option" for="settings-theme-custom">
+                <input
+                  class="settings-option__input js-settings-theme"
+                  id="settings-theme-custom"
+                  type="radio"
+                  name="settings-theme"
+                  value="custom"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Custom</span>
+                  <span class="settings-option__text">Accent color only</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="settings-group">
+            <legend class="settings-group__legend">Font Size</legend>
+            <div class="settings-options settings-options--three">
+              <label class="settings-option" for="settings-font-small">
+                <input
+                  class="settings-option__input js-settings-font"
+                  id="settings-font-small"
+                  type="radio"
+                  name="settings-font-size"
+                  value="small"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Small</span>
+                  <span class="settings-option__text">Dense reading</span>
+                </span>
+              </label>
+              <label class="settings-option" for="settings-font-medium">
+                <input
+                  class="settings-option__input js-settings-font"
+                  id="settings-font-medium"
+                  type="radio"
+                  name="settings-font-size"
+                  value="medium"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Medium</span>
+                  <span class="settings-option__text">Recommended</span>
+                </span>
+              </label>
+              <label class="settings-option" for="settings-font-large">
+                <input
+                  class="settings-option__input js-settings-font"
+                  id="settings-font-large"
+                  type="radio"
+                  name="settings-font-size"
+                  value="large"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Large</span>
+                  <span class="settings-option__text">More readable</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="settings-group">
+            <legend class="settings-group__legend">Layout Density</legend>
+            <div class="settings-options settings-options--two">
+              <label class="settings-option" for="settings-density-comfortable">
+                <input
+                  class="settings-option__input js-settings-density"
+                  id="settings-density-comfortable"
+                  type="radio"
+                  name="settings-density"
+                  value="comfortable"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Comfortable</span>
+                  <span class="settings-option__text">Roomier spacing</span>
+                </span>
+              </label>
+              <label class="settings-option" for="settings-density-compact">
+                <input
+                  class="settings-option__input js-settings-density"
+                  id="settings-density-compact"
+                  type="radio"
+                  name="settings-density"
+                  value="compact"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Compact</span>
+                  <span class="settings-option__text">More data on screen</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset
+            class="settings-group settings-group--custom js-custom-theme-panel"
+            aria-describedby="custom-theme-note"
+          >
+            <legend class="settings-group__legend">Custom Appearance</legend>
+            <p class="settings-group__hint" id="custom-theme-note">Uses the current Dark or Light base and unlocks accent colors.</p>
+            <div class="settings-color-row">
+              <label class="settings-color-field" for="settings-accent-color">
+                <span class="settings-color-field__label">Accent color</span>
+                <input
+                  class="settings-color-field__input js-settings-accent"
+                  id="settings-accent-color"
+                  type="color"
+                  value="#ff6b1a"
+                />
+              </label>
+              <div class="settings-swatches" aria-label="Suggested accent colors">
+                <button
+                  class="settings-swatch"
+                  type="button"
+                  data-accent-color="#ff6b1a"
+                  style="--swatch-color: #ff6b1a"
+                >
+                  <span class="visually-hidden">Orange</span>
+                </button>
+                <button
+                  class="settings-swatch"
+                  type="button"
+                  data-accent-color="#4c8fea"
+                  style="--swatch-color: #4c8fea"
+                >
+                  <span class="visually-hidden">Blue</span>
+                </button>
+                <button
+                  class="settings-swatch"
+                  type="button"
+                  data-accent-color="#55b975"
+                  style="--swatch-color: #55b975"
+                >
+                  <span class="visually-hidden">Green</span>
+                </button>
+                <button
+                  class="settings-swatch"
+                  type="button"
+                  data-accent-color="#800080"
+                  style="--swatch-color: #800080"
+                >
+                  <span class="visually-hidden">Purple</span>
+                </button>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="settings-group">
+            <legend class="settings-group__legend">Language</legend>
+            <div class="settings-options settings-options--two">
+              <label class="settings-option" for="settings-language-en">
+                <input
+                  class="settings-option__input js-settings-language"
+                  id="settings-language-en"
+                  type="radio"
+                  name="settings-language"
+                  value="en"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">English</span>
+                  <span class="settings-option__text">Current default</span>
+                </span>
+              </label>
+              <label class="settings-option" for="settings-language-ka">
+                <input
+                  class="settings-option__input js-settings-language"
+                  id="settings-language-ka"
+                  type="radio"
+                  name="settings-language"
+                  value="ka"
+                />
+                <span class="settings-option__content">
+                  <span class="settings-option__title">Georgian</span>
+                  <span class="settings-option__text">Prepared for translation</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+          <fieldset class="settings-group settings-group--danger">
+            <legend class="settings-group__legend">Danger Zone</legend>
+            <div class="settings-danger">
+              <div>
+                <h3 class="settings-danger__title">Delete Account</h3>
+                <p class="settings-danger__text">Delete this account and all CRM data saved in this browser.</p>
+              </div>
+              <button
+                class="btn btn--danger js-delete-account-trigger"
+                type="button"
+                data-modal-target="#delete-account-modal"
+                data-skip-delete-confirm
+                aria-haspopup="dialog"
+                aria-controls="delete-account-modal"
+              >
+                Delete Account
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+    <!-- --- Notifications Modal --- -->
+    <section class="modal" id="notifications-modal" aria-labelledby="notifications-title" aria-hidden="true" hidden>
+      <div class="modal__dialog modal__dialog--notifications" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Updates</p>
+            <h2 class="modal__title" id="notifications-title">Notifications</h2>
+            <p class="modal__description">Open linked items, select notifications, or delete only read updates.</p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close notifications" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+        <div class="modal__body notification-list js-notification-list">
+          <p class="task-empty">No notifications yet.</p>
+        </div>
+        <footer class="modal__footer">
+          <button class="btn btn--ghost js-clear-notifications" type="button">Mark all read</button>
+          <button class="btn btn--ghost js-select-read-notifications" type="button" data-skip-delete-confirm>
+            Mark all
+          </button>
+          <button class="btn btn--ghost js-delete-selected-notifications" type="button" data-skip-delete-confirm>
+            Delete selected
+          </button>
+          <button class="btn btn--danger js-delete-read-notifications" type="button" data-skip-delete-confirm>
+            Delete read
+          </button>
+          <button class="btn btn--primary" type="button" data-modal-close>Done</button>
+        </footer>
+      </div>
+    </section>
+    <!-- --- Account Deletion Modal --- -->
+    <section
+      class="modal"
+      id="delete-account-modal"
+      aria-labelledby="delete-account-title"
+      aria-describedby="delete-account-description"
+      aria-hidden="true"
+      data-modal-initial-focus="#delete-account-password"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--small" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Danger zone</p>
+            <h2 class="modal__title" id="delete-account-title">Are you sure to delete account?</h2>
+            <p class="modal__description" id="delete-account-description">
+              To delete your account permanently please enter your password here.
+            </p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close delete account" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+
+        <form class="modal__body delete-account-confirm js-delete-account-form" id="delete-account-form" novalidate>
+          <p class="delete-account-confirm__warning">
+            This action permanently clears the account, session, clients, profile image, tasks, notifications,
+            settings, and theme preferences stored in this browser.
+          </p>
+          <div class="field">
+            <label class="field__label" for="delete-account-password">Password</label>
+            <input
+              class="input js-delete-account-password"
+              id="delete-account-password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            />
+            <p class="form-error js-delete-account-error" hidden></p>
+          </div>
+        </form>
+
+        <footer class="modal__footer">
+          <button class="btn btn--ghost" type="button" data-modal-close>Cancel</button>
+          <button class="btn btn--danger js-confirm-delete-account" type="submit" form="delete-account-form">
+            Delete Account
+          </button>
+        </footer>
+      </div>
+    </section>
+    <section
+      class="modal communication-modal"
+      id="communication-chat-modal"
+      aria-labelledby="communication-chat-title"
+      aria-hidden="true"
+      data-modal-initial-focus="#communication-chat-input"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--chat" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Communication</p>
+            <h2 class="modal__title" id="communication-chat-title">Messenger</h2>
+            <p class="modal__description">Call, text, WhatsApp, or continue your internal team conversation.</p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close communication chat" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+        <div class="modal__body communication-chat">
+          <div class="communication-chat__quick-actions">
+            <button class="btn btn--ghost" type="button" data-modal-target="#phone-modal">Open CRM Phone</button>
+            <a class="btn btn--ghost" href="./clients.html">Client Directory</a>
+          </div>
+          <div class="communication-chat__recipient-row">
+            <label class="field" for="communication-recipient">
+              <span class="field__label">Send to</span>
+              <select class="input select-field js-communication-recipient" id="communication-recipient">
+                <option value="">Choose teammate</option>
+              </select>
+            </label>
+            <p class="communication-chat__recipient-hint">
+              Message will be saved to the selected teammate or department inbox.
+            </p>
+          </div>
+          <div class="communication-chat__messages js-communication-chat-messages" aria-live="polite"></div>
+        </div>
+        <form class="modal__footer communication-chat__form js-communication-chat-form">
+          <label class="visually-hidden" for="communication-chat-input">Message team</label>
+          <input
+            class="input js-communication-chat-input"
+            id="communication-chat-input"
+            type="text"
+            placeholder="Message your team"
+          />
+          <button class="btn btn--primary" type="submit">Send</button>
+        </form>
+      </div>
+    </section>
+    <!-- --- Application Phone Modal --- -->
+    <section
+      class="modal phone-modal"
+      id="phone-modal"
+      aria-labelledby="phone-title"
+      aria-hidden="true"
+      data-modal-initial-focus=".js-phone-key"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--phone" role="dialog" aria-modal="true">
+        <header class="modal__header phone-modal__header">
+          <div>
+            <p class="modal__eyebrow">Application phone</p>
+            <h2 class="modal__title" id="phone-title">10X CRM Phone</h2>
+            <p class="modal__description">
+              Use the CRM keypad to prepare calls and save call notes.
+            </p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close phone" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+        <div class="modal__body phone-dialer js-phone-dialer">
+          <div class="phone-dialer__device">
+            <div class="phone-dialer__screen">
+              <img
+                class="phone-dialer__screen-icon"
+                src="./assets/icons/phone.svg"
+                data-theme-src-dark="./assets/icons/phone.svg"
+                data-theme-src-light="./assets/icons/phone-light-mode.svg"
+                alt=""
+              />
+              <output class="phone-dialer__number js-phone-display" aria-live="polite">Dial number</output>
+              <p class="phone-dialer__status js-phone-status">Choose a client or dial manually.</p>
+            </div>
+            <div class="phone-dialer__keys" aria-label="Phone keypad">
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="1">1</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="2">2</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="3">3</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="4">4</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="5">5</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="6">6</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="7">7</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="8">8</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="9">9</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="+">+</button>
+              <button class="phone-dialer__key js-phone-key" type="button" data-phone-key="0">0</button>
+              <button
+                class="phone-dialer__key phone-dialer__key--backspace js-phone-delete"
+                type="button"
+                data-skip-delete-confirm
+                aria-label="Delete last digit"
+              >
+                <img
+                  src="./assets/icons/Delete.svg"
+                  data-theme-src-dark="./assets/icons/Delete.svg"
+                  data-theme-src-light="./assets/icons/Delete-light-theme.svg"
+                  alt=""
+                />
+              </button>
+            </div>
+            <div class="phone-dialer__actions">
+              <button class="btn btn--primary btn--full phone-dialer__action js-phone-call" type="button">
+                <img
+                  src="./assets/icons/phone.svg"
+                  data-theme-src-dark="./assets/icons/phone.svg"
+                  data-theme-src-light="./assets/icons/phone-light-mode.svg"
+                  alt=""
+                />
+                Call
+              </button>
+            </div>
+          </div>
+          <aside class="phone-dialer__panel">
+            <section class="phone-dialer__queue" aria-labelledby="phone-queue-title">
+              <div class="phone-dialer__section-header">
+                <p class="modal__eyebrow">Call Queue</p>
+                <h3 class="phone-dialer__subtitle" id="phone-queue-title">Calls To Make</h3>
+              </div>
+              <div class="phone-dialer__queue-list js-phone-queue" aria-live="polite"></div>
+            </section>
+            <form class="phone-dialer__note-form js-phone-note-form">
+              <div class="phone-dialer__section-header">
+                <p class="modal__eyebrow">Call note</p>
+                <h3 class="phone-dialer__subtitle">Call Essentials</h3>
+              </div>
+              <label class="visually-hidden" for="phone-note">Call note</label>
+              <textarea
+                class="input input--textarea js-phone-note"
+                id="phone-note"
+                rows="5"
+                placeholder="Write important details from this call"
+              ></textarea>
+              <button class="btn btn--secondary btn--full" type="submit">Save Call Note</button>
+            </form>
+          </aside>
+        </div>
+      </div>
+    </section>
+    <!-- --- 10X SensAI Modal --- -->
+    <section
+      class="modal communication-modal sensai-modal"
+      id="ai-chat-modal"
+      aria-labelledby="ai-chat-title"
+      aria-hidden="true"
+      data-modal-initial-focus="#ai-chat-input"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--chat modal__dialog--sensai" role="dialog" aria-modal="true">
+        <header class="modal__header sensai-header">
+          <div class="sensai-avatar sensai-avatar--idle js-sensai-avatar" aria-hidden="true">
+            <span class="sensai-avatar__aura"></span>
+            <span class="sensai-avatar__headband">10X</span>
+            <span class="sensai-avatar__head">
+              <span class="sensai-avatar__screen">
+                <span class="sensai-avatar__eye"></span>
+                <span class="sensai-avatar__eye"></span>
+                <span class="sensai-avatar__mouth"></span>
+              </span>
+            </span>
+            <span class="sensai-avatar__scarf"></span>
+            <span class="sensai-avatar__body">
+              <span class="sensai-avatar__badge"></span>
+            </span>
+          </div>
+          <div>
+            <p class="modal__eyebrow">CRM helper agent</p>
+            <h2 class="modal__title" id="ai-chat-title">10X SensAI</h2>
+            <p class="modal__description">
+              Ask SensAI about clients, tasks, activity, reminders, or today&apos;s CRM focus.
+            </p>
+          </div>
+          <button class="icon-btn js-close-modal" type="button" aria-label="Close 10X SensAI" data-modal-close>
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+        <div class="modal__body sensai-chat">
+          <div class="sensai-suggestions js-sensai-suggestions" aria-label="SensAI suggestions"></div>
+          <div class="communication-chat__messages sensai-chat__messages js-ai-chat-messages" aria-live="polite"></div>
+        </div>
+        <form class="modal__footer communication-chat__form sensai-chat__form js-ai-chat-form">
+          <label class="visually-hidden" for="ai-chat-input">Ask 10X SensAI</label>
+          <input
+            class="input js-ai-chat-input"
+            id="ai-chat-input"
+            type="text"
+            placeholder="Ask SensAI: show overdue tasks"
+          />
+          <button class="btn btn--primary" type="submit">Ask SensAI</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- --- Global Delete Confirmation Modal --- -->
+    <section
+      class="modal destructive-confirm js-destructive-confirm"
+      id="global-delete-confirm-modal"
+      aria-labelledby="global-delete-confirm-title"
+      aria-describedby="global-delete-confirm-description"
+      aria-hidden="true"
+      hidden
+    >
+      <div class="modal__dialog modal__dialog--small" role="dialog" aria-modal="true">
+        <header class="modal__header">
+          <div>
+            <p class="modal__eyebrow">Confirm action</p>
+            <h2 class="modal__title" id="global-delete-confirm-title">Delete item?</h2>
+            <p class="modal__description" id="global-delete-confirm-description">
+              Are you sure you want to delete this?
+            </p>
+          </div>
+          <button class="icon-btn js-global-delete-cancel" type="button" aria-label="Close delete confirmation">
+            <img
+              src="./assets/icons/close.svg"
+              data-theme-src-dark="./assets/icons/close.svg"
+              data-theme-src-light="./assets/icons/close-light-theme.svg"
+              alt=""
+            />
+          </button>
+        </header>
+        <footer class="modal__footer">
+          <button class="btn btn--ghost js-global-delete-cancel" type="button">Cancel</button>
+          <button class="btn btn--danger js-global-delete-confirm" type="button">Yes, Delete</button>
+        </footer>
+      </div>
+    </section>
+
+    <!-- --- JavaScript Entry Point --- -->
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

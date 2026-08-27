@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10X CRM | Dashboard</title>
+
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/theme.css" />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <a class="brand" href="dashboard.html">
+        <span class="brand-mark">10X</span>
+        <span>CRM</span>
+      </a>
+
+      <nav class="main-nav">
+        <a class="active" href="dashboard.html">Dashboard</a>
+        <a href="clients.html">Clients</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+      <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+      <button id="logoutButton" class="logout-button">Log out</button>
+    </header>
+
+    <main class="dashboard">
+      <section class="welcome-bar">
+        <div>
+          <p class="eyebrow">YOUR WORKSPACE</p>
+          <h1>Welcome back, <span id="welcomeName">there</span>!</h1>
+        </div>
+
+        <div class="live-clock">
+          <span id="currentDate">Loading date...</span>
+          <span class="clock-divider"></span>
+          <span id="currentTime">Loading time...</span>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <span class="stat-icon clients-icon">◉</span>
+          <p>Total Clients</p>
+          <strong id="totalClients">0</strong>
+          <small>All clients in your CRM</small>
+        </article>
+
+        <article class="stat-card">
+          <span class="stat-icon deals-icon">↗</span>
+          <p>Active Deals</p>
+          <strong id="activeDeals">0</strong>
+          <small>Lead and contacted clients</small>
+        </article>
+
+        <article class="stat-card">
+          <span class="stat-icon revenue-icon">$</span>
+          <p>Won Revenue</p>
+          <strong id="wonRevenue">$0</strong>
+          <small>Value from won deals</small>
+        </article>
+
+        <article class="stat-card">
+          <span class="stat-icon new-icon">✦</span>
+          <p>New This Week</p>
+          <strong id="newThisWeek">0</strong>
+          <small>Clients added in 7 days</small>
+        </article>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">SALES FLOW</p>
+              <h2>Pipeline Overview</h2>
+            </div>
+          </div>
+
+          <div class="pipeline-list">
+            <div class="pipeline-row">
+              <div class="pipeline-label">
+                <span class="dot lead"></span>Lead
+              </div>
+              <strong id="leadCount">0</strong>
+              <div class="progress-track">
+                <span id="leadProgress" class="progress lead-progress"></span>
+              </div>
+            </div>
+
+            <div class="pipeline-row">
+              <div class="pipeline-label">
+                <span class="dot contacted"></span>Contacted
+              </div>
+              <strong id="contactedCount">0</strong>
+              <div class="progress-track">
+                <span
+                  id="contactedProgress"
+                  class="progress contacted-progress"
+                ></span>
+              </div>
+            </div>
+
+            <div class="pipeline-row">
+              <div class="pipeline-label"><span class="dot won"></span>Won</div>
+              <strong id="wonCount">0</strong>
+              <div class="progress-track">
+                <span id="wonProgress" class="progress won-progress"></span>
+              </div>
+            </div>
+
+            <div class="pipeline-row">
+              <div class="pipeline-label">
+                <span class="dot lost"></span>Lost
+              </div>
+              <strong id="lostCount">0</strong>
+              <div class="progress-track">
+                <span id="lostProgress" class="progress lost-progress"></span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel recent-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">LATEST ACTIVITY</p>
+              <h2>Recent Clients</h2>
+            </div>
+
+            <span class="count-pill">Last 5</span>
+          </div>
+
+          <div id="recentClients" class="recent-clients">
+            <p class="empty-state">No clients added yet.</p>
+          </div>
+
+          <a class="view-all-link" href="clients.html">
+            View all clients <span>→</span>
+          </a>
+        </article>
+      </section>
+    </main>
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/guard.js" defer></script>
+    <script src="../js/data.js" defer></script>
+    <script src="../js/dashboard.js" defer></script>
+  </body>
+</html>

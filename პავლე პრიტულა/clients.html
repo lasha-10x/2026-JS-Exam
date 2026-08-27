@@ -1,0 +1,77 @@
+<!doctype html>
+<!-- Protected client-management page with client form and detail modals. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clients | 10X CRM</title>
+    <style>html { visibility: hidden; }</style>
+    <script>try { const session = JSON.parse(sessionStorage.getItem("crm_tab_session") || localStorage.getItem("crm_session") || "null"); const users = JSON.parse(localStorage.getItem("crm_users") || "[]"); const expiresAt = Date.parse(session?.expiresAt || "") || Date.parse(session?.loginAt || "") + 1800000; const expired = !Number.isFinite(expiresAt) || expiresAt <= Date.now(); if (!session?.userId || expired || !users.some((user) => user.id === session.userId)) { if (expired) { localStorage.removeItem("crm_session"); sessionStorage.removeItem("crm_tab_session"); } location.replace(expired && session?.userId ? "index.html?reason=session-expired" : "index.html"); } else if (JSON.parse(localStorage.getItem("crm_theme") || '"dark"') === "dark") document.documentElement.classList.add("theme-dark"); } catch { location.replace("index.html"); }</script>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-top"><a class="brand" href="dashboard.html">10X</a><div class="sidebar-actions"><button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle color theme"></button><a class="notifications-link" href="notifications.html" aria-label="Notifications" title="Notifications"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" /></svg></a><button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="main-navigation"><span></span><span></span><span></span></button></div></div>
+        <nav class="sidebar-nav" id="main-navigation" aria-label="Main navigation">
+          <a href="dashboard.html"><svg class="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6v-9h-6v9Zm0-16v4h6V4h-6Z" /></svg><span data-i18n="dashboard">Dashboard</span></a><a class="active" aria-current="page" href="clients.html"><svg class="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 20v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1m12-12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 20v-1a4 4 0 0 0-3-3.87M17 3.13a4 4 0 0 1 0 7.75" /></svg><span data-i18n="clients">Clients</span></a><a href="profile.html"><svg class="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" /></svg><span data-i18n="profile">Profile</span></a><button class="logout-button" type="button" id="logout-button"><svg class="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5m5 5H3m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5" /></svg><span data-i18n="logout">Log out</span></button>
+        </nav>
+      </aside>
+    <main class="app-content">
+      <header class="page-header">
+        <h1 data-i18n="clients">Clients</h1>
+        <p data-i18n="clientsIntro">Manage your customer relationships.</p>
+        <button class="button button-primary" id="add-client-button" type="button" data-i18n="addClient">+ Add Client</button>
+      </header>
+
+      <section class="clients-toolbar" aria-label="Client controls">
+        <label class="visually-hidden" for="client-search">Search clients</label>
+        <input class="clients-search" id="client-search" type="search" placeholder="Search name or company" data-i18n-placeholder="searchClients" />
+        <div class="filter-chips" role="group" aria-label="Filter by status">
+          <button class="filter-chip active" type="button" data-status="All" data-i18n="all">All</button>
+          <button class="filter-chip" type="button" data-status="Lead" data-i18n="lead">Lead</button>
+          <button class="filter-chip" type="button" data-status="Contacted" data-i18n="contacted">Contacted</button>
+          <button class="filter-chip" type="button" data-status="Won" data-i18n="won">Won</button>
+          <button class="filter-chip" type="button" data-status="Lost" data-i18n="lost">Lost</button>
+        </div>
+        <label class="visually-hidden" for="client-sort">Sort clients</label>
+        <select class="clients-sort" id="client-sort">
+          <option value="newest">Newest first</option>
+          <option value="name">Name A-Z</option>
+          <option value="deal">Deal value: high to low</option>
+        </select>
+      </section>
+
+      <section id="clients-content" aria-live="polite"><p class="loading-state">Loading clients...</p></section>
+    </main>
+    </div>
+
+    <section class="modal" id="client-modal" aria-labelledby="client-modal-title" hidden>
+      <div class="modal-dialog" role="dialog" aria-modal="true">
+        <div class="modal-header">
+          <div>
+            <h2 id="client-modal-title">Add Client</h2>
+            <p>Create a new contact in your pipeline.</p>
+          </div>
+          <button class="modal-close" id="close-client-modal" type="button" aria-label="Close">×</button>
+        </div>
+        <form class="client-form" id="client-form" novalidate>
+          <div class="form-field"><label for="client-name">Name</label><input id="client-name" name="name" type="text" /><span class="field-error" id="client-name-error"></span></div>
+          <div class="form-field"><label for="client-email">Email</label><input id="client-email" name="email" type="email" /><span class="field-error" id="client-email-error"></span></div>
+          <div class="form-field"><label for="client-phone">Phone <span>(optional)</span></label><input id="client-phone" name="phone" type="tel" /><span class="field-error" id="client-phone-error"></span></div>
+          <div class="form-field"><label for="client-company">Company <span>(optional)</span></label><input id="client-company" name="company" type="text" /><span class="field-error" id="client-company-error"></span></div>
+          <div class="form-field"><label for="client-deal-value">Deal Value</label><input id="client-deal-value" name="dealValue" type="number" min="1" /><span class="field-error" id="client-deal-value-error"></span></div>
+          <div class="form-field"><label for="client-status">Status</label><select id="client-status" name="status"><option value="Lead">Lead</option><option value="Contacted">Contacted</option><option value="Won">Won</option><option value="Lost">Lost</option></select><span class="field-error" id="client-status-error"></span></div>
+          <button class="button button-primary" id="client-form-submit" type="submit">Add Client</button>
+        </form>
+      </div>
+    </section>
+    <section class="modal" id="client-details-modal" aria-labelledby="client-details-title" hidden>
+      <div class="modal-dialog" role="dialog" aria-modal="true">
+        <div class="modal-header"><h2 id="client-details-title">Client details</h2><button class="modal-close" id="close-details-modal" type="button" aria-label="Close">×</button></div>
+        <div class="client-details" id="client-details-content"></div>
+      </div>
+    </section>
+    <script type="module" src="js/pages/clients.js"></script>
+  </body>
+</html>

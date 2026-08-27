@@ -1,0 +1,17 @@
+@use '../abstracts/variables' as *;
+
+.badge {
+  display: inline-block;
+  padding: $space-1 $space-3;
+  border-radius: $radius-full;
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
+  color: #fff;
+  text-align: center;
+  max-width: 10rem;
+
+  &--lead      { background-color: var(--lead); }
+  &--contacted { background-color: var(--contacted); }
+  &--won       { background-color: var(--won); }
+  &--lost      { background-color: var(--lost); }
+}

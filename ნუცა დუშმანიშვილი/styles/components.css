@@ -1,0 +1,226 @@
+/* 10X CRM - Shared Cards Buttons Badges Modals and Toasts */
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card,
+.stat-card {
+
+    background:var(--surface);
+    border:
+    1px solid var(--border);
+    border-radius:20px;
+    padding:24px;
+    box-shadow:
+    var(--shadow-card);
+
+}
+
+
+.card h2 {
+    margin-top:0;
+    font-size:20px;
+}
+
+
+
+.stat-card {
+    min-height:130px;
+}
+
+
+
+.stat-card h3 {
+    font-size:13px;
+    color:var(--text-muted);
+    font-weight:500;
+}
+
+
+
+.stat-card strong {
+    display:block;
+    margin-top:20px;
+    font-size:30px;
+    font-weight:700;
+}
+
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+    height:46px;
+    padding: 0 24px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.2s;
+}
+
+
+
+.btn-primary {
+    background:
+
+    linear-gradient(
+        135deg,
+        #0F8B8D,
+        #00BFA6
+    );
+
+    color:white;
+}
+
+
+.btn-primary:hover {
+    transform:translateY(-1px);
+    box-shadow:
+    0 8px 20px rgba(15,139,141,.25);
+}
+
+
+
+.btn-danger {
+    background:var(--danger);
+    color:white;
+}
+
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badge {
+    display:inline-flex;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:600;
+}
+
+
+
+.badge-lead {
+    background:#E0F2FE;
+    color:#0369A1;
+}
+
+
+
+.badge-contacted {
+    background:#F3E8FF;
+    color:#7E22CE;
+}
+
+
+
+.badge-won {
+    background:#DCFCE7;
+    color:#15803D;
+}
+
+
+
+.badge-lost {
+    background:#FEE2E2;
+    color:#B91C1C;
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+
+.modal {
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: rgba(15,23,42,.35);
+    backdrop-filter: blur(8px);
+}
+
+
+
+.modal.hidden {
+    display:none;
+
+}
+
+
+
+.modal-content {
+
+    width:520px;
+    background:white;
+    border-radius:24px;
+    padding:32px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.2);
+}
+
+
+/* =========================================================
+   TOASTS
+========================================================= */
+.toast-container {
+    position:fixed;
+    top:24px;
+    right:24px;
+    z-index:999;
+}
+
+
+.toast {
+    padding: 16px 22px;
+    width:340px;
+    border-radius:16px;
+    color:white;
+    margin-bottom:12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+
+}
+
+
+
+.toast-success {
+    background:var(--success);
+}
+
+
+.toast-error {
+    background:var(--danger);
+}
+
+
+
+.modal-content { 
+    position:relative; 
+    max-height:90vh; 
+    overflow-y:auto; 
+}
+
+.modal-close { 
+    position:absolute; 
+    top:18px; right:18px; 
+    width:38px; height:38px; 
+    border:0; 
+    border-radius:50%; 
+    background:var(--surface-soft); 
+    color:var(--text-main); 
+    cursor:pointer; 
+}
+
+
+.btn:disabled { 
+    cursor:not-allowed; 
+    opacity:.65; 
+    transform:none; 
+}
+

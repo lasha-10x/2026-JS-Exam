@@ -1,0 +1,16 @@
+body.is-auth-page-exiting {
+  pointer-events: none;
+}
+
+body.is-auth-page-exiting .auth {
+  opacity: 0.18;
+  transform: translate3d(0, -0.4rem, 0) scale(0.998);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.is-auth-page-exiting .auth {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

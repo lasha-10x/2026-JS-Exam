@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - 10x CRM</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <h1>Create Account</h1>
+            <p class="auth-subtitle">Get started with your 10x CRM workspace</p>
+
+            <!-- Error Summary Display Box (Shows all active errors at once) -->
+            <div id="signup-error-box" class="error-summary-box">
+                <ul id="signup-error-list" class="error-summary-list"></ul>
+            </div>
+
+            <form id="signup-form" novalidate>
+                <!-- Field 1: Full Name -->
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" class="form-control" placeholder="John Doe" required>
+                </div>
+
+                <!-- Field 2: Email -->
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" class="form-control" placeholder="name@company.com" required>
+                </div>
+
+                <!-- Field 3: Company -->
+                <div class="form-group">
+                    <label for="signup-company">Company</label>
+                    <input type="text" id="signup-company" class="form-control" placeholder="Acme Corp" required>
+                </div>
+
+                <!-- Field 4: Password -->
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" class="form-control" placeholder="••••••••" required>
+                </div>
+
+                <!-- Field 5: Confirm Password -->
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" class="form-control" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+
+            <div class="auth-footer">
+                Already have an account? <a href="index.html" class="auth-link">Log In</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core App Infrastructure Scripts -->
+    <script src="js/toast.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/guard.js"></script>
+    <!-- Page script to be wired next -->
+    <script src="js/signup.js"></script>
+</body>
+</html>

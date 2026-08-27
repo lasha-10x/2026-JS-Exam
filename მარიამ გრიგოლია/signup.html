@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up · 10X CRM</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Theme toggle,fixed top-right, appears on every page -->
+    <button
+      id="theme-toggle"
+      class="theme-toggle theme-toggle--fixed"
+      type="button"
+      aria-label="Toggle dark and light theme"
+    >
+      🌙
+    </button>
+
+    <main class="auth">
+      <section class="auth-card">
+        <!--აქ შესამოწმებელი მაქვს საინაფდან მინდა თუ არა ლოგოს გადამისამართებბა??-->
+        <header class="auth-header">
+           <a href="index.html" class="logo"
+            >10<span class="logo__letter">x</span>-<span class="logo__accent">CRM</span></a
+          >
+          <h1 class="auth-card__title">Create your account</h1>
+          <p class="auth-card__subtitle">Start managing your clients today</p>
+        </header>
+
+        <!-- novalidate = turn OFF browser's built-in validation so OUR JavaScript and exact error texts are in full control -->
+        <form id="signup-form" class="form" novalidate>
+          <!-- FULL NAME -->
+          <div class="form__group">
+            <label for="full-name" class="form__label">Full Name</label>
+            <input
+              type="text"
+              id="full-name"
+              name="fullName"
+              class="form__input"
+              placeholder="Full Name"
+              autocomplete="name"
+              aria-describedby="full-name-error"
+              required
+            />
+            <p id="full-name-error" class="form__error" aria-live="polite"></p>
+          </div>
+
+          <!-- EMAIL -->
+          <div class="form__group">
+            <label for="email" class="form__label">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form__input"
+              placeholder="you@example.com"
+              autocomplete="email"
+              aria-describedby="email-error"
+              required
+            />
+            <p id="email-error" class="form__error" aria-live="polite"></p>
+          </div>
+
+          <!-- COMPANY -->
+          <div class="form__group">
+            <label for="company" class="form__label">Company</label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              class="form__input"
+              placeholder="Company (optional)"
+              autocomplete="organization"
+            />
+          </div>
+
+          <!-- PASSWORD -->
+          <div class="form__group">
+            <label for="password" class="form__label">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form__input"
+              placeholder="••••••••"
+              autocomplete="new-password"
+              aria-describedby="password-error"
+              required
+            />
+            <p id="password-error" class="form__error" aria-live="polite"></p>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form__group">
+            <label for="confirm-password" class="form__label"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirmPassword"
+              class="form__input"
+              placeholder="••••••••"
+              autocomplete="new-password"
+              aria-describedby="confirm-password-error"
+              required
+            />
+            <p
+              id="confirm-password-error"
+              class="form__error"
+              aria-live="polite"
+            ></p>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block">
+            Create Account
+          </button>
+        </form>
+
+        <p class="auth-card__switch">
+          Already have an account?
+          <a href="index.html" class="link">Log in</a>
+        </p>
+      </section>
+    </main>
+
+    <!-- Success toast ("Account created successfully! Please log in.") appears here -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <script type="module" src="js/signup.js"></script>
+  </body>
+</html>

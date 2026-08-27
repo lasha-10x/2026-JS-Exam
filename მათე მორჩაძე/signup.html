@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up · 10X CRM</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="auth-page">
+
+  <div id="toast-container"></div>
+
+  <div class="auth-card">
+    <div class="auth-logo">10X CRM</div>
+    <h1>Create your account</h1>
+    
+
+    <form id="signup-form" novalidate>
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Nino Beridze" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" placeholder="you@example.com" />
+      </div>
+
+      <div class="form-group">
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company" placeholder="Company (optional)" />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="At least 8 characters" />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat your password" />
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+    </form>
+
+    <p class="auth-footer">Already have an account? <a href="index.html">Log in</a></p>
+  </div>
+
+    <script src="JS/guard.js"></script>
+    <script>redirectIfLoggedIn();</script>
+    <script src="JS/toast.js"></script>
+    <script src="JS/auth.js"></script>
+
+</body>
+</html>

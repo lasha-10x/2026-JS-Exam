@@ -1,0 +1,10 @@
+// Small shared application-page empty state.
+.empty-state {
+  display: grid;
+  min-height: 240px;
+  margin-top: 2rem;
+  place-items: center;
+  border: 1px dashed var(--border);
+  border-radius: 0.5rem;
+  color: var(--text-muted);
+}

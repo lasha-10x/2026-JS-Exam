@@ -1,0 +1,91 @@
+@use "../abstracts/variables" as *;
+
+.card,
+.stats-card,
+.summary-card {
+  border: 0.1rem solid var(--color-border);
+  border-radius: $radius-md;
+  background: var(--color-card);
+  box-shadow: var(--shadow-card);
+}
+
+.card {
+  overflow: hidden;
+}
+
+.card__header,
+.card__body,
+.card__footer {
+  padding: $space-xl;
+}
+
+.card__header,
+.card__footer {
+  border-color: var(--color-divider);
+}
+
+.card__header {
+  border-bottom: 0.1rem solid var(--color-divider);
+}
+
+.card__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-md;
+  border-top: 0.1rem solid var(--color-divider);
+}
+
+.card__header--split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-lg;
+}
+
+.card__eyebrow {
+  margin-bottom: $space-xs;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  font-weight: $fw-bold;
+  text-transform: uppercase;
+}
+
+.card__title {
+  color: var(--color-text);
+}
+
+.card__link {
+  color: var(--color-primary);
+  font-size: 1.4rem;
+  font-weight: $fw-semibold;
+}
+
+.state-panel,
+.empty-state {
+  display: grid;
+  place-items: center;
+  gap: $space-md;
+  padding: $space-3xl $space-xl;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.state-panel img,
+.empty-state img {
+  width: 4.8rem;
+  height: 4.8rem;
+}
+
+@media (max-width: 768px) {
+  .card__header,
+  .card__body,
+  .card__footer {
+    padding: $space-lg;
+  }
+
+  .card__header--split,
+  .card__footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

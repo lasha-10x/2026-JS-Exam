@@ -1,0 +1,72 @@
+/* Light Theme (Default) */
+:root {
+  color-scheme: light;
+  /* Colors */
+  --bg-primary: #f8fafc;
+  --bg-card: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  /* Brand/Accent Colors */
+  --accent-primary: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-light: #eff6ff;
+
+  /* Status Colors (General) */
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-error-bg: rgba(239, 68, 68, 0.1);
+  --color-error-border: rgba(239, 68, 68, 0.3);
+  --color-warning: #f59e0b;
+
+  /* Client Status Badge Colors */
+  --status-lead-bg: rgba(37, 99, 235, 0.1);
+  --status-lead-text: #2563eb;
+  --status-contacted-bg: rgba(245, 158, 11, 0.1);
+  --status-contacted-text: #d97706;
+  --status-won-bg: rgba(16, 185, 129, 0.1);
+  --status-won-text: #059669;
+  --status-lost-bg: rgba(239, 68, 68, 0.1);
+  --status-lost-text: #dc2626;
+
+  /* Borders and Dividers */
+  --border-color: #e2e8f0;
+  --border-focus: #3b82f6;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
+
+/* Dark Theme */
+.dark-theme {
+  color-scheme: dark;
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --accent-primary: #3b82f6;
+  --accent-hover: #60a5fa;
+  --accent-light: #1e293b;
+
+  --border-color: #334155;
+  --border-focus: #60a5fa;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+}

@@ -1,0 +1,33 @@
+- [x] Task 1.1: Create basic file/folder structure (empty files)
+- [x] Task 1.2: Define color palette, CSS Reset, global classes, and Theme Variables in css/style.css
+- [x] Task 1.3: Set up js/storage.js with helper functions for localStorage
+- [x] Task 2.1: Implement Sign Up HTML markup (BEM) and CSS layout
+- [x] Task 2.2: Implement Sign Up validation & user creation logic
+- [x] Task 2.3: Create basic Toast notification system
+- [x] Task 3.1: Implement Login HTML markup (BEM) and CSS layout
+- [x] Task 3.2: Implement Login validation & authentication logic
+- [x] Task 4.1: Implement js/guard.js (Auth Guard redirection flow)
+- [x] Task 4.2: Create shared Navigation Header/Sidebar markup and Logout logic
+- [x] Task 4.3: Connect Theme Switcher to store preferences
+- [x] Task 5.1: Implement Dashboard HTML markup
+- [x] Task 5.2: Implement Live Clock and greeting logic
+- [x] Task 6.1 (Phase 1): Setup clients.html shared layout
+- [x] Task 6.2 (Phase 2): Implement data fetching & storage in clients.js
+- [x] Task 6.3 (Phase 3): UI Rendering of client cards in clients.css
+- [x] Task 6.4 (Phase 4): Add Client modal & POST logic
+- [x] Task 6.5 (Phase 5): Delete Client & DELETE logic
+- [x] Task 5.3: Compute stats and render recent 5 clients
+- [x] Task 6.1: Implement Clients HTML layout
+- [x] Task 6.2: Fetch clients from DummyJSON API and save to crm_clients
+- [x] Task 6.3: Render client list using BEM-styled cards
+- [x] Task 6.4: Implement Add Client Modal & form validation
+- [x] Task 6.5: Implement Delete Client button with confirm dialog
+- [x] Task 7.1: Implement status update selector
+- [x] Task 7.2: Implement Search, Status Filter Chips, and Sort dropdown
+- [x] Task 7.3: Implement Client Details Modal with Comment/Notes thread
+- [ ] Task 8.1: Implement Profile Page HTML and styling
+- [ ] Task 8.2: Implement profile editing (update Full Name / Company)
+- [ ] Task 8.3: Implement Password Change with validations
+- [ ] Task 8.4: Implement Reset CRM Data button
+- [ ] Task 9.1: Write ai-log.md (AI log)
+- [x] Task 9.2: Complete English documentation files
