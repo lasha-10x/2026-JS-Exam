@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - 10X CRM</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="toast-container"></div>
+
+    <nav class="sidebar">
+        <a href="dashboard.html" class="logo-brand">
+            <div class="logo-badge">
+                <span class="logo-text">10X</span>
+                <div class="logo-underline"></div>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="clients.html">Clients</a></li>
+            <li><a href="profile.html" class="active">Profile</a></li>
+        </ul>
+        <div class="nav-bottom">
+            <button id="themeToggle" class="btn-secondary">Light Mode</button>
+            <button onclick="logout()" class="btn-logout">Logout</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h1>Profile</h1>
+
+        <!-- P5.1 User Card -->
+        <div class="profile-card">
+            <div id="profileAvatar" class="profile-avatar">NB</div>
+            <div>
+                <h2 id="profileNameDisplay" class="profile-name">Nino Beridze</h2>
+                <p id="profileEmailDisplay" class="profile-email">nino@example.com</p>
+                <p id="profileCompanyDisplay" class="profile-company">10X Sales</p>
+                <p id="profileMemberSince" class="profile-member-since">Member since 05/07/2026</p>
+            </div>
+        </div>
+
+        <!-- P5.2 Edit Profile -->
+        <div class="profile-section">
+            <h3 class="profile-section-title">Edit Profile</h3>
+            <form id="editProfileForm" novalidate class="profile-form">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="editFullName">
+                    <span class="error-text" id="errEditName"></span>
+                </div>
+                <div class="form-group">
+                    <label>Company</label>
+                    <input type="text" id="editCompany">
+                </div>
+                <button type="submit" class="btn btn-inline">A. Save Changes</button>
+            </form>
+        </div>
+
+        <!-- P5.3 Change Password -->
+        <div class="profile-section">
+            <h3 class="profile-section-title">Change Password</h3>
+            <form id="changePasswordForm" novalidate class="profile-form">
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <div class="password-input-container">
+                        <input type="password" id="currPassword">
+                        <button type="button" class="toggle-password-btn" data-target="currPassword" aria-label="Show password">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                    </div>
+                    <span class="error-text" id="errCurrPass"></span>
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <div class="password-input-container">
+                        <input type="password" id="newPassword">
+                        <button type="button" class="toggle-password-btn" data-target="newPassword" aria-label="Show password">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                    </div>
+                    <span class="error-text" id="errNewPass"></span>
+                </div>
+                <div class="form-group">
+                    <label>Confirm New Password</label>
+                    <div class="password-input-container">
+                        <input type="password" id="confirmNewPassword">
+                        <button type="button" class="toggle-password-btn" data-target="confirmNewPassword" aria-label="Show password">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                    </div>
+                    <span class="error-text" id="errConfirmPass"></span>
+                </div>
+                <button type="submit" class="btn btn-inline">B. Change Password</button>
+            </form>
+        </div>
+
+        <!-- P5.4 Data Management -->
+        <div class="profile-section">
+            <h3 class="profile-section-title-danger">Data Management</h3>
+            <p class="profile-desc">Resetting CRM data will re-fetch the default 30 clients from DummyJSON API.</p>
+            <button id="resetCrmDataBtn" class="btn-logout btn-reset-data">C. Reset CRM Data</button>
+        </div>
+    </main>
+
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/guard.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

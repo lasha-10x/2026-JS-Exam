@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10X-CRM</title>
+    <link rel="stylesheet" href="./css/dashboard.css" />
+    <link rel="stylesheet" href="./css/clients.css" />
+  </head>
+  <body>
+    <div id="global-navbar"></div>
+
+    <main class="clients-container">
+      <div class="clients-header">
+        <h1>Clients</h1>
+        <button id="addClientBtn" class="btn-primary">① + Add Client</button>
+      </div>
+
+      <div class="toolbar">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="② 🔍 Search by name or company..."
+        />
+
+        <div class="filter-chips">
+          <button class="chip active" data-status="All">All</button>
+          <button class="chip" data-status="Lead">Lead</button>
+          <button class="chip" data-status="Contacted">Contacted</button>
+          <button class="chip" data-status="Won">Won</button>
+          <button class="chip" data-status="Lost">Lost</button>
+        </div>
+
+        <select id="sortSelect">
+          <option value="Newest">④ Sort: Newest first</option>
+          <option value="AZ">Name A -> Z</option>
+          <option value="ValueHighLow">Deal value: High -> Low</option>
+        </select>
+      </div>
+
+      <div id="loadingStatus" class="loading-text" style="display: none">
+        Loading clients...
+      </div>
+      <div id="clientsList" class="clients-list"></div>
+    </main>
+
+    <div id="addClientModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close-modal" id="closeAddModal">&times;</span>
+        <h2>Add New Client</h2>
+        <form id="addClientForm">
+          <div class="form-group">
+            <label>Name*</label>
+            <input type="text" id="clientName" />
+            <span
+              class="error-message"
+              id="nameError"
+              style="display: none; color: red"
+            ></span>
+          </div>
+          <div class="form-group">
+            <label>Email*</label>
+            <input type="text" id="clientEmail" />
+            <span
+              class="error-message"
+              id="emailError"
+              style="display: none; color: red"
+            ></span>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" id="clientPhone" />
+            <span
+              class="error-message"
+              id="phoneError"
+              style="display: none; color: red"
+            ></span>
+          </div>
+          <div class="form-group">
+            <label>Company</label>
+            <input type="text" id="clientCompany" />
+          </div>
+          <div class="form-group">
+            <label>Deal Value ($)*</label>
+            <input type="text" id="clientDealValue" />
+            <span
+              class="error-message"
+              id="dealValueError"
+              style="display: none; color: red"
+            ></span>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="clientStatus">
+              <option value="Lead">Lead</option>
+              <option value="Contacted">Contacted</option>
+              <option value="Won">Won</option>
+              <option value="Lost">Lost</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit">Submit Client</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="detailsModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close-modal" id="closeDetailsModal">&times;</span>
+        <div id="detailsModalBody"></div>
+      </div>
+    </div>
+
+    <script src="./js/app.js"></script>
+    <script src="./js/clients.js"></script>
+  </body>
+</html>

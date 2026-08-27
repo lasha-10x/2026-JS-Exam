@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10X-CRM</title>
+    <link rel="stylesheet" href="./css/navbar.css" />
+    <link rel="stylesheet" href="./css/dashboard.css" />
+  </head>
+  <body>
+    <div id="global-navbar"></div>
+    <div class="container">
+      <div class="welcome-row">
+        <h1 id="welcomeMessage">Welcome back!</h1>
+        <div id="liveClock" class="live-clock">Live Time: Loading...</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Total Clients</h3>
+          <span id="totalClients" class="number">0</span>
+        </div>
+        <div class="stat-card">
+          <h3>Active Deals</h3>
+          <span id="activeDeals" class="number">0</span>
+        </div>
+        <div class="stat-card">
+          <h3>Won Revenue</h3>
+          <span id="wonRevenue" class="number">$0</span>
+        </div>
+        <div class="stat-card">
+          <h3>New This Week</h3>
+          <span id="newThisWeek" class="number">0</span>
+        </div>
+      </div>
+
+      <div class="dashboard-row">
+        <div class="section-box">
+          <h2>Pipeline Overview</h2>
+          <div class="pipeline-grid">
+            <div class="pipe-item lead">
+              <span class="pipe-label">Lead</span>
+              <span id="pipeLead" class="pipe-count">0</span>
+            </div>
+            <div class="pipe-item contacted">
+              <span class="pipe-label">Contacted</span>
+              <span id="pipeContacted" class="pipe-count">0</span>
+            </div>
+            <div class="pipe-item won">
+              <span class="pipe-label">Won</span>
+              <span id="pipeWon" class="pipe-count">0</span>
+            </div>
+            <div class="pipe-item lost">
+              <span class="pipe-label">Lost</span>
+              <span id="pipeLost" class="pipe-count">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <h2>Recent Clients (Last 5)</h2>
+          <div id="recentClientsList" class="client-list"></div>
+          <a href="clients.html" class="view-all-link"
+            >View all clients &rarr;</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/app.js"></script>
+    <script src="./js/dashboard.js"></script>
+  </body>
+</html>

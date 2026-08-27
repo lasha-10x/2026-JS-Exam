@@ -1,0 +1,166 @@
+/* ==========================================
+   P5 - Profile გვერდის სტილები
+   ========================================== */
+.profile-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.profile-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+/* P5.1 Information Block */
+.info-block {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  border-left: 6px solid #2b6cb0;
+}
+
+.avatar-container {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #2b6cb0;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.user-details h2 {
+  margin: 0 0 5px 0;
+  color: #2d3748;
+}
+
+.user-meta {
+  margin: 0 0 5px 0;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.user-date {
+  margin: 0;
+  color: #a0aec0;
+  font-size: 13px;
+}
+
+/* ორი ფორმის ბადე (Grid) */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 25px;
+}
+
+@media (max-width: 500px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profile-card h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #2d3748;
+  border-bottom: 2px solid #edf2f7;
+  padding-bottom: 10px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.form-group input {
+  padding: 10px 12px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #2b6cb0;
+}
+
+/* ღილაკები */
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary {
+  background: #2b6cb0;
+  color: white;
+}
+.btn-primary:hover {
+  background: #2c5282;
+}
+
+.btn-secondary {
+  background: #4a5568;
+  color: white;
+}
+.btn-secondary:hover {
+  background: #2d3748;
+}
+
+.btn-danger {
+  background: #fff5f5;
+  color: #c53030;
+  border: 1px solid #feb2b2;
+}
+.btn-danger:hover {
+  background: #c53030;
+  color: white;
+}
+
+/* Toast Notifications სტილი */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast-message {
+  background: #2d3748;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}

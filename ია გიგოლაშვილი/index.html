@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>Login | 10X CRM</title>
+
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <main class="login-page">
+      <section class="login-card">
+        <h1>Welcome back</h1>
+
+        <p>Sign in to your 10X CRM account</p>
+
+        <form id="loginForm" novalidate>
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+
+            <input
+              type="text"
+              id="loginEmail"
+              name="email"
+              placeholder="Enter your email"
+              autocomplete="email"
+            />
+
+            <small
+              id="loginEmailError"
+              class="field-error"
+            ></small>
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+
+            <input
+              type="password"
+              id="loginPassword"
+              name="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+            />
+
+            <small
+              id="loginPasswordError"
+              class="field-error"
+            ></small>
+          </div>
+
+          <p
+            id="loginCredentialsError"
+            class="form-error"
+          ></p>
+
+          <button type="submit">Log In</button>
+        </form>
+
+        <p>
+          Don't have an account?
+          <a href="signup.html">Sign up</a>
+        </p>
+      </section>
+    </main>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="./js/storage.js"></script>
+    <script src="./js/common.js"></script>
+    <script src="./js/guard.js"></script>
+    <script src="./js/login.js"></script>
+  </body>
+</html>

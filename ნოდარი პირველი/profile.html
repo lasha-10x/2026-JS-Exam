@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - 10X CRM</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/storage.js"></script>
+    <script src="js/guard.js"></script>
+    <script>
+      requireAuth();
+    </script>
+  </head>
+  <body>
+    <div id="app-nav"></div>
+
+    <main class="page-content profile-page">
+      <div class="profile-info-card">
+        <div class="profile-avatar" id="profile-avatar"></div>
+        <div>
+          <h2 id="profile-name">-</h2>
+          <p id="profile-email" class="profile-meta">-</p>
+          <p id="profile-company" class="profile-meta">-</p>
+          <p id="profile-member-since" class="profile-meta"></p>
+        </div>
+      </div>
+
+      <div class="profile-grid">
+        <div class="profile-panel">
+          <h2>Edit Profile</h2>
+          <form id="edit-profile-form" novalidate>
+            <div class="form-group">
+              <label for="editFullName">Full Name</label>
+              <input type="text" id="editFullName" name="editFullName" />
+              <span class="error-message" id="editFullName-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="editCompany">Company</label>
+              <input type="text" id="editCompany" name="editCompany" />
+            </div>
+            <button type="submit" class="btn-primary">Save Changes</button>
+          </form>
+        </div>
+
+        <div class="profile-panel">
+          <h2>Change Password</h2>
+          <form id="change-password-form" novalidate>
+            <div class="form-group">
+              <label for="currentPassword">Current Password</label>
+              <div class="password-wrapper">
+                <input
+                  type="password"
+                  id="currentPassword"
+                  name="currentPassword"
+                />
+                <button
+                  type="button"
+                  class="toggle-password-btn"
+                  data-target="currentPassword"
+                  aria-label="Show password"
+                ></button>
+              </div>
+              <span class="error-message" id="currentPassword-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <div class="password-wrapper">
+                <input type="password" id="newPassword" name="newPassword" />
+                <button
+                  type="button"
+                  class="toggle-password-btn"
+                  data-target="newPassword"
+                  aria-label="Show password"
+                ></button>
+              </div>
+              <span class="error-message" id="newPassword-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="confirmNewPassword">Confirm New Password</label>
+              <div class="password-wrapper">
+                <input
+                  type="password"
+                  id="confirmNewPassword"
+                  name="confirmNewPassword"
+                />
+                <button
+                  type="button"
+                  class="toggle-password-btn"
+                  data-target="confirmNewPassword"
+                  aria-label="Show password"
+                ></button>
+              </div>
+              <span class="error-message" id="confirmNewPassword-error"></span>
+            </div>
+            <button type="submit" class="btn-primary">Change Password</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="profile-panel danger-zone">
+        <h2>Data</h2>
+        <p class="profile-meta">
+          This will reload your client list from the API. Your account and login
+          stay untouched.
+        </p>
+        <button id="reset-data-btn" class="btn-danger" type="button">
+          Reset CRM Data
+        </button>
+      </div>
+    </main>
+
+    <div id="toast-container"></div>
+
+    <script src="js/ui.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/clients.js"></script>
+    <script src="js/profile.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderNav("profile");
+        applyTheme();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In — 10X CRM</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <div class="logo-mark">10X</div>
+        <span>10X CRM</span>
+      </div>
+
+      <h1>Welcome back</h1>
+      <p class="auth-subtitle">Log in to see your pipeline.</p>
+
+      <form id="login-form" novalidate>
+        <div class="field" id="field-loginEmail">
+          <label for="loginEmail">Email</label>
+          <input type="text" id="loginEmail" name="loginEmail" autocomplete="email" />
+          <div class="field-error" id="error-loginEmail"></div>
+        </div>
+
+        <div class="field" id="field-loginPassword">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" name="loginPassword" autocomplete="current-password" />
+          <div class="field-error" id="error-loginPassword"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Log In</button>
+      </form>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="signup.html">Sign up</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-stack"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    redirectIfAuthed(); // P0.1 — already logged in? skip straight to dashboard
+    initLoginForm();
+  </script>
+</body>
+</html>

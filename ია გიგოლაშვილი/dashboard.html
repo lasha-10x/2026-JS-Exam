@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>Dashboard | 10X CRM</title>
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/clients.css" />
+  </head>
+
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <a href="dashboard.html" class="brand">10X CRM</a>
+
+        <nav class="navigation">
+          <a href="dashboard.html" class="nav-link active">
+            Dashboard
+          </a>
+
+          <a href="clients.html" class="nav-link">
+            Clients
+          </a>
+
+          <a href="profile.html" class="nav-link">
+            Profile
+          </a>
+        </nav>
+
+        <div class="sidebar-actions">
+          <button
+            id="themeButton"
+            class="secondary-button"
+            type="button"
+          >
+            Switch Theme
+          </button>
+
+          <button
+            id="logoutButton"
+            class="logout-button"
+            type="button"
+          >
+            Logout
+          </button>
+        </div>
+      </aside>
+
+      <main class="app-content">
+        <header class="dashboard-header">
+          <div>
+            <h1 id="welcomeMessage">Welcome back!</h1>
+            <p>Here is your sales overview.</p>
+          </div>
+
+          <div class="dashboard-clock">
+            <strong id="currentTime"></strong>
+            <span id="currentDate"></span>
+          </div>
+        </header>
+
+        <section class="stats-grid">
+          <article class="stat-card">
+            <span>Total Clients</span>
+            <strong id="totalClients">0</strong>
+          </article>
+
+          <article class="stat-card">
+            <span>Active Deals</span>
+            <strong id="activeDeals">0</strong>
+          </article>
+
+          <article class="stat-card">
+            <span>Won Revenue</span>
+            <strong id="wonRevenue">$0</strong>
+          </article>
+
+          <article class="stat-card">
+            <span>New This Week</span>
+            <strong id="newThisWeek">0</strong>
+          </article>
+        </section>
+
+        <section class="dashboard-section">
+          <h2>Pipeline Overview</h2>
+
+          <div class="pipeline-grid">
+            <article class="pipeline-card">
+              <span>Lead</span>
+              <strong id="leadCount">0</strong>
+            </article>
+
+            <article class="pipeline-card">
+              <span>Contacted</span>
+              <strong id="contactedCount">0</strong>
+            </article>
+
+            <article class="pipeline-card">
+              <span>Won</span>
+              <strong id="wonCount">0</strong>
+            </article>
+
+            <article class="pipeline-card">
+              <span>Lost</span>
+              <strong id="lostCount">0</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section">
+          <div class="section-heading">
+            <h2>Recent Clients</h2>
+
+            <a href="clients.html">
+              View all clients →
+            </a>
+          </div>
+
+          <div id="recentClients" class="recent-clients">
+            <p>Loading clients...</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="./js/storage.js"></script>
+    <script src="./js/guard.js"></script>
+    <script src="./js/common.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/dashboard.js"></script>
+  </body>
+</html>

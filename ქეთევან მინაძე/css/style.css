@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 20px;
+}
+.card {
+  background: white;
+  padding: 30px 25px;
+  border: 2px solid #4a6999;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+h2 {
+  color: #1e3a60;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+input:focus {
+  border-color: #1e3a60;
+}
+.error-message {
+  color: #dc3545;
+  font-size: 13px;
+  margin-top: 5px;
+  display: none;
+}
+/* სპეციალური სტილი საერთო შეცდომისთვის (Invalid email or password) */
+.general-error {
+  background-color: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+  display: none;
+}
+.btn-submit {
+  width: 100%;
+  background-color: #213a63;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+.btn-submit:hover {
+  background-color: #162947;
+}
+.signup-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #4a6999;
+}
+.signup-link a {
+  color: #4a6999;
+  text-decoration: none;
+}
+.signup-link a:hover {
+  text-decoration: underline;
+}

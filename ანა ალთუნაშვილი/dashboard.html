@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — 10X CRM</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="dashboard">
+
+  <div class="app-shell">
+    <div id="sidebar-root"></div>
+
+    <main class="main-content">
+      <div class="dashboard-topbar">
+        <h1 id="greeting">Welcome back!</h1>
+        <div class="dashboard-clock">
+          <span id="clock-time">--:--:--</span>
+          <span id="clock-date">-</span>
+        </div>
+      </div>
+
+      <div id="dashboard-content"></div>
+    </main>
+  </div>
+
+  <div id="toast-stack"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script>
+    requireAuth(); // P0.1 — bounce to index.html if there's no session
+    initDashboard();
+  </script>
+</body>
+</html>

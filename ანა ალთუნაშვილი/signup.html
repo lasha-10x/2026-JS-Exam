@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up — 10X CRM</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <div class="logo-mark">10X</div>
+        <span>10X CRM</span>
+      </div>
+
+      <h1>Create your account</h1>
+      <p class="auth-subtitle">Start managing your clients in minutes.</p>
+
+      <form id="signup-form" novalidate>
+        <div class="field" id="field-fullName">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="fullName" autocomplete="name" />
+          <div class="field-error" id="error-fullName"></div>
+        </div>
+
+        <div class="field" id="field-email">
+          <label for="email">Email</label>
+          <input type="text" id="email" name="email" autocomplete="email" />
+          <div class="field-error" id="error-email"></div>
+        </div>
+
+        <div class="field" id="field-company">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" placeholder="Company (optional)" autocomplete="organization" />
+          <div class="field-error" id="error-company"></div>
+        </div>
+
+        <div class="field" id="field-password">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="new-password" />
+          <div class="field-error" id="error-password"></div>
+        </div>
+
+        <div class="field" id="field-confirmPassword">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" />
+          <div class="field-error" id="error-confirmPassword"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Account</button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="index.html">Log in</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-stack"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    redirectIfAuthed(); // P0.1 — already logged in? skip straight to dashboard
+    initSignupForm();
+  </script>
+</body>
+</html>

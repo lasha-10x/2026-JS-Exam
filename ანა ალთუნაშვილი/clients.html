@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clients — 10X CRM</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="clients">
+
+  <div class="app-shell">
+    <div id="sidebar-root"></div>
+
+    <main class="main-content">
+      <div class="page-header">
+        <h1>Clients</h1>
+        <button class="btn btn-primary" id="add-client-btn" type="button">+ Add Client</button>
+      </div>
+
+      <div class="toolbar">
+        <input type="text" id="client-search" placeholder="Search by name or company..." />
+        <button class="filter-chip active" data-status="All" type="button">All</button>
+        <button class="filter-chip" data-status="Lead" type="button">Lead</button>
+        <button class="filter-chip" data-status="Contacted" type="button">Contacted</button>
+        <button class="filter-chip" data-status="Won" type="button">Won</button>
+        <button class="filter-chip" data-status="Lost" type="button">Lost</button>
+        <select id="sort-select">
+          <option value="newest">Newest first</option>
+          <option value="name">Name A-Z</option>
+          <option value="deal">Deal value: high to low</option>
+        </select>
+      </div>
+
+      <div id="clients-list" class="clients-grid"></div>
+    </main>
+  </div>
+
+  <!-- Add Client modal (P4.4) -->
+  <div class="modal-backdrop hidden" id="add-client-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Add Client</h3>
+        <button class="modal-close" id="add-client-close" type="button" aria-label="Close">✕</button>
+      </div>
+
+      <form id="add-client-form" novalidate>
+        <div class="field" id="field-clientName">
+          <label for="clientName">Name</label>
+          <input type="text" id="clientName" name="clientName" />
+          <div class="field-error" id="error-clientName"></div>
+        </div>
+
+        <div class="field" id="field-clientEmail">
+          <label for="clientEmail">Email</label>
+          <input type="text" id="clientEmail" name="clientEmail" />
+          <div class="field-error" id="error-clientEmail"></div>
+        </div>
+
+        <div class="field" id="field-clientPhone">
+          <label for="clientPhone">Phone</label>
+          <input type="text" id="clientPhone" name="clientPhone" placeholder="Phone (optional)" />
+          <div class="field-error" id="error-clientPhone"></div>
+        </div>
+
+        <div class="field" id="field-clientCompany">
+          <label for="clientCompany">Company</label>
+          <input type="text" id="clientCompany" name="clientCompany" placeholder="Company (optional)" />
+          <div class="field-error" id="error-clientCompany"></div>
+        </div>
+
+        <div class="field" id="field-clientDealValue">
+          <label for="clientDealValue">Deal Value</label>
+          <input type="text" id="clientDealValue" name="clientDealValue" placeholder="e.g. 5000" />
+          <div class="field-error" id="error-clientDealValue"></div>
+        </div>
+
+        <div class="field" id="field-clientStatus">
+          <label for="clientStatus">Status</label>
+          <select id="clientStatus" name="clientStatus">
+            <option value="Lead" selected>Lead</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Won">Won</option>
+            <option value="Lost">Lost</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="add-client-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="add-client-submit">Add Client</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Client details modal (P4.8) -->
+  <div class="modal-backdrop hidden" id="details-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Client Details</h3>
+        <button class="modal-close" id="details-close" type="button" aria-label="Close">✕</button>
+      </div>
+
+      <div class="details-header">
+        <div id="details-avatar-wrap"></div>
+        <div>
+          <div class="details-name" id="details-name"></div>
+          <div class="details-company" id="details-company"></div>
+        </div>
+      </div>
+
+      <div class="details-row"><span>Email</span><span id="details-email"></span></div>
+      <div class="details-row"><span>Phone</span><span id="details-phone"></span></div>
+      <div class="details-row"><span>Status</span><span id="details-status"></span></div>
+      <div class="details-row"><span>Deal Value</span><span id="details-deal"></span></div>
+      <div class="details-since" id="details-since"></div>
+
+     <div class="reminder-row">
+        <select id="remind-time-select">
+          <option value="1">1 minute</option>
+          <option value="5">5 minutes</option>
+          <option value="15">15 minutes</option>
+          <option value="30">30 minutes</option>
+          <option value="60">1 hour</option>
+        </select>
+        <button class="btn btn-secondary" id="remind-btn" type="button">Set Reminder</button>
+      </div> 
+
+      <h4 class="notes-heading">Notes</h4>
+      <div id="notes-list" class="notes-list"></div>
+
+      <div class="note-add-row">
+        <input type="text" id="note-input" placeholder="Add a note..." />
+        <button class="btn btn-primary btn-sm" id="add-note-btn" type="button">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-stack"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/clients.js"></script>
+  <script>
+    requireAuth(); // P0.1 — bounce to index.html if there's no session
+    initClientsPage();
+  </script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clients - 10X CRM</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="toast-container"></div>
+
+    <!-- Navigation -->
+    <nav class="sidebar">
+        <a href="dashboard.html" class="logo-brand">
+            <div class="logo-badge">
+                <span class="logo-text">10X</span>
+                <div class="logo-underline"></div>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="clients.html" class="active">Clients</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        </ul>
+        <div class="nav-bottom">
+            <button id="themeToggle" class="btn-secondary">Light Mode</button>
+            <button onclick="logout()" class="btn-logout">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <div class="header-section">
+            <h1>Clients</h1>
+            <button class="btn add-client-btn" id="addClientBtn">+ Add Client</button>
+        </div>
+
+        <!-- Toolbar: Search, Filters, Sorting -->
+        <div class="toolbar">
+            <input type="text" id="searchInput" placeholder="Search by name or company..." class="search-input">
+            
+            <div class="filter-chips">
+                <button class="chip active" data-filter="All">All</button>
+                <button class="chip" data-filter="Lead">Lead</button>
+                <button class="chip" data-filter="Contacted">Contacted</button>
+                <button class="chip" data-filter="Proposal">Proposal</button>
+                <button class="chip" data-filter="Won">Won</button>
+                <button class="chip" data-filter="Lost">Lost</button>
+            </div>
+
+            <select id="sortSelect" class="sort-select">
+                <option value="newest">Sort: Newest first</option>
+                <option value="name">Name A-Z</option>
+                <option value="deal-high">Deal value: high -> low</option>
+            </select>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="loading-text" style="display: none;">Loading clients...</div>
+
+        <!-- Clients Cards Container -->
+        <div class="clients-grid" id="clientsContainer">
+            <!-- JS renders client cards here -->
+        </div>
+    </main>
+
+    <!-- Add Client Modal (P4.4) -->
+    <div id="addClientModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 class="modal-title">Add New Client</h2>
+            <form id="addClientForm" novalidate>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="newClientName" placeholder="John Doe">
+                    <span class="error-text" id="errName"></span>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="newClientEmail" placeholder="john@example.com">
+                    <span class="error-text" id="errEmail"></span>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" id="newClientPhone" placeholder="+1 234 567 890">
+                    <span class="error-text" id="errPhone"></span>
+                </div>
+                <div class="form-group">
+                    <label>Company (Optional)</label>
+                    <input type="text" id="newClientCompany" placeholder="Acme Corp">
+                </div>
+                <div class="form-group">
+                    <label>Deal Value ($)</label>
+                    <input type="number" id="newClientDeal" placeholder="5000">
+                    <span class="error-text" id="errDeal"></span>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="newClientStatus" class="sort-select modal-select">
+                        <option value="Lead" selected>Lead</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Proposal">Proposal</option>
+                        <option value="Won">Won</option>
+                        <option value="Lost">Lost</option>
+                    </select>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary modal-btn" id="closeModalBtn">Cancel</button>
+                    <button type="submit" class="btn modal-btn">Save Client</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- P4.8 Details & Notes Modal -->
+    <div id="detailsModal" class="modal-overlay">
+        <div class="modal-content modal-details">
+            <div class="details-header">
+                <div class="details-user-box">
+                    <img id="detailsAvatar" src="" alt="Avatar" class="client-avatar details-avatar">
+                    <div>
+                        <h2 id="detailsName" class="details-name"></h2>
+                        <p id="detailsCompany" class="details-company"></p>
+                    </div>
+                </div>
+                <button type="button" id="closeDetailsModalBtn" class="btn-secondary btn-close-modal">✕</button>
+            </div>
+
+            <div class="client-details details-info-box">
+                <p>📧 <span id="detailsEmail"></span></p>
+                <p>📞 <span id="detailsPhone"></span></p>
+                <p>Status: <span id="detailsStatus" class="badge"></span></p>
+                <p>Deal Value: <span id="detailsDeal" class="deal-value"></span></p>
+                <p id="detailsCreated" class="details-created"></p>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="notes-section">
+                <h3 class="notes-title">Notes</h3>
+                <div id="notesList" class="notes-list">
+                    <!-- JS renders notes here -->
+                </div>
+                
+                <form id="addNoteForm" class="add-note-form">
+                    <input type="text" id="noteInput" placeholder="Write a note..." class="note-input">
+                    <button type="submit" class="btn btn-add-note">Add note</button>
+                </form>
+            </div>
+
+            <!-- Follow-up Reminder Button -->
+            <div class="reminder-section">
+                <button type="button" id="remindBtn" class="btn-secondary btn-remind">
+                    ⏰ Remind me in 1 min
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/guard.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/clients.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
