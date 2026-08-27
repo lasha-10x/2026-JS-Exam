@@ -1,0 +1,108 @@
+body {
+    margin: 0;
+    background: #f5f7fb;
+}
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background: #1e293b;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+}
+
+.sidebar h2 {
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 28px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sidebar nav a {
+    color: white;
+    text-decoration: none;
+    padding: 14px 18px;
+    border-radius: 10px;
+    transition: .25s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background: #2563eb;
+}
+
+.sidebar button {
+    margin-top: auto;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    background: #ef4444;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: .25s;
+}
+
+.sidebar button:hover {
+    background: #dc2626;
+}
+
+main {
+    flex: 1;
+    padding: 40px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.page-header h1 {
+    font-size: 32px;
+    color: #1e293b;
+}
+
+.page-header button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.page-header button:hover {
+    background: #1d4ed8;
+}
+
+@media(max-width:900px){
+
+.dashboard{
+    flex-direction:column;
+}
+
+.sidebar{
+    width:100%;
+}
+
+.page-header{
+    flex-direction:column;
+    gap:15px;
+    align-items:flex-start;
+}
+
+}

@@ -1,0 +1,328 @@
+body{
+
+    background:#f5f7fb;
+
+}
+
+.dashboard{
+
+    display:flex;
+
+    min-height:100vh;
+
+}
+
+
+
+main{
+    flex:1;
+    padding:40px;
+}
+
+.welcome{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+
+}
+
+.card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+}
+
+.card h3{
+
+    color:#777;
+
+    margin-bottom:10px;
+
+}
+
+.card span{
+
+    font-size:40px;
+
+    font-weight:bold;
+
+    color:#2563eb;
+
+}
+
+.recent{
+    margin-top:50px;
+
+    background:#fff;
+
+    border-radius:16px;
+
+    padding:25px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.recent-client{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 0;
+
+    border-bottom:1px solid #ececec;
+
+}
+
+.recent-client:last-child{
+
+    border-bottom:none;
+
+}
+
+.client-left h3{
+
+    margin:0;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:#1f2937;
+
+}
+
+.client-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.status{
+
+    min-width:70px;
+
+    text-align:center;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+
+
+#recentClients{
+    margin-top:20px;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+
+.recent-client{
+    margin-bottom:8px;
+    color:#1e293b;
+    background:white;
+    padding:18px;
+    border-radius:12px;
+    box-shadow:0 5px 12px rgba(0,0,0,.08);
+}
+.recent-client{
+    display:grid;
+    grid-template-columns: 2fr 2fr 1fr 1.2fr;
+    align-items:center;
+    column-gap:25px;
+}
+.recent-client p{
+    color:#666;
+    margin-bottom:8px;
+}
+.recent-client h3{
+    margin-left:20px;
+}
+.recent-client span{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:14px;
+    text-transform:capitalize;
+
+}
+
+.recent-header-row,
+.recent-client{
+
+    display:grid;
+
+    grid-template-columns: 2fr 2fr 1fr 1fr;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.recent-header-row{
+
+    padding:14px 0;
+
+    font-weight:700;
+
+    color:#6b7280;
+
+    border-bottom:2px solid #e5e7eb;
+
+}
+
+.recent-client{
+
+    padding:18px 0;
+
+    border-bottom:1px solid #ececec;
+
+}
+
+.client-name{
+
+    font-weight:600;
+
+    color:#1f2937;
+
+}
+
+.client-company{
+
+    color:#6b7280;
+
+}
+
+.client-date{
+
+    color:#6b7280;
+
+    font-size:14px;
+
+}
+
+/*/////////////////////////////*/
+.pipeline{
+
+    margin:35px 0;
+
+}
+
+.pipeline-row{
+
+    display:grid;
+
+    grid-template-columns:90px 1fr 80px;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:18px;
+
+}
+
+.pipeline-label{
+
+    font-weight:600;
+
+    color:#374151;
+
+}
+
+.progress{
+
+    height:10px;
+
+    background:#edf2f7;
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+    border:1px solid #dbe2ea;
+
+}
+
+.progress-fill{
+
+    height:100%;
+
+    width:0;
+
+    border-radius:50px;
+
+    transition:width .4s ease;
+
+}
+
+.lead{
+
+    background:#44538a;
+
+}
+
+.contacted{
+
+    background:#3b82f6;
+
+}
+
+.won{
+
+    background:#16a34a;
+
+}
+
+.lost{
+
+    background:#ef4444;
+
+}
+
+.pipeline-info{
+
+    text-align:right;
+
+    font-size:14px;
+
+    color:#6b7280;
+
+}

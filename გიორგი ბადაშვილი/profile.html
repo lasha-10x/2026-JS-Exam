@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>10X CRM | Profile</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/profile.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+
+        <h2 class="logo"><a href="dashboard.html">10X CRM</a></h2>
+
+        <nav>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="clients.html">
+                Clients
+            </a>
+
+            <a href="profile.html" class="active">
+                Profile
+            </a>
+
+        </nav>
+
+        <button id="logoutBtn">
+            Logout
+        </button>
+
+    </aside>
+
+    <main>
+        <section class="togglebtn">
+            <span>🌙</span>
+
+            <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider"></span>
+            </label>
+
+            <span>☀️</span>
+        </section>
+        <div class="page-header">
+
+            <h1>My Profile</h1>
+
+        </div>
+
+
+        <div class="profile-info">
+
+            <div class="info-card">
+                <span>Name:</span>
+                <span id="userName"></span>
+            </div>
+
+            <div class="info-card">
+                <span>Email:</span>
+                <span id="emailText"></span>
+            </div>
+
+        </div>
+
+
+        <div class="profile-card">
+
+            <div class="avatar">
+
+                <span>👤</span>
+
+            </div>
+
+            <div class="profile-content">
+
+                <!-- Account Information -->
+                <div class="profile-section">
+
+                    <h2>Account Information</h2>
+
+                    <form id="profileForm">
+
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="fullName">
+                            <span id="fullNameError" class="error"></span>
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="email" readonly>
+                        </div> -->
+
+                        <div class="form-group">
+                            <label>Company</label>
+                            <input type="text" id="company">
+                            <span id="companyError" class="error"></span>
+                        </div>
+
+                        <button type="submit">
+                            Save Changes
+                        </button>
+
+                    </form>
+
+                </div>
+
+                <!-- Change Password -->
+                <div class="profile-section">
+
+                    <h2>Change Password</h2>
+
+                    <form id="passwordForm">
+
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" id="currentPassword">
+                            <span id="currentPasswordError" class="error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="newPassword">
+                            <span id="newPasswordError" class="error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="confirmPassword">
+                            <span id="confirmPasswordError" class="error"></span>
+                        </div>
+
+                        <button type="submit">
+                            Change Password
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+    </main>
+
+</div>
+<div id="toast" class="toast"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/guard.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/profile.js"></script>
+
+</body>
+
+</html>

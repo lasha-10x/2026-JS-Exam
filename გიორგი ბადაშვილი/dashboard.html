@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>10X CRM | Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+
+        <h2 class="logo"><a href="dashboard.html">10X CRM</a></h2>
+
+        <nav>
+
+            <a href="dashboard.html" class="active">
+                Dashboard
+            </a>
+
+            <a href="clients.html">
+                Clients
+            </a>
+
+            <a href="profile.html">
+                Profile
+            </a>
+
+        </nav>
+        <button id="logoutBtn">
+            Logout
+        </button>
+
+    </aside>
+
+
+    <main>
+        <section class="togglebtn">
+            <span>🌙</span>
+
+            <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider"></span>
+            </label>
+
+            <span>☀️</span>
+        </section>
+        <section class="welcome">
+            <div class="welcome-left">
+                <h1 id="welcomeTitle">Welcome</h1>
+                <p>Manage your customers easily.</p>
+            </div>
+            <div class="welcome-right">
+                <div class="live-clock" id="liveClock"></div>
+            </div>
+            
+            
+        </section>
+
+
+        <section class="stats">
+            <div class="card">
+                <h3>Total Clients</h3>
+                <span id="totalClients">0</span>
+            </div>
+            <div class="card">
+                <h3>Lead</h3>
+                <span id="leadClients">0</span>
+            </div>
+            <div class="card">
+                <h3>Won</h3>
+                <span id="wonClients">0</span>
+            </div>
+            <div class="card">
+                <h3>Lost</h3>
+                <span id="lostClients">0</span>
+            </div>
+        </section>
+
+
+        <section class="pipeline">
+
+            <div class="pipeline-row">
+
+                <span class="pipeline-label">Lead</span>
+
+                <div class="progress">
+
+                    <div id="leadBar" class="progress-fill lead"></div>
+
+                </div>
+
+                <span id="leadInfo" class="pipeline-info">0 (0%)</span>
+
+            </div>
+
+            <div class="pipeline-row">
+
+                <span class="pipeline-label">Contacted</span>
+
+                <div class="progress">
+
+                    <div id="contactedBar" class="progress-fill contacted"></div>
+
+                </div>
+
+                <span id="contactedInfo" class="pipeline-info">0 (0%)</span>
+
+            </div>
+
+            <div class="pipeline-row">
+
+                <span class="pipeline-label">Won</span>
+
+                <div class="progress">
+
+                    <div id="wonBar" class="progress-fill won"></div>
+
+                </div>
+
+                <span id="wonInfo" class="pipeline-info">0 (0%)</span>
+
+            </div>
+
+            <div class="pipeline-row">
+
+                <span class="pipeline-label">Lost</span>
+
+                <div class="progress">
+
+                    <div id="lostBar" class="progress-fill lost"></div>
+
+                </div>
+
+                <span id="lostInfo" class="pipeline-info">0 (0%)</span>
+
+            </div>
+
+        </section>
+
+
+
+
+        <section class="recent">
+            
+            <h2>Recent Clients</h2>
+            <div class="recent-header-row">
+                <span>Name</span>
+                <span>Company</span>
+                <span>Status</span>
+                <span>Created</span>
+            </div>
+
+            <div id="recentClients">No clients yet.</div>
+            <div class="recent-header">
+                <a href="clients.html" class="view-all">
+                        View all clients →
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/guard.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+
+
+</body>
+
+</html>
