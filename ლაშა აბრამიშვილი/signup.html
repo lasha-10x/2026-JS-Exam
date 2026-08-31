@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" class="auth-document">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM | Sign Up</title>
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/guard.js"></script>
+  <script src="js/common.js" defer></script>
+  <script src="js/signup.js" defer></script>
+</head>
+<body class="auth-page">
+  <main class="container auth-layout">
+    <!-- Product Introduction -->
+    <section class="auth-showcase">
+      <a class="auth-brand" href="index.html">
+        <span class="auth-brand-mark">10X</span>
+        <span>10X CRM</span>
+      </a>
+
+      <div class="auth-showcase-content">
+        <p class="auth-eyebrow">Build your client workspace</p>
+        <h2 class="auth-showcase-title">Start simple. Grow with clarity.</h2>
+        <p class="auth-showcase-text">
+          Create your account and bring client relationships, deals, and notes
+          into one organized place.
+        </p>
+
+        <ul class="auth-benefits">
+          <li>A clear view of every opportunity</li>
+          <li>Fast client search and status tracking</li>
+          <li>A workspace designed to stay focused</li>
+        </ul>
+      </div>
+
+      <p class="auth-showcase-footer">
+        Built for ambitious teams and independent professionals.
+      </p>
+    </section>
+
+    <!-- Sign Up Form -->
+    <section class="auth-form-panel">
+      <div class="card auth-card">
+        <h1 class="page-title">Create your account</h1>
+        <p class="auth-intro text-muted">
+          Set up your workspace in less than a minute.
+        </p>
+
+        <form>
+          <div class="form-group">
+            <label class="form-label" for="full-name">Full Name</label>
+            <input
+              class="form-input"
+              type="text"
+              id="full-name"
+              name="fullName"
+              placeholder="Enter your full name"
+              required
+            >
+            <p class="error-message"></p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            >
+            <p class="error-message"></p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="company">Company (optional)</label>
+            <input
+              class="form-input"
+              type="text"
+              id="company"
+              name="company"
+              placeholder="Enter your company"
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input
+              class="form-input"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a password"
+              required
+            >
+            <p class="error-message"></p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="confirm-password">
+              Confirm Password
+            </label>
+            <input
+              class="form-input"
+              type="password"
+              id="confirm-password"
+              name="confirmPassword"
+              placeholder="Confirm your password"
+              required
+            >
+            <p class="error-message"></p>
+          </div>
+
+          <button class="btn btn-primary" type="submit">Create Account</button>
+        </form>
+
+        <p class="auth-footer text-muted">
+          Already have an account?
+          <a class="auth-link" href="index.html">Log in</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Messages -->
+  <div class="toast-container"></div>
+</body>
+</html>

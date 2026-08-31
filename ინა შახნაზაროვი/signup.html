@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM — Sign Up</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="logo">10X CRM</div>
+      <h1>Create your account</h1>
+      <p class="subtitle">Start managing your clients today</p>
+
+      <form id="signup-form" novalidate>
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input
+            type="text"
+            id="fullName"
+            class="form-control"
+            placeholder="John Doe"
+          >
+          <div class="error-text" id="name-error">
+            Full name must be at least 3 characters
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            class="form-control"
+            placeholder="you@example.com"
+          >
+          <div class="error-text" id="email-error">
+            Please enter a valid email address
+          </div>
+          <div class="error-text" id="email-dup-error">
+            An account with this email already exists
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input
+            type="text"
+            id="company"
+            class="form-control"
+            placeholder="Company (optional)"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            placeholder="••••••••"
+          >
+
+          <div class="password-strength" aria-live="polite">
+            <div class="password-strength-track">
+              <span
+                id="password-strength-fill"
+                class="password-strength-fill"
+              ></span>
+            </div>
+
+            <span
+              id="password-strength-text"
+              class="password-strength-text"
+            >
+              Enter a password
+            </span>
+          </div>
+
+          <div class="error-text" id="pass-error">
+            Password must be at least 8 characters and contain a letter and a number
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            class="form-control"
+            placeholder="••••••••"
+          >
+          <div class="error-text" id="confirm-error">
+            Passwords do not match
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          Create Account
+        </button>
+      </form>
+
+      <div class="auth-link">
+        Already have an account? <a href="index.html">Log in</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/guard.js"></script>
+
+  <script>
+    const passwordInput = document.getElementById('password');
+    const strengthFill = document.getElementById('password-strength-fill');
+    const strengthText = document.getElementById('password-strength-text');
+
+    passwordInput.addEventListener('input', function() {
+      const password = this.value;
+      let score = 0;
+
+      if (password.length >= 8) score++;
+      if (/[a-z]/.test(password)) score++;
+      if (/[A-Z]/.test(password)) score++;
+      if (/[0-9]/.test(password)) score++;
+      if (/[^a-zA-Z0-9]/.test(password)) score++;
+
+      if (!password) {
+        strengthFill.className = 'password-strength-fill';
+        strengthText.textContent = 'Enter a password';
+      } else if (score <= 2) {
+        strengthFill.className = 'password-strength-fill weak';
+        strengthText.textContent = 'Password strength: Weak';
+      } else if (score <= 4) {
+        strengthFill.className = 'password-strength-fill medium';
+        strengthText.textContent = 'Password strength: Medium';
+      } else {
+        strengthFill.className = 'password-strength-fill strong';
+        strengthText.textContent = 'Password strength: Strong';
+      }
+    });
+
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearErrors(this);
+
+      const nameEl = document.getElementById('fullName');
+      const emailEl = document.getElementById('email');
+      const companyEl = document.getElementById('company');
+      const passEl = document.getElementById('password');
+      const confirmEl = document.getElementById('confirmPassword');
+
+      let valid = true;
+
+      if (nameEl.value.trim().length < 3) {
+        showError(nameEl, document.getElementById('name-error'));
+        valid = false;
+      }
+
+      if (!isValidEmail(emailEl.value)) {
+        showError(emailEl, document.getElementById('email-error'));
+        valid = false;
+      } else if (findUserByEmail(emailEl.value)) {
+        showError(emailEl, document.getElementById('email-dup-error'));
+        valid = false;
+      }
+
+      if (!isValidPassword(passEl.value)) {
+        showError(passEl, document.getElementById('pass-error'));
+        valid = false;
+      }
+
+      if (passEl.value !== confirmEl.value || !confirmEl.value) {
+        showError(confirmEl, document.getElementById('confirm-error'));
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      createUser(
+        nameEl.value,
+        emailEl.value,
+        passEl.value,
+        companyEl.value
+      );
+
+      showToast(
+        'Account created successfully! Please log in.',
+        'success'
+      );
+
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

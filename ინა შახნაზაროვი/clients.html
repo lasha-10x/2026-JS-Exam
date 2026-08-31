@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM — Clients</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a class="sidebar-logo" href="dashboard.html">10X CRM</a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html"><span class="icon">📊</span> Dashboard</a>
+        <a href="clients.html"><span class="icon">👥</span> Clients</a>
+        <a href="profile.html"><span class="icon">⚙️</span> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="theme-toggle" id="theme-toggle">☀️ Light Mode</button>
+        <button class="logout-btn" id="logout-btn">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <h1>Clients</h1>
+        <button type="button" class="btn btn-primary" id="add-client-btn" style="width:auto;">+ Add Client</button>
+      </div>
+
+      <div class="toolbar">
+        <input type="text" class="search-input" id="search-input" placeholder="🔍 Search...">
+        <div class="filter-chips" id="filter-chips">
+          <div class="chip active" data-status="All">All</div>
+          <div class="chip" data-status="Lead">Lead</div>
+          <div class="chip" data-status="Contacted">Contacted</div>
+          <div class="chip" data-status="Won">Won</div>
+          <div class="chip" data-status="Lost">Lost</div>
+        </div>
+        <select class="sort-select" id="sort-select">
+          <option value="newest">Sort: Newest</option>
+          <option value="name">Name A → Z</option>
+          <option value="deal">Deal value ↓</option>
+        </select>
+      </div>
+
+      <div id="clients-container">
+        <div class="loading-state">Loading clients...</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Client Modal -->
+  <div class="modal-overlay" id="add-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="client-modal-title">Add New Client</h2>
+        <button type="button" class="modal-close" data-close="add-modal" aria-label="Close add client dialog">×</button>
+      </div>
+      <form id="add-client-form" novalidate>
+        <div class="form-group">
+          <label for="add-name">Name</label>
+          <input type="text" class="form-control" id="add-name">
+          <div class="error-text" id="add-name-err">Name must be at least 3 characters</div>
+        </div>
+        <div class="form-group">
+          <label for="add-email">Email</label>
+          <input type="text" class="form-control" id="add-email">
+          <div class="error-text" id="add-email-err">Please enter a valid email address</div>
+          <div class="error-text" id="add-email-dup-err">A client with this email already exists</div>
+        </div>
+        <div class="form-group">
+          <label for="add-phone">Phone</label>
+          <input type="text" class="form-control" id="add-phone">
+          <div class="error-text" id="add-phone-err">Phone number looks too short</div>
+        </div>
+        <div class="form-group">
+          <label for="add-company">Company</label>
+          <input type="text" class="form-control" id="add-company">
+        </div>
+        <div class="form-group">
+          <label for="add-deal">Deal Value</label>
+          <input type="number" class="form-control" id="add-deal" min="1">
+          <div class="error-text" id="add-deal-err">Deal value must be a positive number</div>
+        </div>
+        <div class="form-group">
+          <label for="add-status">Status</label>
+          <select class="form-control" id="add-status">
+            <option value="Lead">Lead</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Won">Won</option>
+            <option value="Lost">Lost</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="client-form-submit">
+          Add Client
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Details Modal -->
+  <div class="modal-overlay" id="details-modal">
+    <div class="modal modal-wide">
+      <div class="modal-header">
+        <h2 id="det-name">Client Details</h2>
+        <button type="button" class="modal-close" data-close="details-modal"
+          aria-label="Close client details dialog">×</button>
+      </div>
+      <div id="det-body"></div>
+      <h4 style="margin: 16px 0 10px;">Notes:</h4>
+      <div class="notes-list" id="det-notes"></div>
+      <div class="note-input-row">
+        <input type="text" class="form-control" id="note-input" placeholder="Write a note...">
+        <button type="button" class="btn btn-primary" id="add-note-btn" style="width:auto;">Add note</button>
+      </div>
+      <div class="call-timer">
+        <span class="call-timer-display" id="call-timer-display">00:00</span>
+
+        <button type="button" class="btn btn-success" id="call-timer-toggle">
+          Start Call
+        </button>
+
+        <button type="button" class="btn btn-secondary" id="call-timer-reset">
+          Reset
+        </button>
+      </div>
+      <button type="button" class="remind-btn" id="remind-btn">⏰ Remind me in 1 min</button>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/clients.js"></script>
+</body>
+
+</html>

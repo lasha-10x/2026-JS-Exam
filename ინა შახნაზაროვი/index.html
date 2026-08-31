@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM — Log In</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="logo">10X CRM</div>
+      <h1>Welcome back</h1>
+      <p class="subtitle">Log in to manage your clients</p>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" id="email" class="form-control" placeholder="you@example.com" autocomplete="email">
+          <div class="error-text" id="email-error">Email is required</div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="••••••••" autocomplete="current-password">
+          <div class="error-text" id="password-error">Password is required</div>
+        </div>
+
+        <div class="error-text" id="login-error" style="margin-bottom: 12px;">Invalid email or password</div>
+
+        <button type="submit" class="btn btn-primary">Log In</button>
+      </form>
+
+      <div class="auth-link">
+        Don't have an account? <a href="signup.html">Sign up</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/guard.js"></script>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearErrors(this);
+
+      const emailEl = document.getElementById('email');
+      const passEl = document.getElementById('password');
+      const loginErr = document.getElementById('login-error');
+      loginErr.classList.remove('visible');
+
+      let valid = true;
+
+      if (!emailEl.value.trim()) {
+        showError(emailEl, document.getElementById('email-error'));
+        valid = false;
+      }
+      if (!passEl.value) {
+        showError(passEl, document.getElementById('password-error'));
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      const user = findUserByEmail(emailEl.value);
+      if (!user || user.password !== passEl.value) {
+        loginErr.classList.add('visible');
+        return;
+      }
+
+      createSession(user);
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM — Profile</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a class="sidebar-logo" href="dashboard.html">10X CRM</a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html"><span class="icon">📊</span> Dashboard</a>
+        <a href="clients.html"><span class="icon">👥</span> Clients</a>
+        <a href="profile.html"><span class="icon">⚙️</span> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="theme-toggle" id="theme-toggle">☀️ Light Mode</button>
+        <button class="logout-btn" id="logout-btn">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <h1>Profile</h1>
+      </div>
+
+      <div class="profile-grid">
+        <div class="profile-info-card">
+          <div class="profile-avatar-lg" id="profile-initials">NB</div>
+          <div class="name" id="profile-name">—</div>
+          <div class="email" id="profile-email">—</div>
+          <div class="company" id="profile-company">—</div>
+          <div class="member-since" id="profile-since">—</div>
+        </div>
+
+        <div class="profile-forms">
+          <div class="form-card">
+            <h3>Edit Profile</h3>
+            <form id="edit-profile-form" novalidate>
+              <div class="form-group">
+                <label for="edit-name">Full Name</label>
+                <input type="text" class="form-control" id="edit-name">
+                <div class="error-text" id="edit-name-err">Full name must be at least 3 characters</div>
+              </div>
+              <div class="form-group">
+                <label for="edit-company">Company</label>
+                <input type="text" class="form-control" id="edit-company">
+              </div>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+          </div>
+
+          <div class="form-card">
+            <h3>Change Password</h3>
+            <form id="change-pass-form" novalidate>
+              <div class="form-group">
+                <label for="cur-pass">Current Password</label>
+                <input type="password" class="form-control" id="cur-pass">
+                <div class="error-text" id="cur-pass-err">Current password is incorrect</div>
+              </div>
+              <div class="form-group">
+                <label for="new-pass">New Password</label>
+                <input type="password" class="form-control" id="new-pass">
+                <div class="error-text" id="new-pass-err">Password must be at least 8 characters and contain a letter and a number</div>
+                <div class="error-text" id="new-pass-same-err">New password must be different from the current one</div>
+              </div>
+              <div class="form-group">
+                <label for="confirm-pass">Confirm New Password</label>
+                <input type="password" class="form-control" id="confirm-pass">
+                <div class="error-text" id="confirm-pass-err">Passwords do not match</div>
+              </div>
+              <button type="submit" class="btn btn-primary">Change Password</button>
+            </form>
+          </div>
+
+          <div class="form-card">
+            <h3>Data</h3>
+            <button type="button" class="btn btn-danger" id="reset-data-btn">Reset CRM Data</button>
+            <p style="font-size:12px;color:var(--text-muted);margin-top:10px;">This will reload all clients from the API. Your account stays intact.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

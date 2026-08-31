@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM | Client Details</title>
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="navbar-brand" href="dashboard.html">
+        <span class="brand-mark">10X</span>
+        <span class="brand-wordmark">10X CRM</span>
+      </a>
+
+      <div class="navbar-links">
+        <a class="nav-link" href="dashboard.html">Dashboard</a>
+        <a class="nav-link active" href="clients.html">Clients</a>
+        <a class="nav-link" href="profile.html">Profile</a>
+      </div>
+
+      <div class="navbar-actions">
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn-secondary theme-toggle"
+          aria-label="Switch to dark mode"
+          title="Switch to dark mode"
+        >
+          ☾
+        </button>
+        <button type="button" id="logout-button" class="btn btn-secondary">
+          Log Out
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <section class="page-header">
+      <div>
+        <h1 class="page-title">Client Details</h1>
+        <p class="text-muted">Review the selected client's information.</p>
+      </div>
+
+      <a class="btn btn-secondary" href="clients.html">Back to Clients</a>
+    </section>
+
+    <!-- Client Details -->
+    <section id="client-details-content">
+      <section class="card client-details-card">
+        <div class="client-details-identity">
+          <img
+            id="client-avatar"
+            class="client-details-avatar hidden"
+            alt=""
+          >
+          <div
+            id="client-avatar-fallback"
+            class="client-details-avatar"
+            aria-hidden="true"
+          ></div>
+
+          <div class="client-details-heading">
+            <h2 id="client-name"></h2>
+            <p id="client-company" class="text-muted"></p>
+          </div>
+        </div>
+
+        <dl class="client-details-grid">
+          <div class="client-detail-item">
+            <dt class="form-label">Email</dt>
+            <dd id="client-email"></dd>
+          </div>
+
+          <div class="client-detail-item">
+            <dt class="form-label">Phone</dt>
+            <dd id="client-phone"></dd>
+          </div>
+
+          <div class="client-detail-item">
+            <dt class="form-label">Status</dt>
+            <dd>
+              <span id="client-status" class="status-badge"></span>
+            </dd>
+          </div>
+
+          <div class="client-detail-item">
+            <dt class="form-label">Deal Value</dt>
+            <dd id="client-deal-value" class="client-deal-value"></dd>
+          </div>
+
+          <div class="client-detail-item">
+            <dt class="form-label">Client Since</dt>
+            <dd id="client-created"></dd>
+          </div>
+        </dl>
+      </section>
+
+      <div class="client-details-actions">
+        <button
+          type="button"
+          id="edit-client-button"
+          class="btn btn-primary"
+        >
+          Edit Client
+        </button>
+
+        <button
+          type="button"
+          id="reminder-button"
+          class="btn btn-secondary"
+        >
+          Remind me in 1 min
+        </button>
+
+        <button
+          type="button"
+          id="delete-client-button"
+          class="btn btn-danger"
+        >
+          Delete Client
+        </button>
+      </div>
+
+      <p
+        id="reminder-status"
+        class="reminder-status text-muted"
+        aria-live="polite"
+      ></p>
+
+      <!-- Client Notes -->
+      <section class="client-notes-section card">
+        <div class="section-header">
+          <h2>Notes</h2>
+        </div>
+
+        <form id="add-note-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="note-text">Add Note</label>
+            <textarea
+              class="form-input form-textarea"
+              id="note-text"
+              name="noteText"
+              rows="4"
+              placeholder="Write a note about this client..."
+              required
+            ></textarea>
+            <p class="error-message" id="note-error"></p>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            Add Note
+          </button>
+        </form>
+
+        <div id="notes-list" class="notes-list"></div>
+
+        <p id="notes-empty-message" class="empty-message">
+          No notes yet.
+        </p>
+      </section>
+    </section>
+
+    <!-- Edit Client Form -->
+    <form id="edit-client-form" class="card client-details-card hidden" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="edit-client-name">Name</label>
+        <input
+          class="form-input"
+          type="text"
+          id="edit-client-name"
+          name="name"
+          placeholder="Enter client name"
+          required
+        >
+        <p class="error-message"></p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="edit-client-email">Email</label>
+        <input
+          class="form-input"
+          type="email"
+          id="edit-client-email"
+          name="email"
+          placeholder="Enter email address"
+          required
+        >
+        <p class="error-message"></p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="edit-client-company">Company</label>
+        <input
+          class="form-input"
+          type="text"
+          id="edit-client-company"
+          name="company"
+          placeholder="Enter company name"
+        >
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="edit-client-status">Status</label>
+        <select
+          class="form-select status-select status-select-lead"
+          id="edit-client-status"
+          name="status"
+          required
+        >
+          <option value="Lead">Lead</option>
+          <option value="Contacted">Contacted</option>
+          <option value="Won">Won</option>
+          <option value="Lost">Lost</option>
+        </select>
+        <p class="error-message"></p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="edit-client-deal-value">
+          Deal Value
+        </label>
+        <input
+          class="form-input"
+          type="number"
+          id="edit-client-deal-value"
+          name="dealValue"
+          placeholder="Enter deal value"
+          step="any"
+        >
+        <p class="error-message"></p>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          Save Changes
+        </button>
+
+        <button type="button" id="cancel-edit-button" class="btn btn-secondary">
+          Cancel
+        </button>
+      </div>
+    </form>
+
+    <p id="client-not-found" class="card empty-message">
+      Client not found.
+    </p>
+  </main>
+
+  <div class="toast-container"></div>
+
+  <script src="js/guard.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/client-data.js"></script>
+  <script src="js/client-details.js"></script>
+</body>
+</html>

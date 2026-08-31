@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM | Clients</title>
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="navbar-brand" href="dashboard.html">
+        <span class="brand-mark">10X</span>
+        <span class="brand-wordmark">10X CRM</span>
+      </a>
+
+      <div class="navbar-links">
+        <a class="nav-link" href="dashboard.html">Dashboard</a>
+        <a class="nav-link active" href="clients.html">Clients</a>
+        <a class="nav-link" href="profile.html">Profile</a>
+      </div>
+
+      <div class="navbar-actions">
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn-secondary theme-toggle"
+          aria-label="Switch to dark mode"
+          title="Switch to dark mode"
+        >
+          ☾
+        </button>
+        <button type="button" id="logout-button" class="btn btn-secondary">
+          Log Out
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <section class="page-header">
+      <div>
+        <h1 class="page-title">Clients</h1>
+        <p class="text-muted">Manage and review your CRM clients.</p>
+      </div>
+
+      <button type="button" id="add-client-button" class="btn btn-primary">
+        Add Client
+      </button>
+    </section>
+
+    <section class="card clients-controls">
+      <div class="control-group">
+        <label class="form-label" for="client-search">Search</label>
+        <input
+          class="form-input"
+          type="search"
+          id="client-search"
+          name="clientSearch"
+          placeholder="Search by name or company..."
+        >
+      </div>
+
+      <fieldset class="control-group status-filter-group">
+        <legend class="form-label">Status</legend>
+
+        <div id="status-filters" class="status-filters">
+          <button
+            type="button"
+            class="status-filter-button active"
+            data-status="all"
+            aria-pressed="true"
+          >
+            All
+          </button>
+          <button
+            type="button"
+            class="status-filter-button"
+            data-status="Lead"
+            aria-pressed="false"
+          >
+            Lead
+          </button>
+          <button
+            type="button"
+            class="status-filter-button"
+            data-status="Contacted"
+            aria-pressed="false"
+          >
+            Contacted
+          </button>
+          <button
+            type="button"
+            class="status-filter-button"
+            data-status="Won"
+            aria-pressed="false"
+          >
+            Won
+          </button>
+          <button
+            type="button"
+            class="status-filter-button"
+            data-status="Lost"
+            aria-pressed="false"
+          >
+            Lost
+          </button>
+        </div>
+      </fieldset>
+
+      <div class="control-group">
+        <label class="form-label" for="sort-clients">Sort By</label>
+        <select class="form-select" id="sort-clients" name="sortClients">
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="name-asc">Name: A–Z</option>
+          <option value="name-desc">Name: Z–A</option>
+          <option value="deal-desc">High to Low</option>
+          <option value="deal-asc">Low to High</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="clients-list-section" aria-label="Client list">
+      <div id="clients-list" class="clients-list"></div>
+
+      <p id="clients-empty-message" class="empty-message">
+        No clients found.
+      </p>
+
+      <div
+        id="clients-load-state"
+        class="data-state hidden"
+        aria-live="polite"
+      ></div>
+
+      <nav
+        id="clients-pagination"
+        class="pagination hidden"
+        aria-label="Client pagination"
+      >
+        <p id="pagination-summary" class="pagination-summary text-muted"></p>
+
+        <div class="pagination-controls">
+          <button
+            type="button"
+            id="previous-page-button"
+            class="btn btn-secondary pagination-button"
+          >
+            Previous
+          </button>
+
+          <div id="pagination-pages" class="pagination-pages"></div>
+
+          <button
+            type="button"
+            id="next-page-button"
+            class="btn btn-secondary pagination-button"
+          >
+            Next
+          </button>
+        </div>
+      </nav>
+    </section>
+  </main>
+
+  <!-- Add Client Modal -->
+  <div
+    id="add-client-modal"
+    class="modal hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="add-client-title"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="add-client-title">Add Client</h2>
+
+        <button
+          type="button"
+          id="close-client-modal"
+          class="modal-close-button"
+          aria-label="Close modal"
+        >
+          ✕
+        </button>
+      </div>
+
+      <form id="add-client-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="new-client-name">Name</label>
+          <input
+            class="form-input"
+            type="text"
+            id="new-client-name"
+            name="name"
+            placeholder="Enter client name"
+            required
+          >
+          <p class="error-message" id="new-client-name-error"></p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-client-email">Email</label>
+          <input
+            class="form-input"
+            type="email"
+            id="new-client-email"
+            name="email"
+            placeholder="Enter email address"
+            required
+          >
+          <p class="error-message" id="new-client-email-error"></p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-client-phone">Phone</label>
+          <input
+            class="form-input"
+            type="tel"
+            id="new-client-phone"
+            name="phone"
+            placeholder="Enter phone number"
+          >
+          <p class="error-message" id="new-client-phone-error"></p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-client-company">Company</label>
+          <input
+            class="form-input"
+            type="text"
+            id="new-client-company"
+            name="company"
+            placeholder="Enter company name"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-client-status">Status</label>
+          <select
+            class="form-select status-select status-select-lead"
+            id="new-client-status"
+            name="status"
+            required
+          >
+            <option value="Lead">Lead</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Won">Won</option>
+            <option value="Lost">Lost</option>
+          </select>
+          <p class="error-message" id="new-client-status-error"></p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-client-deal-value">
+            Deal Value
+          </label>
+          <input
+            class="form-input"
+            type="number"
+            id="new-client-deal-value"
+            name="dealValue"
+            placeholder="Enter deal value"
+            step="any"
+          >
+          <p class="error-message" id="new-client-deal-value-error"></p>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            Save Client
+          </button>
+
+          <button
+            type="button"
+            id="cancel-add-client"
+            class="btn btn-secondary"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container"></div>
+
+  <script src="js/guard.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/client-data.js"></script>
+  <script src="js/clients.js"></script>
+</body>
+</html>

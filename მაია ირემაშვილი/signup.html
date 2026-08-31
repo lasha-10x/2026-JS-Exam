@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>10X CRM | Sign Up</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-layout">
+
+        <section class="auth-brand-panel">
+
+            <div class="auth-brand-content">
+
+                <a
+                    href="index.html"
+                    class="auth-logo"
+                >
+                    10X CRM
+                </a>
+
+                <h1>
+                    Start building stronger customer relationships.
+                </h1>
+
+                <p>
+                    Create your account and manage clients,
+                    deals and sales activity from one place.
+                </p>
+
+                <div class="auth-features">
+
+                    <div class="auth-feature">
+                        <span>✓</span>
+                        <p>Create and manage clients</p>
+                    </div>
+
+                    <div class="auth-feature">
+                        <span>✓</span>
+                        <p>Track deal progress</p>
+                    </div>
+
+                    <div class="auth-feature">
+                        <span>✓</span>
+                        <p>View your CRM performance</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="auth-form-panel">
+
+            <div class="auth-card">
+
+                <div class="auth-card-header">
+
+                    <p class="page-label">
+                        GET STARTED
+                    </p>
+
+                    <h2>
+                        Create your account
+                    </h2>
+
+                    <p>
+                        Enter your details to start using 10X CRM.
+                    </p>
+
+                </div>
+
+                <form
+                    id="signupForm"
+                    novalidate
+                >
+
+                    <div class="form-group">
+
+                        <label for="fullName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="fullName"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                        >
+
+                        <small id="fullNameError"></small>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                        >
+
+                        <small id="emailError"></small>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="company">
+                            Company
+                        </label>
+
+                        <input
+                            type="text"
+                            id="company"
+                            placeholder="Enter your company name"
+                            autocomplete="organization"
+                        >
+
+                        <small id="companyError"></small>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Create a password"
+                            autocomplete="new-password"
+                        >
+
+                        <small id="passwordError"></small>
+
+                        <div class="password-strength">
+
+                            <div class="password-strength-bar">
+
+                                <div
+                                    id="passwordStrengthFill"
+                                    class="password-strength-fill"
+                                ></div>
+
+                            </div>
+
+                            <div class="password-strength-info">
+
+                                <span id="passwordStrengthText">
+                                    Password strength
+                                </span>
+
+                                <span id="passwordStrengthScore">
+                                </span>
+
+                            </div>
+
+                            <div class="password-requirements">
+
+                                <span
+                                    id="lengthRequirement"
+                                    class="password-requirement"
+                                >
+                                    8+ characters
+                                </span>
+
+                                <span
+                                    id="uppercaseRequirement"
+                                    class="password-requirement"
+                                >
+                                    Uppercase
+                                </span>
+
+                                <span
+                                    id="numberRequirement"
+                                    class="password-requirement"
+                                >
+                                    Number
+                                </span>
+
+                                <span
+                                    id="specialRequirement"
+                                    class="password-requirement"
+                                >
+                                    Special character
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Repeat your password"
+                            autocomplete="new-password"
+                        >
+
+                        <small id="confirmPasswordError"></small>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="auth-submit-button"
+                    >
+                        Create Account
+                    </button>
+
+                </form>
+
+                <p class="bottom-text">
+
+                    Already have an account?
+
+                    <a href="index.html">
+                        Login
+                    </a>
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <div id="toastContainer"></div>
+
+    <script src="./js/storage.js"></script>
+    <script src="./js/guard.js"></script>
+    <script src="./js/common.js"></script>
+    <script src="./js/signup.js"></script>
+
+    <script>
+        redirectAuthenticatedUser();
+    </script>
+
+</body>
+</html>

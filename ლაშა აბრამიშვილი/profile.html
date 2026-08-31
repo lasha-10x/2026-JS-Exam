@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM | Profile</title>
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="navbar-brand" href="dashboard.html">
+        <span class="brand-mark">10X</span>
+        <span class="brand-wordmark">10X CRM</span>
+      </a>
+
+      <div class="navbar-links">
+        <a class="nav-link" href="dashboard.html">Dashboard</a>
+        <a class="nav-link" href="clients.html">Clients</a>
+        <a class="nav-link active" href="profile.html">Profile</a>
+      </div>
+
+      <div class="navbar-actions">
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn-secondary theme-toggle"
+          aria-label="Switch to dark mode"
+          title="Switch to dark mode"
+        >
+          ☾
+        </button>
+        <button type="button" id="logout-button" class="btn btn-secondary">
+          Log Out
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <section class="page-header">
+      <div>
+        <h1 class="page-title">Profile</h1>
+        <p class="text-muted">Review and update your account information.</p>
+      </div>
+    </section>
+
+    <div class="profile-layout">
+      <div class="profile-left-column">
+        <!-- Profile Details -->
+        <section
+          id="profile-details"
+          class="card profile-card profile-overview"
+        >
+          <div class="profile-summary">
+            <div
+              id="profile-avatar"
+              class="profile-avatar"
+              aria-hidden="true"
+            ></div>
+
+            <div class="profile-summary-content">
+              <h2 id="profile-name"></h2>
+              <p id="profile-email" class="text-muted"></p>
+              <p id="profile-company" class="text-muted"></p>
+              <p class="profile-member-since text-muted">
+                Member since <span id="profile-created-at"></span>
+              </p>
+            </div>
+          </div>
+
+          <div class="profile-actions">
+            <button
+              type="button"
+              id="edit-profile-button"
+              class="btn btn-primary"
+            >
+              Edit Profile
+            </button>
+          </div>
+        </section>
+
+        <!-- Edit Profile Form -->
+        <form
+          id="edit-profile-form"
+          class="card profile-card profile-overview hidden"
+          novalidate
+        >
+          <div class="form-group">
+            <label class="form-label" for="edit-profile-name">
+              Full Name
+            </label>
+            <input
+              class="form-input"
+              type="text"
+              id="edit-profile-name"
+              name="fullName"
+              placeholder="Enter full name"
+              required
+            >
+            <p class="error-message" id="profile-name-error"></p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="edit-profile-company">
+              Company
+            </label>
+            <input
+              class="form-input"
+              type="text"
+              id="edit-profile-company"
+              name="company"
+              placeholder="Enter company name"
+            >
+          </div>
+
+          <div class="form-actions">
+            <button
+              type="submit"
+              id="save-profile-button"
+              class="btn btn-primary"
+              disabled
+            >
+              Save Changes
+            </button>
+
+            <button
+              type="button"
+              id="cancel-profile-edit-button"
+              class="btn btn-secondary"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+
+        <!-- CRM Data Management -->
+        <section
+          class="card profile-card profile-section profile-data danger-zone"
+        >
+          <div class="section-header">
+            <div>
+              <h2>CRM Data</h2>
+              <p class="text-muted">
+                Transfer client data between browsers or restore the original
+                clients from the API.
+              </p>
+            </div>
+          </div>
+
+          <div class="profile-data-actions">
+            <button
+              type="button"
+              id="export-clients-button"
+              class="btn btn-secondary"
+            >
+              Export Clients
+            </button>
+
+            <button
+              type="button"
+              id="import-clients-button"
+              class="btn btn-secondary"
+            >
+              Import Clients
+            </button>
+
+            <button
+              type="button"
+              id="reset-crm-data-button"
+              class="btn btn-danger"
+            >
+              Reset CRM Data
+            </button>
+          </div>
+
+          <input
+            type="file"
+            id="import-clients-file"
+            class="hidden"
+            accept=".json,application/json"
+          >
+        </section>
+      </div>
+
+      <!-- Change Password Form -->
+      <section class="card profile-card profile-section profile-password">
+        <div class="section-header">
+          <div>
+            <h2>Change Password</h2>
+            <p class="text-muted">
+              Update the password used to access your account.
+            </p>
+          </div>
+        </div>
+
+        <form id="change-password-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="current-password">
+              Current Password
+            </label>
+            <input
+              class="form-input"
+              type="password"
+              id="current-password"
+              name="currentPassword"
+              required
+            >
+            <p
+              class="error-message"
+              id="current-password-error"
+            ></p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="new-password">
+              New Password
+            </label>
+            <input
+              class="form-input"
+              type="password"
+              id="new-password"
+              name="newPassword"
+              required
+            >
+            <p class="error-message" id="new-password-error"></p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="confirm-new-password">
+              Confirm New Password
+            </label>
+            <input
+              class="form-input"
+              type="password"
+              id="confirm-new-password"
+              name="confirmNewPassword"
+              required
+            >
+            <p
+              class="error-message"
+              id="confirm-new-password-error"
+            ></p>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            Change Password
+          </button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <div class="toast-container"></div>
+
+  <script src="js/guard.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/client-data.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

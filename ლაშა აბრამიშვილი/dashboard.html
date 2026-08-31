@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM | Dashboard</title>
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="navbar-brand" href="dashboard.html">
+        <span class="brand-mark">10X</span>
+        <span class="brand-wordmark">10X CRM</span>
+      </a>
+
+      <div class="navbar-links">
+        <a class="nav-link active" href="dashboard.html">Dashboard</a>
+        <a class="nav-link" href="clients.html">Clients</a>
+        <a class="nav-link" href="profile.html">Profile</a>
+      </div>
+
+      <div class="navbar-actions">
+        <button
+          type="button"
+          id="theme-toggle"
+          class="btn btn-secondary theme-toggle"
+          aria-label="Switch to dark mode"
+          title="Switch to dark mode"
+        >
+          ☾
+        </button>
+        <button type="button" id="logout-button" class="btn btn-secondary">
+          Log Out
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <section class="dashboard-header">
+      <div>
+        <h1 class="page-title">
+          Welcome back, <span id="user-name"></span>!
+        </h1>
+        <p class="text-muted">Here is an overview of your CRM activity.</p>
+      </div>
+
+      <p id="current-date" class="dashboard-date text-muted"></p>
+    </section>
+
+    <div id="dashboard-content">
+      <section class="stats-grid" aria-label="Client statistics">
+        <article class="card stat-card">
+          <p class="stat-label">Total Clients</p>
+          <p class="stat-value" id="total-clients">0</p>
+        </article>
+
+        <article class="card stat-card">
+          <p class="stat-label">Active Deals</p>
+          <p class="stat-value" id="active-deals">0</p>
+        </article>
+
+        <article class="card stat-card">
+          <p class="stat-label">Won Revenue</p>
+          <p class="stat-value" id="won-revenue">$0</p>
+        </article>
+
+        <article class="card stat-card">
+          <p class="stat-label">New This Week</p>
+          <p class="stat-value" id="new-this-week">0</p>
+        </article>
+      </section>
+
+      <div class="dashboard-grid">
+        <section class="card dashboard-section">
+          <div class="section-header">
+            <h2>Pipeline Overview</h2>
+            <p class="text-muted">Clients grouped by their current status.</p>
+          </div>
+
+          <div class="pipeline-grid">
+            <article class="pipeline-item">
+              <p class="pipeline-label">Lead</p>
+              <p class="pipeline-value" id="pipeline-lead">0</p>
+            </article>
+
+            <article class="pipeline-item">
+              <p class="pipeline-label">Contacted</p>
+              <p class="pipeline-value" id="pipeline-contacted">0</p>
+            </article>
+
+            <article class="pipeline-item">
+              <p class="pipeline-label">Won</p>
+              <p class="pipeline-value" id="pipeline-won">0</p>
+            </article>
+
+            <article class="pipeline-item">
+              <p class="pipeline-label">Lost</p>
+              <p class="pipeline-value" id="pipeline-lost">0</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="card dashboard-section">
+          <div class="section-header">
+            <h2>Recent Clients</h2>
+            <p class="text-muted">The five newest clients in your CRM.</p>
+          </div>
+
+          <div id="recent-clients-list" class="recent-clients-list"></div>
+
+          <p id="recent-clients-empty" class="empty-message">
+            No clients found.
+          </p>
+
+          <a class="dashboard-link" href="clients.html">View all clients</a>
+        </section>
+      </div>
+    </div>
+
+    <section
+      id="dashboard-client-state"
+      class="data-state hidden"
+      aria-live="polite"
+    ></section>
+  </main>
+
+  <div class="toast-container"></div>
+
+  <script src="js/guard.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/client-data.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

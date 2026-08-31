@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>10X CRM | Dashboard</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <header class="top-navbar">
+
+        <a href="dashboard.html" class="top-navbar-logo">
+            10X CRM
+        </a>
+
+        <nav class="top-navigation">
+
+            <a href="dashboard.html" class="top-nav-link active">
+                Dashboard
+            </a>
+
+            <a href="clients.html" class="top-nav-link">
+                Clients
+            </a>
+
+            <a href="profile.html" class="top-nav-link">
+                Profile
+            </a>
+
+        </nav>
+
+        <div class="top-navbar-actions">
+
+            <button
+                id="themeButton"
+                class="theme-toggle"
+                type="button"
+                aria-label="Switch theme"
+                title="Switch theme"
+            >
+                🌙
+            </button>
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+                type="button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+    <main class="page-container">
+
+        <section class="welcome-section">
+
+            <div>
+                <h1 id="welcomeMessage">
+                    Welcome
+                </h1>
+
+                <p>
+                    Here is your CRM overview.
+                </p>
+            </div>
+
+            <div
+                id="liveClock"
+                class="clock"
+            ></div>
+
+        </section>
+
+        <section class="stats-grid">
+
+            <article class="stat-card">
+                <p>👥 Total Clients</p>
+                <h2 id="totalClients">0</h2>
+                <small>All customers in your CRM</small>
+            </article>
+
+            <article class="stat-card">
+                <p>🤝 Active Deals</p>
+                <h2 id="activeDeals">0</h2>
+                <small>Lead and contacted deals</small>
+            </article>
+
+            <article class="stat-card">
+                <p>💰 Won Revenue</p>
+                <h2 id="wonRevenue">$0</h2>
+                <small>Revenue from won deals</small>
+            </article>
+
+            <article class="stat-card">
+                <p>✨ New This Week</p>
+                <h2 id="newThisWeek">0</h2>
+                <small>Clients added in last 7 days</small>
+            </article>
+
+        </section>
+
+        <section class="quick-actions-section">
+
+            <div class="section-heading">
+                <h2>Quick Actions</h2>
+            </div>
+
+            <div class="quick-actions-grid">
+
+                <a
+                    href="clients.html"
+                    class="quick-action-card"
+                >
+                    <div class="quick-action-icon">
+                        ➕
+                    </div>
+
+                    <div>
+                        <strong>Add Client</strong>
+                        <span>Create a new client record</span>
+                    </div>
+                </a>
+
+                <a
+                    href="clients.html"
+                    class="quick-action-card"
+                >
+                    <div class="quick-action-icon">
+                        👥
+                    </div>
+
+                    <div>
+                        <strong>View Clients</strong>
+                        <span>Manage your customer list</span>
+                    </div>
+                </a>
+
+                <a
+                    href="profile.html"
+                    class="quick-action-card"
+                >
+                    <div class="quick-action-icon">
+                        ⚙️
+                    </div>
+
+                    <div>
+                        <strong>Profile Settings</strong>
+                        <span>Update account information</span>
+                    </div>
+                </a>
+
+            </div>
+
+        </section>
+
+        <section class="dashboard-insights-grid">
+
+            <article class="content-card">
+
+                <div class="section-heading">
+                    <h2>Sales Pipeline</h2>
+                </div>
+
+                <div class="pie-chart-wrapper">
+
+                    <div
+                        id="pipelinePieChart"
+                        class="pipeline-pie-chart"
+                    ></div>
+
+                    <div class="pie-chart-legend">
+
+                        <div class="legend-item">
+                            <span class="legend-color lead-color"></span>
+
+                            <span class="legend-name">
+                                Lead
+                            </span>
+
+                            <div class="legend-values">
+                                <strong id="leadCount">0</strong>
+                                <span id="leadPercent">0%</span>
+                            </div>
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-color contacted-color"></span>
+
+                            <span class="legend-name">
+                                Contacted
+                            </span>
+
+                            <div class="legend-values">
+                                <strong id="contactedCount">0</strong>
+                                <span id="contactedPercent">0%</span>
+                            </div>
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-color won-color"></span>
+
+                            <span class="legend-name">
+                                Won
+                            </span>
+
+                            <div class="legend-values">
+                                <strong id="wonCount">0</strong>
+                                <span id="wonPercent">0%</span>
+                            </div>
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-color lost-color"></span>
+
+                            <span class="legend-name">
+                                Lost
+                            </span>
+
+                            <div class="legend-values">
+                                <strong id="lostCount">0</strong>
+                                <span id="lostPercent">0%</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+            <article class="content-card">
+
+                <div class="section-heading">
+                    <h2>Deal Overview</h2>
+                </div>
+
+                <div class="deal-overview">
+
+                    <div class="deal-overview-item">
+                        <span>Pipeline Value</span>
+                        <strong id="pipelineValue">$0</strong>
+                    </div>
+
+                    <div class="deal-overview-item">
+                        <span>Average Deal</span>
+                        <strong id="averageDeal">$0</strong>
+                    </div>
+
+                    <div class="deal-overview-item">
+                        <span>Win Rate</span>
+                        <strong id="winRate">0%</strong>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <section class="content-card">
+
+            <div class="section-heading">
+
+                <h2>Recent Clients</h2>
+
+                <a href="clients.html">
+                    View All →
+                </a>
+
+            </div>
+
+            <div id="recentClients">
+                <p>No clients found.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <div id="toastContainer"></div>
+
+    <script src="./js/storage.js"></script>
+    <script src="./js/guard.js"></script>
+
+    <script>
+        protectPage();
+    </script>
+
+    <script src="./js/common.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/dashboard.js"></script>
+
+</body>
+</html>
