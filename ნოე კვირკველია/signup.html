@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10X CRM — Sign Up</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body data-page="signup">
+    <div id="toast-container" class="toast-container"></div>
+    <main class="auth-page">
+      <div class="auth-card">
+        <h1>Create your account</h1>
+        <form id="signup-form" novalidate>
+          <div class="field">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" />
+            <p class="field-error" data-error-for="fullName"></p>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" />
+            <p class="field-error" data-error-for="email"></p>
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" placeholder="Company (optional)" />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="password" name="password" />
+              <button type="button" class="password-toggle-btn" data-toggle-password="password">Show</button>
+            </div>
+            <div class="password-strength">
+              <div class="password-strength-bar" data-strength-bar-for="password"></div>
+            </div>
+            <p class="password-strength-label" data-strength-label-for="password"></p>
+            <p class="field-error" data-error-for="password"></p>
+          </div>
+          <div class="field">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="confirmPassword" name="confirmPassword" />
+              <button type="button" class="password-toggle-btn" data-toggle-password="confirmPassword">Show</button>
+            </div>
+            <p class="field-error" data-error-for="confirmPassword"></p>
+          </div>
+          <button type="submit" class="btn-primary">Create Account</button>
+        </form>
+        <p class="auth-switch">
+          Already have an account?
+          <a href="index.html">Log in</a>
+        </p>
+      </div>
+    </main>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

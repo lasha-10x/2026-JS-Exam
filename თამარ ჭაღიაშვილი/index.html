@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In · 10X CRM</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <div class="mark">10X</div>
+        <div class="name">10X CRM</div>
+      </div>
+
+      <h1>Welcome back</h1>
+      <p class="auth-sub">Log in to pick up where you left off.</p>
+
+      <form id="login-form" novalidate>
+        <div class="field" id="field-login-email">
+          <label for="login-email">Email</label>
+          <input type="text" id="login-email" autocomplete="email">
+          <div class="error-text"></div>
+        </div>
+
+        <div class="field" id="field-login-password">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" autocomplete="current-password">
+          <div class="error-text"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Log In</button>
+      </form>
+
+      <div class="auth-foot">
+        Don't have an account? <a href="signup.html">Sign up</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/validate.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/auth.js"></script>
+  <script>initPublicPage();</script>
+</body>
+</html>

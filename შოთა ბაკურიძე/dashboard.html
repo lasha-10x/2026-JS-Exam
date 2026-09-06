@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard - 10X CRM</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="app">
+  <div id="toast-container"></div>
+
+  <div class="app-shell">
+    <!-- Sidebar: identical markup is copy-pasted onto clients.html and
+         profile.html too. Only the "active" link differs per page,
+         and that's set by JS (setActiveNavLink), not hardcoded here. -->
+    <aside class="sidebar">
+      <div class="logo">10X CRM</div>
+      <nav>
+        <a href="dashboard.html" id="nav-dashboard">Dashboard</a>
+        <a href="clients.html" id="nav-clients">Clients</a>
+        <a href="profile.html" id="nav-profile">Profile</a>
+      </nav>
+      <div class="bottom-actions">
+        <button id="theme-toggle-btn">Toggle Theme</button>
+        <button id="logout-btn">Log Out</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <h1 id="greeting">Welcome</h1>
+      <p id="clock"></p>
+
+      <div class="stat-cards" id="stat-cards">
+        <!-- 4 stat cards get built here by dashboard.js -->
+      </div>
+
+      <div class="card-block">
+        <h2>Pipeline Overview</h2>
+        <div class="pipeline-row" id="pipeline-row">
+          <!-- 4 status counts get built here by dashboard.js -->
+        </div>
+      </div>
+
+      <div class="card-block" style="margin-top:16px;">
+        <h2>Recent Clients</h2>
+        <div id="recent-clients"></div>
+        <p><a href="clients.html">View all clients &rarr;</a></p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Load order: storage/toast/guard/data must exist BEFORE dashboard.js
+       runs, since dashboard.js calls functions defined in all of them. -->
+  <script src="js/storage.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

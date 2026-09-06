@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign Up - 10X CRM</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Every toast created by showToast() gets inserted in here. -->
+  <div id="toast-container"></div>
+
+  <div class="auth-card">
+    <h1>Create your account</h1>
+
+    <!-- noValidate turns off the browser's built-in HTML5 popup validation
+         (e.g. "please fill this field") so OUR JS validation in auth.js
+         runs instead, with the exact error texts the PRD requires. -->
+    <form id="signup-form" novalidate>
+
+      <div class="field">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName" />
+        <small class="field-error" id="fullName-error"></small>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" />
+        <small class="field-error" id="email-error"></small>
+      </div>
+
+      <div class="field">
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company" placeholder="Company (optional)" />
+        <!-- no error <small> needed - Company is never validated -->
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" />
+        <small class="field-error" id="password-error"></small>
+      </div>
+
+      <div class="field">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" />
+        <small class="field-error" id="confirmPassword-error"></small>
+      </div>
+
+      <button type="submit">Create Account</button>
+    </form>
+
+    <p class="auth-switch">
+      Already have an account? <a href="index.html">Log in</a>
+    </p>
+  </div>
+
+  <!-- Load order matters: storage.js and toast.js define functions that
+       auth.js calls, so they must load BEFORE auth.js runs. -->
+  <script src="js/storage.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Public page - if already logged in, skip straight to the dashboard.
+    redirectIfLoggedIn();
+  </script>
+</body>
+</html>

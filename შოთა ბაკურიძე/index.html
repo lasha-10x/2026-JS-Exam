@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Log In - 10X CRM</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div id="toast-container"></div>
+
+  <div class="auth-card">
+    <h1>Welcome back</h1>
+
+    <form id="login-form" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" />
+        <small class="field-error" id="email-error"></small>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" />
+        <small class="field-error" id="password-error"></small>
+      </div>
+
+      <button type="submit">Log In</button>
+    </form>
+
+    <p class="auth-switch">
+      Don't have an account? <a href="signup.html">Sign up</a>
+    </p>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // This page is "public" - if someone is already logged in, send them
+    // straight to the dashboard instead of showing the login form again.
+    redirectIfLoggedIn();
+  </script>
+</body>
+</html>

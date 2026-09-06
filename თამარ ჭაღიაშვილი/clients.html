@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clients · 10X CRM</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-mount"></aside>
+
+    <main class="main">
+      <div class="page-header">
+        <div>
+          <h1>Clients</h1>
+          <div class="sub">Everyone in your pipeline, in one place.</div>
+        </div>
+        <button class="btn btn-primary" id="add-client-btn" type="button">+ Add Client</button>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <input type="text" class="search-input" id="client-search" placeholder="Search by name or company...">
+          <div class="chip-row">
+            <button class="chip active" data-status="All" type="button">All</button>
+            <button class="chip" data-status="Lead" type="button">Lead</button>
+            <button class="chip" data-status="Contacted" type="button">Contacted</button>
+            <button class="chip" data-status="Won" type="button">Won</button>
+            <button class="chip" data-status="Lost" type="button">Lost</button>
+          </div>
+        </div>
+        <select class="sort-select" id="client-sort">
+          <option value="newest">Newest first</option>
+          <option value="name">Name A&rarr;Z</option>
+          <option value="value">Deal value: high &rarr; low</option>
+        </select>
+      </div>
+
+      <div class="client-grid" id="client-list"></div>
+    </main>
+  </div>
+
+  <!-- Add Client modal -->
+  <div class="modal-overlay" id="add-client-overlay">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>Add Client</h3>
+        <button class="modal-close" id="add-client-close" aria-label="Close" type="button">&times;</button>
+      </div>
+      <form id="add-client-form" novalidate>
+        <div class="field" id="field-client-name">
+          <label for="client-name">Name</label>
+          <input type="text" id="client-name">
+          <div class="error-text"></div>
+        </div>
+        <div class="field" id="field-client-email">
+          <label for="client-email">Email</label>
+          <input type="text" id="client-email">
+          <div class="error-text"></div>
+        </div>
+        <div class="field" id="field-client-phone">
+          <label for="client-phone">Phone</label>
+          <input type="text" id="client-phone">
+          <div class="error-text"></div>
+        </div>
+        <div class="field" id="field-client-company">
+          <label for="client-company">Company</label>
+          <input type="text" id="client-company">
+          <div class="error-text"></div>
+        </div>
+        <div class="field" id="field-client-deal-value">
+          <label for="client-deal-value">Deal Value</label>
+          <input type="text" id="client-deal-value" placeholder="e.g. 5000">
+          <div class="error-text"></div>
+        </div>
+        <div class="field">
+          <label for="field-client-status">Status</label>
+          <select id="field-client-status">
+            <option value="Lead" selected>Lead</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Won">Won</option>
+            <option value="Lost">Lost</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Add Client</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Client detail modal -->
+  <div class="modal-overlay" id="detail-overlay">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>Client Details</h3>
+        <button class="modal-close" id="detail-close" aria-label="Close" type="button">&times;</button>
+      </div>
+
+      <div class="detail-top">
+        <div class="avatar-fallback" id="detail-avatar-fallback"></div>
+        <div>
+          <div class="name" id="detail-name" style="font-weight:600;"></div>
+          <div class="text-muted" id="detail-company" style="font-size:13px;"></div>
+        </div>
+      </div>
+
+      <div class="detail-grid">
+        <div><div class="k">Email</div><div class="v" id="detail-email"></div></div>
+        <div><div class="k">Phone</div><div class="v" id="detail-phone"></div></div>
+        <div><div class="k">Status</div><div class="v" id="detail-status"></div></div>
+        <div><div class="k">Deal Value</div><div class="v" id="detail-value"></div></div>
+        <div><div class="k">Client Since</div><div class="v" id="detail-since"></div></div>
+      </div>
+
+      <button class="btn btn-ghost btn-block mb-16" id="remind-btn" type="button">Remind me in 1 min</button>
+
+      <h4 style="font-size:13.5px;">Notes</h4>
+      <div class="notes-list" id="notes-list"></div>
+      <form id="add-note-form" class="note-add-row">
+        <input type="text" id="note-input" placeholder="Add a note...">
+        <button class="btn btn-ghost btn-sm" type="submit">Add</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/validate.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/clients.js"></script>
+</body>
+</html>

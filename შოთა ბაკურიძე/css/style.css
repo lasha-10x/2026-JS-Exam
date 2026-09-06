@@ -1,0 +1,807 @@
+/* style.css
+   Deliberately minimal - the exam grades JS logic, not CSS artistry.
+   Just enough for a clean, readable form and visible error states. */
+
+* {
+  box-sizing: border-box; /* padding/border count INSIDE width, so a
+                              400px-wide input with padding stays 400px. */
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f4f5f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* full viewport height -> the card is vertically centered */
+}
+
+/* --- Auth card (Sign Up / Login) --- */
+
+.auth-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  width: 100%;
+  max-width: 420px; /* PRD: "max-width ~420px" */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.auth-card h1 {
+  font-size: 22px;
+  margin: 0 0 24px;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.field input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d0d3d9;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* Applied to an <input> via JS when its value fails validation. */
+.input-error {
+  border-color: #e0403f !important;
+}
+
+/* The <small> under each field that holds the error message text. */
+.field-error {
+  color: #e0403f;
+  font-size: 13px;
+  margin-top: 4px;
+  min-height: 16px; /* reserves space so the layout doesn't jump when errors appear */
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: #2d63c0;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+/* --- Toasts --- */
+
+#toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1000;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.toast-success {
+  background: #22a06b;
+}
+.toast-error {
+  background: #e0403f;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+/* ============================================================
+   APP LAYOUT (dashboard / clients / profile share this shell)
+   ============================================================ */
+
+body.app {
+  display: block; /* override the auth-page centering from above */
+  background: #f4f5f7;
+}
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* --- Sidebar nav --- */
+
+.sidebar {
+  width: 220px;
+  background: #1f3864;
+  color: #fff;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sidebar .logo {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 32px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar nav a {
+  color: #c7c5f0;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.sidebar nav a.active,
+.sidebar nav a:hover {
+  background: #2d63c0;
+  color: #fff;
+}
+
+.sidebar .bottom-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar button {
+  background: transparent;
+  border: 1px solid #2d63c0;
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 32px;
+  max-width: 1100px;
+}
+
+/* --- Dashboard --- */
+
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card .stat-value {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.stat-card .stat-label {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.pipeline-row {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0 24px;
+}
+
+.pipeline-item {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.card-block {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Clients toolbar --- */
+
+.clients-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.clients-toolbar input[type="text"] {
+  padding: 8px 12px;
+  border: 1px solid #d0d3d9;
+  border-radius: 8px;
+  min-width: 200px;
+}
+
+.filter-chip {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #d0d3d9;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.filter-chip.active {
+  background: #2d63c0;
+  color: #fff;
+  border-color: #2d63c0;
+}
+
+/* --- Client cards --- */
+
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.client-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.client-card h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.client-card .company {
+  color: #6b7280;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-new {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.status-contacted {
+  background: #fef3c7;
+  color: #92400e;
+}
+.status-negotiation {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+.status-won {
+  background: #d1fae5;
+  color: #065f46;
+}
+.status-lost {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+#sort-select {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid #d0d3d9;
+  background: #2d63c0;
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* --- Modal (used for Add Client + Client Details) --- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0; /* shorthand for top/right/bottom/left: 0 - covers the screen */
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.modal-box h2 {
+  margin-top: 0;
+}
+
+.notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.notes-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+}
+
+/* --- Profile --- */
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.avatar-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #2d63c0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.danger-btn {
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#d-status {
+  border-radius: 8px;
+  padding: 6px 2px;
+  border: 1px solid #2d63c0;
+}
+
+#details-modal-close {
+  border-radius: 8px;
+  border: 2px solid #2d63c0;
+  cursor: pointer;
+}
+
+/* --- Dark theme --- */
+
+body.dark {
+  background: #111827;
+}
+body.dark .main-content {
+  color: #e5e7eb;
+}
+body.dark .stat-card,
+body.dark .card-block,
+body.dark .client-card,
+body.dark .modal-box,
+body.dark .pipeline-item {
+  background: #1f2937;
+  color: #e5e7eb;
+}
+body.dark .clients-toolbar input,
+body.dark .filter-chip {
+  background: #1f2937;
+  color: #e5e7eb;
+  border-color: #374151;
+}
+
+/* ==========================================================
+   DARK THEME
+   guard.js toggles the "dark" class on <body>. Every color
+   that should change between themes gets a rule here.
+   ========================================================== */
+
+body.dark {
+  background: #15171c;
+  color: #e6e8eb;
+}
+body.dark .app-nav,
+body.dark .card,
+body.dark .auth-card,
+body.dark .modal {
+  background: #1f222a;
+  color: #e6e8eb;
+  border-color: #33363f;
+}
+body.dark .field input,
+body.dark .field select {
+  background: #15171c;
+  color: #e6e8eb;
+  border-color: #33363f;
+}
+
+/* ==========================================================
+   APP LAYOUT (dashboard / clients / profile share this shell)
+   ========================================================== */
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.app-nav {
+  width: 220px;
+  background: #fff;
+  border-right: 1px solid #e4e6eb;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.app-nav .brand {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.app-nav a {
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 14px;
+}
+
+.app-nav a.active {
+  background: #2d63c0;
+  color: #fff;
+}
+
+.app-nav .nav-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.app-nav button {
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+.app-nav button:hover {
+  background: #f0f1f5;
+}
+
+.app-main {
+  flex: 1;
+  padding: 32px;
+  max-width: 1000px;
+}
+
+/* ==========================================================
+   DASHBOARD
+   ========================================================== */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e4e6eb;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.stat-card .stat-label {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+.stat-card .stat-value {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.pipeline-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+.pipeline-item {
+  flex: 1;
+  text-align: center;
+}
+.pipeline-item .count {
+  font-size: 20px;
+  font-weight: 700;
+}
+.pipeline-item .label {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ==========================================================
+   CLIENTS PAGE
+   ========================================================== */
+
+#add-client-btn {
+  padding: 12px;
+  background: #2d63c0;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
+.toolbar input[type="text"] {
+  flex: 1;
+  min-width: 180px;
+  padding: 9px 12px;
+  border: 1px solid #d0d3d9;
+  border-radius: 8px;
+}
+.toolbar select {
+  padding: 9px 12px;
+  border: 1px solid #d0d3d9;
+  border-radius: 8px;
+}
+
+.filter-chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #d0d3d9;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+.filter-chip.active {
+  background: #2d63c0;
+  color: #fff;
+  border-color: #2d63c0;
+}
+
+.client-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.client-card {
+  cursor: pointer;
+  position: relative;
+}
+.client-card .name {
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.client-card .company {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+.client-card .deal-value {
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-lead {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+.badge-contacted {
+  background: #fef3c7;
+  color: #92400e;
+}
+.badge-negotiation {
+  background: #fde68a;
+  color: #7c4a03;
+}
+.badge-won {
+  background: #d1fae5;
+  color: #065f46;
+}
+.badge-lost {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.icon-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* ==========================================================
+   MODAL (Add Client / Client Details)
+   ========================================================== */
+
+#d-add-note-btn {
+  padding: 10px;
+  background: #2d63c0;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 7px;
+}
+
+#d-remind-btn {
+  background: #1f3864;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0; /* shorthand for top/right/bottom/left: 0 */
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+}
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.modal h2 {
+  margin-top: 0;
+}
+.modal-close {
+  float: right;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  max-height: 140px;
+  overflow-y: auto;
+}
+.notes-list li {
+  font-size: 13px;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* ==========================================================
+   PROFILE PAGE
+   ========================================================== */
+
+.avatar-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #2d63c0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.danger-btn {
+  background: #e0403f;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Loading / empty state text used on the clients page */
+.state-message {
+  text-align: center;
+  color: #6b7280;
+  padding: 40px 0;
+}

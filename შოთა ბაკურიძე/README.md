@@ -1,0 +1,54 @@
+# 10X CRM
+
+A simple client relationship management (CRM) tool built with **vanilla HTML, CSS and JavaScript** — no frameworks, no build tools. Data is fetched once from a public API and then lives entirely in the browser's `localStorage`.
+
+## Features
+
+- **Sign Up / Log In** with client-side validation and duplicate-email checking.
+- **Auth guard** — dashboard/clients/profile pages redirect to login if you're not signed in; login/signup redirect to the dashboard if you already are.
+- **Dashboard** — live clock, 4 summary stat cards, pipeline breakdown, recent clients.
+- **Clients** — search, filter by status, sort, add (POST), delete (DELETE), per-client notes, and a 1-minute follow-up reminder.
+- **Profile** — edit name/company, change password, reset CRM data back to a fresh API pull.
+- **Light/dark theme** toggle, persisted per browser.
+- **Toast notifications** instead of `alert()`.
+
+## Tech Stack
+
+- HTML5, CSS3, vanilla JavaScript (ES6+)
+- [DummyJSON](https://dummyjson.com/) `/users` endpoint as the starter data source
+- Browser `localStorage` for all persistence (no backend/database)
+
+## How to Run
+
+1. Download/clone this folder.
+2. Open `index.html` (or `signup.html`) in a browser — no server or build step required. (Some browsers block `fetch` on `file://` pages; if the client list won't load, serve the folder locally instead, e.g., `npx serve .` or `python3 -m http.server`, then open it via `http://localhost`.)
+3. Sign up for an account, then log in.
+
+## Test Account
+
+No pre-seeded account exists — sign up with any email/password (password needs 8+ characters with at least one letter and one number).
+
+## Project Structure
+
+```text
+10x-crm/
+├── index.html            Login
+├── signup.html           Sign Up
+├── dashboard.html        Dashboard
+├── clients.html          Clients (search/filter/sort, add, delete, notes)
+├── profile.html          Profile
+├── css/style.css         One shared stylesheet for the whole app
+├── js/
+│   ├── storage.js        All localStorage reads/writes go through here
+│   ├── toast.js          Shared toast notification component
+│   ├── guard.js          Auth guard, theme, logout, shared form-error helpers
+│   ├── auth.js           Sign Up + Log In logic
+│   ├── data.js           Loads/caches clients from the DummyJSON API
+│   ├── dashboard.js      Dashboard page logic
+│   ├── clients.js        Clients page logic
+│   └── profile.js        Profile page logic
+└── docs/
+    ├── ai-log.md         AI usage log
+    ├── glossary.md       Key terms explained in my own words
+    └── research-note.md  One external source I used, summarized
+```

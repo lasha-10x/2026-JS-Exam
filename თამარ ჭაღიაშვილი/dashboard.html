@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard · 10X CRM</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-mount"></aside>
+
+    <main class="main">
+      <div class="greet-bar">
+        <h1 id="greet-name">Welcome back!</h1>
+        <div class="clock" id="live-clock"></div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="label">Total Clients</div>
+          <div class="value" id="stat-total">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Active Deals</div>
+          <div class="value" id="stat-active">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Won Revenue</div>
+          <div class="value up" id="stat-revenue">$0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">New This Week</div>
+          <div class="value" id="stat-new">0</div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="card">
+          <h3>Pipeline Overview</h3>
+          <p class="sub text-muted" style="font-size:13px;">Clients per stage</p>
+          <div class="signal-row" id="pipeline-bars"></div>
+        </div>
+
+        <div class="card">
+          <div class="page-header" style="margin-bottom:8px;">
+            <h3>Recent Clients</h3>
+            <a href="clients.html">View all clients &rarr;</a>
+          </div>
+          <div id="recent-clients"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

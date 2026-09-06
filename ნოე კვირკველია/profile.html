@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10X CRM — Profile</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body data-page="profile">
+    <div id="toast-container" class="toast-container"></div>
+    <div class="app-shell">
+      <nav class="sidebar">
+        <div class="logo"><a href="dashboard.html">10X CRM</a></div>
+        <a href="dashboard.html" data-nav="dashboard.html">Dashboard</a>
+        <a href="clients.html" data-nav="clients.html">Clients</a>
+        <a href="profile.html" data-nav="profile.html">Profile</a>
+        <button id="theme-toggle" class="nav-btn">Toggle theme</button>
+        <button id="logout-btn" class="nav-btn">Logout</button>
+      </nav>
+      <main class="page-content" id="profile-content">
+        <div class="page-header">
+          <h1>Profile</h1>
+        </div>
+
+        <div class="profile-info card">
+          <div id="p-avatar" class="avatar-fallback avatar-lg"></div>
+          <div>
+            <h2 id="p-fullName"></h2>
+            <p id="p-email" class="text-muted"></p>
+            <p id="p-company" class="text-muted"></p>
+            <p id="p-memberSince" class="text-muted"></p>
+          </div>
+        </div>
+
+        <div class="dashboard-section card">
+          <h2>Edit Profile</h2>
+          <form id="edit-profile-form" novalidate>
+            <div class="field">
+              <label for="ep-fullName">Full Name</label>
+              <input type="text" id="ep-fullName" name="fullName" />
+              <p class="field-error" data-error-for="ep-fullName"></p>
+            </div>
+            <div class="field">
+              <label for="ep-company">Company</label>
+              <input type="text" id="ep-company" name="company" />
+            </div>
+            <button type="submit" class="btn-primary btn-inline">Save Changes</button>
+          </form>
+        </div>
+
+        <div class="dashboard-section card">
+          <h2>Change Password</h2>
+          <form id="change-password-form" novalidate>
+            <div class="field">
+              <label for="cp-current">Current Password</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="cp-current" name="currentPassword" />
+                <button type="button" class="password-toggle-btn" data-toggle-password="cp-current">Show</button>
+              </div>
+              <p class="field-error" data-error-for="cp-current"></p>
+            </div>
+            <div class="field">
+              <label for="cp-new">New Password</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="cp-new" name="newPassword" />
+                <button type="button" class="password-toggle-btn" data-toggle-password="cp-new">Show</button>
+              </div>
+              <p class="field-error" data-error-for="cp-new"></p>
+            </div>
+            <div class="field">
+              <label for="cp-confirm">Confirm New Password</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="cp-confirm" name="confirmNewPassword" />
+                <button type="button" class="password-toggle-btn" data-toggle-password="cp-confirm">Show</button>
+              </div>
+              <p class="field-error" data-error-for="cp-confirm"></p>
+            </div>
+            <button type="submit" class="btn-primary btn-inline">Change Password</button>
+          </form>
+        </div>
+
+        <div class="dashboard-section card">
+          <h2>Data Management</h2>
+          <p class="text-muted">Resetting will reload the original 30 clients from the API. Your account and login are not affected.</p>
+          <button id="reset-data-btn" class="btn-secondary" type="button">Reset CRM Data</button>
+        </div>
+
+        <div class="dashboard-section card">
+          <h2>Danger Zone</h2>
+          <p class="text-muted">Deleting your account is permanent and cannot be undone.</p>
+          <button id="delete-account-btn" class="btn-delete" type="button">Delete Account</button>
+        </div>
+
+        <dialog id="delete-account-modal" class="modal">
+          <button class="modal-close" id="delete-account-close" type="button" aria-label="Close">&times;</button>
+          <h2>Delete Account</h2>
+          <p class="text-muted">This cannot be undone. Enter your password to confirm.</p>
+          <form id="delete-account-form" novalidate>
+            <div class="field">
+              <label for="da-password">Password</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="da-password" name="password" />
+                <button type="button" class="password-toggle-btn" data-toggle-password="da-password">Show</button>
+              </div>
+              <p class="field-error" data-error-for="da-password"></p>
+            </div>
+            <button type="submit" class="btn-delete">Delete Account</button>
+          </form>
+        </dialog>
+      </main>
+    </div>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

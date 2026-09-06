@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10X CRM — Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body data-page="dashboard">
+    <div id="toast-container" class="toast-container"></div>
+    <div class="app-shell">
+      <nav class="sidebar">
+        <div class="logo"><a href="dashboard.html">10X CRM</a></div>
+        <a href="dashboard.html" data-nav="dashboard.html">Dashboard</a>
+        <a href="clients.html" data-nav="clients.html">Clients</a>
+        <a href="profile.html" data-nav="profile.html">Profile</a>
+        <button id="theme-toggle" class="nav-btn">Toggle theme</button>
+        <button id="logout-btn" class="nav-btn">Logout</button>
+      </nav>
+      <main class="page-content" id="dashboard-content">
+        <div class="page-header">
+          <div>
+            <h1 id="dashboard-greeting">Welcome back!</h1>
+            <p id="dashboard-clock" class="text-muted"></p>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <h3>Total Clients</h3>
+            <p id="stat-total">0</p>
+          </div>
+          <div class="stat-card">
+            <h3>Active Deals</h3>
+            <p id="stat-active">0</p>
+          </div>
+          <div class="stat-card">
+            <h3>Won Revenue</h3>
+            <p id="stat-revenue">$0</p>
+          </div>
+          <div class="stat-card">
+            <h3>New This Week</h3>
+            <p id="stat-new">0</p>
+          </div>
+        </div>
+
+        <div class="dashboard-section">
+          <h2>Pipeline Overview</h2>
+          <div class="pipeline-grid" id="pipeline-grid"></div>
+        </div>
+
+        <div class="dashboard-section">
+          <div class="page-header">
+            <h2>Recent Clients</h2>
+            <a href="clients.html">View all clients &rarr;</a>
+          </div>
+          <div id="recent-clients-list" class="clients-list"></div>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

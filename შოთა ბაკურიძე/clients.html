@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Clients - 10X CRM</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="app">
+  <div id="toast-container"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">10X CRM</div>
+      <nav>
+        <a href="dashboard.html" id="nav-dashboard">Dashboard</a>
+        <a href="clients.html" id="nav-clients">Clients</a>
+        <a href="profile.html" id="nav-profile">Profile</a>
+      </nav>
+      <div class="bottom-actions">
+        <button id="theme-toggle-btn">Toggle Theme</button>
+        <button id="logout-btn">Log Out</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h1>Clients</h1>
+        <button id="add-client-btn">+ Add Client</button>
+      </div>
+
+      <div class="clients-toolbar">
+        <input type="text" id="search-input" placeholder="Search name or email..." />
+        <button class="filter-chip active" data-status="All">All</button>
+        <button class="filter-chip" data-status="New">New</button>
+        <button class="filter-chip" data-status="Contacted">Contacted</button>
+        <button class="filter-chip" data-status="Negotiation">Negotiation</button>
+        <button class="filter-chip" data-status="Won">Won</button>
+        <button class="filter-chip" data-status="Lost">Lost</button>
+        <select id="sort-select">
+          <option value="newest">Newest first</option>
+          <option value="name">Name (A-Z)</option>
+          <option value="dealValue">Deal value (high-low)</option>
+        </select>
+      </div>
+
+      <div id="clients-status"></div>
+      <div class="clients-grid" id="clients-grid"></div>
+    </main>
+  </div>
+
+  <!-- Add Client modal -->
+  <div class="modal-overlay hidden" id="add-modal">
+    <div class="modal-box">
+      <h2>Add Client</h2>
+      <form id="add-client-form" novalidate>
+        <div class="field">
+          <label for="c-name">Name</label>
+          <input type="text" id="c-name" />
+          <small class="field-error" id="c-name-error"></small>
+        </div>
+        <div class="field">
+          <label for="c-email">Email</label>
+          <input type="text" id="c-email" />
+          <small class="field-error" id="c-email-error"></small>
+        </div>
+        <div class="field">
+          <label for="c-phone">Phone</label>
+          <input type="text" id="c-phone" />
+          <small class="field-error" id="c-phone-error"></small>
+        </div>
+        <div class="field">
+          <label for="c-company">Company</label>
+          <input type="text" id="c-company" />
+        </div>
+        <div class="field">
+          <label for="c-dealValue">Deal Value ($)</label>
+          <input type="number" id="c-dealValue" min="0" />
+          <small class="field-error" id="c-dealValue-error"></small>
+        </div>
+        <div class="field">
+          <label for="c-status">Status</label>
+          <select id="c-status">
+            <option>New</option>
+            <option>Contacted</option>
+            <option>Negotiation</option>
+            <option>Won</option>
+            <option>Lost</option>
+          </select>
+        </div>
+        <button type="submit">Save Client</button>
+        <button type="button" id="add-modal-cancel">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Client Details modal -->
+  <div class="modal-overlay hidden" id="details-modal">
+    <div class="modal-box">
+      <button type="button" id="details-modal-close" style="float:right;">✕</button>
+      <h2 id="d-name"></h2>
+      <p id="d-company"></p>
+      <p>Email: <span id="d-email"></span></p>
+      <p>Phone: <span id="d-phone"></span></p>
+      <p>Deal Value: $<span id="d-dealValue"></span></p>
+      <p>Client since: <span id="d-createdAt"></span></p>
+      <p>
+        Status:
+        <select id="d-status"></select>
+      </p>
+
+      <h3>Notes</h3>
+      <ul class="notes-list" id="d-notes"></ul>
+      <div class="field">
+        <input type="text" id="d-note-input" placeholder="Add a note..." />
+        <button type="button" id="d-add-note-btn">Add Note</button>
+      </div>
+
+      <button type="button" id="d-remind-btn">Remind me in 1 min</button>
+      <button type="button" class="danger-btn" id="d-delete-btn">Delete Client</button>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/clients.js"></script>
+</body>
+</html>
