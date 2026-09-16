@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up · 10X CRM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-dark">
+
+<div class="auth-page">
+  <aside class="auth-side">
+    <div class="auth-side-brand">10X <span>CRM</span></div>
+    <div class="auth-side-pitch">
+      <h1>Every deal, one screen.</h1>
+      <p>Track leads from first contact to closed deal. No spreadsheets, no lost follow-ups — just a clear pipeline your whole day runs on.</p>
+      <div class="ledger-strip">
+        <span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span>
+      </div>
+    </div>
+    <div class="auth-side-foot">Built for sales teams who live in their client list.</div>
+  </aside>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h2>Create your account</h2>
+      <p class="subtitle">Start managing your clients in minutes.</p>
+
+      <form id="signup-form" novalidate>
+        <div class="field">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" autocomplete="name">
+          <span class="field-error" id="fullName-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="text" id="email" autocomplete="email">
+          <span class="field-error" id="email-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="company">Company (optional)</label>
+          <input type="text" id="company" autocomplete="organization">
+          <span class="field-error" id="company-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" autocomplete="new-password">
+          <div class="strength-meter" id="password-strength-meter">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="strength-label" id="password-strength-label"></span>
+          <span class="field-error" id="password-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" autocomplete="new-password">
+          <span class="field-error" id="confirmPassword-error"></span>
+        </div>
+
+        <button type="submit" class="btn-primary">Create Account</button>
+      </form>
+
+      <p class="auth-switch">Already have an account? <a href="index.html">Log in</a></p>
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/guard.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  applyTheme();
+  redirectIfLoggedIn();
+  initSignupForm();
+</script>
+</body>
+</html>

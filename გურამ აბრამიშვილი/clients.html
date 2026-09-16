@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clients · 10X CRM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-dark">
+
+<div class="app-shell">
+  <main class="app-main">
+    <div id="app-nav"></div>
+
+    <div class="page-header-row">
+      <div>
+        <h1 class="page-title">Clients</h1>
+        <p class="page-subtitle" style="margin-bottom:0;">Search, filter, and manage every client in your pipeline. <span class="kbd-hint">Press <kbd>/</kbd> to search, <kbd>N</kbd> to add, <kbd>B</kbd> to toggle board.</span></p>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button id="export-csv-btn" class="btn-outline" type="button">Export CSV</button>
+        <button id="add-client-btn" class="btn-primary" style="width:auto;" type="button">+ Add Client</button>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <input type="text" id="search-input" class="search-input" placeholder="Search by name or company...">
+      <div class="filter-chips">
+        <button class="filter-chip active" data-status="All" type="button">All</button>
+        <button class="filter-chip" data-status="Lead" type="button">Lead</button>
+        <button class="filter-chip" data-status="Contacted" type="button">Contacted</button>
+        <button class="filter-chip" data-status="Won" type="button">Won</button>
+        <button class="filter-chip" data-status="Lost" type="button">Lost</button>
+      </div>
+      <select id="sort-select" class="sort-select">
+        <option value="newest">Sort: Newest first</option>
+        <option value="name">Sort: Name A&ndash;Z</option>
+        <option value="value">Sort: Deal value</option>
+      </select>
+      <div class="view-toggle">
+        <button class="view-toggle-btn active" id="view-list-btn" type="button">List</button>
+        <button class="view-toggle-btn" id="view-board-btn" type="button">Board</button>
+      </div>
+    </div>
+
+    <p class="server-search-hint" id="server-search-hint"></p>
+
+    <div id="clients-list" class="clients-list"></div>
+    <div id="kanban-board" class="kanban-board" style="display:none;"></div>
+    <button id="load-more-btn" class="btn-outline load-more-btn" type="button" style="display:none;">Load More</button>
+  </main>
+</div>
+
+<!-- Add / Edit Client modal -->
+<div class="modal-overlay" id="add-client-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="add-client-title">Add Client</h3>
+      <button class="btn-ghost" id="add-client-close" type="button">&times;</button>
+    </div>
+    <form id="add-client-form" novalidate>
+      <div class="field">
+        <label for="new-name">Name</label>
+        <input type="text" id="new-name">
+        <span class="field-error" id="new-name-error"></span>
+      </div>
+      <div class="field">
+        <label for="new-email">Email</label>
+        <input type="text" id="new-email">
+        <span class="field-error" id="new-email-error"></span>
+      </div>
+      <div class="field">
+        <label for="new-phone">Phone</label>
+        <input type="tel" id="new-phone" placeholder="+1 555 123 4567">
+        <span class="field-error" id="new-phone-error"></span>
+      </div>
+      <div class="field">
+        <label for="new-company">Company</label>
+        <input type="text" id="new-company">
+        <span class="field-error" id="new-company-error"></span>
+      </div>
+      <div class="field">
+        <label for="new-dealvalue">Deal Value ($)</label>
+        <input type="text" id="new-dealvalue">
+        <span class="field-error" id="new-dealvalue-error"></span>
+      </div>
+      <div class="field">
+        <label for="new-status">Status</label>
+        <select id="new-status">
+          <option value="Lead" selected>Lead</option>
+          <option value="Contacted">Contacted</option>
+          <option value="Won">Won</option>
+          <option value="Lost">Lost</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-primary" id="add-client-submit">Add Client</button>
+    </form>
+  </div>
+</div>
+
+<!-- Details modal -->
+<div class="modal-overlay" id="details-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="details-name">Client</h3>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button class="btn-outline" id="details-edit-btn" type="button">Edit</button>
+        <button class="btn-ghost" id="details-close" type="button">&times;</button>
+      </div>
+    </div>
+    <p class="details-meta" id="details-meta"></p>
+
+    <div class="details-grid">
+      <div>
+        <div class="label">Company</div>
+        <div id="details-company">&mdash;</div>
+      </div>
+      <div>
+        <div class="label">Email</div>
+        <div id="details-email">&mdash;</div>
+      </div>
+      <div>
+        <div class="label">Phone</div>
+        <div id="details-phone">&mdash;</div>
+      </div>
+    </div>
+
+    <div class="notes-section">
+      <h4>Notes</h4>
+      <div class="notes-list" id="notes-list"></div>
+      <div class="note-input-row">
+        <input type="text" id="note-input" placeholder="Write a note...">
+        <button class="btn-outline" id="add-note-btn" type="button">Add note</button>
+      </div>
+      <div class="call-timer-row">
+        <button class="remind-btn" id="call-timer-btn" type="button">&#9742; Start Call</button>
+        <span class="call-timer-display mono" id="call-timer-display">00:00</span>
+      </div>
+      <button class="remind-btn" id="remind-btn" type="button">&#9200; Remind me in 1 min</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/guard.js"></script>
+<script src="js/clients.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · 10X CRM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-dark">
+
+<div class="app-shell">
+  <main class="app-main">
+    <div id="app-nav"></div>
+
+    <div class="welcome-block">
+      <h1>Welcome back, <span id="welcome-name">there</span>!</h1>
+      <div class="welcome-clock">
+        <strong id="current-time">--:--:--</strong>
+        <span id="current-date">-</span>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Clients</div>
+        <div class="stat-value" id="stat-total">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Deals</div>
+        <div class="stat-value" id="stat-active">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Won Revenue</div>
+        <div class="stat-value" id="stat-revenue">$0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">New This Week</div>
+        <div class="stat-value" id="stat-new">0</div>
+      </div>
+    </div>
+
+    <div class="dashboard-row">
+      <div class="panel">
+        <h3>Pipeline Overview</h3>
+        <div class="pipeline-chart-row">
+          <canvas id="pipeline-chart" width="110" height="110"></canvas>
+          <div style="flex:1;">
+            <div class="pipeline-bar" id="pipeline-bar"></div>
+            <div class="pipeline-legend" id="pipeline-legend"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Recent Clients</h3>
+        <div id="recent-clients"></div>
+        <a href="clients.html" class="view-all-link">View all clients &rarr;</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/guard.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

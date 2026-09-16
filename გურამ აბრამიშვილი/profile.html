@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile · 10X CRM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-dark">
+
+<div class="app-shell">
+  <main class="app-main">
+    <div id="app-nav"></div>
+
+    <h1 class="page-title">Profile</h1>
+    <p class="page-subtitle">Manage your account details and data.</p>
+
+    <div class="profile-header panel">
+      <div class="profile-avatar" id="profile-initials">--</div>
+      <div>
+        <div class="profile-name" id="profile-name">-</div>
+        <div class="profile-sub" id="profile-email">-</div>
+        <div class="profile-sub">
+          <span id="profile-company">-</span> &middot; Member since <span id="profile-since">-</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-grid" style="margin-top:20px;">
+      <div class="panel">
+        <h3>Edit Profile</h3>
+        <form id="save-changes-form" novalidate style="margin-top:16px;">
+          <div class="field">
+            <label for="edit-fullname">Full Name</label>
+            <input type="text" id="edit-fullname">
+            <span class="field-error" id="edit-fullname-error"></span>
+          </div>
+          <div class="field">
+            <label for="edit-company">Company</label>
+            <input type="text" id="edit-company">
+          </div>
+          <button type="submit" class="btn-primary" style="width:auto;">Save Changes</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h3>Change Password</h3>
+        <form id="change-password-form" novalidate style="margin-top:16px;">
+          <div class="field">
+            <label for="current-password">Current Password</label>
+            <input type="password" id="current-password">
+            <span class="field-error" id="current-password-error"></span>
+          </div>
+          <div class="field">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password">
+            <span class="field-error" id="new-password-error"></span>
+          </div>
+          <div class="field">
+            <label for="confirm-password">Confirm New Password</label>
+            <input type="password" id="confirm-password">
+            <span class="field-error" id="confirm-password-error"></span>
+          </div>
+          <button type="submit" class="btn-primary" style="width:auto;">Change Password</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="panel danger-zone" style="margin-top:20px;">
+      <h3>Data</h3>
+      <p>Reset your local client database back to the original 30 clients from the API. Your account and login stay untouched.</p>
+      <button id="reset-data-btn" class="btn-danger" type="button">Reset CRM Data</button>
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/guard.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>

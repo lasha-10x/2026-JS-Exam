@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In · 10X CRM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-dark">
+
+<div class="auth-page">
+  <aside class="auth-side">
+    <div class="auth-side-brand">10X <span>CRM</span></div>
+    <div class="auth-side-pitch">
+      <h1>Welcome back.</h1>
+      <p>Your pipeline is exactly where you left it. Log in to see today's leads, deals, and follow-ups.</p>
+      <div class="ledger-strip">
+        <span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span>
+      </div>
+    </div>
+    <div class="auth-side-foot">Built for sales teams who live in their client list.</div>
+  </aside>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h2>Welcome back</h2>
+      <p class="subtitle">Log in to your 10X CRM account.</p>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="text" id="email" autocomplete="email">
+          <span class="field-error" id="email-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" autocomplete="current-password">
+          <span class="field-error" id="password-error"></span>
+        </div>
+
+        <div class="remember-row">
+          <input type="checkbox" id="remember-me" checked>
+          <label for="remember-me" style="margin:0;">Remember me on this device</label>
+        </div>
+
+        <p class="form-error" id="form-error"></p>
+
+        <button type="submit" class="btn-primary">Log In</button>
+      </form>
+
+      <p class="auth-switch">Don't have an account? <a href="signup.html">Sign up</a></p>
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/guard.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  applyTheme();
+  redirectIfLoggedIn();
+  initLoginForm();
+</script>
+</body>
+</html>
