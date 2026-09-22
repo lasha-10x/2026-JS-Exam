@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM - Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme dashboard-body">
+
+  <!-- Sidebar Navbar -->
+  <aside class="sidebar">
+    <div>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <a href="dashboard.html" style="text-decoration:none;">
+          <h1 class="glitch-logo active" data-text="10X CRM" style="font-size: 26px;">
+            <span>10X CRM</span>
+          </h1>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="clients.html">Clients</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </div>
+
+    <div>
+      <button id="theme-toggle" class="btn-secondary" style="width: 100%; margin-bottom: 8px;">🌙 <span>Dark</span></button>
+      <button id="logout-btn" class="btn-primary" style="width: 100%;">Logout</button>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <div class="header-top">
+      <div>
+        <h1 id="welcome-title">Welcome back!</h1>
+        <p id="current-time" style="color: var(--text-muted); font-size: 14px;"></p>
+      </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Clients</h3>
+        <div class="value" id="stat-total-clients">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Active Deals</h3>
+        <div class="value" id="stat-active-deals">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Won Revenue</h3>
+        <div class="value" id="stat-won-revenue">$0</div>
+      </div>
+      <div class="stat-card">
+        <h3>New This Week</h3>
+        <div class="value" id="stat-new-week">0</div>
+      </div>
+    </div>
+
+    <!-- Detailed Sections Grid -->
+    <div class="dashboard-sections">
+      <div class="section-card">
+        <h2>Pipeline Overview</h2>
+        <ul class="recent-list" id="pipeline-overview">
+          <li><span>Lead:</span> <strong id="pipeline-lead">0</strong></li>
+          <li><span>Contacted:</span> <strong id="pipeline-contacted">0</strong></li>
+          <li><span>Won:</span> <strong id="pipeline-won">0</strong></li>
+          <li><span>Lost:</span> <strong id="pipeline-lost">0</strong></li>
+        </ul>
+      </div>
+
+      <div class="section-card">
+        <h2>Recent Clients (Last 5)</h2>
+        <ul class="recent-list" id="recent-clients-list">
+          <!-- filled by dashboard.js -->
+        </ul>
+        <div style="margin-top: 14px; text-align: right;">
+          <a href="clients.html" style="color: var(--primary-color); font-weight: 600; text-decoration: none; font-size: 14px;">View all clients &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

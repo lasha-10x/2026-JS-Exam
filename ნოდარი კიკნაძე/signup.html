@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - 10X CRM</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme">
+
+  <!-- Dark Mode Toggle Button -->
+  <button id="theme-toggle" class="theme-toggle-btn" type="button">
+    🌙 <span>Dark</span>
+  </button>
+
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1 class="glitch-logo active" data-text="10X CRM">
+          <span>10X CRM</span>
+        </h1>
+        <p>Get started with 10X CRM</p>
+      </div>
+
+      <form id="signup-form" novalidate>
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="John Doe">
+          <span class="error-msg" id="err-fullName"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="john@example.com">
+          <span class="error-msg" id="err-email"></span>
+        </div>
+
+        <!-- Company Name (Optional) -->
+        <div class="form-group">
+          <label for="company">Company Name <small style="opacity: 0.6;">(Optional)</small></label>
+          <input type="text" id="company" placeholder="Acme Corp (Optional)">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••">
+          <span class="error-msg" id="err-password"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" placeholder="••••••••">
+          <span class="error-msg" id="err-confirmPassword"></span>
+        </div>
+
+        <button type="submit" class="btn-primary">Create Account</button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="index.html">Log in</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/signup.js"></script>
+</body>
+</html>

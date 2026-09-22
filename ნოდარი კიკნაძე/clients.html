@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM - Clients</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme dashboard-body">
+
+  <aside class="sidebar">
+    <div>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <a href="dashboard.html" style="text-decoration:none;">
+          <h1 class="glitch-logo active" data-text="10X CRM" style="font-size: 26px;">
+            <span>10X CRM</span>
+          </h1>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="clients.html">Clients</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </div>
+
+    <div>
+      <button id="theme-toggle" class="btn-secondary" style="width: 100%; margin-bottom: 8px;">🌙 <span>Dark</span></button>
+      <button id="logout-btn" class="btn-primary" style="width: 100%;">Logout</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="header-top">
+      <h1>Clients</h1>
+      <button id="openAddModalBtn" class="btn-primary" style="width: auto; padding: 10px 20px;">+ Add Client</button>
+    </div>
+
+    <div class="filters-bar">
+      <input type="text" id="searchInput" placeholder="🔍 Search by name or company...">
+
+      <div class="chips" id="filterChips">
+        <button type="button" class="chip active" data-status="All">All</button>
+        <button type="button" class="chip" data-status="Lead">Lead</button>
+        <button type="button" class="chip" data-status="Contacted">Contacted</button>
+        <button type="button" class="chip" data-status="Won">Won</button>
+        <button type="button" class="chip" data-status="Lost">Lost</button>
+      </div>
+
+      <select id="sortSelect">
+        <option value="newest">Sort: Newest first</option>
+        <option value="name">Sort: Name A-Z</option>
+        <option value="deal">Sort: Deal value high-low</option>
+      </select>
+    </div>
+
+    <div id="clientsContainer" class="clients-grid">
+      <!-- filled by clients.js -->
+    </div>
+  </main>
+
+  <!-- Add Client Modal (P4.4) -->
+  <div class="modal-overlay" id="addClientModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Add Client</h2>
+        <button type="button" class="modal-close-btn" id="closeAddModalBtn">&times;</button>
+      </div>
+      <form id="addClientForm" novalidate>
+        <div class="form-group">
+          <label for="clientName">Name</label>
+          <input type="text" id="clientName">
+          <span class="error-msg" id="clientNameError"></span>
+        </div>
+        <div class="form-group">
+          <label for="clientEmail">Email</label>
+          <input type="email" id="clientEmail">
+          <span class="error-msg" id="clientEmailError"></span>
+        </div>
+        <div class="form-group">
+          <label for="clientPhone">Phone</label>
+          <input type="text" id="clientPhone">
+          <span class="error-msg" id="clientPhoneError"></span>
+        </div>
+        <div class="form-group">
+          <label for="clientCompany">Company</label>
+          <input type="text" id="clientCompany">
+        </div>
+        <div class="form-group">
+          <label for="clientDeal">Deal Value</label>
+          <input type="number" id="clientDeal">
+          <span class="error-msg" id="clientDealError"></span>
+        </div>
+        <div class="form-group">
+          <label for="clientStatus">Status</label>
+          <select id="clientStatus">
+            <option value="Lead">Lead</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Won">Won</option>
+            <option value="Lost">Lost</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary">Add Client</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Client Details Modal (P4.8) -->
+  <div class="modal-overlay" id="detailsModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modalClientName">Client</h2>
+        <button type="button" class="modal-close-btn" id="closeDetailsModalBtn">&times;</button>
+      </div>
+      <div id="detailsModalBody">
+        <!-- filled by clients.js -->
+      </div>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/clients.js"></script>
+</body>
+</html>

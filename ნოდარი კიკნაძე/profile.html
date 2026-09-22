@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM - Profile</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme dashboard-body">
+
+  <aside class="sidebar">
+    <div>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <a href="dashboard.html" style="text-decoration:none;">
+          <h1 class="glitch-logo active" data-text="10X CRM" style="font-size: 26px;">
+            <span>10X CRM</span>
+          </h1>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="clients.html">Clients</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </div>
+
+    <div>
+      <button id="theme-toggle" class="btn-secondary" style="width: 100%; margin-bottom: 8px;">🌙 <span>Dark</span></button>
+      <button id="logout-btn" class="btn-primary" style="width: 100%;">Logout</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="header-top">
+      <h1>Profile</h1>
+    </div>
+
+    <div class="section-card">
+      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+        <div id="profileAvatar" class="profile-avatar-circle">N</div>
+        <div>
+          <h2 id="infoFullName" style="border: none; padding: 0; margin: 0;">User Name</h2>
+          <p id="infoEmail" style="color: var(--text-muted); font-size: 14px; margin-top: 4px;"></p>
+          <p id="infoCompany" style="color: var(--text-muted); font-size: 13px;"></p>
+          <p id="infoMemberSince" style="color: var(--text-muted); font-size: 12px; margin-top: 4px;"></p>
+        </div>
+      </div>
+
+      <h2 style="font-size: 16px; margin-bottom: 12px;">Edit Profile</h2>
+      <form id="editProfileForm" novalidate>
+        <div class="form-group">
+          <label for="editFullName">Full Name</label>
+          <input type="text" id="editFullName">
+          <span class="error-msg" id="editFullNameError"></span>
+        </div>
+        <div class="form-group">
+          <label for="editCompany">Company</label>
+          <input type="text" id="editCompany">
+        </div>
+        <button type="submit" class="btn-primary" style="width: auto; padding: 10px 24px;">A. Save Changes</button>
+      </form>
+    </div>
+
+    <div class="section-card">
+      <h2>Change Password</h2>
+      <form id="changePasswordForm" novalidate>
+        <div class="form-group">
+          <label for="currentPassword">Current Password</label>
+          <input type="password" id="currentPassword">
+          <span class="error-msg" id="currentPasswordError"></span>
+        </div>
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input type="password" id="newPassword">
+          <span class="error-msg" id="newPasswordError"></span>
+        </div>
+        <div class="form-group">
+          <label for="confirmNewPassword">Confirm New Password</label>
+          <input type="password" id="confirmNewPassword">
+          <span class="error-msg" id="confirmNewPasswordError"></span>
+        </div>
+        <button type="submit" class="btn-primary" style="width: auto; padding: 10px 24px;">B. Change Password</button>
+      </form>
+    </div>
+
+    <div class="section-card">
+      <h2>Data</h2>
+      <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 12px;">
+        Reload the client list from the API. Your account and login stay untouched.
+      </p>
+      <button type="button" id="resetDataBtn" class="btn-danger">C. Reset CRM Data</button>
+    </div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - 10X CRM</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme">
+
+  <!-- Dark Mode Toggle Button -->
+  <button id="theme-toggle" class="theme-toggle-btn" type="button">
+    🌙 <span>Dark</span>
+  </button>
+
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1 class="glitch-logo active" data-text="10X CRM">
+          <span>10X CRM</span>
+        </h1>
+        <p>Welcome back</p>
+      </div>
+
+      <div id="login-error" class="global-error" style="display: none;"></div>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="demo@test.com">
+          <span class="error-msg" id="err-email"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••">
+          <span class="error-msg" id="err-password"></span>
+        </div>
+
+        <button type="submit" class="btn-primary">Log In</button>
+      </form>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="signup.html">Sign up</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/guard.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>
