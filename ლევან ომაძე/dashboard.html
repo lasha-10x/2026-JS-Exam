@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | 10X CRM</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script src="assets/js/storage.js" defer></script>
+    <script src="assets/js/ui.js" defer></script>
+    <script src="assets/js/auth.js" defer></script>
+    <script src="assets/js/api.js" defer></script>
+    <script src="assets/js/pages/dashboard.js" defer></script>
+  </head>
+  <body data-page="dashboard">
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand-lockup" href="dashboard.html"><span class="brand-mark" aria-hidden="true">10X</span><span>CRM</span></a>
+        <nav class="nav" aria-label="Main navigation">
+          <a class="active" href="dashboard.html">Dashboard</a>
+          <a href="clients.html">Clients</a>
+          <a href="profile.html">Profile</a>
+        </nav>
+        <div class="topbar-actions">
+          <button class="icon-button" id="theme-toggle" type="button" aria-label="Toggle theme">◐</button>
+          <button class="button secondary" id="logout-button" type="button">Logout</button>
+        </div>
+      </header>
+      <main class="page">
+        <section class="page-heading">
+          <div>
+            <p class="eyebrow">Sales overview</p>
+            <h1 id="welcome-title">Dashboard</h1>
+          </div>
+          <time class="clock" id="live-clock"></time>
+        </section>
+        <section class="stats-grid" id="stats-grid" aria-label="CRM statistics"></section>
+        <section class="content-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Pipeline</h2>
+            </div>
+            <div id="pipeline-list" class="pipeline-list"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Recent clients</h2>
+              <a href="clients.html">View all</a>
+            </div>
+            <div id="recent-clients" class="compact-list"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>

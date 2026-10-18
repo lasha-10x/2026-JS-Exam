@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM - Profile</title>
+  <!-- Applies the saved theme before CSS paints the page. -->
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Shared scripts come first; Profile logic loads last. -->
+  <script src="js/storage.js" defer></script>
+  <script src="js/guard.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/navigation.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/profile.js" defer></script>
+</head>
+<body data-page-access="protected">
+  <div class="app-layout">
+    <!-- Shared responsive navigation used by every protected page. -->
+    <header id="app-sidebar" class="app-header">
+      <nav class="app-nav container" aria-label="Primary navigation">
+        <div class="nav-top">
+          <a class="app-logo" href="dashboard.html" title="Dashboard">
+            <span class="app-logo-mark">10X</span>
+            <span class="app-logo-text">CRM</span>
+          </a>
+        </div>
+
+        <div id="nav-menu-panel" class="nav-menu-panel">
+          <div class="nav-links">
+            <a class="nav-link" href="dashboard.html" title="Dashboard">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6v-9h-6v9Zm0-16v5h6V4h-6Z"></path>
+              </svg>
+              <span class="nav-label">Dashboard</span>
+            </a>
+            <a class="nav-link" href="clients.html" title="Clients">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3ZM8 11c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3Zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13Zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5Z"></path>
+              </svg>
+              <span class="nav-label">Clients</span>
+            </a>
+            <a class="nav-link active" href="profile.html" aria-current="page" title="Profile">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Z"></path>
+              </svg>
+              <span class="nav-label">Profile</span>
+            </a>
+          </div>
+
+          <div class="nav-actions">
+            <button id="theme-toggle" type="button" title="Toggle theme">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.91-.1-1.35A7 7 0 0 1 12 3Z"></path>
+              </svg>
+              <span class="nav-label">Toggle Theme</span>
+            </button>
+            <button id="logout-button" type="button" title="Logout">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M10 17v-2h4v-6h-4V7l-5 5 5 5Zm9-14h-8v2h8v14h-8v2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"></path>
+              </svg>
+              <span class="nav-label">Logout</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+      <button
+        class="sidebar-toggle"
+        type="button"
+        aria-label="Collapse sidebar"
+        aria-expanded="true"
+        aria-controls="app-sidebar"
+        title="Collapse sidebar"
+      >
+        <span class="sidebar-toggle-icon" aria-hidden="true">‹</span>
+      </button>
+    </header>
+
+    <button
+      class="nav-menu-toggle"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="app-sidebar"
+    >
+      <span class="burger-line" aria-hidden="true"></span>
+      <span class="burger-line" aria-hidden="true"></span>
+      <span class="burger-line" aria-hidden="true"></span>
+    </button>
+    <div class="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- Account summary, editable profile, password, and data reset tools. -->
+    <main class="page-content">
+      <div class="container">
+        <section class="page-section" aria-labelledby="profile-heading">
+          <header class="page-header">
+            <h1 id="profile-heading">Profile</h1>
+            <p>Manage your account information</p>
+          </header>
+
+          <div class="profile-layout">
+          <!-- Displays account information and edits only name/company. -->
+          <section class="profile-card" aria-labelledby="edit-profile-heading">
+              <div class="profile-summary" aria-label="Profile summary">
+                <div
+                  id="profile-avatar"
+                  class="profile-avatar"
+                  aria-hidden="true"
+                >U</div>
+
+                <div class="profile-details">
+                  <h2 id="profile-display-name">User Name</h2>
+                  <p id="profile-display-email">user@example.com</p>
+                  <p id="profile-display-company">No company</p>
+                  <p id="profile-member-since">Member since —</p>
+                </div>
+              </div>
+
+              <div class="profile-section">
+                <h2 id="edit-profile-heading">Edit Profile</h2>
+
+                <form id="profile-form" class="profile-form" novalidate>
+                  <div class="form-group">
+                    <label for="profile-full-name">Full Name</label>
+                    <input
+                      type="text"
+                      id="profile-full-name"
+                      name="fullName"
+                      autocomplete="name"
+                      placeholder="Enter your full name"
+                      aria-describedby="profile-full-name-error"
+                    >
+                    <p id="profile-full-name-error" class="field-error"></p>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="profile-company">Company</label>
+                    <input
+                      type="text"
+                      id="profile-company"
+                      name="company"
+                      autocomplete="organization"
+                      placeholder="Company (optional)"
+                      aria-describedby="profile-company-error"
+                    >
+                    <p id="profile-company-error" class="field-error"></p>
+                  </div>
+
+                  <button type="submit" disabled>Save Changes</button>
+                </form>
+              </div>
+            </section>
+
+            <div class="profile-side">
+              <!-- Password form verifies the old password before saving a new one. -->
+              <section class="profile-card profile-section" aria-labelledby="password-heading">
+                <h2 id="password-heading">Change Password</h2>
+
+                <form id="password-form" class="profile-form" novalidate>
+                  <div class="form-group">
+                    <label for="current-password">Current Password</label>
+                    <input
+                      type="password"
+                      id="current-password"
+                      name="currentPassword"
+                      autocomplete="current-password"
+                      placeholder="Enter your current password"
+                      aria-describedby="current-password-error"
+                    >
+                    <p id="current-password-error" class="field-error"></p>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <input
+                      type="password"
+                      id="new-password"
+                      name="newPassword"
+                      autocomplete="new-password"
+                      placeholder="Enter a new password"
+                      aria-describedby="new-password-error"
+                    >
+                    <p id="new-password-error" class="field-error"></p>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="confirm-new-password">Confirm New Password</label>
+                    <input
+                      type="password"
+                      id="confirm-new-password"
+                      name="confirmNewPassword"
+                      autocomplete="new-password"
+                      placeholder="Re-enter your new password"
+                      aria-describedby="confirm-new-password-error"
+                    >
+                    <p id="confirm-new-password-error" class="field-error"></p>
+                  </div>
+
+                  <button type="submit">Change Password</button>
+                </form>
+              </section>
+
+              <!-- Restores the required initial 30 clients after confirmation. -->
+              <section class="profile-card reset-data-section" aria-labelledby="reset-data-heading">
+                <h2 id="reset-data-heading">Reset CRM Data</h2>
+                <p>
+                  Restore the initial 30 clients. Your account, session, and
+                  theme will remain unchanged.
+                </p>
+                <button id="reset-data-button" type="button">Reset CRM Data</button>
+                <div
+                  id="reset-data-status"
+                  class="reset-data-status"
+                  role="status"
+                  aria-live="polite"
+                ></div>
+              </section>
+            </div>
+          </div>
+
+          <div
+            id="profile-message"
+            class="profile-message"
+            role="status"
+            aria-live="polite"
+          ></div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

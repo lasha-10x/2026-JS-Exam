@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM - Dashboard</title>
+  <!-- Applies the saved theme before CSS paints the page. -->
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Shared scripts come first; Dashboard logic loads last. -->
+  <script src="js/storage.js" defer></script>
+  <script src="js/guard.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/navigation.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/dashboard.js" defer></script>
+</head>
+<body data-page-access="protected">
+  <div class="app-layout">
+    <!-- Shared responsive navigation used by every protected page. -->
+    <header id="app-sidebar" class="app-header">
+      <nav class="app-nav container" aria-label="Primary navigation">
+        <div class="nav-top">
+          <a class="app-logo" href="dashboard.html" title="Dashboard">
+            <span class="app-logo-mark">10X</span>
+            <span class="app-logo-text">CRM</span>
+          </a>
+        </div>
+
+        <div id="nav-menu-panel" class="nav-menu-panel">
+          <div class="nav-links">
+            <a class="nav-link active" href="dashboard.html" aria-current="page" title="Dashboard">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6v-9h-6v9Zm0-16v5h6V4h-6Z"></path>
+              </svg>
+              <span class="nav-label">Dashboard</span>
+            </a>
+            <a class="nav-link" href="clients.html" title="Clients">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3ZM8 11c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3Zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13Zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5Z"></path>
+              </svg>
+              <span class="nav-label">Clients</span>
+            </a>
+            <a class="nav-link" href="profile.html" title="Profile">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Z"></path>
+              </svg>
+              <span class="nav-label">Profile</span>
+            </a>
+          </div>
+
+          <div class="nav-actions">
+            <button id="theme-toggle" type="button" title="Toggle theme">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.91-.1-1.35A7 7 0 0 1 12 3Z"></path>
+              </svg>
+              <span class="nav-label">Toggle Theme</span>
+            </button>
+            <button id="logout-button" type="button" title="Logout">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M10 17v-2h4v-6h-4V7l-5 5 5 5Zm9-14h-8v2h8v14h-8v2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"></path>
+              </svg>
+              <span class="nav-label">Logout</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+      <button
+        class="sidebar-toggle"
+        type="button"
+        aria-label="Collapse sidebar"
+        aria-expanded="true"
+        aria-controls="app-sidebar"
+        title="Collapse sidebar"
+      >
+        <span class="sidebar-toggle-icon" aria-hidden="true">‹</span>
+      </button>
+    </header>
+
+    <button
+      class="nav-menu-toggle"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="app-sidebar"
+    >
+      <span class="burger-line" aria-hidden="true"></span>
+      <span class="burger-line" aria-hidden="true"></span>
+      <span class="burger-line" aria-hidden="true"></span>
+    </button>
+    <div class="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- Dashboard content: greeting, totals, pipeline, and recent clients. -->
+    <main class="page-content">
+      <div class="container">
+        <section class="page-section" aria-labelledby="dashboard-greeting">
+          <header class="dashboard-header">
+            <div>
+              <p class="dashboard-eyebrow">Dashboard</p>
+              <h1 id="dashboard-greeting">Welcome back!</h1>
+              <p class="dashboard-subtitle">Overview of your CRM activity</p>
+              <div class="dashboard-clock" aria-label="Current date and time">
+                <span id="dashboard-date">Loading date...</span>
+                <span class="dashboard-clock-divider" aria-hidden="true">&middot;</span>
+                <strong id="dashboard-time">Loading time...</strong>
+              </div>
+            </div>
+          </header>
+
+          <div
+            id="dashboard-status"
+            class="dashboard-status"
+            role="status"
+            aria-live="polite"
+          ></div>
+
+        <!-- Four summary cards updated from saved client data. -->
+        <section class="dashboard-section" aria-label="CRM statistics">
+            <div id="dashboard-stats" class="stats-grid">
+              <article class="stat-card stat-card-clients">
+                <div class="stat-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M16 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-3.31 0-6 1.79-6 4v2h12v-2c0-2.21-2.69-4-6-4Zm8-.5c-.55 0-1.08.05-1.58.14 1.02 1.08 1.58 2.38 1.58 3.86V20h6v-2c0-2.49-2.69-4.5-6-4.5Z"></path>
+                  </svg>
+                </div>
+                <div class="stat-content">
+                  <p class="stat-label">Total Clients</p>
+                  <p id="total-clients" class="stat-value">0</p>
+                </div>
+              </article>
+
+              <article class="stat-card stat-card-active">
+                <div class="stat-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M20 7h-3V5a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3v2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2ZM9 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2H9V5Zm11 13H4v-5h6v1h4v-1h6v5Z"></path>
+                  </svg>
+                </div>
+                <div class="stat-content">
+                  <p class="stat-label">Active Deals</p>
+                  <p id="active-deals" class="stat-value">0</p>
+                </div>
+              </article>
+
+              <article class="stat-card stat-card-revenue">
+                <div class="stat-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2a10 10 0 1 0 10 10A10.01 10.01 0 0 0 12 2Zm1 15.93V19h-2v-1.07A4 4 0 0 1 8 14h2a2 2 0 0 0 2 2c1.1 0 2-.67 2-1.5S13.1 13 12 13c-2.21 0-4-1.57-4-3.5A3.71 3.71 0 0 1 11 6.07V5h2v1.07A4 4 0 0 1 16 10h-2a2 2 0 0 0-2-2c-1.1 0-2 .67-2 1.5s.9 1.5 2 1.5c2.21 0 4 1.57 4 3.5a3.71 3.71 0 0 1-3 3.43Z"></path>
+                  </svg>
+                </div>
+                <div class="stat-content">
+                  <p class="stat-label">Won Revenue</p>
+                  <p id="won-revenue" class="stat-value">$0</p>
+                </div>
+              </article>
+
+              <article class="stat-card stat-card-new">
+                <div class="stat-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M19 4h-1V2h-2v2H8V2H6v2H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm1 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8h16v8Zm0-10H4V7a1 1 0 0 1 1-1h1v2h2V6h8v2h2V6h1a1 1 0 0 1 1 1v2Z"></path>
+                  </svg>
+                </div>
+                <div class="stat-content">
+                  <p class="stat-label">New This Week</p>
+                  <p id="new-this-week" class="stat-value">0</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <div class="dashboard-main-grid">
+        <!-- Status distribution is rendered as a CSS-driven donut chart. -->
+        <section class="dashboard-section pipeline-overview-section" aria-labelledby="status-summary-heading">
+              <h2 id="status-summary-heading">Pipeline Overview</h2>
+
+              <div id="status-summary" class="status-summary">
+                <div class="pipeline-chart-wrap">
+                  <div
+                    id="pipeline-chart"
+                    class="pipeline-chart empty"
+                    role="img"
+                    aria-label="Pipeline: no clients"
+                  >
+                    <div class="pipeline-chart-center">
+                      <strong id="pipeline-total">0</strong>
+                      <span>Total clients</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pipeline-legend" aria-label="Pipeline details">
+                  <article class="pipeline-legend-item">
+                    <span id="lead-status-bar" class="pipeline-legend-swatch status-lead-swatch" aria-hidden="true"></span>
+                    <div>
+                      <h3>Lead</h3>
+                      <p><span id="lead-status-percentage">0%</span> of clients</p>
+                    </div>
+                    <strong id="lead-status-count">0</strong>
+                  </article>
+
+                  <article class="pipeline-legend-item">
+                    <span id="contacted-status-bar" class="pipeline-legend-swatch status-contacted-swatch" aria-hidden="true"></span>
+                    <div>
+                      <h3>Contacted</h3>
+                      <p><span id="contacted-status-percentage">0%</span> of clients</p>
+                    </div>
+                    <strong id="contacted-status-count">0</strong>
+                  </article>
+
+                  <article class="pipeline-legend-item">
+                    <span id="won-status-bar" class="pipeline-legend-swatch status-won-swatch" aria-hidden="true"></span>
+                    <div>
+                      <h3>Won</h3>
+                      <p><span id="won-status-percentage">0%</span> of clients</p>
+                    </div>
+                    <strong id="won-status-count">0</strong>
+                  </article>
+
+                  <article class="pipeline-legend-item">
+                    <span id="lost-status-bar" class="pipeline-legend-swatch status-lost-swatch" aria-hidden="true"></span>
+                    <div>
+                      <h3>Lost</h3>
+                      <p><span id="lost-status-percentage">0%</span> of clients</p>
+                    </div>
+                    <strong id="lost-status-count">0</strong>
+                  </article>
+                </div>
+              </div>
+            </section>
+
+        <!-- The five newest saved clients are inserted here by JavaScript. -->
+        <section class="dashboard-section recent-clients-section" aria-labelledby="recent-clients-heading">
+              <h2 id="recent-clients-heading">Recent Clients</h2>
+              <div id="recent-clients" class="recent-clients">
+                <p>No recent clients to display.</p>
+              </div>
+              <a class="view-all-clients" href="clients.html">
+                View all clients &rarr;
+              </a>
+            </section>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

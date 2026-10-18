@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clients | 10X CRM</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script src="assets/js/storage.js" defer></script>
+    <script src="assets/js/ui.js" defer></script>
+    <script src="assets/js/auth.js" defer></script>
+    <script src="assets/js/api.js" defer></script>
+    <script src="assets/js/pages/clients.js" defer></script>
+  </head>
+  <body data-page="clients">
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand-lockup" href="dashboard.html"><span class="brand-mark" aria-hidden="true">10X</span><span>CRM</span></a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="dashboard.html">Dashboard</a>
+          <a class="active" href="clients.html">Clients</a>
+          <a href="profile.html">Profile</a>
+        </nav>
+        <div class="topbar-actions">
+          <button class="icon-button" id="theme-toggle" type="button" aria-label="Toggle theme">◐</button>
+          <button class="button secondary" id="logout-button" type="button">Logout</button>
+        </div>
+      </header>
+      <main class="page">
+        <section class="page-heading">
+          <div>
+            <p class="eyebrow">Pipeline records</p>
+            <h1>Clients</h1>
+          </div>
+          <button class="button primary" id="open-add-client" type="button">+ Add Client</button>
+        </section>
+        <section class="toolbar" aria-label="Client filters">
+          <label class="search-box" for="client-search">
+            <span>Search</span>
+            <input id="client-search" type="search" placeholder="Name, email, or company" />
+          </label>
+          <div class="chip-row" id="status-filters" aria-label="Filter by status"></div>
+          <label class="select-field" for="sort-select">
+            <span>Sort</span>
+            <select id="sort-select">
+              <option value="newest">Newest first</option>
+              <option value="name">Name A-Z</option>
+              <option value="valueHigh">Deal value high</option>
+            </select>
+          </label>
+        </section>
+        <section id="clients-state"></section>
+        <section class="client-grid" id="client-grid" aria-label="Client list"></section>
+      </main>
+    </div>
+
+    <dialog class="modal" id="client-modal">
+      <form class="modal-card form" id="client-form" method="dialog" novalidate>
+        <div class="modal-header">
+          <h2>Add client</h2>
+          <button class="icon-button" type="button" data-close-modal aria-label="Close modal">×</button>
+        </div>
+        <div class="field">
+          <label for="client-name">Name</label>
+          <input id="client-name" name="name" type="text" autocomplete="name" />
+          <p class="error" id="client-name-error"></p>
+        </div>
+        <div class="field">
+          <label for="client-email">Email</label>
+          <input id="client-email" name="email" type="email" autocomplete="email" spellcheck="false" />
+          <p class="error" id="client-email-error"></p>
+        </div>
+        <div class="field">
+          <label for="client-phone">Phone</label>
+          <input id="client-phone" name="phone" type="tel" autocomplete="tel" />
+          <p class="error" id="client-phone-error"></p>
+        </div>
+        <div class="field">
+          <label for="client-company">Company</label>
+          <input id="client-company" name="company" type="text" autocomplete="organization" />
+          <p class="error" id="client-company-error"></p>
+        </div>
+        <div class="field">
+          <label for="client-value">Deal Value</label>
+          <input id="client-value" name="dealValue" type="text" inputmode="decimal" />
+          <p class="error" id="client-value-error"></p>
+        </div>
+        <div class="field">
+          <label for="client-status">Status</label>
+          <select id="client-status" name="status">
+            <option>Lead</option>
+            <option>Contacted</option>
+            <option>Won</option>
+            <option>Lost</option>
+          </select>
+          <p class="error" id="client-status-error"></p>
+        </div>
+        <button class="button primary full" type="submit">Save client</button>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="details-modal">
+      <article class="modal-card details-card">
+        <div class="modal-header">
+          <h2 id="details-title">Client details</h2>
+          <button class="icon-button" type="button" data-close-details aria-label="Close details">×</button>
+        </div>
+        <div id="details-body"></div>
+      </article>
+    </dialog>
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>

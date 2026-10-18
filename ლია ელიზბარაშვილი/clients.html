@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clients — 10X CRM</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/guard.js" defer></script>
+    <script src="js/ui.js" defer></script>
+    <script src="js/data.js" defer></script>
+    <script src="js/clients.js" defer></script>
+  </head>
+  <body data-page="protected">
+    <div class="app">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <a class="logo" href="dashboard.html">10X CRM</a>
+          <button
+            id="menu-toggle"
+            class="btn btn-ghost menu-toggle"
+            title="Menu"
+            aria-label="Menu"
+            aria-expanded="false"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <nav>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="clients.html" class="active">Clients</a>
+          <a href="profile.html">Profile</a>
+        </nav>
+        <div class="sidebar-bottom">
+          <button id="theme-toggle" class="btn btn-ghost" title="Toggle theme">
+            <svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+              ></path>
+            </svg>
+          </button>
+          <button id="logout-btn" class="btn btn-ghost">Logout</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <div class="page-header">
+          <h1>Clients</h1>
+          <button id="add-client-btn" class="btn">+ Add Client</button>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-box">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search by name or company..."
+            />
+          </div>
+          <div class="chips" id="filter-chips">
+            <button class="chip active" data-status="All">All</button>
+            <button class="chip" data-status="Lead">Lead</button>
+            <button class="chip" data-status="Contacted">Contacted</button>
+            <button class="chip" data-status="Won">Won</button>
+            <button class="chip" data-status="Lost">Lost</button>
+          </div>
+          <select id="sort-select">
+            <option value="newest">Newest first</option>
+            <option value="name">Name A → Z</option>
+            <option value="deal">Deal value: high → low</option>
+          </select>
+        </div>
+
+        <div class="clients-grid" id="clients-list">
+          <p class="list-message">Loading clients...</p>
+        </div>
+      </main>
+    </div>
+
+    <div class="modal-overlay hidden" id="add-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Add Client</h2>
+          <button class="modal-close" data-close="add-modal">✕</button>
+        </div>
+        <form id="add-client-form" novalidate>
+          <label for="client-name">Name</label>
+          <input type="text" id="client-name" placeholder="Client name" />
+
+          <label for="client-email">Email</label>
+          <input
+            type="text"
+            id="client-email"
+            placeholder="client@example.com"
+          />
+
+          <label for="client-phone">Phone</label>
+          <input type="text" id="client-phone" placeholder="Phone (optional)" />
+
+          <label for="client-company">Company</label>
+          <input
+            type="text"
+            id="client-company"
+            placeholder="Company (optional)"
+          />
+
+          <label for="client-deal">Deal Value</label>
+          <input type="text" id="client-deal" placeholder="5000" />
+
+          <label for="client-status">Status</label>
+          <select id="client-status">
+            <option value="Lead" selected>Lead</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Won">Won</option>
+            <option value="Lost">Lost</option>
+          </select>
+
+          <button type="submit" class="btn btn-block">Add Client</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="details-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Client Details</h2>
+          <button class="modal-close" data-close="details-modal">✕</button>
+        </div>
+        <div id="details-content"></div>
+
+        <h2 style="font-size: 15px; margin: 16px 0 10px">Notes</h2>
+        <ul class="notes-list" id="notes-list"></ul>
+        <form class="note-form" id="note-form" novalidate>
+          <input type="text" id="note-input" placeholder="Write a note..." />
+          <button type="submit" class="btn">Add note</button>
+        </form>
+
+        <button id="remind-btn" class="btn btn-ghost remind-btn">
+          ⏰ Remind me in 1 min
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

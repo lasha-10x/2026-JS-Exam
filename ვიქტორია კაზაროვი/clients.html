@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM - Clients</title>
+  <!-- Applies the saved theme before CSS paints the page. -->
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Shared scripts come first; Clients logic loads last. -->
+  <script src="js/storage.js" defer></script>
+  <script src="js/guard.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/navigation.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/clients.js" defer></script>
+</head>
+<body data-page-access="protected">
+  <div class="app-layout">
+    <!-- Shared responsive navigation used by every protected page. -->
+    <header id="app-sidebar" class="app-header">
+      <nav class="app-nav container" aria-label="Primary navigation">
+        <div class="nav-top">
+          <a class="app-logo" href="dashboard.html" title="Dashboard">
+            <span class="app-logo-mark">10X</span>
+            <span class="app-logo-text">CRM</span>
+          </a>
+        </div>
+
+        <div id="nav-menu-panel" class="nav-menu-panel">
+          <div class="nav-links">
+            <a class="nav-link" href="dashboard.html" title="Dashboard">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6v-9h-6v9Zm0-16v5h6V4h-6Z"></path>
+              </svg>
+              <span class="nav-label">Dashboard</span>
+            </a>
+            <a class="nav-link active" href="clients.html" aria-current="page" title="Clients">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3ZM8 11c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3Zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13Zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5Z"></path>
+              </svg>
+              <span class="nav-label">Clients</span>
+            </a>
+            <a class="nav-link" href="profile.html" title="Profile">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Z"></path>
+              </svg>
+              <span class="nav-label">Profile</span>
+            </a>
+          </div>
+
+          <div class="nav-actions">
+            <button id="theme-toggle" type="button" title="Toggle theme">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.91-.1-1.35A7 7 0 0 1 12 3Z"></path>
+              </svg>
+              <span class="nav-label">Toggle Theme</span>
+            </button>
+            <button id="logout-button" type="button" title="Logout">
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M10 17v-2h4v-6h-4V7l-5 5 5 5Zm9-14h-8v2h8v14h-8v2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"></path>
+              </svg>
+              <span class="nav-label">Logout</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+      <button
+        class="sidebar-toggle"
+        type="button"
+        aria-label="Collapse sidebar"
+        aria-expanded="true"
+        aria-controls="app-sidebar"
+        title="Collapse sidebar"
+      >
+        <span class="sidebar-toggle-icon" aria-hidden="true">‹</span>
+      </button>
+    </header>
+
+    <button
+      class="nav-menu-toggle"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="app-sidebar"
+    >
+      <span class="burger-line" aria-hidden="true"></span>
+      <span class="burger-line" aria-hidden="true"></span>
+      <span class="burger-line" aria-hidden="true"></span>
+    </button>
+    <div class="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- Client database, controls, dialogs, and feedback messages. -->
+    <main class="page-content">
+      <div class="container">
+        <section class="page-section" aria-labelledby="clients-heading">
+          <header class="clients-header">
+            <div>
+              <h1 id="clients-heading">Clients</h1>
+              <p>Search, organize, and manage your client database.</p>
+            </div>
+            <button id="add-client-button" type="button">+ Add Client</button>
+          </header>
+
+        <!-- Search, status filters, and sorting work together. -->
+        <section class="clients-toolbar" aria-label="Client list controls">
+            <div class="search-group">
+              <label for="client-search">Search clients</label>
+              <input
+                type="search"
+                id="client-search"
+                placeholder="Search by name or company"
+              >
+            </div>
+
+            <div class="filter-group" aria-label="Filter clients by status">
+              <button class="filter-chip active" type="button" data-status="All">All</button>
+              <button class="filter-chip" type="button" data-status="Lead">Lead</button>
+              <button class="filter-chip" type="button" data-status="Contacted">Contacted</button>
+              <button class="filter-chip" type="button" data-status="Won">Won</button>
+              <button class="filter-chip" type="button" data-status="Lost">Lost</button>
+            </div>
+
+            <div class="sort-group">
+              <label for="client-sort">Sort clients</label>
+              <select id="client-sort">
+                <option value="newest">Newest first</option>
+                <option value="name">Name A-Z</option>
+                <option value="deal-value">Deal value: high to low</option>
+              </select>
+            </div>
+          </section>
+
+          <div id="clients-status" class="list-status" role="status" aria-live="polite"></div>
+          <div id="clients-list" class="clients-list"></div>
+        </section>
+      </div>
+    </main>
+
+      <!-- Hidden Add Client dialog; JavaScript toggles the open class. -->
+      <div
+      id="add-client-modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="add-client-modal-title"
+      hidden
+    >
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2 id="add-client-modal-title">Add Client</h2>
+          <button
+            id="close-add-client-modal"
+            type="button"
+            aria-label="Close Add Client modal"
+          >&times;</button>
+        </header>
+
+        <form id="add-client-form" novalidate>
+          <div class="form-group">
+            <label for="client-name">Name</label>
+            <input
+              type="text"
+              id="client-name"
+              name="name"
+              placeholder="Enter the client's name"
+              aria-describedby="client-name-error"
+            >
+            <p id="client-name-error" class="field-error"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="client-email">Email</label>
+            <input
+              type="email"
+              id="client-email"
+              name="email"
+              placeholder="client@example.com"
+              aria-describedby="client-email-error"
+            >
+            <p id="client-email-error" class="field-error"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="client-phone">Phone</label>
+            <input
+              type="tel"
+              id="client-phone"
+              name="phone"
+              placeholder="Enter the client's phone number"
+              aria-describedby="client-phone-error"
+            >
+            <p id="client-phone-error" class="field-error"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="client-company">Company</label>
+            <input
+              type="text"
+              id="client-company"
+              name="company"
+              placeholder="Enter the company name"
+              aria-describedby="client-company-error"
+            >
+            <p id="client-company-error" class="field-error"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="client-deal-value">Deal Value</label>
+            <input
+              type="number"
+              id="client-deal-value"
+              name="dealValue"
+              min="0"
+              step="0.01"
+              placeholder="Enter the deal value"
+              aria-describedby="client-deal-value-error"
+            >
+            <p id="client-deal-value-error" class="field-error"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="client-status">Status</label>
+            <select
+              id="client-status"
+              name="status"
+              aria-describedby="client-status-error"
+            >
+              <option value="Lead" selected>Lead</option>
+              <option value="Contacted">Contacted</option>
+              <option value="Won">Won</option>
+              <option value="Lost">Lost</option>
+            </select>
+            <p id="client-status-error" class="field-error"></p>
+          </div>
+
+          <button type="submit">Add Client</button>
+        </form>
+      </div>
+    </div>
+
+      <!-- Hidden details dialog for client information, notes, and reminders. -->
+      <div
+      id="client-details-modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="client-details-modal-title"
+      hidden
+    >
+      <div class="modal-content client-details-modal-content">
+        <header class="modal-header">
+          <h2 id="client-details-modal-title">Client Details</h2>
+          <button
+            id="close-client-details-modal"
+            type="button"
+            aria-label="Close Client Details modal"
+          >&times;</button>
+        </header>
+
+        <div id="client-details-content" class="client-details-content"></div>
+
+        <section class="client-notes-section" aria-labelledby="client-notes-heading">
+          <h3 id="client-notes-heading">Notes</h3>
+          <div id="client-notes-list" class="client-notes-list"></div>
+
+          <div class="client-note-form">
+            <label for="client-note-input">Add a note</label>
+            <textarea
+              id="client-note-input"
+              rows="3"
+              placeholder="Write a follow-up note"
+            ></textarea>
+            <p id="client-note-error" class="field-error"></p>
+            <button id="add-client-note-button" type="button">Add Note</button>
+          </div>
+        </section>
+
+        <div class="client-reminder-actions">
+          <button id="client-reminder-button" type="button">
+            Remind me in 1 min
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <!-- Non-blocking success and error feedback appears here. -->
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

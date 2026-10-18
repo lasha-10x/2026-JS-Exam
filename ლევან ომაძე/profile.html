@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile | 10X CRM</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script src="assets/js/storage.js" defer></script>
+    <script src="assets/js/ui.js" defer></script>
+    <script src="assets/js/auth.js" defer></script>
+    <script src="assets/js/api.js" defer></script>
+    <script src="assets/js/pages/profile.js" defer></script>
+  </head>
+  <body data-page="profile">
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand-lockup" href="dashboard.html"><span class="brand-mark" aria-hidden="true">10X</span><span>CRM</span></a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="dashboard.html">Dashboard</a>
+          <a href="clients.html">Clients</a>
+          <a class="active" href="profile.html">Profile</a>
+        </nav>
+        <div class="topbar-actions">
+          <button class="icon-button" id="theme-toggle" type="button" aria-label="Toggle theme">◐</button>
+          <button class="button secondary" id="logout-button" type="button">Logout</button>
+        </div>
+      </header>
+      <main class="page">
+        <section class="page-heading">
+          <div>
+            <p class="eyebrow">Account settings</p>
+            <h1>Profile</h1>
+          </div>
+        </section>
+        <section class="profile-grid">
+          <article class="panel profile-summary" id="profile-summary"></article>
+          <form class="panel form" id="profile-form" novalidate>
+            <div class="panel-header"><h2>Edit profile</h2></div>
+            <div class="field">
+              <label for="profile-name">Full Name</label>
+              <input id="profile-name" name="fullName" type="text" autocomplete="name" />
+              <p class="error" id="profile-name-error"></p>
+            </div>
+            <div class="field">
+              <label for="profile-company">Company</label>
+              <input id="profile-company" name="company" type="text" autocomplete="organization" />
+              <p class="error" id="profile-company-error"></p>
+            </div>
+            <button class="button primary" type="submit">Save Changes</button>
+          </form>
+          <form class="panel form" id="password-form" novalidate>
+            <div class="panel-header"><h2>Change password</h2></div>
+            <div class="field">
+              <label for="current-password">Current Password</label>
+              <input id="current-password" name="currentPassword" type="password" autocomplete="current-password" />
+              <p class="error" id="current-password-error"></p>
+            </div>
+            <div class="field">
+              <label for="new-password">New Password</label>
+              <input id="new-password" name="newPassword" type="password" autocomplete="new-password" />
+              <p class="error" id="new-password-error"></p>
+            </div>
+            <div class="field">
+              <label for="confirm-new-password">Confirm New Password</label>
+              <input id="confirm-new-password" name="confirmNewPassword" type="password" autocomplete="new-password" />
+              <p class="error" id="confirm-new-password-error"></p>
+            </div>
+            <button class="button primary" type="submit">Change Password</button>
+          </form>
+          <article class="panel danger-panel">
+            <div class="panel-header"><h2>Data management</h2></div>
+            <p class="muted">Reset CRM Data removes only saved clients and reloads the default API dataset.</p>
+            <button class="button danger" id="reset-data" type="button">Reset CRM Data</button>
+          </article>
+        </section>
+      </main>
+    </div>
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>

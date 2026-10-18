@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10X CRM - Login</title>
+  <!-- Theme startup runs before CSS to prevent a color flash. -->
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Shared dependencies load before the page-specific authentication code. -->
+  <script src="js/storage.js" defer></script>
+  <script src="js/guard.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/auth.js" defer></script>
+</head>
+<body data-page-access="public">
+  <!-- Centered Login card for returning users. -->
+  <main class="auth-page">
+    <div class="container">
+      <section class="auth-card" aria-labelledby="login-heading">
+        <header class="auth-header">
+          <p class="auth-brand">10X CRM</p>
+          <h1 id="login-heading">Welcome back</h1>
+          <p class="auth-subtitle">Log in to continue managing your clients.</p>
+        </header>
+
+        <!-- JavaScript handles validation because the form uses novalidate. -->
+        <form id="login-form" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input
+              type="email"
+              id="login-email"
+              name="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              aria-describedby="login-email-error"
+            >
+            <p id="login-email-error" class="field-error"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              aria-describedby="login-password-error"
+            >
+            <p id="login-password-error" class="field-error"></p>
+          </div>
+
+          <div
+            id="login-form-message"
+            class="form-message"
+            role="status"
+            aria-live="polite"
+          ></div>
+
+          <button type="submit">Log In</button>
+        </form>
+
+        <footer class="auth-footer">
+          <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+        </footer>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
